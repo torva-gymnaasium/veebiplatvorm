@@ -1,0 +1,23 @@
+uuid: ea8bdc00-c404-458b-8e94-1a9674494150
+langcode: et
+status: true
+dependencies:
+  module:
+    - node
+id: node_pattern_sisuleht
+label: 'Node pattern by menu'
+type: 'canonical_entities:node'
+pattern: '/[node:menu-link:parents:join-path]/[node:title]'
+selection_criteria:
+  0000c91e-fb40-4520-95e6-d217577fcea1:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 0000c91e-fb40-4520-95e6-d217577fcea1
+    context_mapping:
+      node: node
+    bundles:
+      location: location
+      page: page
+selection_logic: and
+weight: -5
+relationships: {  }

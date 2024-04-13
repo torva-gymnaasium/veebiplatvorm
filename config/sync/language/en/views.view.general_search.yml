@@ -1,0 +1,28 @@
+display:
+  default:
+    display_options:
+      title: 'Search results'
+      filters:
+        type:
+          group_info:
+            label: 'Choose a category'
+            group_items:
+              1:
+                title: 'Content pages'
+              2:
+                title: Contacts
+              3:
+                title: Locations
+              4:
+                title: News
+              5:
+                title: Events
+              6:
+                title: Trainings
+              7:
+                title: Graduates
+              8:
+                title: Galleries
+        search_api_fulltext:
+          expose:
+            label: 'Search for a keyword'

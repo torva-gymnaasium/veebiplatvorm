@@ -1,0 +1,14 @@
+uuid: 660db30f-28b8-4409-9022-86c3864928c0
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.catering_service_provider
+id: taxonomy_vocabulary_catering_service_provider
+entity_type_id: taxonomy_vocabulary
+entity_id: catering_service_provider
+action: display_page
+allow_override: 0
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

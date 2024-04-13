@@ -1,0 +1,42 @@
+uuid: deeece36-d578-40cf-8bda-ec6206918888
+langcode: et
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_week_day
+field_name: field_week_day
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: E
+      label: Esmaspäev
+    -
+      value: T
+      label: Teisipäev
+    -
+      value: K
+      label: Kolmapäev
+    -
+      value: 'N'
+      label: Neljapäev
+    -
+      value: R
+      label: Reede
+    -
+      value: L
+      label: Laupäev
+    -
+      value: P
+      label: Pühapäev
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 7
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

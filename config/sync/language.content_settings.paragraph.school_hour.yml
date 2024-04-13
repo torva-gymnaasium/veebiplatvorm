@@ -1,0 +1,18 @@
+uuid: f7a24a0a-0d7b-492b-aec9-2ba78d491744
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.school_hour
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: paragraph.school_hour
+target_entity_type_id: paragraph
+target_bundle: school_hour
+default_langcode: site_default
+language_alterable: false

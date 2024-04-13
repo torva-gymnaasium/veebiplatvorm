@@ -1,0 +1,33 @@
+uuid: 95928373-37f8-41a8-926d-4f7ed6563797
+langcode: et
+status: true
+dependencies:
+  module:
+    - language
+    - node
+id: node_pattern_uudis
+label: 'Node pattern uudis'
+type: 'canonical_entities:node'
+pattern: '/uudised/[node:title]'
+selection_criteria:
+  4754da11-7028-4233-97c1-1e596594c50f:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 4754da11-7028-4233-97c1-1e596594c50f
+    context_mapping:
+      node: node
+    bundles:
+      article: article
+  67ae0cc6-7600-407b-a219-5e47f7c6b827:
+    id: language
+    negate: false
+    uuid: 67ae0cc6-7600-407b-a219-5e47f7c6b827
+    context_mapping:
+      language: 'node:langcode:language'
+    langcodes:
+      et: et
+selection_logic: and
+weight: -5
+relationships:
+  'node:langcode:language':
+    label: Keel

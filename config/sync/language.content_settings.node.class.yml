@@ -1,0 +1,18 @@
+uuid: d239e130-d2ac-4270-933a-426503b70390
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.class
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: node.class
+target_entity_type_id: node
+target_bundle: class
+default_langcode: current_interface
+language_alterable: true

@@ -1,0 +1,23 @@
+uuid: b714f64d-52a4-4a07-ac16-38678cc11a51
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_school_hour_type
+    - paragraphs.paragraphs_type.school_hour
+  module:
+    - options
+id: paragraph.school_hour.field_school_hour_type
+field_name: field_school_hour_type
+entity_type: paragraph
+bundle: school_hour
+label: 'Tunni tüüp'
+description: 'Tunnile kuvatakse järjekorranumber teiste tundide suhtes. Söögipaus kuvatakse välja ikooniga. Mõlema puhul kuvatakse alguse ja lõpu aeg.'
+required: true
+translatable: false
+default_value:
+  -
+    value: class
+default_value_callback: ''
+settings: {  }
+field_type: list_string

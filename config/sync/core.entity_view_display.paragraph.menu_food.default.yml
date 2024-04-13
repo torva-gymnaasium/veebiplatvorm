@@ -1,0 +1,30 @@
+uuid: f43ae357-c331-4991-8a66-3d22698d2612
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.menu_food.field_body_text
+    - field.field.paragraph.menu_food.field_food_group
+    - paragraphs.paragraphs_type.menu_food
+id: paragraph.menu_food.default
+targetEntityType: paragraph
+bundle: menu_food
+mode: default
+content:
+  field_body_text:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_food_group:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

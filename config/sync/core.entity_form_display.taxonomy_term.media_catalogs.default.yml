@@ -1,0 +1,37 @@
+uuid: f5d3a4c4-6bba-4c1f-a3d4-324dd19ba25a
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.media_catalogs
+id: taxonomy_term.media_catalogs.default
+targetEntityType: taxonomy_term
+bundle: media_catalogs
+mode: default
+content:
+  menu:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 1
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  description: true
+  langcode: true
+  path: true
+  publish_on: true
+  unpublish_on: true

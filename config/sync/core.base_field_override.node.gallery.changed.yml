@@ -1,0 +1,18 @@
+uuid: 82306c60-763a-4b47-900b-6b7e527addd3
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.gallery
+id: node.gallery.changed
+field_name: changed
+entity_type: node
+bundle: gallery
+label: Muudetud
+description: 'Sisuelemendi viimase muutmise aeg.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

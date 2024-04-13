@@ -1,0 +1,106 @@
+uuid: e01b4fbc-f1d9-4a47-b894-6545e7ab5583
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sunday
+    - node.type.food_menu
+    - paragraphs.paragraphs_type.menu_food
+  module:
+    - entity_reference_revisions
+id: node.food_menu.field_sunday
+field_name: field_sunday
+entity_type: node
+bundle: food_menu
+label: Pühapäev
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      menu_food: menu_food
+    negate: 0
+    target_bundles_drag_drop:
+      additional_information:
+        weight: 27
+        enabled: false
+      class:
+        weight: 28
+        enabled: false
+      contact_block:
+        weight: 29
+        enabled: false
+      db_100:
+        weight: 30
+        enabled: false
+      db_25_25_25_25:
+        weight: 31
+        enabled: false
+      db_25_25_50:
+        weight: 32
+        enabled: false
+      db_25_75:
+        weight: 33
+        enabled: false
+      db_33_33_33:
+        weight: 34
+        enabled: false
+      db_33_66:
+        weight: 35
+        enabled: false
+      db_50_25_25:
+        weight: 36
+        enabled: false
+      db_50_50:
+        weight: 37
+        enabled: false
+      db_66_33:
+        weight: 38
+        enabled: false
+      db_75_25:
+        weight: 39
+        enabled: false
+      department:
+        weight: 40
+        enabled: false
+      file:
+        weight: 41
+        enabled: false
+      gallery_block:
+        weight: 42
+        enabled: false
+      intermediate_title_block:
+        weight: 43
+        enabled: false
+      link:
+        weight: 44
+        enabled: false
+      link_and_file_block:
+        weight: 45
+        enabled: false
+      menu_food:
+        weight: 46
+        enabled: true
+      opening_days:
+        weight: 47
+        enabled: false
+      picture_block:
+        weight: 48
+        enabled: false
+      table_block_header_row:
+        weight: 49
+        enabled: false
+      text_block:
+        weight: 50
+        enabled: false
+      video_block:
+        weight: 51
+        enabled: false
+      webform_block:
+        weight: 52
+        enabled: false
+field_type: entity_reference_revisions

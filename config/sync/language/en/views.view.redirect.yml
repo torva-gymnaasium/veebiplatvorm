@@ -1,0 +1,11 @@
+label: 'Suunatakse ümber'
+display:
+  default:
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Filter
+          reset_button_label: Reset
+      title: 'Suunatakse ümber'
+  page_1:
+    display_title: Veebileht

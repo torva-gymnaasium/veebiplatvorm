@@ -1,0 +1,5 @@
+.field--type-entity-reference-revisions .field-actions,
+.js .paragraph-type-top,
+.tabledrag-toggle-weight-wrapper,
+.tabledrag-cell--only-drag,
+.draggable-table thead {display: none !important;}

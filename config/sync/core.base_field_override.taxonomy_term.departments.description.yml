@@ -1,0 +1,20 @@
+uuid: e942bc75-842d-4708-a165-f70e4e865efa
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.departments
+  module:
+    - text
+id: taxonomy_term.departments.description
+field_name: description
+entity_type: taxonomy_term
+bundle: departments
+label: Kirjeldus
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

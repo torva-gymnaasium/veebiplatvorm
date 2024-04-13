@@ -1,0 +1,6 @@
+services:
+  harno_settings.commands:
+    class: Drupal\harno_settings\Commands\HarnoSettingsCommands
+    arguments: []
+    tags:
+      - { name: drush.command }

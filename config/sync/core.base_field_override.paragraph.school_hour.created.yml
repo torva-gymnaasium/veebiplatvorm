@@ -1,0 +1,18 @@
+uuid: ccae27ab-7ae0-4de9-ab96-dacb4b7c9e32
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.school_hour
+id: paragraph.school_hour.created
+field_name: created
+entity_type: paragraph
+bundle: school_hour
+label: 'Loomise kuupäev'
+description: 'The time that the Paragraph was created.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

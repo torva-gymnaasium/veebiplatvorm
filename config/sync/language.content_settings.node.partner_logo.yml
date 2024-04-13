@@ -1,0 +1,18 @@
+uuid: ed7e8c4f-1451-4d98-b57f-a98c7702552b
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.partner_logo
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: node.partner_logo
+target_entity_type_id: node
+target_bundle: partner_logo
+default_langcode: current_interface
+language_alterable: true

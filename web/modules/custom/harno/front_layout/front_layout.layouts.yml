@@ -1,0 +1,60 @@
+our_layout_one_columns:
+  label: 'One column'
+  category: 'Front Layout'
+  template: templates/front_layouts/columns
+  class: Drupal\front_layout\Plugin\Layout\oneColumn
+  default_region: 75
+  library: front_layout/front_page_layout
+  regions:
+    col_1:
+      label: 100% lai tulp
+  icon_map:
+    - [col_1]
+our_layout_two_columns:
+  label: 'Two columns'
+  category: 'Front Layout'
+  template: templates/front_layouts/columns
+  class: Drupal\front_layout\Plugin\Layout\twoColumns
+  default_region: 75
+  library: front_layout/front_page_layout
+  regions:
+    col_1:
+      label: Esimene tulp
+    col_2:
+      label: Teine tulp
+  icon_map:
+    - [col_1,col_2]
+our_layout_three_columns:
+  label: 'Three columns'
+  category: 'Front Layout'
+  template: templates/front_layouts/columns
+  class: Drupal\front_layout\Plugin\Layout\threeColumns
+  default_region: 501
+  library: front_layout/front_page_layout
+  regions:
+    col_1:
+      label: 50% laiune tulp
+    col_2:
+      label: 25% laiune tulp
+    col_3:
+      label: 25% laiune tulp
+  icon_map:
+    - [col_1,col_2,col_3]
+our_layout_four_columns:
+  label: 'Four columns'
+  category: 'Front Layout'
+  template: templates/front_layouts/columns
+  class: Drupal\front_layout\Plugin\Layout\QuartersLayout
+  default_region: quarter_one
+  library: front_layout/front_page_layout
+  regions:
+    col_1:
+      label: Esimene tulp
+    col_2:
+      label: Teine tulp
+    col_3:
+      label: Kolmas tulp
+    col_4:
+      label: Neljas tulp
+  icon_map:
+    - [col_1,col_2,col_3,col_4]

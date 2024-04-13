@@ -1,0 +1,23 @@
+uuid: 8407c49d-b2fd-40d1-b643-f71d7b5ceba8
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_school_hour_days
+    - paragraphs.paragraphs_type.school_hour_day
+  module:
+    - options
+id: paragraph.school_hour_day.field_school_hour_days
+field_name: field_school_hour_days
+entity_type: paragraph
+bundle: school_hour_day
+label: Päevad
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: E-R
+default_value_callback: ''
+settings: {  }
+field_type: list_string

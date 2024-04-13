@@ -1,0 +1,398 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Cache\Cache;
+use GuzzleHttp\Exception\RequestException;
+use Drupal\webform\WebformSubmissionInterface;
+
+function harno_pages_theme($existing, $type, $theme, $path)
+{
+  return [
+    'galleries-page' => [
+      'template' => 'galleries-page',
+      'variables' => ['content' => [],'pager'=>[],'academic_years'=>[],'info'=>[]],
+      'path' => 'themes/custom/harno_theme/templates/pages',
+    ],
+    'news-page' => [
+      'template' => 'news-page',
+      'variables' => ['default_logo'=>[],'content' => [],'pager'=>[],'academic_years'=>[],'info'=>[]],
+      'path' => 'themes/custom/harno_theme/templates/pages',
+    ],
+    'contacts-page' => [
+      'template' => 'contacts-page',
+      'variables' => ['content' => [],'contact_filters'=>[], 'time' => [], 'language' => [], 'no_language_prefix'=>[]],
+      'path' => 'themes/custom/harno_theme/templates/pages',
+    ],
+    'calendar-page' => [
+      'template' => 'calendar-page',
+      'variables' => ['content' => [],'filters'=>[] ,'pager'=>[], 'type'=>[], 'para'=>[]],
+      'path' => 'themes/custom/harno_theme/templates/pages',
+    ],
+    'class-page' => [
+      'template' => 'class-page',
+      'variables' => ['content' => [],'time' => []],
+      'path' => 'themes/custom/harno_theme/templates/pages',
+    ],
+    'icons-page' => [
+      'template' => 'icons-page',
+      'variables' => [],
+      'path' => 'themes/custom/harno_theme/templates/pages',
+    ],
+    'calendar-response' => [
+      'template' => 'calendar-response',
+      'variables' => ['content' => [],'pager'=>[],'academic_years'=>[], 'period' =>[], 'para'=>[]],
+      'path' => 'themes/custom/harno_theme/templates/responses',
+    ],
+    'galleries-response' => [
+      'template' => 'galleries-response',
+      'variables' => ['content' => [],'pager'=>[],'academic_years'=>[]],
+      'path' => 'themes/custom/harno_theme/templates/responses',
+    ],
+    'news-response' => [
+      'template' => 'news-response',
+      'variables' => ['default_logo'=>[],'content' => [],'pager'=>[],'academic_years'=>[],'info'=>[]],
+      'path' => 'themes/custom/harno_theme/templates/responses',
+    ],
+    'contacts-response' => [
+      'template' => 'contacts-response',
+      'variables' => ['content' => [],'contact_filters'=>[],'language' => []],
+      'path' => 'themes/custom/harno_theme/templates/responses',
+    ],
+    'form-galleries' => [
+      'template' => 'form-galleries',
+      'render element' =>'children',
+      'path' => 'themes/custom/harno_theme/templates/forms',
+    ],
+    'form-calendar' => [
+      'template' => 'form-calendar',
+      'render element' =>'children',
+      'path' => 'themes/custom/harno_theme/templates/forms',
+    ],
+    'form-calendar-period' => [
+      'template' => 'form-calendar-period',
+      'render element' =>'children',
+      'path' => 'themes/custom/harno_theme/templates/forms',
+    ],
+    'form-news' => [
+      'template' => 'form-news',
+      'render element' =>'children',
+      'path' => 'themes/custom/harno_theme/templates/forms',
+    ],
+    'form-news-mobile' => [
+      'template' => 'form-filters-mobile',
+      'render element' =>'children',
+      'path' => 'themes/custom/harno_theme/templates/forms',
+    ],
+    'form-contacts' => [
+      'template' => 'form-contacts',
+      'render element' =>'children',
+      'path' => 'themes/custom/harno_theme/templates/forms',
+    ],
+    'active-filters' => [
+      'template' => 'active-filters',
+      'render element' =>'children',
+      'path' => 'themes/custom/harno_theme/templates/forms/filters',
+    ],
+    'contact-modal' => [
+      'template' => 'contact-modal',
+      'variables' => ['content' => [], 'title' => [], 'language' => []],
+      'path' => 'themes/custom/harno_theme/templates/pages/modal/filters',
+    ],
+    'picture-modal' => [
+      'template' => 'picture-modal',
+      'variables' => ['content' => []],
+      'path' => 'themes/custom/harno_theme/templates/pages/modal/filters',
+    ],
+    'form-modal' => [
+      'template' => 'form-modal',
+      'variables' => ['content' => [], 'title' => []],
+      'path' => 'themes/custom/harno_theme/templates/pages/modal/filters',
+    ],
+    'catering' => [
+      'template' => 'catering',
+      'variables' => ['content' => [],'side_menu'=>[]],
+      'path' => 'themes/custom/harno_theme/templates/pages/catering',
+    ],
+  ];
+}
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function harno_pages_node_presave(\Drupal\node\NodeInterface $node) {
+  // Allows for clearing of blocks based on node type.
+  $node_type = $node->getType();
+  if($node_type == 'location'){
+
+    $nid = $original_address = '';
+    $address = $node->get('field_address')->getValue()[0]['value'];
+    if (isset ($node->original)) {
+      $original_address = $node->original->get('field_address')
+        ->getValue()[0]['value'];
+    }
+
+    $x = $node->get('field_map_x_coordinate');
+    $y = $node->get('field_map_y_coordinate');
+    if (isset ($node->get('nid')->getValue()[0]['value']) AND !empty($node->get('nid')->getValue()[0]['value'])) {
+      $nid = $node->get('nid')->getValue()[0]['value'];
+    }
+    if($address != $original_address){
+      $url_to_quest = 'http://inaadress.maaamet.ee/inaadress/gazetteer';
+      $data = array(
+        'address' => $address,
+      );
+      $data = http_build_query($data);
+
+      try {
+        $client = \Drupal::httpClient();
+        $request = $client->request('GET', $url_to_quest . '?' . $data);
+        $content = $request->getBody()->getContents();
+        if (isset($content) AND !empty($content)) {
+          $decoded_content = json_decode($content);
+          if (isset($decoded_content->addresses[0]) AND !empty($decoded_content->addresses[0])) {
+            $location_data = [];
+            if (isset($decoded_content->addresses[0]->viitepunkt_x) AND !empty($decoded_content->addresses[0]->viitepunkt_x)) {
+              $location_data['location']['x'] = $decoded_content->addresses[0]->viitepunkt_x;
+            }
+            if (isset($decoded_content->addresses[0]->viitepunkt_y) AND !empty($decoded_content->addresses[0]->viitepunkt_y)) {
+              $location_data['location']['y'] = $decoded_content->addresses[0]->viitepunkt_y;
+            }
+            if (isset($decoded_content->addresses[0]->viitepunkt_b) AND !empty($decoded_content->addresses[0]->viitepunkt_b)) {
+              $location_data['location']['b'] = $decoded_content->addresses[0]->viitepunkt_b;
+            }
+            if (isset($decoded_content->addresses[0]->viitepunkt_l) AND !empty($decoded_content->addresses[0]->viitepunkt_l)) {
+              $location_data['location']['l'] = $decoded_content->addresses[0]->viitepunkt_l;
+            }
+            if (isset($decoded_content->addresses[0]->aadresstekst) AND !empty($decoded_content->addresses[0]->aadresstekst)) {
+              $location_data['location']['street'] = $decoded_content->addresses[0]->aadresstekst;
+            }
+            if (isset($decoded_content->addresses[0]->asutusyksus) AND !empty($decoded_content->addresses[0]->asutusyksus)) {
+              $location_data['location']['city'] = $decoded_content->addresses[0]->asutusyksus;
+            }
+            if (isset($decoded_content->addresses[0]->maakond) AND !empty($decoded_content->addresses[0]->maakond)) {
+              $location_data['location']['county'] = $decoded_content->addresses[0]->maakond;
+            }
+            if (isset($decoded_content->addresses[0]->sihtnumber) AND !empty($decoded_content->addresses[0]->sihtnumber)) {
+              $location_data['location']['zipcode'] = $decoded_content->addresses[0]->sihtnumber;
+            }
+            $config = \Drupal::service('config.factory')
+              ->getEditable('harno_settings.node_location');
+            $config->set('node_location_' . $nid, $location_data)
+              ->save();
+            $node->set('field_map_x_coordinate', $decoded_content->addresses[0]->viitepunkt_x);
+            $node->set('field_map_y_coordinate', $decoded_content->addresses[0]->viitepunkt_y);
+          }
+          else{
+            $location_data = [];
+            $node->set('field_map_x_coordinate', '');
+            $node->set('field_map_y_coordinate', '');
+            $config = \Drupal::service('config.factory')
+              ->getEditable('harno_settings.node_location');
+            $config->set('node_location_' . $nid, $location_data)
+              ->save();
+            \Drupal::messenger()->addWarning(t('Entered address was invalid for fetching map coordinates'));
+          }
+        }
+      }
+      catch (RequestException $e) {
+        $location_data = [];
+        $node->set('field_map_x_coordinate', '');
+        $node->set('field_map_y_coordinate', '');
+        $config = \Drupal::service('config.factory')
+          ->getEditable('harno_settings.node_location');
+        $config->set('node_location_' . $nid, $location_data)
+          ->save();
+        \Drupal::messenger()->addWarning(t('Entered address was invalid for fetching map coordinates'));
+      }
+    }
+    else{
+      if((empty($x->getValue()) or empty($y->getValue())) AND !empty($nid)){
+        $url_to_quest = 'http://inaadress.maaamet.ee/inaadress/gazetteer';
+        $data = array(
+          'address' => $address,
+        );
+        $data = http_build_query($data);
+
+        try {
+          $client = \Drupal::httpClient();
+          $request = $client->request('GET', $url_to_quest . '?' . $data);
+          $content = $request->getBody()->getContents();
+          if (isset($content) AND !empty($content)) {
+            $decoded_content = json_decode($content);
+            if (isset($decoded_content->addresses[0]) AND !empty($decoded_content->addresses[0])) {
+              $location_data = [];
+              if (isset($decoded_content->addresses[0]->viitepunkt_x) AND !empty($decoded_content->addresses[0]->viitepunkt_x)) {
+                $location_data['location']['x'] = $decoded_content->addresses[0]->viitepunkt_x;
+              }
+              if (isset($decoded_content->addresses[0]->viitepunkt_y) AND !empty($decoded_content->addresses[0]->viitepunkt_y)) {
+                $location_data['location']['y'] = $decoded_content->addresses[0]->viitepunkt_y;
+              }
+              if (isset($decoded_content->addresses[0]->viitepunkt_b) AND !empty($decoded_content->addresses[0]->viitepunkt_b)) {
+                $location_data['location']['b'] = $decoded_content->addresses[0]->viitepunkt_b;
+              }
+              if (isset($decoded_content->addresses[0]->viitepunkt_l) AND !empty($decoded_content->addresses[0]->viitepunkt_l)) {
+                $location_data['location']['l'] = $decoded_content->addresses[0]->viitepunkt_l;
+              }
+              if (isset($decoded_content->addresses[0]->aadresstekst) AND !empty($decoded_content->addresses[0]->aadresstekst)) {
+                $location_data['location']['street'] = $decoded_content->addresses[0]->aadresstekst;
+              }
+              if (isset($decoded_content->addresses[0]->asutusyksus) AND !empty($decoded_content->addresses[0]->asutusyksus)) {
+                $location_data['location']['city'] = $decoded_content->addresses[0]->asutusyksus;
+              }
+              if (isset($decoded_content->addresses[0]->maakond) AND !empty($decoded_content->addresses[0]->maakond)) {
+                $location_data['location']['county'] = $decoded_content->addresses[0]->maakond;
+              }
+              if (isset($decoded_content->addresses[0]->sihtnumber) AND !empty($decoded_content->addresses[0]->sihtnumber)) {
+                $location_data['location']['zipcode'] = $decoded_content->addresses[0]->sihtnumber;
+              }
+              $config = \Drupal::service('config.factory')
+                ->getEditable('harno_settings.node_location');
+              $config->set('node_location_' . $nid, $location_data)
+                ->save();
+              $node->set('field_map_x_coordinate', $decoded_content->addresses[0]->viitepunkt_x);
+              $node->set('field_map_y_coordinate', $decoded_content->addresses[0]->viitepunkt_y);
+            }
+            else{
+              $location_data = [];
+              $node->set('field_map_x_coordinate', '');
+              $node->set('field_map_y_coordinate', '');
+              $config = \Drupal::service('config.factory')
+                ->getEditable('harno_settings.node_location');
+              $config->set('node_location_' . $nid, $location_data)
+                ->save();
+              \Drupal::messenger()->addWarning(t('Entered address was invalid for fetching map coordinates'));
+            }
+          }
+        }
+        catch (RequestException $e) {
+          $location_data = [];
+          $node->set('field_map_x_coordinate', '');
+          $node->set('field_map_y_coordinate', '');
+          $config = \Drupal::service('config.factory')
+            ->getEditable('harno_settings.node_location');
+          $config->set('node_location_' . $nid, $location_data)
+            ->save();
+          \Drupal::messenger()->addWarning(t('Entered address was invalid for fetching map coordinates'));
+        }
+      }
+    }
+
+  }
+  if($node_type=='gallery') {
+    $tags = ['node_type:' . $node->getType()];
+    Cache::invalidateTags($tags);
+  }
+  if ($node_type == 'food_menu') {
+
+    $tags = ['block_view','config:taxonomy.vocabulary.eating_places'];
+    Cache::invalidateTags($tags);
+  }
+  if($node_type=='page') {
+    \Drupal::service('cache.render')->invalidateAll();
+  }
+  if($node_type=='calendar') {
+    $tags = ['node_type:' . $node->getType()];
+    Cache::invalidateTags($tags);
+    \Drupal::service('cache.render')->invalidateAll();
+  }
+  if($node_type=='article') {
+    \Drupal::service('cache.render')->invalidateAll();
+  }
+  if($node_type=='worker') {
+    $tags = ['node_type:' . $node->getType()];
+    Cache::invalidateTags($tags);
+    \Drupal::service('cache.render')->invalidateAll();
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ */
+function harno_pages_node_delete(\Drupal\node\NodeInterface $node) {
+  // Allows for clearing of blocks based on node type.
+  $node_type = $node->getType();
+  if($node_type == 'gallery') {
+    $tags = ['node_type:' . $node->getType()];
+    Cache::invalidateTags($tags);
+  }
+  if($node_type == 'page') {
+    \Drupal::service('cache.render')->invalidateAll();
+  }
+}
+/**
+ * Implements hook_entity_update().
+ */
+function harno_pages_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'taxonomy_term') {
+    $tid = $entity->get('tid')->value;
+    $tags = ['catering_menu:' .$tid, 'taxonomy_term:'.$tid,'block_view','config:taxonomy.vocabulary.eating_places'];
+    Cache::invalidateTags($tags);
+  }
+}
+
+function harno_pages_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  if($form['#form_id'] == 'menu_link_content_menu_link_content_form'){
+    $form['link']['widget'][0]['uri']['#description']['#items'][1] =
+      t('Start typing the title of a piece of content to select it. You can also enter an internal path such as %add-node or an external URL such as %url.
+      Enter %front to link to the front page. Enter %nolink to display link text only.', ['%front' => '<front>', '%add-node' => '/node/add', '%url' => 'http://example.com', '%nolink' => '<nolink>']);
+  }
+
+  if (in_array($form['#form_id'], ['openid_connect_login_form'])) {
+    $form['openid_connect_client_harid_login']['#attributes']['class'][] = 'btn btn-primary';
+    $form['openid_connect_client_harid_login']['#value'] = t('Log in');
+  }
+  elseif (in_array($form['#form_id'], ['user_login_form'])) {
+    $form['actions']['submit']['#attributes']['class'][] = 'btn btn-primary';
+    $form['#attributes']['class'][] = 'form-group';
+  }
+}
+
+function harno_pages_language_switch_links_alter(array &$links, $type, $path) {
+
+  $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  foreach($links as $key => $link) {
+    if($language == $key) {
+      $links[$key]['attributes']['aria-current'] = 'true';
+    }
+    $links[$key]['title'] = strtoupper(substr($link['title'],0,3));
+  }
+}
+
+function harno_pages_webform_submission_prepare_form(WebformSubmissionInterface $webform_submission, $operation, FormStateInterface $form_state) {
+
+  // Only execute the below code if we are editing a submission.
+//  if ($operation != 'add') {
+//    return;
+//  }
+  // Get the submission's Webform.
+  $webform = $webform_submission->getWebform();
+  $values = $webform_submission->getData();
+  $webform->setSetting('page', true);
+  $webform->setSetting('ajax', true);
+  $webform->setSetting('ajax_scroll_top', 'form');
+  $webform->setSetting('ajax_progress_type', 'throbber');
+  $webform->setSetting('ajax_effect', 'fade');
+  $webform->setSetting('ajax_speed', '1000');
+  $webform->setSetting('confirmation_type', 'modal');
+  $webform->setSetting('confirmation_title', $webform->label());
+  $webform->setSetting('confirmation_url', '');
+
+//  dump($webform);
+  $webform->save();
+//  dump($webform);
+//  if ($webform->id() == 'example_wizard') {
+//    $webform->setSetting('preview', DRUPAL_DISABLED);
+//  }
+}
+
+function harno_pages_pathauto_alias_alter(&$alias, array &$context) {
+  if ($context['module'] == 'node') {
+    $node = $context['data']['node'];
+    if ($node->getType() == 'calendar') {
+      $alias = str_replace('/sundmus/', '/sundmuste-kalender/', $alias);
+      $alias = str_replace('/koolitus/', '/koolituste-kalender/', $alias);
+    }
+  }
+}

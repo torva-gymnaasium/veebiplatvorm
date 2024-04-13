@@ -1,0 +1,10 @@
+uuid: 500d7c3d-9209-4859-ab08-8f7f67ca98e4
+langcode: et
+status: true
+dependencies: {  }
+id: school_hour_day
+label: 'Tunni päev'
+icon_uuid: null
+icon_default: null
+description: 'Võimalik on sisestada erinevatele päevadele tundide aegu.'
+behavior_plugins: {  }

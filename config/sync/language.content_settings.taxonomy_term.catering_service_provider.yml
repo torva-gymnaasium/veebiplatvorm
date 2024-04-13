@@ -1,0 +1,18 @@
+uuid: ddfcacfd-f973-454a-af4b-c637e78d16c1
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.catering_service_provider
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: taxonomy_term.catering_service_provider
+target_entity_type_id: taxonomy_term
+target_bundle: catering_service_provider
+default_langcode: current_interface
+language_alterable: true

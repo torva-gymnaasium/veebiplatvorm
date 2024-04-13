@@ -1,0 +1,10 @@
+uuid: c31d13c6-5c81-4d60-8663-df3ba9dcfaef
+langcode: et
+status: true
+dependencies: {  }
+id: school_hours_group
+label: 'Tundide grupp'
+icon_uuid: null
+icon_default: null
+description: 'Võimaldab ühe hoone või kooliastme sees eristada väiksemaid gruppe nt üksikuid klasse või ka mitu klassi.'
+behavior_plugins: {  }

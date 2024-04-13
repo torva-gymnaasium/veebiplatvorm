@@ -1,0 +1,21 @@
+uuid: 4fef4932-cb3f-49a6-bfbe-aab10d7550ab
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_closing_time
+    - paragraphs.paragraphs_type.school_hour
+  module:
+    - time_field
+id: paragraph.school_hour.field_closing_time
+field_name: field_closing_time
+entity_type: paragraph
+bundle: school_hour
+label: 'Lõpu aeg'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: time

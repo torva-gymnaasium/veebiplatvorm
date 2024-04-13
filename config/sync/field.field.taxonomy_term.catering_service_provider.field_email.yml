@@ -1,0 +1,19 @@
+uuid: f6de9abb-87f7-4f4a-9163-db1c1d7467d2
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_email
+    - taxonomy.vocabulary.catering_service_provider
+id: taxonomy_term.catering_service_provider.field_email
+field_name: field_email
+entity_type: taxonomy_term
+bundle: catering_service_provider
+label: E-post
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

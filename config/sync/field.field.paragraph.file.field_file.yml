@@ -1,0 +1,35 @@
+uuid: 2f07b8bc-ac48-4c15-9e86-cf47f048a41a
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_file
+    - media.type.audio
+    - media.type.document
+    - media.type.image
+    - media.type.video
+    - paragraphs.paragraphs_type.file
+id: paragraph.file.field_file
+field_name: field_file
+entity_type: paragraph
+bundle: file
+label: Fail
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      document: document
+      audio: audio
+      video: video
+      image: image
+    sort:
+      field: created
+      direction: DESC
+    auto_create: true
+    auto_create_bundle: document
+field_type: entity_reference

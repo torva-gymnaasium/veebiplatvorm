@@ -1,0 +1,191 @@
+{#
+/**
+ * @file
+ * Theme override for a menu block.
+ *
+ * Available variables:
+ * - plugin_id: The ID of the block implementation.
+ * - label: The configured label of the block if visible.
+ * - configuration: A list of the block's configuration values.
+ *   - label: The configured label for the block.
+ *   - label_display: The display settings for the label.
+ *   - provider: The module or other provider that provided this block plugin.
+ *   - Block plugin specific settings will also be stored here.
+ * - content: The content of this block.
+ * - attributes: HTML attributes for the containing element.
+ *   - id: A valid HTML ID and guaranteed unique.
+ * - title_attributes: HTML attributes for the title element.
+ * - content_attributes: HTML attributes for the content element.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ *
+ * Headings should be used on navigation menus that consistently appear on
+ * multiple pages. When this menu block's label is configured to not be
+ * displayed, it is automatically made invisible using the 'visually-hidden' CSS
+ * class, which still keeps it visible for screen-readers and assistive
+ * technology. Headings allow screen-reader and keyboard only users to navigate
+ * to or skip the links.
+ * See http://juicystudio.com/article/screen-readers-display-none.php and
+ * http://www.w3.org/TR/WCAG-TECHS/H42.html for more information.
+ */
+#}
+{% set heading_id = attributes.id ~ ('-menu'|clean_id) %}
+{% set current_path = path('<current>') %}
+{% if content %}
+{% if content['#items'] %}
+  {% set active_submenu = false %}
+  <ul role="navigation" class="side-menu sm-hide" data-plugin="dropdownMenu">
+  {% for menu_item in content['#items'] %}
+
+  {% if menu_item.below %}
+    {% for submenuitem in menu_item.below  %}
+      {% if submenuitem.in_active_trail %}
+        {% set active_submenu = true %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% endfor %}
+  {% for menu_item in content['#items'] %}
+  {% set link_options = menu_item.url.getOption('attributes') %}
+  {% if link_options.title %}
+  {% set link_desc = link_options.title %}
+  {% else %}
+  {% set link_desc = menu_item.title %}
+  {% endif %}
+  {% if menu_item.below %}
+  {% set below_class = [
+            'has-dropdown'
+          ] %}
+  {% if menu_item.in_active_trail %}
+    {% set active_submenu = true %}
+  {% set below_class = below_class | merge(['open']) %}
+  {% endif %}
+  {% else %}
+  {% set below_class = [''] %}
+  {% endif %}
+    {% if not menu_item.in_active_trail and active_submenu %}
+    {% set list_class = ['md-hidden'] %}
+    {% else %}
+    {% set list_class = [''] %}
+    {% endif %}
+    {% if list_class %}
+      {% set below_class = below_class | merge(list_class) %}
+      {% set remove_class = 'md-hidden'%}
+      {% else %}
+        {% set remove_class = '' %}
+    {% endif %}
+{#    {{ dd(below_class) }}#}
+  <li{{menu_item.attributes.removeClass('has-dropdown','contextual-region','open'.remove_class).addClass(below_class)}}>
+    {% if loop.first %}
+    {% endif %}
+    {% if menu_item.in_active_trail  %}
+    {% set link_class = 'active' %}
+    {% else %}
+    {% set link_class = '' %}
+    {% endif %}
+    {% if menu_item.url %}
+    {% set has_url = true %}
+    {% set main_url = menu_item.url.toString %}
+    {% if main_url == '' %}
+    {% set main_url = 'javascript:void(0)' %}
+    {% else %}
+    {% set main_url = menu_item.url.toString %}
+    {% endif %}
+
+    {% if menu_item.url.external %}
+    {# {% set link_class = link_class ~ 'link-out' %} #}
+    {% endif %}
+
+    {% endif %}
+    {% if menu_item.below %}
+    {% for below_active_item in menu_item.below  %}
+    {% if below_active_item.in_active_trail %}
+    {% set link_class = '' %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    <a {% if menu_item.url.external %} target="_blank"
+      aria-label="{{"Link will open on a new page"|t}}" {% endif %} title="{{link_desc}}" {% if has_url %} href="{{main_url}}"
+      {% endif %}" {% if menu_item.in_active_trail %}class="active"  {% if not menu_item.below %} aria-current="page" {% else %}
+      aria-expanded="true" {% endif %} {% else %} {% if menu_item.below %} aria-expanded="false" {% endif %}{% endif %}>
+      {{ menu_item.title }}
+      {% if menu_item.url %}
+      {% if menu_item.url.external %}
+      <i aria-label="{{"Link will open on a new page"|t}}" class="mdi mdi-open-in-new"></i>
+      {% endif %}
+      {% endif %}
+    </a>
+    {% if menu_item.below %}
+    {% if menu_item.in_active_trail %}
+
+    <ul class="sub-dropdown show">
+    {% else %}
+
+    <ul class="sub-dropdown ">
+    {% endif %}
+          {% for item_below in menu_item.below %}
+
+      {% set link_options = item_below.url.getOption('attributes') %}
+      {% if link_options.title %}
+      {% set link_desc = link_options.title %}
+      {% else %}
+      {% set link_desc = item_below.title %}
+      {% endif %}
+      {% if item_below.in_active_trail %}
+        {% set active_submenu = true %}
+      {% set link_class = 'active' %}
+      {% else %}
+      {% set link_class = '' %}
+      {% endif %}
+      {% if item_below.url %}
+      {% set has_burl = true %}
+      {% set below_url = item_below.url.toString %}
+      {% if below_url == '' %}
+      {% set below_url = 'javascript:void(0)' %}
+      {% else %}
+      {% set below_url = item_below.url.toString %}
+
+      {% endif %}
+      {% if item_below.url.external %}
+      {% set link_ext = true %}
+      {# {% set link_class = link_class ~ 'link-out' %} #}
+      {% endif %}
+      {% endif %}
+            {% if item_below.in_active_trail %}
+              <li class="has-link open">
+  {% else %}
+
+    <li>
+            {% endif %}
+        {% if loop.first %}
+        {% endif %}
+        <a  class="{{ link_class }}" title="{{link_desc}}" {% if link_ext %} target="_blank"
+          aria-label="{{"Link will open on a new page"|t}}" {% endif %} {% if has_burl %} href="{{below_url}}" {% endif %}
+          {% if item_below.in_active_trail %} aria-current="page" {% endif %}>{{item_below.title}}
+          {% if link_ext %}
+          <i aria-label="{{"Link will open on a new page"|t}}" class="mdi mdi-open-in-new"></i>
+          {% endif %}
+        </a>
+
+
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% endif %}
+    </li>
+    {% endfor %}
+    {% if loop.count<=3 %}
+      {% set active_submenu = true %}
+    {% endif %}
+    <!--/show-more-->
+
+</ul>
+{% endif %}
+{% endif %}
+{% block content %}
+{# {{ content }} #}
+{% endblock %}

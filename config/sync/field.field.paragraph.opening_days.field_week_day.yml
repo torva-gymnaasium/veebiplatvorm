@@ -1,0 +1,21 @@
+uuid: 6941780d-e2be-4581-9c2a-f1b05ea7108f
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_week_day
+    - paragraphs.paragraphs_type.opening_days
+  module:
+    - options
+id: paragraph.opening_days.field_week_day
+field_name: field_week_day
+entity_type: paragraph
+bundle: opening_days
+label: Päev
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

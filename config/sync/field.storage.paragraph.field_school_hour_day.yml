@@ -1,0 +1,20 @@
+uuid: ad4393ff-edba-4e4b-b0d8-53a2027e963f
+langcode: et
+status: true
+dependencies:
+  module:
+    - entity_reference_revisions
+    - paragraphs
+id: paragraph.field_school_hour_day
+field_name: field_school_hour_day
+entity_type: paragraph
+type: entity_reference_revisions
+settings:
+  target_type: paragraph
+module: entity_reference_revisions
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,10 @@
+uuid: e87445d2-db79-44d1-92c1-d405ac250660
+langcode: et
+status: true
+dependencies: {  }
+id: text_block
+label: Tekstiplokk
+icon_uuid: null
+icon_default: null
+description: 'Tavaline vormindatud sisu tekstiplokk.'
+behavior_plugins: {  }

@@ -1,0 +1,14 @@
+uuid: ac87354d-a202-4213-8612-dbb8c2fa1c50
+langcode: et
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Sündmuse tüübid'
+vid: event_keywords
+description: 'Valikud, mida kasutatakse sündmuste filtreerimiseks.'
+weight: 0

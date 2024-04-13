@@ -1,0 +1,25 @@
+uuid: 5c68c788-86d1-45cb-b4f9-292d6fa9d717
+langcode: et
+status: true
+dependencies:
+  module:
+    - harno_blocks
+    - system
+  theme:
+    - harno_theme
+id: harnofrontpagemessages
+theme: harno_theme
+region: content
+weight: -9
+provider: null
+plugin: harno_front_page_messages
+settings:
+  id: harno_front_page_messages
+  label: 'Harno Front Page Messages'
+  label_display: visible
+  provider: harno_blocks
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

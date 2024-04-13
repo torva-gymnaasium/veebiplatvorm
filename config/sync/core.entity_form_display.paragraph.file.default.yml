@@ -1,0 +1,36 @@
+uuid: 60e10536-f2a1-4f45-9d4f-ad46b26f59b9
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.file.field_file
+    - paragraphs.paragraphs_type.file
+  module:
+    - media_library
+    - media_library_edit
+id: paragraph.file.default
+targetEntityType: paragraph
+bundle: file
+mode: default
+content:
+  field_file:
+    type: media_library_widget
+    weight: 0
+    region: content
+    settings:
+      media_types:
+        - document
+        - image
+        - video
+        - audio
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

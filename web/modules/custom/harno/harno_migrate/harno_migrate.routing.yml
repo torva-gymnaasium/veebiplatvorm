@@ -1,0 +1,36 @@
+harno_migrate.migrate_form:
+  path: '/admin/config/veebiplatvorm/migratsioon'
+  defaults:
+    _form: '\Drupal\harno_migrate\Form\HarnoMigrateForm'
+    _title: 'Veebiplatvormi migratsioon'
+  requirements:
+    _permission: 'administer harno migrate'
+  options:
+    _admin_route: TRUE
+harno_migrate.delete_content:
+  path: '/admin/config/veebiplatvorm/migratsioon/content/{type}/delete'
+  defaults:
+    _form: '\Drupal\harno_migrate\Form\HarnoMigrateConfirmContentDeleteForm'
+    _title: 'Kinnita sisu kustutamine'
+  requirements:
+    _permission: 'administer harno migrate'
+  options:
+    _admin_route: TRUE
+harno_migrate.delete_taxonomy:
+  path: '/admin/config/veebiplatvorm/migratsioon/taxonomy/{type}/delete'
+  defaults:
+    _form: '\Drupal\harno_migrate\Form\HarnoMigrateConfirmTaxonomyDeleteForm'
+    _title: 'Kinnita klassifikatsiooni kustutamine'
+  requirements:
+    _permission: 'administer harno migrate'
+  options:
+    _admin_route: TRUE
+harno_migrate.delete_all:
+  path: '/admin/config/veebiplatvorm/migratsioon/delete_all'
+  defaults:
+    _form: '\Drupal\harno_migrate\Form\HarnoMigrateDeleteAllForm'
+    _title: 'Kogu sisu kustutamine'
+  requirements:
+    _permission: 'administer harno migrate'
+  options:
+    _admin_route: TRUE

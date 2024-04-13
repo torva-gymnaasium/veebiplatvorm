@@ -1,0 +1,10 @@
+uuid: a466ca4f-fd4e-4656-bc7b-17b8d8ffdefd
+langcode: et
+status: true
+dependencies: {  }
+id: picture_block
+label: Pildiplokk
+icon_uuid: null
+icon_default: null
+description: 'Võimaldab lisada ühe pildi sisusse. '
+behavior_plugins: {  }

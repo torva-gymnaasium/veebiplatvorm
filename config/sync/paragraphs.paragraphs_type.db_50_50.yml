@@ -1,0 +1,10 @@
+uuid: 868e7d06-8586-4b46-ae01-574055ee8149
+langcode: et
+status: true
+dependencies: {  }
+id: db_50_50
+label: 'Jaotusplokk 50/50'
+icon_uuid: null
+icon_default: null
+description: 'Jaotusplokk jagab lehe sisu kaheks osaks, millest kumbki on 50%.'
+behavior_plugins: {  }

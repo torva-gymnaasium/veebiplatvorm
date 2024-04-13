@@ -1,0 +1,115 @@
+uuid: e854fe3e-b19c-4dd5-b584-9f3259fe38e7
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_school_hour_day
+    - paragraphs.paragraphs_type.school_hour_day
+    - paragraphs.paragraphs_type.school_hours_group
+  module:
+    - entity_reference_revisions
+id: paragraph.school_hours_group.field_school_hour_day
+field_name: field_school_hour_day
+entity_type: paragraph
+bundle: school_hours_group
+label: 'Tunni päev'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      school_hour_day: school_hour_day
+    negate: 0
+    target_bundles_drag_drop:
+      additional_information:
+        weight: 30
+        enabled: false
+      class:
+        weight: 31
+        enabled: false
+      contact_block:
+        weight: 32
+        enabled: false
+      db_100:
+        weight: 33
+        enabled: false
+      db_25_25_25_25:
+        weight: 34
+        enabled: false
+      db_25_25_50:
+        weight: 35
+        enabled: false
+      db_25_75:
+        weight: 36
+        enabled: false
+      db_33_33_33:
+        weight: 37
+        enabled: false
+      db_33_66:
+        weight: 38
+        enabled: false
+      db_50_25_25:
+        weight: 39
+        enabled: false
+      db_50_50:
+        weight: 40
+        enabled: false
+      db_66_33:
+        weight: 41
+        enabled: false
+      db_75_25:
+        weight: 42
+        enabled: false
+      department:
+        weight: 43
+        enabled: false
+      file:
+        weight: 44
+        enabled: false
+      gallery_block:
+        weight: 45
+        enabled: false
+      intermediate_title_block:
+        weight: 46
+        enabled: false
+      link:
+        weight: 47
+        enabled: false
+      link_and_file_block:
+        weight: 48
+        enabled: false
+      menu_food:
+        weight: 49
+        enabled: false
+      opening_days:
+        weight: 50
+        enabled: false
+      picture_block:
+        weight: 51
+        enabled: false
+      school_hour:
+        weight: 52
+        enabled: false
+      school_hour_day:
+        weight: 54
+        enabled: true
+      school_hours_group:
+        weight: 53
+        enabled: false
+      table_block_header_row:
+        weight: 55
+        enabled: false
+      text_block:
+        weight: 56
+        enabled: false
+      video_block:
+        weight: 57
+        enabled: false
+      webform_block:
+        weight: 58
+        enabled: false
+field_type: entity_reference_revisions

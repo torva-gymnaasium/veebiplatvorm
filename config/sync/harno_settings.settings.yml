@@ -1,0 +1,154 @@
+_core:
+  default_config_hash: WmFHeq2GiSpb8GHe19n_nYjMMtCcCe0p8MMBd2of-zA
+langcode: et
+general:
+  frontpage_background_type: 1
+  frontpage_background: 0
+  logo: 1690
+  favicon: 0
+  address: 'Kohtu 22, Kuressaare 93812'
+  phone: '452 4600 '
+  email: info@ametikool.ee
+important_contacts:
+  name_1: 'Üldtelefon tööpäeviti 8-17'
+  body_1: '452 4600'
+  weight_1: 1
+  name_2: 'Õpilaskodu ja hotell Mardi'
+  body_2: '452 4633'
+  weight_2: 2
+  name_3: Restoran
+  body_3: '+372 5680 9364'
+  weight_3: 3
+  name_4: ''
+  body_4: ''
+  weight_4: 4
+footer_socialmedia_links:
+  link_icon_1: mdi-facebook
+  link_name_1: Facebook
+  link_url_1: 'https://www.facebook.com/kuressaareametikool'
+  link_weight_1: 1
+  link_icon_2: ''
+  link_name_2: ''
+  link_url_2: ''
+  link_weight_2: 2
+  link_icon_3: ''
+  link_name_3: ''
+  link_url_3: ''
+  link_weight_3: 3
+  link_icon_4: ''
+  link_name_4: ''
+  link_url_4: ''
+  link_weight_4: 4
+  link_icon_5: ''
+  link_name_5: ''
+  link_url_5: ''
+  link_weight_5: 5
+  link_icon_6: ''
+  link_name_6: ''
+  link_url_6: ''
+  link_weight_6: 6
+  link_icon_7: ''
+  link_name_7: ''
+  link_url_7: ''
+  link_weight_7: 7
+  link_icon_8: ''
+  link_name_8: ''
+  link_url_8: ''
+  link_weight_8: 8
+  link_icon_9: ''
+  link_name_9: ''
+  link_url_9: ''
+  link_weight_9: 9
+footer_quick_links:
+  link_name_1: News
+  link_entity_1: null
+  link_url_1: 'https://ametikool.ee/et/uudised'
+  link_weight_1: 1
+  link_name_2: Galerii
+  link_entity_2: null
+  link_url_2: 'http://foto.ametikool.ee/2020/'
+  link_weight_2: 2
+  link_name_3: Virtuaaltuur
+  link_entity_3: null
+  link_url_3: 'http://www.tuur.ee/tuurid/08-kutseoppeasutuste-virtuaaltuurid/27-kuressaare/'
+  link_weight_3: 3
+  link_name_4: ''
+  link_entity_4: null
+  link_url_4: ''
+  link_weight_4: 4
+  link_name_5: ''
+  link_entity_5: null
+  link_url_5: ''
+  link_weight_5: 5
+  link_name_6: ''
+  link_entity_6: null
+  link_url_6: ''
+  link_weight_6: 6
+  link_name_7: ''
+  link_entity_7: null
+  link_url_7: ''
+  link_weight_7: 7
+  link_name_8: ''
+  link_entity_8: null
+  link_url_8: ''
+  link_weight_8: 8
+footer_free_text_area:
+  name: ' '
+  body: "\tReg. kood&nbsp;70003744 | Tehingupartneri kood&nbsp;007001\r\n"
+footer_copyright:
+  name: ''
+news_our_story:
+  name: 'Meie lood'
+automatic_generation_academic_year:
+  'on': true
+  date: 15.06.
+accessibility_statement:
+  node: 1073
+location:
+  node: 1075
+juhan:
+  api_key: lzrlkbmj1amjsmyqc95eba
+frontpage_quick_links:
+  link_name_1: Instagram
+  link_entity_1: null
+  link_url_1: 'https://www.instagram.com/kuressaareametikool/'
+  link_weight_1: 1
+  link_name_2: ''
+  link_entity_2: null
+  link_url_2: ''
+  link_weight_2: 2
+  link_name_3: ''
+  link_entity_3: null
+  link_url_3: ''
+  link_weight_3: 3
+  link_name_4: ''
+  link_entity_4: null
+  link_url_4: ''
+  link_weight_4: 4
+  link_name_5: ''
+  link_entity_5: null
+  link_url_5: ''
+  link_weight_5: 5
+  link_name_6: ''
+  link_entity_6: null
+  link_url_6: ''
+  link_weight_6: 6
+  link_name_7: ''
+  link_entity_7: null
+  link_url_7: ''
+  link_weight_7: 7
+  link_name_8: ''
+  link_entity_8: null
+  link_url_8: ''
+  link_weight_8: 8
+  link_name_9: ''
+  link_entity_9: null
+  link_url_9: ''
+  link_weight_9: 9
+frontpage_messages:
+  body_1: "<p>The news was exclusively revealed by Scott Mills on Radio 1&nbsp;<a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"eb4786e9-27f0-4b17-9138-b6e34a1cc17a\" href=\"/node/703\">Breakfast</a> with Greg James with<span>&nbsp;</span><em>SPACE MAN</em><span>&nbsp;</span>having previously featured as ‘Tune of the Week’ on Scott Mills’ Afternoon Show on BBC Radio 1.</p>\r\n"
+  type_1: 1
+  published_1: true
+  body_2: "<p>2020/21 õa avaaktus toimub teisipäeval, 01.09.2020 kell 12.00 õpilaskodu saalis.<br />\r\nAktus on kooli õpilastele ja töötajatele, lapsevanemaid ja külalisi kooli ruumidesse ei lubata.</p>\r\n"
+  type_2: 2
+  published_2: false

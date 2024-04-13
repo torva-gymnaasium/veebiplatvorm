@@ -1,0 +1,25 @@
+uuid: 25ba0d24-2626-4aad-ba9f-248c3c35aab2
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_map_scale
+    - node.type.location
+id: node.location.field_map_scale
+field_name: field_map_scale
+entity_type: node
+bundle: location
+label: 'Maa-ameti kaardi mõõtkava'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1000
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

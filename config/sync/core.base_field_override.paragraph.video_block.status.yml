@@ -1,0 +1,22 @@
+uuid: 4d87bd17-2d38-4ed4-88c1-d3dd1968f59c
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.video_block
+id: paragraph.video_block.status
+field_name: status
+entity_type: paragraph
+bundle: video_block
+label: Avaldatud
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

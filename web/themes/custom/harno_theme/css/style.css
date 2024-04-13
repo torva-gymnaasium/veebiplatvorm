@@ -1,0 +1,257 @@
+/**
+ * @file
+ * Subtheme specific CSS.
+ */
+.with-sidemenu .text-field{
+  width: 100% !important;
+}
+.col-8 .text-field, .col-9 .text-field, .col-7 .text-field, .col-6 .text-field, .col-5 .text-field, .col-4 .text-field, .col-3 .text-field
+  {
+    width: 100% !important;
+  }
+.row-spacer-40 {
+  padding-top: 40px;
+}
+
+.js input.form-autocomplete {
+  background-image: unset;
+}
+.js input.form-autocomplete.ui-autocomplete-loading {
+  background-image: unset;
+}
+.user-login-form {
+  margin-top: 5em;
+}
+.gallery-thumbs .visible-thumb{
+  width: 25%;
+  padding: unset;
+  padding-right: 0.5rem;
+}
+@media screen and (min-width:992px) {
+  .mainOverride {
+    display: block !important;
+  }
+  .showBack {
+     display: none !important;
+  }
+}
+@media all and ( min-width: 1px ) and ( max-width: 992px ) {
+  .showBack {
+    display: flex ;
+  }
+}
+
+.search-api-autocomplete-search {
+  background: var(--white);
+  border: 0.0625rem solid var(--grey-400);
+  border-radius: 0 0 1.25rem 1.25rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.2);
+}
+.search-api-autocomplete-search .ui-menu-item {
+  list-style-image: none !important;
+}
+.search-api-autocomplete-search .ui-menu-item-wrapper {
+  padding: 0 !important;
+}
+
+.search-api-autocomplete-search .ui-menu-item-wrapper.ui-state-active {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  color: #000000 !important;
+}
+
+.search-api-autocomplete-search .ui-menu-item-wrapper.ui-state-active:hover {
+  background: var(--grey-500) !important;
+}
+.search-item-span {display: none;}
+
+.header-right__top .language-picker__item.is-active::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.25rem;
+  height: 100%;
+  background: var(--secondary-highlight);
+}
+
+#toolbar-administration a {
+  font-size: small !important;
+}
+
+#harno-blocks-search-api-form--2{
+  width: 100%;
+}
+.picture-contain-custom{
+  background-size: contain !important;
+}
+.picture-cover-custom{
+  background-size: cover !important;
+}
+.image-field--portrait-custom{
+  background-size: cover !important;
+}
+.image-field--landscape-custom{
+  background-size: cover !important;
+}
+.image-field--natural-custom{
+  background-size: cover !important;
+}
+.gallery-thumbnails .swiper-slide a{
+  background-size: contain !important;
+  background-color: transparent !important;
+}
+.thumbs-container .gallery-thumbs a{
+  background-size: cover !important;
+}
+@media only screen and (max-width: 600px) {
+ .picture-modal .picture-modal__container .swiper-slide .gallery-image-item{
+   background-size: contain !important;
+ }
+}
+.w-100{
+  width: 100%;
+}
+
+/* Webform drupal modal css */
+/*.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front{*/
+/*  position: absolute;*/
+/*  top: 3.125rem !important;*/
+/*  max-width: 33.9375rem;*/
+/*  width: 100% !important;*/
+/*  height: 100%;*/
+/*  cursor: pointer;*/
+/*  margin: auto;*/
+/*  padding: 0 !important;*/
+/*  z-index: 10101010 !important;*/
+/*}*/
+/*.ui-widget-overlay{*/
+/*  position: fixed;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  bottom: 0;*/
+/*  right: 0;*/
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*  display: flex;*/
+/*  opacity: 1 !important;*/
+/*  justify-content: center;*/
+/*  background-color: var(--main-color-opacity) !important;*/
+/*  z-index: 499;*/
+/*  overflow-y: auto;*/
+/*}*/
+/*.ui-widget-header{*/
+/*  position: relative;*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  background: var(--main-highlight);*/
+/*  color: var(--white);*/
+/*  margin: 0 auto;*/
+/*  border-radius: 0.25rem 0.25rem 0 0;*/
+/*  border: none !important;*/
+/*}*/
+/*.ui-dialog .ui-dialog-title{*/
+/*  display: flex;*/
+/*  font-size: 1.1875rem;*/
+/*  line-height: 1.26;*/
+/*  font-weight: bold;*/
+/*  color: var(--white);*/
+/*  padding: 0.8125rem 2.75rem 0.6875rem 1rem;*/
+/*}*/
+/*.ui-dialog-titlebar-close{*/
+/*  position: absolute;*/
+/*  top: 0.75rem;*/
+/*  right: 0.75rem;*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  width: 1.5rem;*/
+/*  height: 1.5rem;*/
+/*  margin-left: auto;*/
+/*  border: none;*/
+/*  background: transparent;*/
+/*  padding: 0;*/
+/*  z-index: 1;*/
+/*}*/
+/*.ui-widget-content{*/
+/*  border: none !important;*/
+/*}*/
+/* end Webform drupal modal css */
+.select2-results__option {
+
+}
+.main-menu > li.open .main-menu-dropdown li a.is-active::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-left: 0.25rem solid var(--secondary-highlight);
+  background: none;
+  right: unset;
+}
+.main-menu > li.open .main-menu-dropdown li a.is-active {
+  font-weight: bold;
+}
+li.nohover:hover{
+  color: var(--grey-100)
+}
+.sitemap-3-layer{
+  font-weight: normal !important;
+  text-decoration: underline !important;
+}
+.sitemap-3-layer:hover{
+  text-decoration: none !important;
+}
+.image-field--one-image-custom{
+  background-size:contain !important;
+  padding-top: var(--one-image-size);
+}
+#layout-builder-configure-section .radio-list-label{
+  margin-bottom: 10px;
+}
+#layout-builder-configure-section .button--primary{
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 1.25rem;
+  background-color: var(--main-highlight);
+}
+#layout-builder-add-block .button--primary{
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 1.25rem;
+  background-color: var(--main-highlight);
+}
+#layout-builder-update-block .button--primary{
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 1.25rem;
+  background-color: var(--main-highlight);
+}
+.layout-builder-remove-block .button--primary{
+  padding: 10px !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  border-radius: 1.25rem !important;
+  background-color: var(--main-highlight) !important;
+}
+
+@media (min-width: 992px) {
+  .sm-show-flex-custom {
+    display: none !important;
+  }
+}
+@media (max-width: 575px) {
+  .sm-show-flex-custom {
+    display: flex !important;
+  }
+}
+@media (min-width: 575px) and (max-width: 991px) {
+  .md-show-flex-custom {
+    display: flex !important;
+  }
+}

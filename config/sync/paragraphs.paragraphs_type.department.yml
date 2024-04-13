@@ -1,0 +1,10 @@
+uuid: b3ea263b-db9b-4606-ba6e-2dacf9ce8934
+langcode: et
+status: true
+dependencies: {  }
+id: department
+label: Osakond
+icon_uuid: null
+icon_default: null
+description: 'Osakonnad, kuhu töötaja kuulub.'
+behavior_plugins: {  }

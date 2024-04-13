@@ -1,0 +1,22 @@
+uuid: e0d4a74f-c4fd-490f-9567-6eb3922d3c2a
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.school_hours_group
+id: paragraph.school_hours_group.status
+field_name: status
+entity_type: paragraph
+bundle: school_hours_group
+label: Avaldatud
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

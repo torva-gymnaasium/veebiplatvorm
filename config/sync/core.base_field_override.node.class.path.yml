@@ -1,0 +1,20 @@
+uuid: ea44f00a-50c1-4723-845a-9740e6210a0d
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.class
+  module:
+    - path
+id: node.class.path
+field_name: path
+entity_type: node
+bundle: class
+label: 'URL-i alias'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

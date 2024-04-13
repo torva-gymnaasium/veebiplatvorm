@@ -1,0 +1,23 @@
+uuid: b9cbcd55-7a80-411c-b27d-4b3145a3e35d
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_start_time
+    - node.type.calendar
+  module:
+    - time_field
+id: node.calendar.field_event_start_time
+field_name: field_event_start_time
+entity_type: node
+bundle: calendar
+label: 'Alguse kellaaeg'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings: {  }
+field_type: time

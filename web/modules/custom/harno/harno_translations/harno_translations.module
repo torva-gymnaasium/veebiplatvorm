@@ -1,0 +1,55 @@
+<?php
+function harno_translations_import_translations($translations_file = null, $reversed = false)
+{
+  $file = 'harno_translations.csv';
+  if (!empty($translations_file)) {
+    $file = $translations_file;
+  }
+  $module_handler = \Drupal::service('module_handler');
+  $module_path = \Drupal::service('file_system')->realpath(\Drupal::service('module_handler')->getModule('harno_translations')->getPath());
+
+  if (file_exists($module_path . '/attached/' . $file)) {
+    $file_path = $module_path . '/attached/' . $file;
+    $handle = fopen($file_path, 'r');
+    $i = 0;
+    $columns = [
+      'en',
+      'et',
+      'ru',
+      'context'
+    ];
+    while (($data = fgetcsv($handle, null, ',', '"')) !== FALSE) {
+      $translation = [];
+      $context = null;
+      if ($data[3]) {
+        $context = $data[3];
+      }
+      if ($i !== 0) {
+        if (isset($data[0])) {
+          $source_string = $data[0];
+          if ($data[1]) {
+            $translation_service = \Drupal::service('harno_translations.single_translation');
+            $translation_service->importTranslation($source_string, $data[1], 'et', $context);
+          }
+          if ($data[2]) {
+            $translation_service = \Drupal::service('harno_translations.single_translation');
+            $translation_service->importTranslation($source_string, $data[2], 'ru', $context);
+          }
+        }
+      }
+      if ($reversed) {
+        $source_string = $data[1];
+        if ($data[0]) {
+          $translation_service = \Drupal::service('harno_translations.single_translation');
+          $translation_service->importTranslation($source_string, $data[0], 'en', $context);
+        }
+        if ($data[2]) {
+          $translation_service = \Drupal::service('harno_translations.single_translation');
+          $translation_service->importTranslation($source_string, $data[2], 'ru', $context);
+        }
+      }
+      $i++;
+    }
+    return TRUE;
+  }
+}

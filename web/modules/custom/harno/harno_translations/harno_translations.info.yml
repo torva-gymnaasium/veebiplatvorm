@@ -1,0 +1,6 @@
+name: 'Veebiplatvormi tolgete import'
+type: module
+description: 'Veebiplatvormide tolgete improt'
+core_version_requirement: ^8 || ^9 || ^10
+configure: harno_translations.import_form
+package: 'Veebiplatvorm'

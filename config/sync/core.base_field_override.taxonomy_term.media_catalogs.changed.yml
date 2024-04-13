@@ -1,0 +1,18 @@
+uuid: 60b3bdc4-2f28-4787-90e1-50858486d02f
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.media_catalogs
+id: taxonomy_term.media_catalogs.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: media_catalogs
+label: Muudetud
+description: 'Termi viimase muutmise aeg.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

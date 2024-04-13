@@ -1,0 +1,10 @@
+uuid: 7ca113f5-2746-4681-ad87-4f8ed92edb21
+langcode: et
+status: true
+dependencies: {  }
+id: db_100
+label: 'Jaotusplokk 100'
+icon_uuid: null
+icon_default: null
+description: 'Jaotusplokk jagab lehe sisu osa üheks 100% katvaks osaks.'
+behavior_plugins: {  }

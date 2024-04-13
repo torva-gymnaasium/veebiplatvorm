@@ -1,0 +1,18 @@
+uuid: d3a131e5-f10b-443e-8b24-cb20a47535fd
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.food_groups
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: taxonomy_term.food_groups
+target_entity_type_id: taxonomy_term
+target_bundle: food_groups
+default_langcode: current_interface
+language_alterable: true

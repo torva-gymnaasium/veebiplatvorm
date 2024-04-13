@@ -1,0 +1,16 @@
+node_location_:
+  location:
+    x: '414956.12'
+    'y': '6460649.01'
+    b: '58.2782891820068'
+    l: '22.5503751825684'
+    street: 'Kooli tee 7'
+    county: 'Saare maakond'
+    zipcode: '93857'
+node_location_781:
+  location:
+    x: '659615.93'
+    'y': '6473970.41'
+    street: 'Riia tn 2'
+    county: 'Tartu maakond'
+    zipcode: '51004'

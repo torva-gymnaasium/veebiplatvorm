@@ -1,0 +1,23 @@
+uuid: e633d5f9-4081-4899-bad0-9769d5f62d34
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_end_time
+    - node.type.calendar
+  module:
+    - time_field
+id: node.calendar.field_event_end_time
+field_name: field_event_end_time
+entity_type: node
+bundle: calendar
+label: 'Lõpu kellaaeg'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 86340
+default_value_callback: ''
+settings: {  }
+field_type: time

@@ -1,0 +1,177 @@
+{#
+/**
+ * @file
+ * Theme override to display a menu.
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items. Each menu item contains:
+ *   - attributes: HTML attributes for the menu item.
+ *   - below: The menu item child items.
+ *   - title: The menu link title.
+ *   - url: The menu link url, instance of \Drupal\Core\Url
+ *   - localized_options: Menu link localized options.
+ *   - is_expanded: TRUE if the link has visible children within the current
+ *     menu tree.
+ *   - is_collapsed: TRUE if the link has children within the current menu tree
+ *     that are not currently visible.
+ *   - in_active_trail: TRUE if the link is in the active trail.
+ */
+#}
+{% import _self as menus %}
+
+{#
+We call a macro which calls itself to render the full tree.
+@see https://twig.symfony.com/doc/1.x/tags/macro.html
+#}
+{% set items = content['#items'] %}
+  {{ menus.menu_links(items, attributes, 0) }}
+  {% macro menu_links(items, attributes, menu_level,parent_title) %}
+    {% import _self as menus %}
+    {% if items %}
+      {% for item in items %}
+        {% if menu_level == 0 %}
+          {% set parent_title = item.title %}
+        {% endif %}
+        {% if menu_level<=1 %}
+
+          {% set front =  false %}
+          {% if menu_level > 0 %}
+            {% if loop.index == 1 %}
+            <div class="main-menu-dropdown">
+              <div class="focus-trap-first" tabindex="-1"></div>
+              <ul class="dropdown-link-block">
+              <li>
+                <a href="#" class="back-to-menu" aria-label="{{ "Back to main menu"|t }}">
+                  <i class="mdi mdi-menu-down"></i>
+                  {% if parent_title %}
+                    {{ parent_title }}
+                  {% endif %}
+                </a>
+              </li>
+            {% endif %}
+          {% endif %}
+          {% if menu_level == 1 %}
+          {% endif %}
+        {% if item.in_active_trail %}
+          {% set link_class = 'active' %}
+          {% set open_class = ['open'] %}
+          {% if menu_level>=1 %}
+            {% set attributes  = attributes.removeClass('contextual-region') %}
+          {% endif %}
+        {% if menu_level==0 %}
+
+        <li {{ item.attributes.removeClass("main-menu").removeAttribute('id') }} >
+        {% else %}
+          <li {{ item.attributes.removeClass("main-menu").removeAttribute('id').removeClass("open") }} >
+        {% endif %}
+          {% set active_link = true %}
+        {% else %}
+          <li{{ item.attributes.removeAttribute('id') }}>
+          {% set link_class = '' %}
+          {% set active_link = false %}
+        {% endif %}
+
+          {# {{devel_dump(item.url.toString())}} #}
+          {% if item.url.isExternal() %}
+            {% set external = true %}
+          {% else %}
+            {% set external = false %}
+          {% endif %}
+          {% if not external %}
+            {% if item.url.isRouted() %}
+              {% set routed = true %}
+            {% else %}
+              {% set routed = false %}
+            {% endif %}
+            {% if not routed %}
+              {% set link_link = '' %}
+            {% else %}
+              {% if item.url.getRouteName() is same as ('<nolink>') %}
+                {% set link_link = '' %}
+              {% else %}
+                {% if item.url.routeName == '<front>' %}
+                  {% set front = true %}
+                  {% set link_link = url('view.frontpage.page_1') %}
+                {% else %}
+                  {% set link_link = item.url.getInternalPath() %}
+                {% endif %}
+              {% endif %}
+            {% endif %}
+
+          {% else %}
+            {% set link_link = item.url.toString %}
+          {% endif %}
+          {% if link_link == 'node' %}
+            {% set front = true %}
+            {% set link_link = url('view.frontpage.page_1') %}
+          {% endif %}
+          {% if item.url.external %}
+            {% set external = true %}
+          {% else %}
+            {% set external = false %}
+          {% endif %}
+          {% if link_link == '' %}
+            {% set no_link_class= '' %}
+            {% if item.in_active_trail %}
+              {% set no_link_class= 'active' %}
+            {% endif %}
+
+            <a href="javascript:void(0)" {% if external %}  target="_blank" {% endif %}
+               class="{{ no_link_class }}" {% if active_link %} aria-current="page" {% if item.below %} aria-expanded="true" {% endif %} {% else %} {% if item.below %} aria-expanded="false" {% endif %} {% endif %}>{{ item.title }}
+              {% if external %}
+                <span class="sr-only">{{ "Link will open on a new page" |t }}</span>
+                <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+              {% endif %}
+            </a>
+          {% else %}
+            {% if item.below and menu_level == 0 %}
+              <a href="#" {% if external %}  target="_blank" {% endif %}
+                 class="{{ link_class }}" {% if active_link %} aria-current="page" {% if item.below %} aria-expanded="true" {% endif %} {% else %} {% if item.below %} aria-expanded="false" {% endif %} {% endif %}>{{ item.title }}
+                {% if external %}
+                  <span class="sr-only">{{ "Link will open on a new page" |t }}</span>
+                  <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                {% endif %}
+              </a>
+            {% else %}
+              <a href="{{ item.url }}" {% if external %}  target="_blank" {% endif %}
+                 class="{{ link_class }}" {% if active_link %} aria-current="page" {% if item.below %} aria-expanded="true" {% endif %} {% else %} {% if item.below %} aria-expanded="false" {% endif %} {% endif %}>{{ item.title }}
+                {% if external %}
+                  <span class="sr-only">{{ "Link will open on a new page" |t }}</span>
+                  <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                {% endif %}
+              </a>
+            {% endif %}
+            {# {{ link(item.title, item.url,{'class':link_class}) }} #}
+          {% endif %}
+
+          {% if item.below and not front and menu_level<=1 %}
+            {% if menu_level<1 %}
+              <div class="main-menu-dropdown">
+
+              {{ menus.menu_links(item.below, attributes, menu_level + 1, parent_title) }}
+            {% endif %}
+
+            {% if menu_level<1 %}
+              </div><!--/panel-header-->
+            {% endif %}
+          {% endif %}
+          </li>
+          {% if menu_level > 0 %}
+            {% if loop.last or loop.index is divisible by(4) %}
+
+              {% if loop.last %}
+              {% endif %}
+              </ul>
+              {% if loop.last %}
+                <div class="focus-trap-last" tabindex="0"></div>
+              {% endif %}
+            {% endif %}
+            {% if loop.first is divisible by(4) and not index.last %}
+              <ul class="dropdown-link-block">
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endmacro %}

@@ -1,0 +1,22 @@
+uuid: 5493ac00-9024-45b6-a108-39f0156137a2
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.gallery
+id: node.gallery.status
+field_name: status
+entity_type: node
+bundle: gallery
+label: Avaldatud
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

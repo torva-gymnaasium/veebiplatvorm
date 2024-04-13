@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Theme override for a views exposed form.
+ *
+ * Available variables:
+ * - form: A render element representing the form.
+ *
+ * @see template_preprocess_views_exposed_form()
+ */
+#}
+{% if q is not empty %}
+  {#
+  This ensures that, if clean URLs are off, the 'q' is added first,
+  as a hidden form element, so that it shows up first in the POST URL.
+  #}
+  {{ q }}
+{% endif %}
+<div class="filters-wrapper">
+  <div class="filters-top">
+    {{ form.search_type }}
+  </div><!--/filters-top-->
+
+  <div class="filters-bottom">
+    <div class="form-item search-input" data-plugin="movingLabel">
+      {{ form|without('search_type') }}
+    </div>
+  </div><!--/filters-bottom-->
+</div>
+

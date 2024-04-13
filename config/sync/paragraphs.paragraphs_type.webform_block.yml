@@ -1,0 +1,10 @@
+uuid: f5a42fac-9e2e-4c54-9d56-5ca7c44c14b1
+langcode: et
+status: true
+dependencies: {  }
+id: webform_block
+label: 'Sisestusvormi plokk'
+icon_uuid: null
+icon_default: null
+description: 'Plokki saab lisada veebivormi, mille kasutaja on eelnevalt koostanud ja avaldanud. '
+behavior_plugins: {  }

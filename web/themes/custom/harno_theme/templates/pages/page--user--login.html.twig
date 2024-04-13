@@ -1,0 +1,283 @@
+{#
+/**
+ * @file
+ * Bootstrap Barrio's theme implementation to display a single page.
+ *
+ * The doctype, html, head and body tags are not in this template. Instead they
+ * can be found in the html.html.twig template normally located in the
+ * core/modules/system directory.
+ *
+ * Available variables:
+ *
+ * General utility variables:
+ * - base_path: The base URL path of the Drupal installation. Will usually be
+ *   "/" unless you have installed Drupal in a sub-directory.
+ * - is_front: A flag indicating if the current page is the front page.
+ * - logged_in: A flag indicating if the user is registered and signed in.
+ * - is_admin: A flag indicating if the user has permission to access
+ *   administration pages.
+ *
+ * Site identity:
+ * - front_page: The URL of the front page. Use this instead of base_path when
+ *   linking to the front page. This includes the language domain or prefix.
+ * - logo: The url of the logo image, as defined in theme settings.
+ * - site_name: The name of the site. This is empty when displaying the site
+ *   name has been disabled in the theme settings.
+ * - site_slogan: The slogan of the site. This is empty when displaying the site
+ *   slogan has been disabled in theme settings.
+
+ * Page content (in order of occurrence in the default page.html.twig):
+ * - node: Fully loaded node, if there is an automatically-loaded node
+ *   associated with the page and the node ID is the second argument in the
+ *   page's path (e.g. node/12345 and node/12345/revisions, but not
+ *   comment/reply/12345).
+ *
+ * Regions:
+ * - page.top_header: Items for the top header region.
+ * - page.top_header_form: Items for the top header form region.
+ * - page.header: Items for the header region.
+ * - page.header_form: Items for the header form region.
+ * - page.highlighted: Items for the highlighted region.
+ * - page.primary_menu: Items for the primary menu region.
+ * - page.secondary_menu: Items for the secondary menu region.
+ * - page.featured_top: Items for the featured top region.
+ * - page.content: The main content of the current page.
+ * - page.sidebar_first: Items for the first sidebar.
+ * - page.sidebar_second: Items for the second sidebar.
+ * - page.featured_bottom_first: Items for the first featured bottom region.
+ * - page.featured_bottom_second: Items for the second featured bottom region.
+ * - page.featured_bottom_third: Items for the third featured bottom region.
+ * - page.footer_first: Items for the first footer column.
+ * - page.footer_second: Items for the second footer column.
+ * - page.footer_third: Items for the third footer column.
+ * - page.footer_fourth: Items for the fourth footer column.
+ * - page.footer_fifth: Items for the fifth footer column.
+ * - page.breadcrumb: Items for the breadcrumb region.
+ *
+ * Theme variables:
+ * - navbar_top_attributes: Items for the header region.
+ * - navbar_attributes: Items for the header region.
+ * - content_attributes: Items for the header region.
+ * - sidebar_first_attributes: Items for the highlighted region.
+ * - sidebar_second_attributes: Items for the primary menu region.
+ * - sidebar_collapse: If the sidebar_first will collapse.
+ *
+ * @see template_preprocess_page()
+ * @see bootstrap_barrio_preprocess_page()
+ * @see html.html.twig
+ */
+#}
+{% set base_path= base_path ~ directory  %}
+<div id="page-wrapper" class="main-wrapper">
+  <a href="#main-content" class="skip-link">
+    {{ 'Skip to main content'|t }}
+  </a>
+  <header id="header" class="main-header" role="banner" aria-label="{{ 'Site header'|t }}">
+    <div class="container">
+      <div class="header-wrapper">
+        <div class="header-left">
+          <a href="{{ front_page }}" class="header-logo-content">
+            {% if site__logo %}
+              <div class="header-logo" style="background-image: url({{ site__logo }});">
+                <img src="{{ base_path }}/static/assets/images/placeholder-2.gif" alt="{{ site_name }}">
+              </div>
+              <div class="header-logo-text xl-hide">
+                <span>{{ site_name }}</span>
+              </div>
+            {% else %}
+              <div class="header-logo-text">
+                <span>{{ site_name }}</span>
+              </div>
+            {% endif %}
+          </a><!--/header-logo-content-->
+        </div><!--/header-left-->
+        <div class="header-right">
+          <div class="header-right__top">
+            <div class="header-school-name">
+              {% if site__logo %}
+                <span class="school-name">{{ site_name }}</span>
+              {% endif %}
+              {% if site_slogan is not empty %}
+                <span class="school-slogan"><em>{{ site_slogan }}</em></span>
+              {% endif %}
+            </div><!--/header-school-name-->
+            <button class="btn btn-header-accessibility">{{'Accessibility'|trans}}</button>
+            {% if page.header and page.header.keelevahetaja %}
+              <div class="language-picker">
+                <button class="language-picker__button" aria-expanded="false" aria-haspopup="true" data-plugin="languageDropdown">
+                  {{ current_language }}
+                  <i class="mdi mdi-menu-down" aria-hidden="true"></i>
+                </button><!--/language-picker__button-->
+                {{ drupal_block('language_block:language_interface') }}
+              </div><!--/language-picker-->
+              {#              {{ page.header.keelevahetaja }}#}
+            {% endif %}
+            {% if page.header and page.header.searchapiform %}
+              {{ page.header.searchapiform }}
+            {% endif %}
+            <div class="mobile-banner">
+              <div class="mobile-links">
+                <button class="btn btn-mobile-search" aria-expanded="false" data-plugin="mobileSearch">
+                  <span class="sr-only">{{ 'Search' }}</span>
+                  <i class="mdi mdi-magnify" aria-hidden="true"></i>
+                </button><!--/btn btn-mobile-search-->
+                <button class="menu-link" data-plugin="mobileMenu" aria-label="{{ "Toggle menu"|t }}" aria-expanded="false">
+                  <span class="sr-only">Open/close menu</span>
+                  <i class="mdi mdi-menu" aria-hidden="true"></i>
+                </button><!--/menu-link-->
+              </div><!--/mobile-links-->
+              <div class="mobile-search-overlay">
+                {{ page.header.searchapiform_2 }}
+                <button class="btn close-btn-search" aria-label="{{ "Close menu"|t }}">
+                  <i class="mdi mdi-close"></i>
+                </button><!--/close-btn-->
+              </div><!--/mobile-search-overlay-->
+              <div class="mobile-menu">
+                <nav aria-label="main-navigation">
+                  <ul{{ attributes.addClass('main-menu mobile') }}>
+                    {{ page.header.harno_theme_main_menu }}
+                    {{ page.header.keelevahetaja_2 }}
+                    {% include '@harno_theme/pages/accessibility_mobile_block.html.twig' %}
+                  </ul>
+                </nav>
+                <div class="main-focus-trap-last" tabindex="-1"></div>
+              </div><!--/mobile-menu-->
+              <div class="main-focus-trap-last" tabindex="-1"></div>
+            </div><!--/mobile-banner-->
+          </div><!--/header-right__top-->
+
+          <div class="header-right__bottom">
+            {% if page.header and page.header.harno_theme_main_menu %}
+              <div class="desktop-menu">
+                <ul{{ attributes.addClass('main-menu') }} data-plugin="mainMenuDropdown">
+                  {{ page.header.harno_theme_main_menu }}
+                </ul>
+              </div>
+            {% endif %}
+          </div><!--/header-right__bottom-->
+        </div><!--/header-right-->
+      </div><!--/header-wrapper-->
+    </div>
+  </header>
+	{% if page.highlighted %}
+		<div class="highlighted">
+			<aside class="{{ container }} section clearfix" role="complementary">
+				{{ page.highlighted }}
+			</aside>
+		</div>
+	{% endif %}
+	{% if page.featured_top %}
+		{% block featured %}
+			<div class="featured-top">
+				<aside class="featured-top__inner section {{ container }} clearfix" role="complementary">
+					{{ page.featured_top }}
+				</aside>
+			</div>
+		{% endblock %}
+	{% endif %}
+	<main class="page-main harid">
+    <a id="main-content" tabindex="-1"></a>
+		<div class="container">
+			<div class="row">
+				<div id="main-content" class="col-12 md-12 sm-12">
+					{% if page.content %}
+            <div class="harid-block">
+              {% if showcore %}
+                <h1>{{ "Log in" |t }}</h1>
+              {% else %}
+                <h1>{{ "Log in with HarID" |t }}</h1>
+                <span class="harid-block__logo">
+                  <img src="{{ base_path }}/static/assets/images/HarID-logo.svg" alt="{{ "HarID logo"|t }}">
+                </span>
+              {% endif %}
+              {% set general_content = page.content %}
+              {{ general_content|without('harno_theme_page_title','harno_theme_breadcrumbs') }}
+            </div>
+					{% endif %}
+				</div>
+				<!--/col-12-->
+			</div>
+			<!--/row-->
+		</div>
+		<!--/container-->
+	</main>
+	{# <div id="main-wrapper page-main" class="layout-main-wrapper clearfix"> #}
+	{# {% block content %} #}
+	{# <div id="main" class="{{ container }}"> #}
+	{# {{ page.breadcrumb }} #}
+	{# <div class="row row-offcanvas row-offcanvas-left clearfix"> #}
+	{# <main{{ content_attributes }}> #}
+	{# <section class="section"> #}
+	{# <a id="main-content" tabindex="-1"></a> #}
+	{# {{ page.content }} #}
+	{# </section> #}
+	{# </main> #}
+	{# {% if page.sidebar_first %} #}
+	{# <div{{ sidebar_first_attributes }}> #}
+	{# <aside class="section" role="complementary"> #}
+	{# {{ page.sidebar_first }} #}
+	{# </aside> #}
+	{# </div> #}
+	{# {% endif %} #}
+	{# {% if page.sidebar_second %} #}
+	{# <div{{ sidebar_second_attributes }}> #}
+	{# <aside class="section" role="complementary"> #}
+	{# {{ page.sidebar_second }} #}
+	{# </aside> #}
+	{# </div> #}
+	{# {% endif %} #}
+	{# </div> #}
+	{# </div> #}
+	{# {% endblock %} #}
+	{# </div> #}
+		{% if page.featured_bottom_first or page.featured_bottom_second or page.featured_bottom_third %}
+			<div class="featured-bottom"> <aside class="{{ container }} clearfix" role="complementary">
+				{{ page.featured_bottom_first }}
+				{{ page.featured_bottom_second }}
+				{{ page.featured_bottom_third }}
+			</aside>
+		</div>
+	{% endif %}
+	<footer class="main-footer">
+		{% block footer %}
+			{% if page.footer %}
+				<div class="footer-content">
+					<div class="container">
+						<div class="row">
+							{{ page.footer|without('footertermsofserviceblock') }}
+						</div>
+						<!--/row-->
+					</div>
+					<!--/container-->
+				</div>
+				<!--/footer-content-->
+			{% endif %}
+		{% endblock %}
+		<div class="footer-navigation">
+			<div class="container-fluid">
+				<div class="footer-bottom text-center">
+					<nav>
+						<ul class="sitemap-nav">
+							<li>
+								<a href="{{ front_page }}">{{ "Home page" | t }}</a>
+							</li>
+							<li>
+                <a href="{{  path('sitemap.page') }}">{{ "Sitemap" | t }}</a>
+							</li>
+						</ul>
+						<!--/sitemap-nav-->
+					</nav>
+					{{ page.footer.footertermsofserviceblock }}
+				</div>
+				<!--/footer-bottom text-center-->
+			</div>
+			<!--/container-fluid-->
+		</div>
+		<!--/footer-navigation-->
+	</footer>
+
+  <button class="btn btn-secondary back-to-top" data-plugin="backToTop">
+    <i class="mdi mdi-arrow-up" aria-hidden="true"></i>
+    {{"Back to top" |t}}
+  </button><!--/btn btn-secondary back-to-top-->
+</div>

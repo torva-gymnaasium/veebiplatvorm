@@ -1,0 +1,18 @@
+uuid: a153ea84-5036-4413-9c57-fc088a304504
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.location
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: node.location
+target_entity_type_id: node
+target_bundle: location
+default_langcode: current_interface
+language_alterable: true

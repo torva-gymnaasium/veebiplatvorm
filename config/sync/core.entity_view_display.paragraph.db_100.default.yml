@@ -1,0 +1,25 @@
+uuid: 8b6e952c-5ffe-4457-b31e-f517a2bc7d07
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.db_100.field_content_blocks_100
+    - paragraphs.paragraphs_type.db_100
+  module:
+    - entity_reference_revisions
+id: paragraph.db_100.default
+targetEntityType: paragraph
+bundle: db_100
+mode: default
+content:
+  field_content_blocks_100:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

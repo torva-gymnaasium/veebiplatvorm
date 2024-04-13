@@ -1,0 +1,29 @@
+uuid: 94e0997b-cbf9-463a-9d79-8b8aa21fe99b
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_keywords
+    - node.type.calendar
+    - taxonomy.vocabulary.event_keywords
+id: node.calendar.field_event_keywords
+field_name: field_event_keywords
+entity_type: node
+bundle: calendar
+label: 'Sündmuse tüübid'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      event_keywords: event_keywords
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

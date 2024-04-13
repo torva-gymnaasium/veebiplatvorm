@@ -1,0 +1,18 @@
+uuid: 358e85cd-33cc-45bb-bcf9-c32f2b70389d
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.menu_food
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: paragraph.menu_food
+target_entity_type_id: paragraph
+target_bundle: menu_food
+default_langcode: current_interface
+language_alterable: true

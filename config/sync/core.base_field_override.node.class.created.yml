@@ -1,0 +1,18 @@
+uuid: f2ad252d-6939-4f12-9e85-7a6d9d7a77bf
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.class
+id: node.class.created
+field_name: created
+entity_type: node
+bundle: class
+label: 'Loomise kuupäev'
+description: 'Sisuelemendi loomise aeg.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

@@ -1,0 +1,29 @@
+<a id="focus-trap" style="display: none">reached here</a>
+<div id="filter-target">
+  {% if content %}
+    {% for key, events in content %}
+      {% if key == 'nodes' %}
+        {% if events is not empty %}
+          {% for event in events %}
+            {{ event }}
+          {% endfor %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    <div class="row">
+      <div class="col-12 md-12 sm-12">
+        <div class="paginator-block">
+          {{ pager }}
+        </div>
+      </div><!--/col-12-->
+    </div><!--/row-->
+  {% else %}
+    <div class="row">
+      <div class="col-12 md-12 sm-12">
+        <div class="search-null-results">
+          <h4>{{"No events matching the filters were found!"|t}}</h4>
+        </div><!--/search-null-results-->
+      </div>
+    </div>
+  {% endif %}
+</div>

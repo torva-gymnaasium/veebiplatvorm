@@ -1,0 +1,124 @@
+
+{% set base_path= base_path ~ directory  %}
+{% if data %}
+  {% if data.background_only %}
+  <div class="hero hero__textbox" data-plugin="heroSwipers">
+    <div class="hero hero__background ">
+      <div class="swiper-container">
+        <div class="hero__overlay">
+          <span class="overlay-block"></span>
+          <span class="overlay-empty-space"></span>
+        </div><!--/hero__overlay-->
+        <div class="swiper-wrapper">
+          {% if data.background_only %}
+            {% set image = drupal_image(data.background_only.image_id) %}
+            <div class="swiper-slide carousel-box" >
+              <div class="hero-image" style="background-image: url({{ image['#uri']|file_url }});">
+                <img src="{{ base_path }}/static/assets/images/placeholder-2.gif" alt="test">
+              </div><!--/hero-image-->
+            </div><!--/swiper-slide textbox-slide-->
+          {% endif %}
+        </div><!--/swiper-wrapper-->
+      </div><!--/swiper-container textbox-swiper-->
+    </div><!--/hero__swiper--background hero__swiper-background--textbox-->
+  </div><!--/hero-->
+  {% endif %}
+  {% if data.background_text %}
+    <div class="hero hero__textbox" data-plugin="heroSwipers">
+      <div class="hero hero__pagination">
+        <button class="swiper-stop" aria-label="{{ "Stop slider"|t}}">
+          <i class="mdi mdi-pause" aria-hidden="true"></i>
+        </button><!--/swiper-stop-->
+        <div class="swiper-pagination hero-paginator"></div>
+      </div><!--/hero hero__pagination-->
+      <div class="hero hero__background hero__background--textbox">
+        <div class="swiper-container hero-textbox-swiper">
+          <div class="hero__overlay">
+            <span class="overlay-block"></span>
+            <span class="overlay-empty-space"></span>
+          </div><!--/hero__overlay-->
+          <div class="swiper-wrapper">
+            {% for slide in data.background_text %}
+              {% if slide.image_id %}
+                {% set image = drupal_image(slide.image_id) %}
+              {% endif %}
+              {% if slide.entity %}
+                {% set url  =  drupal_url('node/'~slide.entity) %}
+              {% endif %}
+              {% if not slide.enitity and slide.url %}
+                {% set url  = slide.url %}
+              {% endif %}
+              {% set classes_slide = [
+              'swiper-slide',
+                'textbox-slide',
+              ] %}
+              {% if slide.external %}
+                {% set classes_slide = classes_slide|merge(['link-out']) %}
+              {% endif %}
+              <div class="{{ classes_slide|join(' ') }}" data-title="{{ slide.text }}" data-linktext="{{ slide.link_name }}" data-link="{{ url }}" {% if slide.external%} data-aria="{{ "Link will open on a new page"|t }}"{% endif %}>
+                <div class="hero-image" style="background-image: url({{ image['#uri']|file_url }});">
+                  <img src="{{ base_path }}/static/assets/images/placeholder-2.gif" alt="">
+                </div><!--/hero-image-->
+              </div><!--/swiper-slide textbox-slide-->
+            {% endfor %}
+          </div><!--/swiper-wrapper-->
+        </div><!--/swiper-container textbox-swiper-->
+      </div><!--/hero__swiper--background hero__swiper-background--textbox-->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-textbox">
+        <a href="#" class="swiper-textbox__block">
+          <h6 class="swiper-textbox__title"></h6>
+          <span class="swiper-textbox__link"></span>
+        </a><!--/hero__textbox-->
+      </div><!--/swiper-textbox-->
+
+    </div><!--/hero-->
+
+  {% endif %}
+  {% if data.swiper_text %}
+    <div class="hero hero__boxes" data-plugin="heroSwipers">
+    {% if data.swiper_text.background %}
+      <div class="hero hero__background hero__background--quickmenu" >
+        <div class="swiper-container hero-background-swiper" >
+          <div class="hero__overlay"></div>
+          <div class="swiper-wrapper">
+            {% for background in data.swiper_text.background  %}
+              {% set image = drupal_image(background.image_id) %}
+              <div class="swiper-slide background-slide">
+                <div class="hero-image" style="background-image: url('{{ image['#uri']|file_url }}');">
+                  <img src="{{ base_path }}/static/assets/images/placeholder-2.gif" alt="test">
+                </div><!--/hero-image-->
+              </div><!--/swiper-slide background-slide-->
+            {% endfor %}
+          </div><!--/swiper-wrapper-->
+          <button class="swiper-stop" aria-label="{{ "Stop slider"|t}}">
+            <i class="mdi mdi-pause" aria-hidden="true"></i>
+          </button><!--/swiper-stop-->
+          <div class="swiper-pagination hero-box-pagination"></div>
+        </div><!--/swiper-container background-swiper-->
+      </div><!--/hero__swiper--background-->
+    {% endif %}
+      {% if data.swiper_text.boxes %}
+        <div class="hero hero__boxes-wrapper">
+          <div class="swiper-container hero-boxes-swiper">
+            <div class="swiper-wrapper">
+              {% for boxes in data.swiper_text.boxes  %}
+                <div class="swiper-slide carousel-box">
+                  <a href="{{ drupal_url('node/'~boxes.entity) }}" class="carousel-box__item">
+                    <i class="{{ boxes.icon }}" aria-hidden="true">
+                      <span class="sr-only" aria-label="{{ boxes.title }}"></span>
+                    </i>
+                    <span class="carousel-box__title">{{ boxes.title }}</span>
+                  </a><!--/carousel-box__item-->
+                </div><!--/swiper-slide carousel-box-->
+              {% endfor %}
+            </div><!--/swiper-wrapper-->
+          </div><!--/swiper-container quick-links-swiper-->
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div><!--/hero__swiper--quicklinks-->
+      {% endif %}
+    </div><!--/hero-->
+  {% endif %}
+{% endif %}

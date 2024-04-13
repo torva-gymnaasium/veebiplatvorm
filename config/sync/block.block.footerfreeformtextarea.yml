@@ -1,0 +1,20 @@
+uuid: 85917bb4-c9ca-44cf-a7ef-e3a188e5294e
+langcode: et
+status: true
+dependencies:
+  module:
+    - harno_settings
+  theme:
+    - harno_theme
+id: footerfreeformtextarea
+theme: harno_theme
+region: footer
+weight: -5
+provider: null
+plugin: harno_footer_free_text_area
+settings:
+  id: harno_footer_free_text_area
+  label: 'Footer Free Form Text Area'
+  label_display: visible
+  provider: harno_settings
+visibility: {  }

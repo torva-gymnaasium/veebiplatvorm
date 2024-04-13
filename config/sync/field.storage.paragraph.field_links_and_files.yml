@@ -1,0 +1,20 @@
+uuid: 69f40a57-c266-4032-8190-c1fe46612bba
+langcode: et
+status: true
+dependencies:
+  module:
+    - entity_reference_revisions
+    - paragraphs
+id: paragraph.field_links_and_files
+field_name: field_links_and_files
+entity_type: paragraph
+type: entity_reference_revisions
+settings:
+  target_type: paragraph
+module: entity_reference_revisions
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

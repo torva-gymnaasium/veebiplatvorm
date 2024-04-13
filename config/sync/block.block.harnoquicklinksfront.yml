@@ -1,0 +1,25 @@
+uuid: da067382-f36d-4b7f-953c-47b1373c844a
+langcode: et
+status: true
+dependencies:
+  module:
+    - harno_blocks
+    - system
+  theme:
+    - harno_theme
+id: harnoquicklinksfront
+theme: harno_theme
+region: content
+weight: -9
+provider: null
+plugin: harno_quicklinks_for_front
+settings:
+  id: harno_quicklinks_for_front
+  label: 'Harno Quicklinks front'
+  label_display: visible
+  provider: harno_blocks
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

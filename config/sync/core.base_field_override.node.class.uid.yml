@@ -1,0 +1,20 @@
+uuid: 99c6403d-4db3-4ce7-894a-e30d4eb4b4fb
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.class
+id: node.class.uid
+field_name: uid
+entity_type: node
+bundle: class
+label: Autor
+description: 'Sisu autori kasutajanimi.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

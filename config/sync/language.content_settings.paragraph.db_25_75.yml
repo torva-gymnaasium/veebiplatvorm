@@ -1,0 +1,18 @@
+uuid: b1205983-bb52-4223-9bf8-8a69a1899b22
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.db_25_75
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: paragraph.db_25_75
+target_entity_type_id: paragraph
+target_bundle: db_25_75
+default_langcode: current_interface
+language_alterable: true

@@ -1,0 +1,42 @@
+login:
+  administrator:
+    redirect_url: /admin/content
+    allow_destination: true
+    weight: -10
+  website_administrator:
+    redirect_url: /admin/content
+    allow_destination: true
+    weight: -9
+  content_moderator:
+    redirect_url: /admin/content
+    allow_destination: true
+    weight: -8
+  external_service_provider:
+    redirect_url: '/admin/content?title=&type=food_menu&status=All&langcode=All'
+    allow_destination: true
+    weight: -7
+  authenticated:
+    redirect_url: /admin/content
+    allow_destination: true
+    weight: -6
+logout:
+  administrator:
+    redirect_url: ''
+    allow_destination: false
+    weight: -10
+  authenticated:
+    redirect_url: ''
+    allow_destination: false
+    weight: -9
+  website_administrator:
+    redirect_url: ''
+    allow_destination: false
+    weight: 0
+  content_moderator:
+    redirect_url: ''
+    allow_destination: false
+    weight: 0
+  external_service_provider:
+    redirect_url: ''
+    allow_destination: false
+    weight: 0

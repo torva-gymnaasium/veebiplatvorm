@@ -1,0 +1,22 @@
+uuid: 02268c8a-1f5a-44be-9554-e6f84517cedf
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.class
+id: node.class.status
+field_name: status
+entity_type: node
+bundle: class
+label: Avaldatud
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

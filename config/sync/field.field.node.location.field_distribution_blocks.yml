@@ -1,0 +1,118 @@
+uuid: e1fa504a-ee8a-4a44-868a-d7ed6a15f007
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_distribution_blocks
+    - node.type.location
+    - paragraphs.paragraphs_type.db_100
+    - paragraphs.paragraphs_type.db_25_25_25_25
+    - paragraphs.paragraphs_type.db_25_25_50
+    - paragraphs.paragraphs_type.db_25_75
+    - paragraphs.paragraphs_type.db_33_33_33
+    - paragraphs.paragraphs_type.db_33_66
+    - paragraphs.paragraphs_type.db_50_25_25
+    - paragraphs.paragraphs_type.db_50_50
+    - paragraphs.paragraphs_type.db_66_33
+    - paragraphs.paragraphs_type.db_75_25
+  module:
+    - entity_reference_revisions
+id: node.location.field_distribution_blocks
+field_name: field_distribution_blocks
+entity_type: node
+bundle: location
+label: Jaotusplokid
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      db_100: db_100
+      db_25_25_25_25: db_25_25_25_25
+      db_25_25_50: db_25_25_50
+      db_25_75: db_25_75
+      db_33_33_33: db_33_33_33
+      db_33_66: db_33_66
+      db_50_25_25: db_50_25_25
+      db_50_50: db_50_50
+      db_66_33: db_66_33
+      db_75_25: db_75_25
+    negate: 0
+    target_bundles_drag_drop:
+      class:
+        weight: 25
+        enabled: false
+      contact_block:
+        weight: 26
+        enabled: false
+      db_100:
+        weight: 27
+        enabled: true
+      db_25_25_25_25:
+        weight: 28
+        enabled: true
+      db_25_25_50:
+        weight: 29
+        enabled: true
+      db_25_75:
+        weight: 30
+        enabled: true
+      db_33_33_33:
+        weight: 31
+        enabled: true
+      db_33_66:
+        weight: 32
+        enabled: true
+      db_50_25_25:
+        weight: 33
+        enabled: true
+      db_50_50:
+        weight: 34
+        enabled: true
+      db_66_33:
+        weight: 35
+        enabled: true
+      db_75_25:
+        weight: 36
+        enabled: true
+      department:
+        weight: 37
+        enabled: false
+      file:
+        weight: 38
+        enabled: false
+      gallery_block:
+        weight: 39
+        enabled: false
+      intermediate_title_block:
+        weight: 40
+        enabled: false
+      link:
+        weight: 41
+        enabled: false
+      link_and_file_block:
+        weight: 42
+        enabled: false
+      opening_days_:
+        weight: 43
+        enabled: false
+      picture_block:
+        weight: 44
+        enabled: false
+      table_block_header_row:
+        weight: 45
+        enabled: false
+      text_block:
+        weight: 46
+        enabled: false
+      video_block:
+        weight: 47
+        enabled: false
+      webform_block:
+        weight: 48
+        enabled: false
+field_type: entity_reference_revisions

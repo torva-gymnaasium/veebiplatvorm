@@ -1,0 +1,21 @@
+<article class="content-block content-block--accordion">
+  {% set base_path= base_path ~ directory %}
+  <div class="row">
+    <div class="col-12 md-12 sm-12">
+      <div class="block">
+        <div class="modal modal__form open" data-modal="true" role="dialog" aria-labelledby="filters-label" aria-modal="true">
+          <div class="modal__header">
+            <h5 id="modal-label">{% if title %}{{ title }}{% else %} {{ 'Title missing'|t }} {% endif %}</h5>
+            <button class="btn btn-close">
+              <span class="sr-only">{{ "close modal"|t }}</span>
+              <i class="mdi mdi-close" data-close="true"></i>
+            </button><!--/btn-close-->
+          </div><!--/modal__header-->
+          <div class="modal__body">
+            {{ { '#type': 'webform', '#webform': content } }}
+          </div><!--/modal__body-->
+        </div><!--/modal-->
+      </div><!--/block-->
+    </div><!--/col-12 md-12 sm-12-->
+  </div><!--/row-->
+</article><!--/content-block content-block--accordion-->

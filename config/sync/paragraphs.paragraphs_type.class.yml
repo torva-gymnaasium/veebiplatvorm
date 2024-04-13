@@ -1,0 +1,10 @@
+uuid: 23473260-6220-464d-ac69-a24bb560e701
+langcode: et
+status: true
+dependencies: {  }
+id: class
+label: 'Lennu klass'
+icon_uuid: null
+icon_default: null
+description: 'Ühel lennul saab olla 0-n arv klasse. Lennu klasse saab lisada, muuta ja kustutada.'
+behavior_plugins: {  }

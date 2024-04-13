@@ -1,0 +1,22 @@
+uuid: a179f2ca-5c18-448a-a6b0-57f3969d849a
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.worker
+id: node.worker.status
+field_name: status
+entity_type: node
+bundle: worker
+label: Avaldatud
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

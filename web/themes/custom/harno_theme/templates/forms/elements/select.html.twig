@@ -1,0 +1,82 @@
+{#
+/**
+ * @file
+ * Theme override for a select element.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the <select> tag.
+ * - options: The <option> element children.
+ *
+ * @see template_preprocess_select()
+ */
+#}
+{% set describedby = '' %}
+{% if element['#errors'] %}
+  {% set describedby = 'error-' ~ element['#id'] %}
+{% endif %}
+{% if element['#help'] %}
+  {% set describedby = describedby ~ ' help-' ~ element['#id'] %}
+{% endif %}
+{% apply spaceless %}
+  {% if 'edit-search-type' in element['#id'] %}
+    {% if options %}
+      <span class="filter-title">{{ element['#title'] }}:</span>
+      {% for option in options %}
+        <span id="search-item-{{ option.value }}-span" class="search-item-span">
+          <span class="btn-input">
+             <span class="btn-input">
+                <input aria-label="{{option.label}}" id="search-item-{{ option.value }}" class="search_type_checkbox" type="checkbox" {{ option.selected ? ' checked="checked"' }} name="search_type[{{ option.value }}]" value="{{ option.value }}">
+                   <div class="btn btn-tag" aria-hidden="true">{{ option.label }}</div>
+              </span><!--/btn-input-->
+          </span>
+        </span>
+      {% endfor %}
+    {% endif %}
+  {% elseif 'event-type' in element['#id']%}
+    <label for="{{ element['#id'] }}" class="form-label">{{ element['#title'] }}{% if element['#required'] %} *{% endif %}</label>
+    <select{{ attributes }}>
+      {% for option in options %}
+        {% if option.type == 'optgroup' %}
+          <optgroup label="{{ option.label }}">
+            {% for sub_option in option.options %}
+              <option value="{{ sub_option.value }}"{{ sub_option.selected ? ' selected="selected"' }}>{{ sub_option.label }}</option>
+            {% endfor %}
+          </optgroup>
+        {% elseif option.type == 'option' %}
+          <option value="{{ option.value }}"{{ option.selected ? ' selected="selected"' }}>{{ option.label }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+  {% else %}
+    {% set form_item = 'form-item' %}
+    {% if 'worker' in element['#id'] %}
+      {% set form_item = '' %}
+    {% endif %}
+  <div class="custom-select w-100 {{ form_item }} {% if element['#errors'] %}error {% endif %} {% if element['#help'] %} help-text {% endif %} js-form-item js-form-type-select form-item-select-other-select js-form-item-select-other-select form-no-label" data-plugin="movingLabel">
+    <label for="{{ element['#id'] }}" class="form-label">{{ element['#title'] }}{% if element['#required'] %} *{% endif %}</label>
+    <select{{ attributes.setAttribute('data-plugin','selectTwo') }} {% if describedby %} data-describe="{{ describedby }}" {% endif %}>
+      {% for option in options %}
+        {% if loop.first %}
+          <option hidden selected disabled value=""></option>
+        {% else %}
+          {% if option.type == 'optgroup' %}
+            <optgroup label="{{ option.label }}">
+              {% for sub_option in option.options %}
+                <option value="{{ sub_option.value }}">{{ sub_option.label }}</option>
+              {% endfor %}
+            </optgroup>
+          {% elseif option.type == 'option' %}
+            <option value="{{ option.value }}">{{ option.label }}</option>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </select>
+    {% if element['#errors'] %}
+      <span class="error-text" id="error-{{ element['#id'] }}">{{element['#errors']}}</span>
+    {% endif %}
+    {% if element['#help'] %}
+      <span class="form-help-text" id="help-{{ element['#id'] }}">{{ element['#help'] }}</span>
+    {% endif %}
+  </div><!--/form-item custom-select-->
+  {% endif %}
+{% endapply %}

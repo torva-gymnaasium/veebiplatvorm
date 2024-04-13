@@ -1,0 +1,14 @@
+uuid: b1abce8b-3fcf-4226-ba40-1f31754120cc
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.academic_year
+id: taxonomy_vocabulary_academic_year
+entity_type_id: taxonomy_vocabulary
+entity_id: academic_year
+action: display_page
+allow_override: 0
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

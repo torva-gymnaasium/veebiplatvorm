@@ -1,0 +1,20 @@
+uuid: 60409686-c4da-42c7-9ac5-f19d86d3d34c
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.school_hours
+  module:
+    - text
+id: taxonomy_term.school_hours.description
+field_name: description
+entity_type: taxonomy_term
+bundle: school_hours
+label: Kirjeldus
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

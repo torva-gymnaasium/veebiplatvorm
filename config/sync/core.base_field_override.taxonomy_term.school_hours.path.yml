@@ -1,0 +1,20 @@
+uuid: 0d5b3eb7-3131-4279-9f0d-26933f5ddf33
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.school_hours
+  module:
+    - path
+id: taxonomy_term.school_hours.path
+field_name: path
+entity_type: taxonomy_term
+bundle: school_hours
+label: 'URL-i alias'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

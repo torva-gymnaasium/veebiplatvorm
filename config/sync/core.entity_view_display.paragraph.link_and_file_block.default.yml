@@ -1,0 +1,25 @@
+uuid: 117ff574-3b19-47f1-914f-a6f4587ffac9
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.link_and_file_block.field_links_and_files
+    - paragraphs.paragraphs_type.link_and_file_block
+  module:
+    - entity_reference_revisions
+id: paragraph.link_and_file_block.default
+targetEntityType: paragraph
+bundle: link_and_file_block
+mode: default
+content:
+  field_links_and_files:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

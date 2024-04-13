@@ -1,0 +1,29 @@
+uuid: a2b1fa0f-f66f-4ed2-ae1b-acf16d3d6e2e
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_academic_year
+    - node.type.article
+    - taxonomy.vocabulary.academic_year
+id: node.article.field_academic_year
+field_name: field_academic_year
+entity_type: node
+bundle: article
+label: Õppeaasta
+description: 'Sama õppeaasta uudised grupeeritakse ja selle abil on võimalik õppeaasta põhiselt uudiseid filtreerida.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      academic_year: academic_year
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

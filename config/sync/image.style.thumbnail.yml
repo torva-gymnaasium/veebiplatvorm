@@ -1,0 +1,17 @@
+uuid: c6b85565-945a-4b81-85b5-778da892f2cd
+langcode: et
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: cCiWdBHgLwj5omG35lsKc4LkW4MBdmcctkVop4ol5x0
+name: thumbnail
+label: 'Pisipilt (200×200)'
+effects:
+  1cfec298-8620-4749-b100-ccb6c4500779:
+    uuid: 1cfec298-8620-4749-b100-ccb6c4500779
+    id: image_scale
+    weight: 0
+    data:
+      width: 200
+      height: 200
+      upscale: false

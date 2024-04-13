@@ -1,0 +1,22 @@
+uuid: a7d311d9-ce9a-41d9-8e30-a4fb5d252b7c
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.class
+id: node.class.sticky
+field_name: sticky
+entity_type: node
+bundle: class
+label: 'Oluline uudis'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

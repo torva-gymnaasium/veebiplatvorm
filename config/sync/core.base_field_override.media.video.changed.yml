@@ -1,0 +1,18 @@
+uuid: 57e368be-95f3-4c40-ae2e-3c35a2e48cbf
+langcode: et
+status: true
+dependencies:
+  config:
+    - media.type.video
+id: media.video.changed
+field_name: changed
+entity_type: media
+bundle: video
+label: Muudetud
+description: 'The time the media item was last edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

@@ -1,0 +1,22 @@
+uuid: 36c26096-880c-48e8-b96b-d6addeebca37
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.gallery_block
+id: paragraph.gallery_block.status
+field_name: status
+entity_type: paragraph
+bundle: gallery_block
+label: Avaldatud
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

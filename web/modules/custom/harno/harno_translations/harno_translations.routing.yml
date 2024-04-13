@@ -1,0 +1,9 @@
+harno_translations.import_form:
+  path: '/admin/config/veebiplatvorm/impordi-tolkeid'
+  defaults:
+    _form: '\Drupal\harno_translations\Form\ImportTranslations'
+    _title: 'Veebiplatvormi Import translations'
+  requirements:
+    _permission: 'administer harno migrate'
+  options:
+    _admin_route: TRUE

@@ -1,0 +1,23 @@
+{% if content %}
+  {% set column_classes = ['col-3','md-12','sm-12','homepage_gutters'] %}
+  <div class="container homepage-container">
+    <div {{ attributes.addClass('row').addClass('quarters') }}>
+      <div {{ region_attributes.quarter_one.addClass(column_classes).addClass('layout__region--quarter_one').addClass('layout__region') }}>
+
+        {{ content.quarter_one }}
+
+      </div>
+      <div {{ region_attributes.quarter_two.addClass(column_classes).addClass('layout__region--quarter_two').addClass('layout__region') }}>
+
+        {{ content.quarter_two }}
+
+      </div>
+      <div {{ region_attributes.quarter_three.addClass(column_classes).addClass('layout__region--quarter_three').addClass('layout__region') }}>
+          {{ content.quarter_three }}
+      </div>
+      <div {{ region_attributes.quarter_four.addClass(column_classes).addClass('layout__region--quarter_four').addClass('layout__region') }}>
+          {{ content.quarter_four }}
+       </div>
+    </div>
+  </div>
+{% endif %}

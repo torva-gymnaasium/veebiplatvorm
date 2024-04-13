@@ -1,0 +1,150 @@
+uuid: 3566d227-fa10-4c80-afcd-c187da78a83e
+langcode: et
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+    - media.type.audio
+    - media.type.document
+    - media.type.image
+    - media.type.remote_video
+    - media.type.video
+    - node.type.article
+    - node.type.calendar
+    - node.type.class
+    - node.type.food_menu
+    - node.type.gallery
+    - node.type.page
+    - node.type.partner_logo
+  module:
+    - admin_toolbar_search
+    - content_translation
+    - contextual
+    - disable_language
+    - dropzonejs
+    - file
+    - filter
+    - media
+    - media_bulk_upload
+    - menu_admin_per_menu
+    - node
+    - scheduler
+    - system
+    - toolbar
+    - userprotect
+    - webform
+id: content_moderator
+label: 'Sisu sisestaja'
+weight: 4
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access files overview'
+  - 'access media overview'
+  - 'access site in maintenance mode'
+  - 'access toolbar'
+  - 'access webform overview'
+  - 'access webform submission user'
+  - 'administer main menu items'
+  - 'administer webform submission'
+  - 'cancel account'
+  - 'change own username'
+  - 'create article content'
+  - 'create audio media'
+  - 'create calendar content'
+  - 'create class content'
+  - 'create content in disabled language'
+  - 'create content translations'
+  - 'create document media'
+  - 'create food_menu content'
+  - 'create gallery content'
+  - 'create image media'
+  - 'create media'
+  - 'create page content'
+  - 'create partner_logo content'
+  - 'create remote_video media'
+  - 'create video media'
+  - 'create webform'
+  - 'delete any article content'
+  - 'delete any calendar content'
+  - 'delete any class content'
+  - 'delete any food_menu content'
+  - 'delete any gallery content'
+  - 'delete any page content'
+  - 'delete any partner_logo content'
+  - 'delete any webform submission'
+  - 'delete content translations'
+  - 'delete media'
+  - 'delete own article content'
+  - 'delete own audio media'
+  - 'delete own calendar content'
+  - 'delete own class content'
+  - 'delete own files'
+  - 'delete own food_menu content'
+  - 'delete own gallery content'
+  - 'delete own image media'
+  - 'delete own page content'
+  - 'delete own partner_logo content'
+  - 'delete own remote_video media'
+  - 'delete own video media'
+  - 'delete own webform'
+  - 'delete own webform submission'
+  - 'dropzone upload files'
+  - 'edit any article content'
+  - 'edit any audio media'
+  - 'edit any calendar content'
+  - 'edit any class content'
+  - 'edit any document media'
+  - 'edit any food_menu content'
+  - 'edit any gallery content'
+  - 'edit any image media'
+  - 'edit any page content'
+  - 'edit any partner_logo content'
+  - 'edit any remote_video media'
+  - 'edit any video media'
+  - 'edit any webform'
+  - 'edit any webform submission'
+  - 'edit own article content'
+  - 'edit own audio media'
+  - 'edit own calendar content'
+  - 'edit own class content'
+  - 'edit own document media'
+  - 'edit own food_menu content'
+  - 'edit own gallery content'
+  - 'edit own image media'
+  - 'edit own page content'
+  - 'edit own partner_logo content'
+  - 'edit own remote_video media'
+  - 'edit own video media'
+  - 'edit own webform'
+  - 'edit own webform submission'
+  - 'schedule publishing of nodes'
+  - 'translate article node'
+  - 'translate audio media'
+  - 'translate calendar node'
+  - 'translate class node'
+  - 'translate document media'
+  - 'translate food_menu node'
+  - 'translate gallery node'
+  - 'translate image media'
+  - 'translate page node'
+  - 'translate partner_logo node'
+  - 'translate remote_video media'
+  - 'translate video media'
+  - 'update any media'
+  - 'update content translations'
+  - 'update media'
+  - 'use admin toolbar search'
+  - 'use images_bulk_upload bulk upload form'
+  - 'use text format full_html'
+  - userprotect.account.edit
+  - userprotect.mail.edit
+  - 'view any webform submission'
+  - 'view disabled languages'
+  - 'view own unpublished content'
+  - 'view own unpublished media'
+  - 'view own webform submission'
+  - 'view scheduled content'
+  - 'view the administration theme'

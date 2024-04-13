@@ -1,0 +1,29 @@
+uuid: bbf2dba7-b285-4aea-aaef-f6ff9ff611b8
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_training_keywords
+    - node.type.calendar
+    - taxonomy.vocabulary.training_keywords
+id: node.calendar.field_training_keywords
+field_name: field_training_keywords
+entity_type: node
+bundle: calendar
+label: 'Koolituse tüübid'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      training_keywords: training_keywords
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

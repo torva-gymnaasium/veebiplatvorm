@@ -1,0 +1,10 @@
+uuid: 2f13de10-9c6a-4d6a-8fbb-5480eb42075e
+langcode: et
+status: true
+dependencies: {  }
+id: menu_food
+label: Toit
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

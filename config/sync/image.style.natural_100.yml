@@ -1,0 +1,15 @@
+uuid: 2d16d75e-9a2d-4a08-8640-c7aacab1db98
+langcode: et
+status: true
+dependencies: {  }
+name: natural_100
+label: 'Natural 100'
+effects:
+  848bdc28-bf8a-4a24-8fe6-83fe4f48cd8f:
+    uuid: 848bdc28-bf8a-4a24-8fe6-83fe4f48cd8f
+    id: image_scale
+    weight: 1
+    data:
+      width: 2528
+      height: null
+      upscale: false

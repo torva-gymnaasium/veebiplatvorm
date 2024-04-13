@@ -1,0 +1,13 @@
+uuid: 076e3fc6-acf7-4c72-bf4a-e4a7c32ae709
+langcode: et
+status: true
+dependencies:
+  config:
+    - simple_sitemap.type.default_hreflang
+_core:
+  default_config_hash: q7WWphGCr2oovgdWCtkUoIjh0mzAX7sDm2DSeuUJj5A
+id: default
+label: Vaikimisi
+description: 'The default hreflang sitemap.'
+type: default_hreflang
+weight: 0

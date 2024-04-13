@@ -1,0 +1,20 @@
+uuid: 0d97911a-a60e-4f73-8ce0-07b2956430c6
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.media_catalogs
+  module:
+    - path
+id: taxonomy_term.media_catalogs.path
+field_name: path
+entity_type: taxonomy_term
+bundle: media_catalogs
+label: 'URL-i alias'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

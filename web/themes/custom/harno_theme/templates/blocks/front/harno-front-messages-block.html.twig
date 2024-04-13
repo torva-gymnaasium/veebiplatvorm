@@ -1,0 +1,17 @@
+{% if data and data.messages %}
+	<div class="row">
+		<div class="col-12 md-12 sm-12 homepage-gutters">
+			{% for message in data.messages %}
+				<div class="notification-block notification-block--{{message.type}}" role="alert">
+					<i class="mdi mdi-alert-circle-outline" aria-hidden="true"></i>
+					<span class="sr-only">{{"Message"|t}}</span>
+					{{message.message|raw}}
+				</div>
+				{% if loop.first %}
+					<div class="row-spacer-16"></div>
+				{% endif %}
+
+			{% endfor %}
+		</div>
+	</div>
+{% endif %}

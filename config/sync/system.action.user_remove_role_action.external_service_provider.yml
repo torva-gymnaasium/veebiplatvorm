@@ -1,0 +1,14 @@
+uuid: 1cde0232-1a4a-4d46-8c0d-c595712aa0d2
+langcode: et
+status: true
+dependencies:
+  config:
+    - user.role.external_service_provider
+  module:
+    - user
+id: user_remove_role_action.external_service_provider
+label: 'Remove the External service provider role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: external_service_provider

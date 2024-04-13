@@ -1,0 +1,27 @@
+<article class="content-block">
+  <div class="row">
+    {% if content %}
+      {% for group in content %}
+        <div class="col-3 md-6 sm-12">
+          <ul class="alumni-list">
+          {% for alumni in group %}
+            <li>
+              <a href="{{ alumni.url }}" class="btn btn-link">{{ alumni.title }}</a>
+            </li>
+          {% endfor %}
+          </ul>
+        </div><!--/col-3 md-6 sm-12-->
+      {% endfor %}
+    {% endif %}
+  </div><!--/row-->
+  {% if time %}
+    <div class="row">
+      <div class="col-12 md-12 sm-12">
+          <div class="content-creating-info">
+            <span>{{ 'Published'|t }} {{ time.created|date('d.m.Y') }}</span>
+            <span>{{ 'Last changed'|t }} {{ time.changed|date('d.m.Y') }}</span>
+          </div><!--/content-creating-info-->
+      </div><!--/col-12 md-12 sm-12-->
+    </div><!--/row-->
+  {% endif %}
+</article><!--/content-block-->

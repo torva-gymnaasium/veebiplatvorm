@@ -1,0 +1,87 @@
+uuid: 72830bb1-8736-4a64-b2d2-53daa0230510
+langcode: et
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.calendar.body
+    - field.field.node.calendar.field_all_day
+    - field.field.node.calendar.field_contact_block
+    - field.field.node.calendar.field_event_end_date
+    - field.field.node.calendar.field_event_end_time
+    - field.field.node.calendar.field_event_keywords
+    - field.field.node.calendar.field_event_start_time
+    - field.field.node.calendar.field_event_type
+    - field.field.node.calendar.field_juhan_esf
+    - field.field.node.calendar.field_juhan_id
+    - field.field.node.calendar.field_juhan_image_link
+    - field.field.node.calendar.field_juhan_training
+    - field.field.node.calendar.field_juhan_training_url
+    - field.field.node.calendar.field_one_image
+    - field.field.node.calendar.field_price
+    - field.field.node.calendar.field_show_end_date
+    - field.field.node.calendar.field_start_date
+    - field.field.node.calendar.field_training_keywords
+    - field.field.node.calendar.field_venue
+    - field.field.node.calendar.field_webform
+    - node.type.calendar
+  module:
+    - entity_reference_revisions
+    - text
+    - user
+id: node.calendar.teaser
+targetEntityType: node
+bundle: calendar
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_contact_block:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_one_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_all_day: true
+  field_event_end_date: true
+  field_event_end_time: true
+  field_event_keywords: true
+  field_event_start_time: true
+  field_event_type: true
+  field_juhan_esf: true
+  field_juhan_id: true
+  field_juhan_image_link: true
+  field_juhan_training: true
+  field_juhan_training_url: true
+  field_price: true
+  field_show_end_date: true
+  field_start_date: true
+  field_training_keywords: true
+  field_venue: true
+  field_webform: true
+  langcode: true
+  search_api_excerpt: true

@@ -1,0 +1,129 @@
+<div id="filter-target">
+	{% if content %}
+		{% for year_name,year in content %}
+			<div class="row">
+				<div class="col-12 md-12 sm-12">
+
+					<div class="title-block--gallery">
+						<h2>{{ year_name }}</h2>
+					</div>
+					<!--/title-block--gallery-->
+
+				</div>
+				<!--/col-12 md-12 sm-12-->
+			</div>
+			<!--/row-->
+
+			<div class="row">
+				{% for news in year %}
+					{% set sticky = false %}
+					{%  set show_label = false %}
+					{% if news.isSticky() %}
+						{%  set sticky = true %}
+						{% set news_label = "Important" |t %}
+					{% endif %}
+          {% if news.field_article_type %}
+            {% set allowed_types = news.field_article_type.getFieldDefinition().getSetting('allowed_values') %}
+            {% if  news.field_article_type.value != 1 %}
+              {% set news_label = allowed_types[news.field_article_type.value] %}
+              {% set news_label = info.tag_name %}
+              {% set show_label = true %}
+            {% else %}
+              {% set show_label = false %}
+            {% endif %}
+          {% endif %}
+					{% if news.field_one_image %}
+						{% if news.field_one_image.0 %}
+							{% if news.field_one_image.0.getValue() %}
+								{% set target_id = news.field_one_image.0.value.target_id %}
+								{% if target_id %}
+
+									{% set media = drupal_entity('media',target_id) %}
+									{% if media %}
+										{% set media_image = drupal_image( media['#media'].field_media_image.0.value.target_id ,'thumbnail') %}
+										{% set alt = '' %}
+										{% if media['#media'].field_media_image.0.get('alt').getString %}
+											{% set alt = media['#media'].field_media_image.0.get('alt').getString %}
+										{% endif %}
+										{% set title = '' %}
+										{% if media['#media'].field_media_image.0.get('title').getString %}
+											{% set title = media['#media'].field_media_image.0.get('title').getString %}
+										{% endif %}
+									{% else %}
+										{% if default_logo %}
+											{% set media_image = drupal_image(default_logo,'thumbnail') %}
+											{% set logo_shown = true %}
+										{% endif %}
+
+									{% endif %}
+								{% endif %}
+							{% endif %}
+						{% endif %}
+					{% endif %}
+					<div class="col-3 md-xl-4 md-4 sm-md-6 sm-12">
+						<a class="news-block" href=" {{ drupal_url('node/'~ news.id) }}">
+							{% if show_label or sticky %}
+								<div class="news-block__tag {% if sticky %}  active {% endif %}">
+									<span>{{ news_label }}</span>
+								</div>
+							{% endif %}
+							{% if media_image['#uri'] %}
+								<div class="gallery-block__thumbnail" style="background-image: url({{ media_image['#uri']|image_style('galleries_and_news') }});
+										              {% if logo_shown %}
+										                background-size:contain;
+										              {% endif %}
+										                ">
+									<img src="/{{ base_path }}/static/assets/images/placeholder-1.gif" {% if alt %} alt="{{alt}}" {% else %} alt="" {% endif %} {% if title %} title="{{title}}" {% endif %}>
+
+								</div>
+								<!--/gallery-block__thumbnail-->
+							{% endif %}
+							<div class="news-block__news-info">
+								<h3>
+									{{ news.getTitle() }}
+								</h3>
+								<div class="additional-info">
+									<span class="date-indicator">
+										<i class="mdi mdi-calendar-month" aria-hidden="true"></i>
+										<span class="sr-only">{{ "Date created"|t }}</span>
+										{{ news.getCreatedTime()|date('d.m.Y') }}
+									</span>
+									<span class="author-indicator">
+										<span class="sr-only">{{ "Author" |t}}</span>
+										{{ news.field_author_name.value }}
+									</span>
+								</div>
+								<!--/additional-info-->
+
+							</div>
+						</a>
+						<!--/gallery-block__gallery-info-->
+
+					</div>
+					<!--/col-3 md-6 sm-12-->
+				{% endfor %}
+			</div>
+		{% endfor %}
+		<div class="row">
+			<div class="col-12 md-12 sm-12">
+				<div class="paginator-block">
+					{{ pager }}
+				</div>
+
+			</div>
+			<!--/col-12-->
+		</div>
+		<!--/row-->
+
+
+	{% else %}
+		<div class="row">
+			<div class="col-12 md-12 sm-12">
+				<div class="search-null-results">
+					<h4>{{"No news matching the filters were found!"|t}}</h4>
+				</div>
+				<!--/search-null-results-->
+			</div>
+		</div>
+	{% endif %}
+</div>

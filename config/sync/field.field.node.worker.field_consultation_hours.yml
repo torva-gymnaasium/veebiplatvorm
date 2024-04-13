@@ -1,0 +1,19 @@
+uuid: 33e26ffa-03ef-484e-b93f-b74b40b4393e
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_consultation_hours
+    - node.type.worker
+id: node.worker.field_consultation_hours
+field_name: field_consultation_hours
+entity_type: node
+bundle: worker
+label: Vastuvõtuaeg
+description: 'Näiteks: E-R kell 15-18'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

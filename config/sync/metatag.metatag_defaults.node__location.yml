@@ -1,0 +1,18 @@
+uuid: 48a72de9-5595-41ae-8b45-3cef151f0bc1
+langcode: et
+status: true
+dependencies: {  }
+id: node__location
+label: 'Sisu: Asukoht'
+tags:
+  canonical_url: '[node:url]'
+  description: '[node:field_address]'
+  title: '[node:title] | [site:name]'
+  og_description: '[node:field_address]'
+  og_site_name: '[site:name]'
+  og_title: '[node:title]'
+  og_url: '[node:url]'
+  twitter_cards_description: '[node:field_address]'
+  twitter_cards_page_url: '[node:url]'
+  twitter_cards_title: '[node:title]'
+  twitter_cards_type: summary

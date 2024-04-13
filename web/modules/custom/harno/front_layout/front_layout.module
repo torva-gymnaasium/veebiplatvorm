@@ -1,0 +1,23 @@
+<?php
+/**
+ * Implements hook_plugin_filter_TYPE__CONSUMER_alter().
+ */
+function front_layout_plugin_filter_layout__layout_builder_alter(array &$definitions): void {
+  // Remove all non-demo layouts from Layout Builder.
+  foreach ($definitions as $id => $definition) {
+
+    if (!preg_match('/^our_layout_/', $id)) {
+      unset($definitions[$id]);
+    }
+  
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function front_layout_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{
+  if ($form_id == 'node_esileht_layout_builder_form'){
+  }
+}

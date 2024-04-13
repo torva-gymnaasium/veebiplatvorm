@@ -1,0 +1,14 @@
+uuid: d115ba29-f0d4-4e6c-9be7-799eda07946b
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.calendar
+id: node_type_calendar
+entity_type_id: node_type
+entity_id: calendar
+action: display_page
+allow_override: 0
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

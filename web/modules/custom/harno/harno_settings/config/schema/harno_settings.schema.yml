@@ -1,0 +1,811 @@
+# Schema for the configuration files of the Harno settings module.
+
+harno_settings.settings:
+  type: config_object
+  label: 'Veebiplatvormi üldised seaded'
+  mapping:
+    general:
+      type: mapping
+      label: 'Haridusasutuse üldinfo'
+      mapping:
+        frontpage_background_type:
+          type: integer
+          label: 'Mida avalehel kuvatakse'
+        frontpage_background:
+          type: integer
+          label: 'Esilehe taustapilt'
+        logo:
+          type: integer
+          label: 'Haridusasutuse logo'
+        favicon:
+          type: integer
+          label: 'Haridusasutuse veebilehe tunnusikoon'
+        address:
+          type: text
+          label: 'Haridusasutuse üldkontakti aadress'
+        phone:
+          type: text
+          label: 'Haridusasutuse üldkontakti telefoni number'
+        email:
+          type: text
+          label: 'Haridusasutuse üldkontakti e-posti aadress'
+    important_contacts:
+      type: mapping
+      label: 'Jaluse olulisemad kontaktid'
+      mapping:
+        name_1:
+          type: text
+          label: 'Kontakti nimi'
+        body_1:
+          type: text
+          label: 'Kontakti sisu'
+        weight_1:
+          type: integer
+          label: 'Kaal'
+        name_2:
+          type: text
+          label: 'Kontakti nimi'
+        body_2:
+          type: text
+          label: 'Kontakti sisu'
+        weight_2:
+          type: integer
+          label: 'Kaal'
+        name_3:
+          type: text
+          label: 'Kontakti nimi'
+        body_3:
+          type: text
+          label: 'Kontakti sisu'
+        weight_3:
+          type: integer
+          label: 'Kaal'
+        name_4:
+          type: text
+          label: 'Kontakti nimi'
+        body_4:
+          type: text
+          label: 'Kontakti sisu'
+        weight_4:
+          type: integer
+          label: 'Kaal'
+    footer_socialmedia_links:
+      type: mapping
+      label: 'Jaluse sotsiaalmeedia lingid'
+      mapping:
+        link_icon_1:
+          type: text
+          label: 'Sotsiaalmeedia lingi ikoon'
+        link_name_1:
+          type: text
+          label: 'Sotsiaalmeedia lingi nimetus'
+        link_url_1:
+          type: text
+          label: 'Sotsiaalmeedia konto veebilink'
+        link_weight_1:
+          type: integer
+          label: 'Kaal'
+        link_icon_2:
+          type: text
+          label: 'Sotsiaalmeedia lingi ikoon'
+        link_name_2:
+          type: text
+          label: 'Sotsiaalmeedia lingi nimetus'
+        link_url_2:
+          type: text
+          label: 'Sotsiaalmeedia konto veebilink'
+        link_weight_2:
+          type: integer
+          label: 'Kaal'
+        link_icon_3:
+          type: text
+          label: 'Sotsiaalmeedia lingi ikoon'
+        link_name_3:
+          type: text
+          label: 'Sotsiaalmeedia lingi nimetus'
+        link_url_3:
+          type: text
+          label: 'Sotsiaalmeedia konto veebilink'
+        link_weight_3:
+          type: integer
+          label: 'Kaal'
+        link_icon_4:
+          type: text
+          label: 'Sotsiaalmeedia lingi ikoon'
+        link_name_4:
+          type: text
+          label: 'Sotsiaalmeedia lingi nimetus'
+        link_url_4:
+          type: text
+          label: 'Sotsiaalmeedia konto veebilink'
+        link_weight_4:
+          type: integer
+          label: 'Kaal'
+        link_icon_5:
+          type: text
+          label: 'Sotsiaalmeedia lingi ikoon'
+        link_name_5:
+          type: text
+          label: 'Sotsiaalmeedia lingi nimetus'
+        link_url_5:
+          type: text
+          label: 'Sotsiaalmeedia konto veebilink'
+        link_weight_5:
+          type: integer
+          label: 'Kaal'
+        link_icon_6:
+          type: text
+          label: 'Sotsiaalmeedia lingi ikoon'
+        link_name_6:
+          type: text
+          label: 'Sotsiaalmeedia lingi nimetus'
+        link_url_6:
+          type: text
+          label: 'Sotsiaalmeedia konto veebilink'
+        link_weight_6:
+          type: integer
+          label: 'Kaal'
+        link_icon_7:
+          type: text
+          label: 'Sotsiaalmeedia lingi ikoon'
+        link_name_7:
+          type: text
+          label: 'Sotsiaalmeedia lingi nimetus'
+        link_url_7:
+          type: text
+          label: 'Sotsiaalmeedia konto veebilink'
+        link_weight_7:
+          type: integer
+          label: 'Kaal'
+        link_icon_8:
+          type: text
+          label: 'Sotsiaalmeedia lingi ikoon'
+        link_name_8:
+          type: text
+          label: 'Sotsiaalmeedia lingi nimetus'
+        link_url_8:
+          type: text
+          label: 'Sotsiaalmeedia konto veebilink'
+        link_weight_8:
+          type: integer
+          label: 'Kaal'
+        link_icon_9:
+          type: text
+          label: 'Sotsiaalmeedia lingi ikoon'
+        link_name_9:
+          type: text
+          label: 'Sotsiaalmeedia lingi nimetus'
+        link_url_9:
+          type: text
+          label: 'Sotsiaalmeedia konto veebilink'
+        link_weight_9:
+          type: integer
+          label: 'Kaal'
+    footer_quick_links:
+      type: mapping
+      label: 'Jaluse kiirlingid'
+      mapping:
+        link_name_1:
+          type: text
+          label: 'Veebilingi väljakuvatav nimi'
+        link_entity_1:
+          type: integer
+          label: 'Sisemine link'
+        link_url_1:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_1:
+          type: integer
+          label: 'Kaal'
+        link_name_2:
+          type: text
+          label: 'Veebilingi väljakuvatav nimi'
+        link_entity_2:
+          type: integer
+          label: 'Sisemine link'
+        link_url_2:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_2:
+          type: integer
+          label: 'Kaal'
+        link_name_3:
+          type: text
+          label: 'Veebilingi väljakuvatav nimi'
+        link_entity_3:
+          type: integer
+          label: 'Sisemine link'
+        link_url_3:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_3:
+          type: integer
+          label: 'Kaal'
+        link_name_4:
+          type: text
+          label: 'Veebilingi väljakuvatav nimi'
+        link_entity_4:
+          type: integer
+          label: 'Sisemine link'
+        link_url_4:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_4:
+          type: integer
+          label: 'Kaal'
+        link_name_5:
+          type: text
+          label: 'Veebilingi väljakuvatav nimi'
+        link_entity_5:
+          type: integer
+          label: 'Sisemine link'
+        link_url_5:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_5:
+          type: integer
+          label: 'Kaal'
+        link_name_6:
+          type: text
+          label: 'Veebilingi väljakuvatav nimi'
+        link_entity_6:
+          type: integer
+          label: 'Sisemine link'
+        link_url_6:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_6:
+          type: integer
+          label: 'Kaal'
+        link_name_7:
+          type: text
+          label: 'Veebilingi väljakuvatav nimi'
+        link_entity_7:
+          type: integer
+          label: 'Sisemine link'
+        link_url_7:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_7:
+          type: integer
+          label: 'Kaal'
+        link_name_8:
+          type: text
+          label: 'Veebilingi väljakuvatav nimi'
+        link_entity_8:
+          type: integer
+          label: 'Sisemine link'
+        link_url_8:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_8:
+          type: integer
+          label: 'Kaal'
+    footer_free_text_area:
+      type: mapping
+      label: 'Jaluse vabatekstiala'
+      mapping:
+        name:
+          type: text
+          label: 'Pealkiri'
+        body:
+          type: text
+          label: 'Sisu'
+    footer_copyright:
+      type: mapping
+      label: 'Kasutusõiguste märkus'
+      mapping:
+        name:
+          type: text
+          label: 'Pealkiri'
+    news_our_story:
+      type: mapping
+      label: 'Õppeaasta automaatne genereerimine'
+      mapping:
+        name:
+          type: text
+          label: 'Uudise Meie lugu nimetus'
+    automatic_generation_academic_year:
+      type: mapping
+      label: 'Õppeaasta automaatne genereerimine'
+      mapping:
+        on:
+          type: boolean
+          label: 'Sisselülitaud'
+        date:
+          type: text
+          label: 'Kuupäev'
+    accessibility_statement:
+      type: mapping
+      label: 'Ligipääsetavuse avalduse leht'
+      mapping:
+        node:
+          type: integer
+          label: 'Sisemine link'
+    location:
+      type: mapping
+      label: 'Asukohtade leht'
+      mapping:
+        node:
+          type: integer
+          label: 'Sisemine link'
+    juhan:
+      type: mapping
+      label: 'Juhani koolitused'
+      mapping:
+        api_key:
+          type: text
+          label: 'API key'
+    frontpage_quick_links:
+      type: mapping
+      label: 'Avalahe kiirlingid'
+      mapping:
+        link_name_1:
+          type: text
+          label: 'Veebilingi väljakuvatav nimi'
+        link_entity_1:
+          type: integer
+          label: 'Sisemine link'
+        link_url_1:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_1:
+          type: integer
+          label: 'Kaal'
+        link_name_2:
+          type: text
+          label: 'Veebilingi väljakuvatav nimi'
+        link_entity_2:
+          type: integer
+          label: 'Sisemine link'
+        link_url_2:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_2:
+          type: integer
+          label: 'Kaal'
+        link_name_3:
+          type: text
+          label: 'Veebilingi väljakuvatav nimi'
+        link_entity_3:
+          type: integer
+          label: 'Sisemine link'
+        link_url_3:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_3:
+          type: integer
+          label: 'Kaal'
+        link_name_4:
+          type: text
+          label: 'Veebilingi väljakuvatav nimi'
+        link_entity_4:
+          type: integer
+          label: 'Sisemine link'
+        link_url_4:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_4:
+          type: integer
+          label: 'Kaal'
+        link_name_5:
+          type: text
+          label: 'Veebilingi väljakuvatav nimi'
+        link_entity_5:
+          type: integer
+          label: 'Sisemine link'
+        link_url_5:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_5:
+          type: integer
+          label: 'Kaal'
+        link_name_6:
+          type: text
+          label: 'Veebilingi väljakuvatav nimi'
+        link_entity_6:
+          type: integer
+          label: 'Sisemine link'
+        link_url_6:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_6:
+          type: integer
+          label: 'Kaal'
+        link_name_7:
+          type: text
+          label: 'Veebilingi väljakuvatav nimi'
+        link_entity_7:
+          type: integer
+          label: 'Sisemine link'
+        link_url_7:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_7:
+          type: integer
+          label: 'Kaal'
+        link_name_8:
+          type: text
+          label: 'Veebilingi väljakuvatav nimi'
+        link_entity_8:
+          type: integer
+          label: 'Sisemine link'
+        link_url_8:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_8:
+          type: integer
+          label: 'Kaal'
+    frontpage_messages:
+      type: mapping
+      label: 'Avalahe teavitused'
+      mapping:
+        body_1:
+          type: text
+          label: 'Teavituse sisu'
+        type_1:
+          type: integer
+          label: 'Teavituse värv'
+        published_1:
+          type: boolean
+          label: 'Teavitus kuvatud'
+        body_2:
+          type: text
+          label: 'Teavituse sisu'
+        type_2:
+          type: integer
+          label: 'Teavituse värv'
+        published_2:
+          type: boolean
+          label: 'Teavitus kuvatud'
+  langcode:
+    type: string
+    label: 'Keeletähis'
+
+harno_settings.colors:
+  type: config_object
+  label: 'Veebiplatvormi kujundus'
+  mapping:
+    color:
+      type: mapping
+      label: 'Värvid'
+      mapping:
+        main:
+          type: text
+          label: 'Põhivärv'
+        lighter:
+          type: text
+          label: '10% toon'
+        additional:
+          type: text
+          label: 'Lisatoon'
+
+harno_settings.frontpage:
+  type: config_object
+  label: 'Avalehe seaded'
+  mapping:
+    general:
+      type: mapping
+      label: 'Avalehe üldseaded'
+      mapping:
+        background_type:
+          type: integer
+          label: 'Mida avalehel kuvatakse'
+        background_image:
+          type: integer
+          label: 'Avalehe taustapilt'
+    banner_images:
+      type: mapping
+      label: 'Bänner piltidega'
+      mapping:
+        image_1:
+          type: integer
+          label: 'Taustapilt'
+        text_1:
+          type: text
+          label: 'Tekst'
+        link_name_1:
+          type: text
+          label: 'Lingi tekst'
+        link_entity_1:
+          type: integer
+          label: 'Sisemine link'
+        link_url_1:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_1:
+          type: integer
+          label: 'Kaal'
+        image_2:
+          type: integer
+          label: 'Taustapilt'
+        text_2:
+          type: text
+          label: 'Tekst'
+        link_name_2:
+          type: text
+          label: 'Lingi tekst'
+        link_entity_2:
+          type: integer
+          label: 'Sisemine link'
+        link_url_2:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_2:
+          type: integer
+          label: 'Kaal'
+        image_3:
+          type: integer
+          label: 'Taustapilt'
+        text_3:
+          type: text
+          label: 'Tekst'
+        link_name_3:
+          type: text
+          label: 'Lingi tekst'
+        link_entity_3:
+          type: integer
+          label: 'Sisemine link'
+        link_url_3:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_3:
+          type: integer
+          label: 'Kaal'
+        image_4:
+          type: integer
+          label: 'Taustapilt'
+        text_4:
+          type: text
+          label: 'Tekst'
+        link_name_4:
+          type: text
+          label: 'Lingi tekst'
+        link_entity_4:
+          type: integer
+          label: 'Sisemine link'
+        link_url_4:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_4:
+          type: integer
+          label: 'Kaal'
+        image_5:
+          type: integer
+          label: 'Taustapilt'
+        text_5:
+          type: text
+          label: 'Tekst'
+        link_name_5:
+          type: text
+          label: 'Lingi tekst'
+        link_entity_5:
+          type: integer
+          label: 'Sisemine link'
+        link_url_5:
+          type: text
+          label: 'Väline veebilink'
+        link_weight_5:
+          type: integer
+          label: 'Kaal'
+    banner_boxes_images:
+      type: mapping
+      label: 'Bänner kastidega'
+      mapping:
+        image_1:
+          type: integer
+          label: 'Taustapilt'
+        link_weight_1:
+          type: integer
+          label: 'Kaal'
+        image_2:
+          type: integer
+          label: 'Taustapilt'
+        link_weight_2:
+          type: integer
+          label: 'Kaal'
+        image_3:
+          type: integer
+          label: 'Taustapilt'
+        link_weight_3:
+          type: integer
+          label: 'Kaal'
+        image_4:
+          type: integer
+          label: 'Taustapilt'
+        link_weight_4:
+          type: integer
+          label: 'Kaal'
+        image_5:
+          type: integer
+          label: 'Taustapilt'
+        link_weight_5:
+          type: integer
+          label: 'Kaal'
+    banner_boxes_text:
+      type: mapping
+      label: 'Bänner kastidega tekstid'
+      mapping:
+        title_1:
+          type: text
+          label: 'Pealkiri'
+        icon_1:
+          type: text
+          label: 'Ikooni nimi'
+        link_entity_1:
+          type: integer
+          label: 'Sisemine link'
+        link_weight_1:
+          type: integer
+          label: 'Kaal'
+        title_2:
+          type: text
+          label: 'Pealkiri'
+        icon_2:
+          type: text
+          label: 'Ikooni nimi'
+        link_entity_2:
+          type: integer
+          label: 'Sisemine link'
+        link_weight_2:
+          type: integer
+          label: 'Kaal'
+        title_3:
+          type: text
+          label: 'Pealkiri'
+        icon_3:
+          type: text
+          label: 'Ikooni nimi'
+        link_entity_3:
+          type: integer
+          label: 'Sisemine link'
+        link_weight_3:
+          type: integer
+          label: 'Kaal'
+        title_4:
+          type: text
+          label: 'Pealkiri'
+        icon_4:
+          type: text
+          label: 'Ikooni nimi'
+        link_entity_4:
+          type: integer
+          label: 'Sisemine link'
+        link_weight_4:
+          type: integer
+          label: 'Kaal'
+        title_5:
+          type: text
+          label: 'Pealkiri'
+        icon_5:
+          type: text
+          label: 'Ikooni nimi'
+        link_entity_5:
+          type: integer
+          label: 'Sisemine link'
+        link_weight_5:
+          type: integer
+          label: 'Kaal'
+        title_6:
+          type: text
+          label: 'Pealkiri'
+        icon_6:
+          type: text
+          label: 'Ikooni nimi'
+        link_entity_6:
+          type: integer
+          label: 'Sisemine link'
+        link_weight_6:
+          type: integer
+          label: 'Kaal'
+        title_7:
+          type: text
+          label: 'Pealkiri'
+        icon_7:
+          type: text
+          label: 'Ikooni nimi'
+        link_entity_7:
+          type: integer
+          label: 'Sisemine link'
+        link_weight_7:
+          type: integer
+          label: 'Kaal'
+        title_8:
+          type: text
+          label: 'Pealkiri'
+        icon_8:
+          type: text
+          label: 'Ikooni nimi'
+        link_entity_8:
+          type: integer
+          label: 'Sisemine link'
+        link_weight_8:
+          type: integer
+          label: 'Kaal'
+        title_9:
+          type: text
+          label: 'Pealkiri'
+        icon_9:
+          type: text
+          label: 'Ikooni nimi'
+        link_entity_9:
+          type: integer
+          label: 'Sisemine link'
+        link_weight_9:
+          type: integer
+          label: 'Kaal'
+        title_10:
+          type: text
+          label: 'Pealkiri'
+        icon_10:
+          type: text
+          label: 'Ikooni nimi'
+        link_entity_10:
+          type: integer
+          label: 'Sisemine link'
+        link_weight_10:
+          type: integer
+          label: 'Kaal'
+        title_11:
+          type: text
+          label: 'Pealkiri'
+        icon_11:
+          type: text
+          label: 'Ikooni nimi'
+        link_entity_11:
+          type: integer
+          label: 'Sisemine link'
+        link_weight_11:
+          type: integer
+          label: 'Kaal'
+        title_12:
+          type: text
+          label: 'Pealkiri'
+        icon_12:
+          type: text
+          label: 'Ikooni nimi'
+        link_entity_12:
+          type: integer
+          label: 'Sisemine link'
+        link_weight_12:
+          type: integer
+          label: 'Kaal'
+        title_13:
+          type: text
+          label: 'Pealkiri'
+        icon_13:
+          type: text
+          label: 'Ikooni nimi'
+        link_entity_13:
+          type: integer
+          label: 'Sisemine link'
+        link_weight_13:
+          type: integer
+          label: 'Kaal'
+        title_14:
+          type: text
+          label: 'Pealkiri'
+        icon_14:
+          type: text
+          label: 'Ikooni nimi'
+        link_entity_14:
+          type: integer
+          label: 'Sisemine link'
+        link_weight_14:
+          type: integer
+          label: 'Kaal'
+        title_15:
+          type: text
+          label: 'Pealkiri'
+        icon_15:
+          type: text
+          label: 'Ikooni nimi'
+        link_entity_15:
+          type: integer
+          label: 'Sisemine link'
+        link_weight_15:
+          type: integer
+          label: 'Kaal'
+  langcode:
+    type: string
+    label: 'Keeletähis'

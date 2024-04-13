@@ -1,0 +1,48 @@
+uuid: 7a19d87b-6c99-4430-bc6e-25dbaffb1970
+langcode: et
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_school_hour_days
+field_name: field_school_hour_days
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: E-R
+      label: Esmaspäev-Reede
+    -
+      value: E-P
+      label: Esmaspäev-Pühapäev
+    -
+      value: E
+      label: Esmaspäev
+    -
+      value: T
+      label: Teisipäev
+    -
+      value: K
+      label: Kolmapäev
+    -
+      value: 'N'
+      label: Neljapäev
+    -
+      value: R
+      label: Reede
+    -
+      value: L
+      label: Laupäev
+    -
+      value: P
+      label: Pühapäev
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

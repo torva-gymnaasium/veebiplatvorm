@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Theme override for a 'textarea' #type form element.
+ *
+ * Available variables
+ * - wrapper_attributes: A list of HTML attributes for the wrapper element.
+ * - attributes: A list of HTML attributes for the <textarea> element.
+ * - resizable: An indicator for whether the textarea is resizable.
+ * - required: An indicator for whether the textarea is required.
+ * - value: The textarea content.
+ *
+ * @see template_preprocess_textarea()
+ */
+#}
+{% set describedby = '' %}
+{% if element['#errors'] %}
+  {% set describedby = 'error-' ~ element['#id'] %}
+{% endif %}
+{% if element['#help'] %}
+  {% set describedby = describedby ~ ' help-' ~ element['#id'] %}
+{% endif %}
+
+<div class="form-item custom-textarea {% if element['#errors'] %}error {% endif %} {% if element['#help'] %} help-text {% endif %}" data-plugin="movingLabel">
+  <label for="{{ element['#id'] }}" class="form-label">{{element['#title']}}{% if element['#required'] %} *{% endif %}</label>
+  <textarea {{attributes}} {% if describedby %} aria-describedby="{{ describedby }}" {% endif %}>{{ value }}</textarea>
+  {% if element['#errors'] %}
+    <span class="error-text" id="error-{{ element['#id'] }}">{{element['#errors']}}</span>
+  {% endif %}
+  {% if element['#help'] %}
+    <span class="form-help-text" id="help-{{ element['#id'] }}">{{ element['#help']|raw }}</span>
+  {% endif %}
+</div><!--/form-item custom-textarea-->

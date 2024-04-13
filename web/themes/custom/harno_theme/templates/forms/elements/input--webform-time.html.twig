@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Theme override for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input()
+ */
+#}
+{% set describedby = '' %}
+{% if element['#errors'] %}
+  {% set describedby = 'error-' ~ element['#id'] %}
+{% endif %}
+{% if element['#help'] %}
+  {% set describedby = describedby ~ ' help-' ~ element['#id'] %}
+{% endif %}
+
+<div class="custom-time form-item {% if element['#errors'] %}error {% endif %} {% if element['#help'] %} help-text {% endif %}" data-plugin="movingLabel">
+  <label for="{{ element['#id'] }}" class="form-label">{{element['#title']}}{% if element['#required'] %} *{% endif %}</label>
+  <input {{ attributes.addClass(['form-control']).setAttribute('type','text').removeAttribute(['placeholder']) }} {% if describedby %} aria-describedby="{{ describedby }}" {% endif %}>
+
+  {% if element['#errors'] %}
+    <span class="error-text" id="error-{{ element['#id'] }}">{{element['#errors']}}</span>
+  {% endif %}
+  {% if element['#help'] %}
+    <span class="form-help-text" id="help-{{ element['#id'] }}">{{ element['#help'] }}</span>
+  {% endif %}
+</div>

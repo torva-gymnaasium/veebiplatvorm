@@ -1,0 +1,21 @@
+uuid: a9e5d2f7-6e71-411a-9a9d-c7762b40dac7
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_type
+    - node.type.calendar
+  module:
+    - options
+id: node.calendar.field_event_type
+field_name: field_event_type
+entity_type: node
+bundle: calendar
+label: 'Ürituse tüüp'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

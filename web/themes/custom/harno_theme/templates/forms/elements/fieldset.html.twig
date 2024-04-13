@@ -1,0 +1,289 @@
+{#
+/**
+ * @file
+ * Theme override for a fieldset element and its children.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the <fieldset> element.
+ * - errors: (optional) Any errors for this <fieldset> element, may not be set.
+ * - required: Boolean indicating whether the <fieldeset> element is required.
+ * - legend: The <legend> element containing the following properties:
+ *   - title: Title of the <fieldset>, intended for use as the text
+       of the <legend>.
+ *   - attributes: HTML attributes to apply to the <legend> element.
+ * - description: The description element containing the following properties:
+ *   - content: The description content of the <fieldset>.
+ *   - attributes: HTML attributes to apply to the description container.
+ * - children: The rendered child elements of the <fieldset>.
+ * - prefix: The content to add before the <fieldset> children.
+ * - suffix: The content to add after the <fieldset> children.
+ *
+ * @see template_preprocess_fieldset()
+ */
+#}
+{% set classes = [
+  'js-form-item',
+  'form-item',
+  'js-form-wrapper',
+  'form-wrapper',
+] %}
+{% if element['#webform_element'] %}
+
+  {% if element['#type'] in ['fieldset'] %}
+    <div class="form-group">
+      <fieldset class="form-fieldset">
+        <legend>{{ element['#title'] }}</legend>
+        {{ children }}
+      </fieldset>
+    </div>
+  {% elseif element['#type'] in ['webform_select_other'] %}
+    <div class="">
+      <fieldset data-drupal-selector="edit-select-other"
+                class="js-webform-select-other webform-select-other webform-select-other--wrapper fieldgroup form-composite webform-composite-visible-title js-webform-type-webform-select-other webform-type-webform-select-other js-form-item js-form-wrapper form-wrapper"
+                id="{{ element['#id'] }}">
+        <div class="fieldset-wrapper">
+          {{ children }}
+        </div>
+      </fieldset>
+    </div>
+  {% else %}
+    {{ children }}
+  {% endif %}
+{% else %}
+  {% if element['#id']=='gallery-years' or element['#id']=='news-topFilter' %}
+    {% if  not element['#my-id'] == 'news-years' %}
+      <div class="filters-top">
+    {% endif %}
+    {% if legend.title %}
+      <span class="filter-title">{{ legend.title }}:</span>
+    {% endif %}
+
+    {{ children }}
+    {% if not element['#my-id'] == 'news-years' %}
+      </div>
+    {% endif %}
+  {% elseif element['#id'] == 'event-topFilter' or element['#id'] == 'event_type' %}
+    {% if element["#id"] == 'event_type' %}
+      {{ children }}
+    {% else %}
+      <div class="filters-top">
+        {{ children }}
+      </div>
+    {% endif %}
+  {% elseif element['#id']=='galleries-bottomFilter' %}
+    <div class="filters-bottom">
+
+      {% if element.days %}
+        <div class="filters-tags" role="group" aria-label="{{ "Calendar tags group"|t}}">
+          {{ element.days }}
+          <div class="date-inputs">
+            {% if element.date_start is defined %}
+              {{ element.date_start }}
+            {% endif %}
+            {% if element.date_start_mobile is defined %}
+              {{ element.date_start_mobile }}
+            {% endif %}
+            <span class="date-separator" aria-hidden="true">-</span>
+            {% if element.date_end is defined %}
+              {{ element.date_end }}
+            {% endif %}
+            {% if element.date_end_mobile is defined %}
+              {{ element.date_end_mobile }}
+            {% endif %}
+            {#      {{ children }} #}
+          </div>
+          <div
+            class="form-item  search-input sm-hide"
+            data-plugin="movingLabel">
+
+            {{ element.searchgroup.calendarSearch }}
+            {{ element.searchgroup.searchbutton }}
+
+          </div>
+        </div>
+        <div
+          class="form-item search-input sm-show md-show"
+          data-plugin="movingLabel">
+          {{ element.searchgroup.calendarSearchMobile }}
+          {{ element.searchgroup.searchbutton }}
+
+        </div>
+      {% elseif not element.days %}
+
+        <div class="date-inputs">
+          {% if element.date_start is defined %}
+            {{ element.date_start }}
+          {% endif %}
+          {% if element.date_start_mobile is defined %}
+            {{ element.date_start_mobile }}
+          {% endif %}
+          <span class="date-separator" aria-hidden="true">-</span>
+          {% if element.date_end is defined %}
+            {{ element.date_end }}
+          {% endif %}
+          {% if element.date_end_mobile is defined %}
+            {{ element.date_end_mobile }}
+          {% endif %}
+          {#      {{ children }} #}
+        </div>
+
+        <div
+          class="form-item  search-input"
+          data-plugin="movingLabel">
+          {{ element.searchgroup.gallerySearch }}
+
+          {{ element.searchgroup.searchbutton }}
+
+        </div>
+      {% endif%}
+      {#      {{ dd(element) }} #}
+
+      {{ element.ready }}
+
+      {#      <button class="btn btn-primary filters-ready">{{ "Ready"|t }}</button> #}
+      <div class="mobile-filters">
+        <button class="btn btn-secondary mobile-filter-trigger"
+                data-plugin="filtersModal">{{ "Open filters" |t }}</button>
+      </div><!--/mobile-filters-->
+      <div class="focus-trap" tabindex="0"></div>
+    </div>
+  {% elseif element['#id']=='news-bottomFilter' %}
+    <div class="filters-bottom">
+      {{ element.article_type }}
+      <div class="date-inputs">
+        {% if element.date_start is defined %}
+          {{ element.date_start }}
+        {% endif %}
+        {% if element.date_start_mobile is defined %}
+          {{ element.date_start_mobile }}
+        {% endif %}
+        <span class="date-separator" aria-hidden="true">-</span>
+        {% if element.date_end is defined %}
+          {{ element.date_end }}
+        {% endif %}
+        {% if element.date_end_mobile is defined %}
+          {{ element.date_end_mobile }}
+        {% endif %}
+        {#      {{ children }} #}
+      </div>
+      <div
+        class="form-item  search-input"
+        data-plugin="movingLabel">
+        {{ element.searchgroup.newsSearch }}
+        {{ element.searchgroup.searchbutton }}
+
+
+      </div>
+      {{ element.ready }}
+      {#      <button class="btn btn-primary filters-ready">{{ "Ready"|t }}</button> #}
+      <div class="mobile-filters">
+        <button class="btn btn-secondary mobile-filter-trigger"
+                data-plugin="filtersModal">{{ "Open filters" |t }}</button>
+      </div><!--/mobile-filters-->
+      <div class="focus-trap" tabindex="0"></div>
+    </div>
+  {% elseif element['#id']=='contacts-bottomSearch' %}
+      <div class="mobile-filters">
+        <div
+          class="form-item  search-input"
+          data-plugin="movingLabel">
+          {{ element.contactsSearchMobile }}
+          {{ element.searchbutton }}
+        </div>
+        {{ element.ready }}
+        <button class="btn btn-secondary mobile-filter-trigger"
+                data-plugin="filtersModal">{{ "Open filters" |t }}</button>
+      </div><!--/mobile-filters-->
+      <div class="focus-trap" tabindex="0"></div>
+
+  {% elseif element['#id']=='contacts-topFilter' %}
+    <div class="filters-wrapper">
+      <div class="form-row-items">
+        <div
+          class="form-item custom-select"
+          data-plugin="movingLabel">
+          {{ element.positions }}
+        </div>
+        <div
+          class="form-item custom-select"
+          data-plugin="movingLabel">
+          {{ element.departments }}
+        </div>
+        <div
+          class="form-item search-input"
+          data-plugin="movingLabel">
+          {{ element.contactsSearch }}
+          {{ element.searchbutton }}
+        </div>
+{#        <button class="btn btn-primary filters-ready">{{ 'Ready'|t }}</button>#}
+        {{ element.ready }}
+        <div class="focus-trap" tabindex="0"></div>
+      </div><!--/form-row-item-->
+    </div><!--/filters-wrapper-->
+  {% elseif element['#id']=='contacts-topFilter-mobile' %}
+      <div class="form-row-items">
+        <div
+          class="form-item custom-select"
+          data-plugin="movingLabel">
+          {{ element.positions_mobile }}
+        </div>
+        <div
+          class="form-item custom-select"
+          data-plugin="movingLabel">
+          {{ element.departments_mobile }}
+        </div>
+        <div
+          class="form-item search-input"
+          data-plugin="movingLabel">
+          {{ element.contactsSearch }}
+          {{ element.searchbutton }}
+        </div>
+{#        <button class="btn btn-primary filters-ready">{{ 'Ready'|t }}</button>#}
+        {{ element.ready }}
+        <div class="focus-trap" tabindex="0"></div>
+      </div><!--/form-row-item-->
+  {% else %}
+
+    {% if element['#type'] == 'radios' %}
+      <div class="">
+        <fieldset data-drupal-selector="edit-select-other"
+                  class="js-webform-select-other webform-select-other webform-select-other--wrapper fieldgroup form-composite webform-composite-visible-title js-webform-type-webform-select-other webform-type-webform-select-other js-form-item js-form-wrapper form-wrapper"
+                  id="{{ element['#id'] }}">
+          <div class="fieldset-wrapper">
+            {{ children }}
+          </div>
+        </fieldset>
+      </div>
+    {% else %}
+      <fieldset{{ attributes.addClass(classes) }}>
+        {% set legend_span_classes = [
+          'fieldset-legend',
+          required ? 'js-form-required',
+          required ? 'form-required',
+        ] %}
+        {#  Always wrap fieldset legends in a <span> for CSS positioning. #}
+        <legend{{ legend.attributes }}>
+          <span{{ legend_span.attributes.addClass(legend_span_classes) }}>{{ legend.title }}</span>
+        </legend>
+        <div class="fieldset-wrapper">
+          {% if errors %}
+            <div>
+              {{ errors }}
+            </div>
+          {% endif %}
+          {% if prefix %}
+            <span class="field-prefix">{{ prefix }}</span>
+          {% endif %}
+          {{ children }}
+          {% if suffix %}
+            <span class="field-suffix">{{ suffix }}</span>
+          {% endif %}
+          {% if description.content %}
+            <div{{ description.attributes.addClass('description') }}>{{ description.content }}</div>
+          {% endif %}
+        </div>
+      </fieldset>
+    {% endif %}
+  {% endif %}
+
+{% endif %}

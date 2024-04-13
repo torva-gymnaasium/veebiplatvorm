@@ -1,0 +1,19 @@
+uuid: 7b77fe27-0eee-4325-bec1-aef213b96a36
+langcode: et
+status: true
+dependencies:
+  module:
+    - link
+    - node
+id: node.field_juhan_image_link
+field_name: field_juhan_image_link
+entity_type: node
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

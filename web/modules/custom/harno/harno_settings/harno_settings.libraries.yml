@@ -1,0 +1,14 @@
+admin_user_forms:
+  css:
+    theme:
+      css/admin_user_forms.css: {}
+admin_food_menu_form:
+  css:
+    theme:
+      css/admin_food_menu_form.css: {}
+color_calculate:
+  js:
+    js/color_calculate.js: {}
+  dependencies:
+    - core/jquery
+    - core/once

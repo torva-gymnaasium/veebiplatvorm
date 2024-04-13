@@ -1,0 +1,26 @@
+uuid: fdf90c50-fff2-4798-955c-7e26167f885a
+langcode: et
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.class.field_class
+    - field.field.node.class.field_weight
+    - node.type.class
+  module:
+    - user
+id: node.class.teaser
+targetEntityType: node
+bundle: class
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_class: true
+  field_weight: true
+  langcode: true
+  search_api_excerpt: true

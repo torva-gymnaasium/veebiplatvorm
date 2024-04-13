@@ -1,0 +1,65 @@
+label: Content
+description: 'Otsi ja halda lehe sisu.'
+display:
+  default:
+    display_title: Vaikimisi
+    display_options:
+      title: Content
+      fields:
+        title:
+          label: Title
+        type:
+          label: 'Content type'
+        name:
+          label: Author
+        status:
+          label: Status
+          settings:
+            format_custom_false: Unpublished
+            format_custom_true: Published
+        changed:
+          label: Uuendati
+        operations:
+          label: Operations
+      pager:
+        options:
+          tags:
+            next: 'Järgmine ›'
+            previous: '‹ Eelmine'
+            first: '« Esimene'
+            last: 'Viimane »'
+      exposed_form:
+        options:
+          submit_button: Filter
+          reset_button_label: Reset
+      empty:
+        area_text_custom:
+          content: 'Sisu puudub.'
+      filters:
+        title:
+          expose:
+            label: Title
+        type:
+          expose:
+            label: 'Content type'
+        status:
+          expose:
+            label: Status
+          group_info:
+            label: 'Published status'
+            group_items:
+              1:
+                title: Published
+              2:
+                title: Unpublished
+        langcode:
+          expose:
+            label: Language
+  page_1:
+    display_title: Veebileht
+    display_options:
+      menu:
+        title: Content
+      tab_options:
+        title: Content
+        description: 'Otsi ja halda sisu'

@@ -1,0 +1,18 @@
+uuid: ba55ab19-2037-46c5-bf68-1a590b1ec222
+langcode: et
+status: true
+dependencies:
+  config:
+    - media.type.remote_video
+id: media.remote_video.created
+field_name: created
+entity_type: media
+bundle: remote_video
+label: 'Loomise kuupäev'
+description: 'The time the media item was created.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\media\Entity\Media::getRequestTime'
+settings: {  }
+field_type: created

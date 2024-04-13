@@ -1,0 +1,89 @@
+{#
+/**
+ * @file
+ * Theme override for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ */
+#}
+{#{{ devel_dump(children) }}#}
+<div class="row content-block content-block--filters">
+  <span class="filters-info md-hide sm-hide">{{ 'The options apply automatically'|t }}</span>
+  <div class="col-12 md-12 sm-12">
+    <div class="gallery-filters">
+      <form{{ attributes.addClass('filters-form') }}>
+        <div class="filters-wrapper">
+          <div class="modal-header" role="filters" aria-labelledby="filters-label">
+          <div class="focus-trap" aria-hidden="true" tabindex="0"></div>
+          <h5 id="filters-label">{{ "Filter events" |t }}</h5>
+          <button class="btn btn-close">
+            <span class="sr-only">{{ "Close modal" |t }}</span>
+            <i class="mdi mdi-close"></i>
+          </button><!--/btn-close-->
+          </div><!--/modal-header-->
+          {{ children|without('years') }}
+          {{ children.bottom.searchgroup.searchButton }}
+        </div>
+        {% set show_filters = false%}
+        {% if children['#storage']['event_type'] is defined %}
+        {% set show_filters = true%}
+          {%elseif children['#storage']['days'] is defined%}
+            {% set show_filters = true%}
+          {%elseif children['#storage']['dates'] is defined%}
+            {% set show_filters = false%}
+        {% endif %}
+        <div id="mobile-active-filters" class="mobile-filters-output" {% if not show_filters %} style="display: none"{% endif %}>
+          {% if children['#storage']['event_type'] %}
+            {% for key,year in children['#storage']['event_type']  %}
+          {% if year %}
+            <span class="btn-input btn-input--remove-tag">
+          <label for="mobile-tag">{{ year }}</label>
+          <input type="checkbox" data-remove-checkbox-item="{{ year }}" data-remove-checkbox-value="{{key}}" id="mobile-tag" role="button" value="{{ year }}" aria-label="{{ year }} {{ "Click to remove"|t }} ">
+          <span  data-plugin="filterRefresh"  class="btn btn-tag btn-tag-remove">{{ year }}</span>
+        </span>
+          {% endif %}
+            {% endfor %}
+          {% endif %}
+          {% if children['#storage'] and children['#storage']['days'] %}
+            <span class="btn-input">
+                  <label for="mobile-tag">{{ children['#storage']['days'] |capitalize|t}}</label>
+                  <input type="checkbox" data-remove-days="{{ children['#storage']['days'] }}" id="mobile-tag" value="{{ children['#storage']['days'] }}">
+                  <span  data-plugin="filterRefresh"  class="btn btn-tag btn-tag-remove">{{ children['#storage']['days']|capitalize |t}}</span>
+                </span>
+          {% endif %}
+          {% if children['#storage'] and children['#storage']['active-years'] %}
+            {% for year in children['#storage']['active-years']  %}
+              {% if year %}
+                <span class="btn-input">
+                  <label for="mobile-tag">{{ year }}</label>
+                  <input type="checkbox" data-remove-checkbox-item="{{ year }}" id="mobile-tag" value="{{ year }}">
+                  <span  data-plugin="filterRefresh"  class="btn btn-tag btn-tag-remove">{{ year }}</span>
+                </span>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+{#          {% if children['#storage'] and children['#storage']['dates'] %}#}
+{#            <span class="btn-input">#}
+{#              <label for="mobile-tag">{{ year }}</label>#}
+{#              <input type="checkbox" data-remove-dates="{{ year }}" id="mobile-tag" value="{{ year }}">#}
+{#              <span  data-plugin="filterRefresh"  class="btn btn-tag btn-tag-remove">#}
+{#              {% if children['#storage']['dates']['start'] %}#}
+{#                {{children['#storage']['dates']['start'] }}#}
+{#              {% endif %}#}
+{#              {% if children['#storage']['dates']['end'] %}#}
+{#                {{" - "}}#}
+{#                {{children['#storage']['dates']['end'] }}#}
+{#              {% endif %}#}
+{#              </span>#}
+{#            </span>#}
+{#          {% endif %}#}
+        </div><!--/mobile-filters-output-->
+        {{ form }}
+      </form>
+    </div><!--/--gallery-filters-->
+  </div><!--/col-12-->
+</div><!--/row-->

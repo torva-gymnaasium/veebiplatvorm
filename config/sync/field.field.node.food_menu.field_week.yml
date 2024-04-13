@@ -1,0 +1,21 @@
+uuid: d2f169ec-70a2-4c01-aa73-69ccc97638f2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_week
+    - node.type.food_menu
+  module:
+    - datetime_range
+id: node.food_menu.field_week
+field_name: field_week
+entity_type: node
+bundle: food_menu
+label: 'Menüü nädal'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: daterange

@@ -1,0 +1,10 @@
+display:
+  default:
+    display_options:
+      fields:
+        search_api_relevance:
+          format_plural_string: !!binary MQNAY291bnQD
+        field_event_type:
+          fallback_options:
+            format_plural_string: !!binary MQNAY291bnQD
+      title: 'Результаты поиска'

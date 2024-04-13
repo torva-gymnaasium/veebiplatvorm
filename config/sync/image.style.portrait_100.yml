@@ -1,0 +1,25 @@
+uuid: 9142297a-d96d-4beb-8c14-4337f4b87142
+langcode: et
+status: true
+dependencies:
+  module:
+    - focal_point
+name: portrait_100
+label: Portrait_100(2528x...)
+effects:
+  99f261d4-3e11-465e-90ec-214fee889351:
+    uuid: 99f261d4-3e11-465e-90ec-214fee889351
+    id: focal_point_scale_and_crop
+    weight: 2
+    data:
+      width: 3888
+      height: 5832
+      crop_type: focal_point
+  c760e572-c3a6-4d3d-b5f6-123344aad656:
+    uuid: c760e572-c3a6-4d3d-b5f6-123344aad656
+    id: image_scale
+    weight: 2
+    data:
+      width: 2528
+      height: null
+      upscale: false

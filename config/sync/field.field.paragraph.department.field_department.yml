@@ -1,0 +1,29 @@
+uuid: 114d0f8e-efea-41c4-8d87-709e81bf227b
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_department
+    - paragraphs.paragraphs_type.department
+    - taxonomy.vocabulary.departments
+id: paragraph.department.field_department
+field_name: field_department
+entity_type: paragraph
+bundle: department
+label: Osakond
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      departments: departments
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

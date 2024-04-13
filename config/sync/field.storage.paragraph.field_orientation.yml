@@ -1,0 +1,30 @@
+uuid: 3a785d6c-c9cf-440d-acd8-61ae5f394bf1
+langcode: et
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_orientation
+field_name: field_orientation
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: landscape
+      label: 'Landscape ehk rõhtvorming'
+    -
+      value: portrait
+      label: 'Portrait ehk püstvorming'
+    -
+      value: natural
+      label: 'Natural size ehk lõikamist ei toimu'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

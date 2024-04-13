@@ -1,0 +1,14 @@
+label: Arhiiv
+description: 'Kogu sisu, kuu kaupa.'
+display:
+  default:
+    display_title: Vaikimisi
+    display_options:
+      title: 'Igakuine arhiiv'
+      exposed_form:
+        options:
+          reset_button_label: Reset
+  block_1:
+    display_title: Plokk
+  page_1:
+    display_title: Veebileht

@@ -1,0 +1,16 @@
+uuid: 9c12acaf-158e-448c-97a5-a67031cdb8da
+langcode: et
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: hzgvcRgZHltqWf8hBmttoWh95tCJoPL25lPq9YSIRsY
+id: video
+label: 'Kohalik video'
+description: 'Kohalikult talletatud video'
+source: video_file
+queue_thumbnail_downloads: false
+new_revision: true
+source_configuration:
+  source_field: field_media_video_file
+field_map:
+  name: name

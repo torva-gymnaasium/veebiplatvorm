@@ -1,0 +1,16 @@
+uuid: e3bc90c3-1b29-4b74-98a0-e0283c06e826
+langcode: et
+status: true
+dependencies:
+  module:
+    - openid_connect_harid
+id: harid
+label: HarID
+plugin: harid
+settings:
+  client_id: 71fac7525c88e22219817644e3dea82f
+  client_secret: ce0d73fcdced23859d59fe1749eb5b2a892ebda545328be5769559e6e4fac656
+  require_strong_session: false
+  require_personal_code: true
+  use_test_idp: false
+  redirect_url: ''

@@ -1,0 +1,20 @@
+uuid: 734e0ce2-78ca-40b0-a08e-5e2cb4bc0d6a
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.worker
+  module:
+    - path
+id: node.worker.path
+field_name: path
+entity_type: node
+bundle: worker
+label: 'URL-i alias'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

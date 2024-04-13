@@ -1,0 +1,33 @@
+uuid: 3c39d972-69a1-4481-877a-647ef0dec10b
+langcode: et
+status: true
+dependencies:
+  module:
+    - language
+    - node
+id: node_pattern_lend
+label: 'Node pattern lend'
+type: 'canonical_entities:node'
+pattern: '/vilistlased/[node:title]'
+selection_criteria:
+  93940d53-7140-429b-9895-669c1451a2cb:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 93940d53-7140-429b-9895-669c1451a2cb
+    context_mapping:
+      node: node
+    bundles:
+      class: class
+  727c3396-cdfe-442a-8ef0-8a71377febfa:
+    id: language
+    negate: false
+    uuid: 727c3396-cdfe-442a-8ef0-8a71377febfa
+    context_mapping:
+      language: 'node:langcode:language'
+    langcodes:
+      et: et
+selection_logic: and
+weight: -5
+relationships:
+  'node:langcode:language':
+    label: Keel

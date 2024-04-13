@@ -1,0 +1,22 @@
+uuid: 8e3bc181-8351-4946-bc86-afac20d766da
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.department
+id: paragraph.department.status
+field_name: status
+entity_type: paragraph
+bundle: department
+label: Avaldatud
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

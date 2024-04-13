@@ -1,0 +1,192 @@
+<?php
+
+/**
+ * @file
+ * Contains harno_migrate.module.
+ */
+function harno_migrate_import_taxonomy($old_term, $type, $debug, &$context) {
+  $migration_get_old_data = \Drupal::service('harno_migrate.get_old_data');
+  $vocab = \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')->load($type);
+  switch ($old_term->machine_name) {
+    case 'contacts_job_position':
+    case 'training_tags':
+    case 'media_folders':
+    case 'contacts_department':
+    case 'hitsa_event_tags':
+    case 'academic_years':
+      $new_term_id = $migration_get_old_data->migrateTerm($old_term, $type, $debug);
+      break;
+    case 'hitsa_hour_times':
+      $new_term_id = $migration_get_old_data->migrateHourTimesTerm($old_term, $type, $debug);
+  }
+  if (!$debug AND isset($new_term_id) AND !empty($new_term_id)) {
+    $msg = 'Migreeritud '. $vocab->label() .' "' . $old_term->name . '", old tid = ' . $old_term->tid . ', new tid = ' . $new_term_id . ' ' . date('H:i:s') . '.';
+  } else {
+    $msg = 'Ei migreeritud '. $vocab->label() .' "' . $old_term->name . '", tid = ' . $old_term->tid . ' ' . date('H:i:s') . '.';
+  }
+  \Drupal::logger('harno_migrate')->info($msg);
+  $context['results'][] = $msg;
+  $context['message'] = $msg;
+}
+
+function harno_migrate_import_node($old_node, $type, $count, $debug, &$context) {
+  $migration_get_old_data = \Drupal::service('harno_migrate.get_old_data');
+  $node_type_names = node_type_get_names();
+  $new_node_id = FALSE;
+  switch ($old_node->type) {
+    case 'contact_location':
+      if ($count == 1 AND !$debug) {
+        $migration_get_old_data->createContactLocationMenuItem();
+      }
+      $new_node_id = $migration_get_old_data->migrateContactLocation($old_node, $count, $debug);
+      break;
+    case 'gallery':
+      $new_node_id = $migration_get_old_data->migrateGallery($old_node, $count, $debug);
+      break;
+    case 'contact':
+      $new_node_id = $migration_get_old_data->migrateContact($old_node, $count, $debug);
+      break;
+    case 'alumnus':
+      $new_node_id = $migration_get_old_data->migrateAlumnus($old_node, $count, $debug);
+      break;
+    case 'page':
+    case 'content_page':
+    case 'curriculum':
+      $new_node_id = $migration_get_old_data->migratePage($old_node, $count, $debug);
+      break;
+    case 'event':
+      $new_node_id = $migration_get_old_data->migrateEvent($old_node, $count, $debug);
+      break;
+    case 'logo':
+      $new_node_id = $migration_get_old_data->migrateLogo($old_node, $count, $debug);
+      break;
+    case 'article':
+      $new_node_id = $migration_get_old_data->migrateArticle($old_node, $count, $debug);
+      break;
+  }
+  if (!$debug AND isset($new_node_id) AND !empty($new_node_id)) {
+    $msg = 'Migreeritud '.$node_type_names[$type].' "' . $old_node->title . '", old nid = ' . $old_node->nid . ', new nid = ' . $new_node_id . ' ' . date('H:i:s') . '.';
+  } else {
+    $msg = 'Ei migreeritud '.$node_type_names[$type].' "' . $old_node->title . '", nid = ' . $old_node->nid . ' ' . date('H:i:s') . '.';
+  }
+  \Drupal::logger('harno_migrate')->info($msg);
+  $context['results'][] = $msg;
+  $context['message'] = $msg;
+}
+
+function harno_migrate_import_settings($settings, $type, $name, $debug, &$context) {
+  $migration_get_old_data = \Drupal::service('harno_migrate.get_old_data');
+  switch ($type) {
+    case 'frontpage_quick_links':
+    case 'footer_quick_links':
+      $migration_get_old_data->migrateMenuToSettings($settings, $type, $debug);
+      break;
+    case 'general':
+    case 'important_contacts':
+    case 'footer_socialmedia_links':
+    case 'footer_free_text_area':
+    case 'footer_copyright':
+    case 'variables':
+      $migration_get_old_data->migrateSettings($settings, $type, $debug);
+  }
+  if (!$debug) {
+    $msg = 'Migreeritud "' . $name . '" ' . date('H:i:s') . '.';
+  } else {
+    $msg = 'Ei migreeritud "' . $name . '" ' . date('H:i:s') . '.';
+  }
+  \Drupal::logger('harno_migrate')->info($msg);
+  $context['results'][] = $msg;
+  $context['message'] = $msg;
+}
+
+function harno_migrate_import_taxonomy_type_started($type, &$context) {
+  \Drupal::configFactory()->getEditable('harno_migrate.settings')
+    ->set('taxonomy.' . $type, 2)
+    ->save();
+  $vocab = \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')->load($type);
+  $msg = 'Algas "'. $vocab->label() .'" klassifikatsiooni migreerimine ' . date('H:i:s') .'.';
+  \Drupal::logger('harno_migrate')->info($msg);
+  $context['results'][] = $msg;
+  $context['message'] = $msg;
+}
+
+function harno_migrate_import_taxonomy_type_finished($type, &$context) {
+  \Drupal::configFactory()->getEditable('harno_migrate.settings')
+    ->set('taxonomy.' . $type, 4)
+    ->save();
+  $vocab = \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')->load($type);
+  $msg = 'Lõppes "' . $vocab->label() . '" klassifikatsiooni migreerimine ' . date('H:i:s') .'.';
+  \Drupal::logger('harno_migrate')->info($msg);
+  $context['results'][] = $msg;
+  $context['message'] = $msg;
+}
+
+function harno_migrate_import_node_type_started($type, &$context) {
+  \Drupal::configFactory()->getEditable('harno_migrate.settings')
+    ->set('content.' . $type, 2)
+    ->save();
+  $node_type_names = node_type_get_names();
+  $msg = 'Algas "'. $node_type_names[$type] .'" sisutüübi migreerimine ' . date('H:i:s') .'.';
+  \Drupal::logger('harno_migrate')->info($msg);
+  $context['results'][] = $msg;
+  $context['message'] = $msg;
+}
+
+function harno_migrate_import_node_type_finished($type, &$context) {
+  \Drupal::configFactory()->getEditable('harno_migrate.settings')
+    ->set('content.' . $type, 4)
+    ->save();
+  $node_type_names = node_type_get_names();
+  $msg = 'Lõppes "' . $node_type_names[$type].'" sisutüübi migreerimine ' . date('H:i:s') .'.';
+  \Drupal::logger('harno_migrate')->info($msg);
+  $context['results'][] = $msg;
+  $context['message'] = $msg;
+}
+function harno_migrate_import_settings_started($type, $name, &$context) {
+  \Drupal::configFactory()->getEditable('harno_migrate.settings')
+    ->set('settings.' . $type, 2)
+    ->save();
+  $msg = 'Algas "'. $name .'" migreerimine ' . date('H:i:s') .'.';
+  \Drupal::logger('harno_migrate')->info($msg);
+  $context['results'][] = $msg;
+  $context['message'] = $msg;
+}
+
+function harno_migrate_import_settings_finished($type, $name, &$context) {
+  \Drupal::configFactory()->getEditable('harno_migrate.settings')
+    ->set('settings.' . $type, 4)
+    ->save();
+  $msg = 'Lõppes "' . $name.'" migreerimine ' . date('H:i:s') .'.';
+  \Drupal::logger('harno_migrate')->info($msg);
+  $context['results'][] = $msg;
+  $context['message'] = $msg;
+}
+
+function harno_migrate_update_node_internal_links(&$context) {
+  $migration_get_old_data = \Drupal::service('harno_migrate.get_old_data');
+  $migration_get_old_data->updateNodeInternalLinks();
+  $msg = 'Toimub sisemiste linkide uuendamine ' . date('H:i:s') .'.';
+  \Drupal::logger('harno_migrate')->info($msg);
+  $context['results'][] = $msg;
+  $context['message'] = $msg;
+}
+
+function harno_migrate_import_data_finished($success, $results, $operations) {
+  if ($success) {
+    $message = \Drupal::translation()->formatPlural(
+      count($results),
+      'Üks tegevus tehtud.', '@count tegevust teostatud.'
+    );
+    \Drupal::messenger()->addStatus($message);
+  }
+  else {
+    $message = 'Migreerimisel tekkis viga.';
+    \Drupal::messenger()->addError($message);
+  }
+  if (count($results) > 0) {
+    foreach ($results as $result) {
+      \Drupal::messenger()->addStatus($result);
+    }
+  }
+  drupal_flush_all_caches();
+}

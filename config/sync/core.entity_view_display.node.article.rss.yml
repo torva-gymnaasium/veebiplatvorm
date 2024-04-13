@@ -1,0 +1,35 @@
+uuid: b10fe48d-b480-47d0-a7bf-33ff774253f1
+langcode: et
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.rss
+    - field.field.node.article.body
+    - field.field.node.article.field_academic_year
+    - field.field.node.article.field_archiving_date
+    - field.field.node.article.field_article_type
+    - field.field.node.article.field_author_name
+    - field.field.node.article.field_distribution_blocks
+    - field.field.node.article.field_one_image
+    - node.type.article
+  module:
+    - user
+_core:
+  default_config_hash: 2rIr6K5Q0UQ9khg0zE_CK-PtJH76UL-BDDZcZnZzwCc
+id: node.article.rss
+targetEntityType: node
+bundle: article
+mode: rss
+content:
+  links:
+    weight: 100
+    region: content
+hidden:
+  body: true
+  field_academic_year: true
+  field_archiving_date: true
+  field_article_type: true
+  field_author_name: true
+  field_distribution_blocks: true
+  field_one_image: true
+  langcode: true

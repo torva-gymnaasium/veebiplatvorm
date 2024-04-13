@@ -1,0 +1,28 @@
+uuid: 7e26012f-54d2-4dd5-b6c8-a180b53be6fa
+langcode: et
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.gallery.field_academic_year
+    - field.field.node.gallery.field_description
+    - field.field.node.gallery.field_images
+    - node.type.gallery
+  module:
+    - user
+id: node.gallery.teaser
+targetEntityType: node
+bundle: gallery
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_academic_year: true
+  field_description: true
+  field_images: true
+  langcode: true
+  search_api_excerpt: true

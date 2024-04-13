@@ -1,0 +1,9 @@
+tips:
+  search-api-index-fields-type:
+    label: Tüüp
+  search-api-index-fields-boost:
+    label: Kiirendamine
+  search-api-index-fields-edit:
+    label: 'Muuda välja'
+  search-api-index-fields-remove:
+    label: 'Eemalda väli'

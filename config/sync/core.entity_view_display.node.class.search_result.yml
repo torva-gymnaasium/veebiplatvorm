@@ -1,0 +1,26 @@
+uuid: 787b2a3a-5281-488e-87c8-c55f93c9a786
+langcode: et
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_result
+    - field.field.node.class.field_class
+    - field.field.node.class.field_weight
+    - node.type.class
+  module:
+    - user
+id: node.class.search_result
+targetEntityType: node
+bundle: class
+mode: search_result
+content:
+  search_api_excerpt:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_class: true
+  field_weight: true
+  langcode: true
+  links: true

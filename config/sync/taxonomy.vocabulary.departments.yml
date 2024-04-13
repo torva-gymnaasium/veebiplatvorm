@@ -1,0 +1,14 @@
+uuid: df4d2ab3-a443-4208-a780-b4fe37a3f126
+langcode: et
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Osakonnad
+vid: departments
+description: 'Osakonnad, kuhu asutuse töötajad kuuluvad.'
+weight: 0

@@ -1,0 +1,21 @@
+tips:
+  search-api-index-index-status:
+    label: 'Состояние индекса'
+  search-api-index-status:
+    label: Статус
+  search-api-index-datasources:
+    label: 'Источник данных'
+  search-api-index-tracker:
+    label: Изменения
+  search-api-index-server:
+    label: Сервер
+  search-api-index-server-index-status:
+    label: 'Состояние индекса'
+  search-api-index-cron-batch-size:
+    label: 'Размер очереди в cron'
+  search-api-index-index-now:
+    label: 'Запустить индексирование'
+  search-api-index-reindex:
+    label: 'Поставить все элементы в очередь на переиндексацию'
+  search-api-index-clear:
+    label: 'Очистить все проиндексированные данные'

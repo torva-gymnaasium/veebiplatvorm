@@ -1,0 +1,94 @@
+uuid: fef2eb3c-5c16-48f7-b392-83679a73e781
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_contact_block
+    - node.type.calendar
+    - paragraphs.paragraphs_type.contact_block
+  module:
+    - entity_reference_revisions
+id: node.calendar.field_contact_block
+field_name: field_contact_block
+entity_type: node
+bundle: calendar
+label: Kontaktiplokk
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      contact_block: contact_block
+    negate: 0
+    target_bundles_drag_drop:
+      class:
+        weight: 23
+        enabled: false
+      contact_block:
+        weight: 24
+        enabled: true
+      db_100:
+        weight: 25
+        enabled: false
+      db_25_25_25_25:
+        weight: 26
+        enabled: false
+      db_25_25_50:
+        weight: 27
+        enabled: false
+      db_25_75:
+        weight: 28
+        enabled: false
+      db_33_33_33:
+        weight: 29
+        enabled: false
+      db_33_66:
+        weight: 30
+        enabled: false
+      db_50_25_25:
+        weight: 31
+        enabled: false
+      db_50_50:
+        weight: 32
+        enabled: false
+      db_66_33:
+        weight: 33
+        enabled: false
+      db_75_25:
+        weight: 34
+        enabled: false
+      department:
+        weight: 35
+        enabled: false
+      file:
+        weight: 36
+        enabled: false
+      gallery_block:
+        weight: 37
+        enabled: false
+      intermediate_title_block:
+        weight: 38
+        enabled: false
+      link:
+        weight: 39
+        enabled: false
+      link_and_file_block:
+        weight: 40
+        enabled: false
+      picture_block:
+        weight: 41
+        enabled: false
+      table_block_header_row:
+        weight: 42
+        enabled: false
+      text_block:
+        weight: 43
+        enabled: false
+      video_block:
+        weight: 44
+        enabled: false
+field_type: entity_reference_revisions

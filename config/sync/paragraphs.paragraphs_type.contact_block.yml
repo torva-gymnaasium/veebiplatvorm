@@ -1,0 +1,10 @@
+uuid: 5aae7f51-23fd-434b-8b5e-4dc460264232
+langcode: et
+status: true
+dependencies: {  }
+id: contact_block
+label: Kontaktiplokk
+icon_uuid: null
+icon_default: null
+description: 'Sisusse lisatud kontakti plokk. Kontakte on võimalik lisada eraldi sisutüübist Välisveebi kontaktid ja manuaalselt teksti sisestades.  '
+behavior_plugins: {  }

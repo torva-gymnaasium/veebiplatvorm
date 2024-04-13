@@ -1,0 +1,33 @@
+<?php
+/**
+ * @file
+ * Install and uninstall functions for the HARNO migrate Module.
+ */
+function harno_migrate_uninstall() {
+  // Deleting the configuration while uninstalling.
+  \Drupal::configFactory()->getEditable('harno_migrate.settings')->delete();
+}
+
+/**
+ * Set default value for taxonomy.school_hours config
+ */
+function harno_migrate_update_8001() {
+  $config = \Drupal::configFactory()->getEditable('harno_migrate.settings');
+  $config->set('taxonomy.school_hours', 1);
+  $config->save();
+}
+/**
+ * Set default value for settings config
+ */
+function harno_migrate_update_8002() {
+  $config = \Drupal::configFactory()->getEditable('harno_migrate.settings');
+  $config->set('settings.general', 1);
+  $config->set('settings.frontpage_quick_links', 1);
+  $config->set('settings.important_contacts', 1);
+  $config->set('settings.footer_socialmedia_links', 1);
+  $config->set('settings.footer_quick_links', 1);
+  $config->set('settings.footer_free_text_area', 1);
+  $config->set('settings.footer_copyright', 1);
+  $config->set('settings.variables', 1);
+  $config->save();
+}

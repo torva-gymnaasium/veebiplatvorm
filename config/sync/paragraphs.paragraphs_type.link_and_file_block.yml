@@ -1,0 +1,10 @@
+uuid: a6f8c427-874b-4f80-b1f0-0125d92eceda
+langcode: et
+status: true
+dependencies: {  }
+id: link_and_file_block
+label: 'Lingi- ja failiplokk'
+icon_uuid: null
+icon_default: null
+description: 'Võimaldab lisada linke ja/või faile.'
+behavior_plugins: {  }

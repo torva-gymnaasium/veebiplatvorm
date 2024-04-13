@@ -1,0 +1,65 @@
+label: 'Scheduled Content'
+display:
+  default:
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Filter
+          reset_button_label: Reset
+      fields:
+        node_bulk_form:
+          action_title: Action
+        title:
+          label: Title
+        type:
+          label: 'Content Type'
+        name:
+          label: Author
+        status:
+          label: Status
+          settings:
+            format_custom_true: Published
+            format_custom_false: Unpublished
+        publish_on:
+          label: 'Publish on'
+        unpublish_on:
+          label: 'Unpublish on'
+        operations:
+          label: Operations
+      filters:
+        title:
+          expose:
+            label: Title
+        type:
+          expose:
+            label: 'Content type'
+        status:
+          expose:
+            label: Status
+          group_info:
+            label: 'Published status'
+            group_items:
+              1:
+                title: Published
+              2:
+                title: Unpublished
+        langcode:
+          expose:
+            label: Language
+      title: 'Scheduled Content'
+  overview:
+    display_options:
+      menu:
+        title: 'Scheduled Content'
+      tab_options:
+        title: Content
+  user_page:
+    display_options:
+      menu:
+        title: Scheduled
+      tab_options:
+        title: Content
+      arguments:
+        uid:
+          exception:
+            title: All

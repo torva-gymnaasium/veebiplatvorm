@@ -1,0 +1,33 @@
+uuid: c9c02482-99b1-4cc3-a214-521bc395ef30
+langcode: et
+status: true
+dependencies:
+  module:
+    - language
+    - node
+id: node_pattern_novosti
+label: 'Node pattern novosti'
+type: 'canonical_entities:node'
+pattern: '/novosti/[node:title]'
+selection_criteria:
+  af0c0af0-17bd-4cb7-903f-20b0386b177e:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: af0c0af0-17bd-4cb7-903f-20b0386b177e
+    context_mapping:
+      node: node
+    bundles:
+      article: article
+  819460cb-cb79-445c-a72d-03c826068215:
+    id: language
+    negate: false
+    uuid: 819460cb-cb79-445c-a72d-03c826068215
+    context_mapping:
+      language: 'node:langcode:language'
+    langcodes:
+      ru: ru
+selection_logic: and
+weight: -10
+relationships:
+  'node:langcode:language':
+    label: Keel

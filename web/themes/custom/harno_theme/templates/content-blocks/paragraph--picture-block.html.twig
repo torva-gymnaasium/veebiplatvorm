@@ -1,0 +1,116 @@
+{% set base_path= base_path ~ directory  %}
+{% if content.field_orientation %}
+  {% set style = content.field_orientation['#items'].getString() %}
+  {% set orientation = style %}
+{% endif %}
+{% if elements['#paragraph'] is defined %}
+  {% set para_id = elements['#paragraph'].get('id').value %}
+{% endif %}
+{% if style %}
+  {% set image_uri = content.field_image['#items']|file_uri %}
+  {% set original_image =  file_url(image_uri) %}
+  {% set image_file_alt = content.field_image[0]['#media'].field_media_image.0.alt %}
+  {% set title = content.field_image[0]['#media'].field_media_image.0.title %}
+  {% set drupal_image_entity  = drupal_entity('media',content.field_image['#items'].target_id) %}
+  {% if drupal_image_entity['#media'] %}
+    {% set image_width = drupal_image_entity['#media'].field_media_image.width%}
+    {% set image_height = drupal_image_entity['#media'].field_media_image.height%}
+    {% set ratio = image_width/image_height %}
+
+    {% set padding = image_height/image_width*100 %}
+  {% endif %}
+  {% if elements['#element_width'] == 100 %}
+    {% if orientation == 'portrait' %}
+      {% set image_url = image_uri|image_style('portrait_100')%}
+    {% elseif orientation=='landscape' %}
+      {% set image_url = image_uri|image_style('landscape_100')%}
+    {% elseif orientation=='natural' %}
+      {% set image_url = image_uri|image_style('natural_100')%}
+    {% endif %}
+  {% endif %}
+  {% if elements['#element_width'] == 50 %}
+    {% if orientation == 'portrait' %}
+      {% set image_url = image_uri|image_style('portrait_50')%}
+    {% elseif orientation=='landscape' %}
+      {% set image_url = image_uri|image_style('landscape_50')%}
+    {% elseif orientation=='natural' %}
+      {% set image_url = image_uri|image_style('natural_50')%}
+    {% endif %}
+  {% endif %}
+  {% if elements['#element_width'] == 25 %}
+    {% if orientation == 'portrait' %}
+      {% set image_url = image_uri|image_style('portrait_25')%}
+    {% elseif orientation=='landscape' %}
+      {% set image_url = image_uri|image_style('landscape_25')%}
+    {% elseif orientation=='natural' %}
+      {% set image_url = image_uri|image_style('natural_25')%}
+    {% endif %}
+
+  {% endif %}
+  {% if elements['#element_width'] == 33 %}
+    {% if orientation == 'portrait' %}
+      {% set image_url = image_uri|image_style('portrait_33')%}
+    {% elseif orientation=='landscape' %}
+      {% set image_url = image_uri|image_style('landscape_33')%}
+    {% elseif orientation=='natural' %}
+      {% set image_url = image_uri|image_style('natural_33')%}
+    {% endif %}
+  {% endif %}
+  {% if elements['#element_width'] == 66 %}
+    {% if orientation == 'portrait' %}
+      {% set image_url = image_uri|image_style('portrait_66')%}
+    {% elseif orientation=='landscape' %}
+      {% set image_url = image_uri|image_style('landscape_66')%}
+    {% elseif orientation=='natural' %}
+      {% set image_url = image_uri|image_style('natural_66')%}
+    {% endif %}
+  {% endif %}
+  {% if elements['#element_width'] == 75 %}
+    {% if orientation == 'portrait' %}
+      {% set image_url = image_uri|image_style('portrait_75')%}
+    {% elseif orientation=='landscape' %}
+      {% set image_url = image_uri|image_style('landscape_75')%}
+    {% elseif orientation=='natural' %}
+      {% set image_url = image_uri|image_style('natural_75')%}
+    {% endif %}
+  {% endif %}
+  {% if para_id is defined %}
+    {% set image_id = para_id~ content.field_image[0]['#media'].field_media_image.0.target_id  %}
+    {% else %}
+      {% set image_id =  content.field_image['#items'].parent.entity.parent_id.0.value ~"-"~ content.field_image[0]['#media'].field_media_image.0.target_id  %}
+  {% endif %}
+  <div class="image-block" {% if style == 'natural' %}{% endif %}>
+
+    <a  data-bigPicture="{{ image_uri|image_style('modal_picture') }}" id="{{ image_id }}" href="{{ image_url }}" class="image-field  image-field--{{orientation }}-custom image-field--{{ style }}" style="
+      background-image: url({{ image_url }});
+    {% if orientation=='natural' %}
+        padding-top: {{ padding }}%;
+{#      {% if image_width > 399 and ratio < 1 %} padding-top:100%;{% endif %}#}
+      {% if image_width<699 %}
+        background-size: auto;
+      {% else %}
+
+        {% if ratio <=1 %}
+          /*padding-top: 100%;*/
+        {% endif %}
+        background-size:contain;
+      {% endif %}
+      {% else %}
+        {% if image_width<699 %}
+      background-size: auto;
+      {% endif %}
+        {% if orientation=='landscape' %}{% if image_width<699 %}
+          padding-top: 100%;
+      {% endif %}
+      {% endif %}
+    {% endif %}" data-image="{{ original_image }}" {% if  image_file_alt %}alt="{{ image_file_alt }}"{% else%}alt="" aria-label="{{ "Image, opens in modal"|t }}" {% endif %}   data-plugin="modalOpener" data-modal="single" tabindex="0" title="{{ title }}">
+      <img  src="/{{ base_path }}/static/assets/images/placeholder-1.gif" {% if style=='natural'%}{% endif%} {% if image_file_alt%}alt="{{ image_file_alt }}"{% else%}alt="" aria-label="{{ "Image, opens in modal"|t }}" {% endif %} >
+
+      <span class="gallery-icon">
+      <i class="mdi mdi-image-multiple" aria-hidden="true"></i>
+      <span class="sr-only">{{ "Open picture" | t}}</span>
+    </span><!--/gallery-icon-->
+
+    </a><!--/image-field-->
+  </div><!--/image-block-->
+{% endif %}

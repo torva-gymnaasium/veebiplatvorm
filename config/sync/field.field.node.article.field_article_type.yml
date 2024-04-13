@@ -1,0 +1,23 @@
+uuid: 799f146e-cb4f-4ba2-ab75-0ce0fb1b0289
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_article_type
+    - node.type.article
+  module:
+    - options
+id: node.article.field_article_type
+field_name: field_article_type
+entity_type: node
+bundle: article
+label: 'Uudise tüüp'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: '1'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

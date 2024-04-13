@@ -1,0 +1,26 @@
+global-styling:
+  version: 1.9
+  css:
+    theme:
+      static/assets/styles/default.css: {}
+      css/style.css: {}
+  js:
+    static/assets/js/main-drupal.js: {}
+    js/global.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+search-results:
+  version: 1.9
+  js:
+    js/search_results.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+ckeditor5:
+  version: 1.9
+  css:
+    theme:
+      ckeditor_stylesheets/content.css : {}

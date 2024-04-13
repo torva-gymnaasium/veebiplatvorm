@@ -1,0 +1,10 @@
+uuid: b320a60b-64e3-433a-9e03-f7955eb2876a
+langcode: et
+status: true
+dependencies: {  }
+id: video_block
+label: Videoplokk
+icon_uuid: null
+icon_default: null
+description: 'Plokk võimaldab kuvada vistutatud (ingl embedded) videoid.'
+behavior_plugins: {  }

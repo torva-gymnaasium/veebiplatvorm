@@ -1,0 +1,22 @@
+uuid: b9e42441-69ff-49f1-b547-0231dae34ae0
+langcode: et
+status: true
+dependencies:
+  module:
+    - node
+id: node_pattern_calendar
+label: 'Node pattern calendar'
+type: 'canonical_entities:node'
+pattern: '/[node:field_event_type:0]/[node:title]'
+selection_criteria:
+  1d0b1ae4-8f75-475a-8614-6f3c188dd78f:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 1d0b1ae4-8f75-475a-8614-6f3c188dd78f
+    context_mapping:
+      node: node
+    bundles:
+      calendar: calendar
+selection_logic: and
+weight: -5
+relationships: {  }

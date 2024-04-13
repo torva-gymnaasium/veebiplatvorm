@@ -1,0 +1,69 @@
+{#
+/**
+ * @file
+ * Theme override for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ */
+#}
+{# {{ devel_dump(children) }} #}
+<div class="content-block content-block--filters">
+  <span class="filters-info md-hide sm-hide">{{ 'The options apply automatically'|t }}</span>
+  <div class="row">
+    <div class="col-12 md-12 sm-12">
+      <div class="gallery-filters">
+        <form{{ attributes.addClass('filters-form') }}>
+          <div class="filters-wrapper">
+
+            {{ children|without('years') }}
+            {{ children.bottom.searchgroup.searchButton }}
+          </div>
+
+          <div id="mobile-active-filters" class="mobile-filters-output" {% if not children['#storage']['active-years'] and not children['#storage']['dates'] %} style="display: none"{% endif %}>
+            {% if children['#storage'] and children['#storage']['active-years'] %}
+              {% for year in children['#storage']['active-years'] %}
+                {% if year %}
+                  {%set year_shown = year%}
+                  {% if year == 'older' %}
+                    {%set year_shown = children['#storage']['other_label']%}
+                  {% endif %}
+                  <span class="btn-input btn-input--remove-tag" data-plugin="filterRefresh">
+          <label for="mobile-tag">{{ year_shown }}</label>
+          <input type="checkbox" data-remove-checkbox-item="{{ year }}" role="button" id="mobile-tag"
+                 aria-label=" {{ year_shown }}  {{ "Click to remove"|t }} " value="{{ year }}">
+          <span data-plugin="filterRefresh" class="btn btn-tag btn-tag-remove">{{ year_shown }}</span>
+        </span>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+            {% if children['#storage'] and children['#storage']['dates'] %}
+              <span class="btn-input btn-input--remove-tag">
+              <label for="mobile-tag">{{ year }}</label>
+              <input type="checkbox" data-remove-dates="{{ year }}" role="button" id="mobile-tag"
+                     aria-label=" {{ aria_label }}  {{ "Click to remove"|t }} " value="{{ year }}">
+              <span data-plugin="filterRefresh" class="btn btn-tag btn-tag-remove">
+              {% if children['#storage']['dates']['start'] %}
+                {{ children['#storage']['dates']['start'] }}
+              {% endif %}
+                {{ " - " }}
+              {% if children['#storage']['dates']['end'] %}
+                {{ children['#storage']['dates']['end'] }}
+              {% endif %}
+              </span>
+            </span>
+            {% endif %}
+
+          </div><!--/mobile-filters-output-->
+          {{ form }}
+        </form>
+
+
+      </div><!--/--gallery-filters-->
+
+    </div><!--/col-12-->
+  </div><!--/row-->
+</div>

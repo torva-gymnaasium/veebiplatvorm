@@ -1,0 +1,20 @@
+uuid: 1f1ee5d1-15df-41fa-8c2d-eabc9c617830
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.gallery
+id: node.gallery.uid
+field_name: uid
+entity_type: node
+bundle: gallery
+label: Autor
+description: 'Sisu autori kasutajanimi.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

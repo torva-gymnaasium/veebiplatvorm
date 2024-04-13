@@ -1,0 +1,9 @@
+uuid: 27520e21-7608-4334-9cee-56af854feed5
+langcode: ru
+status: true
+dependencies: {  }
+id: ru
+label: RUS
+direction: ltr
+weight: 2
+locked: false

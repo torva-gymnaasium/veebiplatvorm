@@ -1,0 +1,44 @@
+uuid: 3bb355b8-d042-4b13-9a54-16c39da5fa7c
+langcode: et
+status: true
+dependencies:
+  config:
+    - filter.format.webform_default
+  module:
+    - admin_toolbar_search
+    - file
+    - filter
+    - matomo
+    - media
+    - scheduler
+    - search_api_autocomplete
+    - shortcut
+    - sitemap
+    - system
+    - toolbar
+    - userprotect
+_core:
+  default_config_hash: btW6TFHajhy7Eo6YUvdFiPh4TcPggo8GBXYctjV6zag
+id: authenticated
+label: 'Autenditud kasutaja'
+weight: 1
+is_admin: false
+permissions:
+  - 'access administration pages'
+  - 'access content'
+  - 'access shortcuts'
+  - 'access site in maintenance mode'
+  - 'access sitemap'
+  - 'access toolbar'
+  - 'change own username'
+  - 'delete own files'
+  - 'opt-in or out of matomo tracking'
+  - 'schedule publishing of nodes'
+  - 'switch shortcut sets'
+  - 'use admin toolbar search'
+  - 'use search_api_autocomplete for general_search'
+  - 'use text format webform_default'
+  - userprotect.account.edit
+  - userprotect.mail.edit
+  - 'view media'
+  - 'view the administration theme'

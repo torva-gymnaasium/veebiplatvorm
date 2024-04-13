@@ -1,0 +1,94 @@
+{#
+/**
+ * @file
+ * Theme override for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input()
+ */
+#}
+{% set describedby = '' %}
+{% if element['#errors'] %}
+  {% set describedby = 'error-' ~ element['#id'] %}
+{% endif %}
+{% if element['#help'] %}
+  {% set describedby = describedby ~ ' help-' ~ element['#id'] %}
+{% endif %}
+
+{% if element['#is_search_header'] %}
+  <label for="{{ element['#id'] }}" class="form-label">
+{#    <span class="sr-only">{{ element['#title'] }}</span>#}
+  </label>
+  {% set searchbox_text = "Search box"|t %}
+  <input  {{attributes.setAttribute('aria-label',searchbox_text ~'    '|raw~ attributes.title).addClass('search')|without('title')}}/>{{ children }}
+{% elseif 'edit-keys' in element['#id'] %}
+  <label for="{{ element['#id'] }}" class="form-label">{{ element['#title'] }}</label>
+  <input  {{attributes.addClass('search')}}/>{{ children }}
+{% elseif '-other' in element['#id'] %}
+  <div class=" {% if element['#errors'] %}error {% endif %}js-webform-select-other-input webform-select-other-input js-form-item form-item js-form-type-textfield form-item-select-other-other js-form-item-select-other-other form-no-label {% if element['#help'] %} help-text {% endif %}" data-plugin="movingLabel" {% if element['#help'] %}aria-label="{{element['#help']}}" {% endif %}>
+    <label for="{{ element['#id'] }}" class="form-label">{{ element['#title'] }}{% if element['#required'] %} *{% endif %}</label>
+    <input {{attributes.removeAttribute('placeholder')}}/>{{ children }}
+    {% if element['#errors'] %}
+      <span class="error-text">{{ element['#errors'] }}</span>
+    {% endif %}
+    {% if element['#help'] %}
+      <span class="form-help-text">{{ element['#help'] }}</span>
+    {% endif %}
+  </div><!--/form-item-->
+  {% else %}
+    {% if element['#date_date_format'] %}
+
+        <label for="{{ element['#id'] }}" class="form-label">{{element['#title']}}{% if element['#required'] %} *{% endif %}</label>
+        <input {{ attributes.addClass(['form-control','custom-date-input']).setAttribute('data-datepickerButton','true').removeAttribute(['data-drupal-selector', 'data-drupal-date-format', 'placeholder']) }} >
+        {% if element['#errors'] %}
+          <span class="error-text">{{ element['#errors'] }}</span>
+        {% endif %}
+        {% if element['#help'] %}
+          <span class="form-help-text">{{ element['#help'] }}</span>
+        {% endif %}
+
+    {% elseif element['#id'] in ['edit-date-start','edit-date-start-mobile','edit-date-end-mobile','edit-date-end'] %}
+      <label for="{{ element['#id'] }}" class="form-label">{{element['#title']}}</label>
+      <input {{ attributes.addClass(['form-control','custom-date-input']).setAttribute('data-datepickerButton','true').removeAttribute('data-drupal-selector').removeAttribute('size') }}>
+      {% if element['#errors'] %}
+        <span class="error-text">{{ element['#errors'] }}</span>
+      {% endif %}
+      {% if element['#help'] %}
+        <span class="form-help-text">{{ element['#help'] }}</span>
+      {% endif %}
+      {% elseif element['#id'] in ['edit-newssearch'] %}
+        <label for="{{ element['#id'] }}" class="form-label">{{element['#title']}}</label>
+        <input {{ attributes.addClass(['form-control','search']).removeAttribute('data-drupal-selector').removeAttribute('size')}} >
+        {% if element['#errors'] %}
+          <span class="error-text">{{ element['#errors'] }}</span>
+        {% endif %}
+        {% if element['#help'] %}
+          <span class="form-help-text">{{ element['#help'] }}</span>
+        {% endif %}
+    {% else %}
+      {% if element['#name']=='gallerySearch' or element['#name'] == 'contactsSearch' %}
+        <label for="{{ element['#id'] }}" class="form-label">{{ element['#title'] }}
+            {% if element['#required'] %}
+              *
+            {% endif %}
+          </label>
+
+          <input  {{attributes|without('size')}}/>{{ children }}{#  <input type="text" name="test input" id="input1" class="form-control">#}
+      {% else %}
+        <div class="form-item {% if element['#errors'] %}error {% endif %} {% if element['#help'] %}help-text {% endif %}" data-plugin="movingLabel">
+          <label for="{{ element['#id'] }}" class="form-label">{{ element['#title'] }}{% if element['#required'] %} *{% endif %}</label>
+          <input {{attributes}} {% if describedby %} aria-describedby="{{ describedby }}" {% endif %} />{{ children }}
+          {% if element['#errors'] %}
+            <span class="error-text" id="error-{{ element['#id'] }}">{{element['#errors']}}</span>
+          {% endif %}
+          {% if element['#help'] %}
+            <span class="form-help-text" id="help-{{ element['#id'] }}">{{ element['#help'] }}</span>
+          {% endif %}
+        </div><!--/form-item-->
+        {% endif %}
+    {% endif %}
+
+{% endif %}

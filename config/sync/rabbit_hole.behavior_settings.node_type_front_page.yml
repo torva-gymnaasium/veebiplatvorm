@@ -1,0 +1,14 @@
+uuid: 109520ae-d648-4730-8245-a1bdd9434ebe
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.front_page
+id: node_type_front_page
+entity_type_id: node_type
+entity_id: front_page
+action: display_page
+allow_override: 0
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

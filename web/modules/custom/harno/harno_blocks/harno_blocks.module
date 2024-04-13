@@ -1,0 +1,140 @@
+<?php
+
+use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\Core\Cache\Cache;
+
+/**
+ * @file
+ * Primary module hooks for harno_blocks module.
+ *
+ * @DCG
+ * This file is no longer required in Drupal 8.
+ * @see https://www.drupal.org/node/2217931
+ */
+
+function harno_blocks_theme($existing, $type, $theme, $path)
+{
+  $items = [];
+  global $base_path;
+  $theme_path = $theme = \Drupal::theme()->getActiveTheme()->getPath();
+  $path = $base_path.'/'.$theme_path.'/templates/blocks';
+
+  $items['harno-news-block'] = [
+    'variables' => [
+      'data' => [],
+      'info'=>[]
+    ],
+    'path' => $path,
+  ];
+  $items['harno-quicklinks-block'] = [
+    'variables' => [
+      'data' => []
+    ],
+    'path' => $path,
+  ];
+  $items['harno-banner-block'] = [
+    'variables' => [
+      'data' => []
+    ],
+    'path' => $path,
+  ];
+  $items['harno-front-galleries-block'] = [
+    'variables' => [
+      'data' => [],
+      'configuration'=>[],
+      'info' => []
+    ],
+    'path' => $path.'/front',
+  ];
+  $items['harno-front-study-times-block'] = [
+    'variables' => [
+      'data' => [],
+      'configuration'=>[],
+      'info'=>[],
+    ],
+    'path' => $path.'/front',
+  ];
+  $items['harno-front-news-block'] = [
+    'variables' => [
+      'data' => [],
+      'configuration'=>[],
+      'info' => []
+    ],
+    'path' => $path.'/front',
+  ];
+  $items['harno-front-messages-block'] = [
+    'variables' => [
+      'data' => [],
+      'configuration'=>[],
+      'info' => []
+    ],
+    'path' => $path.'/front',
+  ];
+  $items['harno-front-stories-block'] = [
+    'variables' => [
+      'data' => [],
+      'configuration'=>[],
+      'info' => []
+    ],
+    'path' => $path.'/front',
+  ];
+  $items['harno-front-logo-block'] = [
+    'variables' => [
+      'data' => [],
+      'configuration'=>[],
+      'info' => []
+    ],
+    'path' => $path.'/front',
+  ];
+  $items['harno-front-events-block'] = [
+    'variables' => [
+      'data' => [],
+      'configuration'=>[],
+      'info'=>[],
+    ],
+    'path' => $path.'/front',
+  ];
+  $items['front-food-menu'] = [
+    'variables' => [
+      'data' => [],
+      'configuration'=>[],
+      'info' => []
+    ],
+    'path' => $path.'/front',
+  ];
+  return $items;
+}
+function harno_blocks_form_alter(&$form,$form_state,$form_id){
+  switch ($form_id){
+    case 'layout_builder_add_block':
+      if (isset($form['settings']['form_id_block'])){
+        $localconf = \Drupal::service('config.factory')->get('harno_settings.settings');
+        $tag_name= $localconf->get('news_our_story');
+        if (!empty($tag_name)) {
+          $form['settings']['label']['#default_value'] = $tag_name;
+        }
+      }
+    case 'layout_builder_update_block':
+      $form['settings']['label_display']['#attributes']['style'] = 'display:none;';
+      $form['settings']['label']['#description'] = t('Minimum length 3 characters  maximum length 20 characters');
+      $form['settings']['label']['#maxlength']  = 20;
+      $form['settings']['label']['#minlength']  = 3;
+      $form['#validate'][] = 'harno_blocks_front_page_validate';
+      break;
+  }
+
+}
+
+function harno_blocks_cron() {
+  $tags  = ['node_list:food_menu'];
+
+  Cache::invalidateTags($tags);
+}
+function harno_blocks_front_page_validate(&$form,$form_state){
+  $label = $form_state->getValue('settings')['label'];
+  if ($label){
+   if (mb_strlen($label)<3){
+     $form_state->setErrorByName('settings][label', t('Block title must be at least 3 characters long'));
+   }
+  }
+}

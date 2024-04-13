@@ -1,0 +1,69 @@
+label: Meediakogu
+display:
+  default:
+    display_title: Vaikimisi
+    display_options:
+      title: Meedia
+      fields:
+        media_bulk_form:
+          action_title: Action
+      exposed_form:
+        options:
+          reset_button_label: Reset
+      filters:
+        status:
+          group_info:
+            label: Published
+            group_items:
+              1:
+                title: Published
+              2:
+                title: Unpublished
+        name:
+          expose:
+            label: Nimetus
+        bundle:
+          expose:
+            label: 'Meedia tüüp'
+          group_info:
+            label: 'Meedia tüüp'
+        langcode:
+          expose:
+            label: Language
+  page:
+    display_title: Veebileht
+    display_options:
+      fields:
+        media_bulk_form:
+          action_title: Action
+        edit_media:
+          text: Muuda
+        delete_media:
+          text: Kustuta
+  widget:
+    display_options:
+      arguments:
+        bundle:
+          exception:
+            title: All
+      filters:
+        name:
+          expose:
+            label: Nimetus
+  widget_table:
+    display_options:
+      fields:
+        name:
+          label: Nimetus
+        uid:
+          label: Author
+        changed:
+          label: Uuendati
+      arguments:
+        bundle:
+          exception:
+            title: All
+      filters:
+        name:
+          expose:
+            label: Nimetus

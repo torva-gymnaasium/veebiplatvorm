@@ -1,0 +1,23 @@
+uuid: 3d8e95f6-c688-48b5-9099-e66a6778ecde
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title_level
+    - paragraphs.paragraphs_type.intermediate_title_block
+  module:
+    - options
+id: paragraph.intermediate_title_block.field_title_level
+field_name: field_title_level
+entity_type: paragraph
+bundle: intermediate_title_block
+label: 'Pealkirja tase'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: h2
+default_value_callback: ''
+settings: {  }
+field_type: list_string

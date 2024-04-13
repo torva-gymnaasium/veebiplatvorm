@@ -1,0 +1,22 @@
+uuid: b14e0211-4df3-44c7-9c0f-7d9d2b4be5a0
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.worker
+id: node.worker.sticky
+field_name: sticky
+entity_type: node
+bundle: worker
+label: 'Oluline uudis'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

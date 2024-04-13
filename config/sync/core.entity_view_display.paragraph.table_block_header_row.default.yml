@@ -1,0 +1,23 @@
+uuid: 3c60534e-a031-4779-9ce5-7cc121be671e
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.table_block_header_row.field_table_editor
+    - paragraphs.paragraphs_type.table_block_header_row
+  module:
+    - text
+id: paragraph.table_block_header_row.default
+targetEntityType: paragraph
+bundle: table_block_header_row
+mode: default
+content:
+  field_table_editor:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true

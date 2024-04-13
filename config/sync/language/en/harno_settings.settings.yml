@@ -1,0 +1,33 @@
+general:
+  address: ''
+  phone: ''
+  email: ''
+important_contacts:
+  name_1: ''
+  body_1: ''
+  name_2: ''
+  body_2: ''
+  name_3: ''
+footer_socialmedia_links:
+  link_name_1: ''
+  link_url_1: ''
+  link_icon_1: ''
+footer_free_text_area:
+  name: ''
+  body: ''
+frontpage_quick_links:
+  link_weight_1: 1
+  link_weight_2: 2
+  link_weight_3: 3
+  link_weight_4: 4
+  link_weight_5: 5
+  link_weight_6: 6
+  link_weight_7: 7
+  link_name_9: ''
+  link_url_9: ''
+news_our_story:
+  name: 'Our stories'
+automatic_generation_academic_year:
+  date: ''
+frontpage_messages:
+  body_1: "<p>ENG The news was exclusively revealed by Scott Mills on Radio 1&nbsp;<a data-entity-substitution=\"canonical\" data-entity-type=\"node\" data-entity-uuid=\"eb4786e9-27f0-4b17-9138-b6e34a1cc17a\" href=\"/node/703\">Breakfast</a> with Greg James with<span>&nbsp;</span><em>SPACE MAN</em><span>&nbsp;</span>having previously featured as ‘Tune of the Week’ on Scott Mills’ Afternoon Show on BBC Radio 1.</p>\r\n"

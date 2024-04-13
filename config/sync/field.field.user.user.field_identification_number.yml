@@ -1,0 +1,24 @@
+uuid: a97baf53-d124-40ce-be9b-3e6f8746e3a4
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_identification_number
+  module:
+    - user
+id: user.user.field_identification_number
+field_name: field_identification_number
+entity_type: user
+bundle: user
+label: Isikukood
+description: '<b> NB! Isikukoodi saab lisada ainult ühe korra! Sisestamisel kontrolli, et see oleks korrektne. Hiljem seda muuta võimalik ei ole! </b>'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

@@ -1,0 +1,10 @@
+uuid: 0d40b23a-bfe5-4e53-9eff-e0daeecf1d5d
+langcode: et
+status: true
+dependencies: {  }
+id: db_33_33_33
+label: 'Jaotusplokk 33/33/33'
+icon_uuid: null
+icon_default: null
+description: 'Jaotusplokk jagab lehe sisu kolmeks osaks, millest iga osa moodustab 33%.'
+behavior_plugins: {  }

@@ -1,0 +1,22 @@
+uuid: c7890ee2-696c-46a8-baa1-8252f7f6bd07
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.calendar
+id: node.calendar.promote
+field_name: promote
+entity_type: node
+bundle: calendar
+label: 'Ülendatud esilehele'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

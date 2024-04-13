@@ -1,0 +1,18 @@
+uuid: b3ce584c-59f4-470c-be99-35a65fb825dc
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.departments
+id: taxonomy_term.departments.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: departments
+label: Muudetud
+description: 'Termi viimase muutmise aeg.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

@@ -1,0 +1,95 @@
+uuid: 440b27a6-cebb-4974-84bb-9a62bb44a9b6
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_content_blocks_25_1
+    - paragraphs.paragraphs_type.db_50_25_25
+    - paragraphs.paragraphs_type.gallery_block
+    - paragraphs.paragraphs_type.picture_block
+    - paragraphs.paragraphs_type.video_block
+  module:
+    - entity_reference_revisions
+id: paragraph.db_50_25_25.field_content_blocks_25_1
+field_name: field_content_blocks_25_1
+entity_type: paragraph
+bundle: db_50_25_25
+label: 'Jaotus 25 esimene veerg'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      picture_block: picture_block
+      gallery_block: gallery_block
+      video_block: video_block
+    negate: 0
+    target_bundles_drag_drop:
+      db_100:
+        weight: -43
+        enabled: false
+      db_25_25_25_25:
+        weight: -42
+        enabled: false
+      db_25_25_50:
+        weight: -41
+        enabled: false
+      db_25_75:
+        weight: -37
+        enabled: false
+      db_33_33_33:
+        weight: -36
+        enabled: false
+      db_33_66:
+        weight: -34
+        enabled: false
+      db_50_25_25:
+        weight: -40
+        enabled: false
+      db_50_50:
+        weight: -39
+        enabled: false
+      db_66_33:
+        weight: -33
+        enabled: false
+      db_75_25:
+        weight: -35
+        enabled: false
+      file:
+        weight: -31
+        enabled: false
+      gallery_block:
+        weight: -27
+        enabled: true
+      intermediate_title_block:
+        weight: -38
+        enabled: false
+      link:
+        weight: -30
+        enabled: false
+      link_and_file_block:
+        weight: -29
+        enabled: false
+      picture_block:
+        weight: -28
+        enabled: true
+      table_block_header_both:
+        weight: -25
+        enabled: false
+      table_block_header_column:
+        weight: -24
+        enabled: false
+      table_block_header_row:
+        weight: -23
+        enabled: false
+      text_block:
+        weight: -32
+        enabled: false
+      video_block:
+        weight: -26
+        enabled: true
+field_type: entity_reference_revisions

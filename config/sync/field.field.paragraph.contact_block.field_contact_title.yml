@@ -1,0 +1,19 @@
+uuid: 4d379a5a-67f7-49dd-90ea-6880ea620354
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_contact_title
+    - paragraphs.paragraphs_type.contact_block
+id: paragraph.contact_block.field_contact_title
+field_name: field_contact_title
+entity_type: paragraph
+bundle: contact_block
+label: 'Kontakti pealkiri'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

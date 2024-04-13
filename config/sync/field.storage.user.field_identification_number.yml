@@ -1,0 +1,20 @@
+uuid: 45c937f3-05e4-41a1-924a-7f10ab827ee7
+langcode: et
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_identification_number
+field_name: field_identification_number
+entity_type: user
+type: decimal
+settings:
+  precision: 11
+  scale: 0
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

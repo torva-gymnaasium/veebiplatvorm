@@ -1,0 +1,14 @@
+uuid: 7d46b8bb-9c68-4a7c-b643-c70de91bb5ce
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.eating_places
+id: taxonomy_vocabulary_eating_places
+entity_type_id: taxonomy_vocabulary
+entity_id: eating_places
+action: display_page
+allow_override: 0
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

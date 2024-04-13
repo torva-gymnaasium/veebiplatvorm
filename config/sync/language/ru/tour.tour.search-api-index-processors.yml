@@ -1,0 +1,5 @@
+tips:
+  search-api-index-processors-weights:
+    label: 'Порядок процессоров'
+  search-api-index-processors-settings:
+    label: 'Настройки процессора'

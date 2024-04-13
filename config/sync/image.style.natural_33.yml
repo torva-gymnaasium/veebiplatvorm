@@ -1,0 +1,15 @@
+uuid: c609dca3-ef53-489d-9fca-5137aabc9c07
+langcode: et
+status: true
+dependencies: {  }
+name: natural_33
+label: 'Natural 33'
+effects:
+  90a227b2-0584-46a2-8968-72dde573acda:
+    uuid: 90a227b2-0584-46a2-8968-72dde573acda
+    id: image_scale
+    weight: 1
+    data:
+      width: 800
+      height: null
+      upscale: false

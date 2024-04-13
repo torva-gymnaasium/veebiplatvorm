@@ -1,0 +1,22 @@
+uuid: cdfd55d5-5a48-4319-a695-46db45246dcc
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.db_33_33_33
+id: paragraph.db_33_33_33.status
+field_name: status
+entity_type: paragraph
+bundle: db_33_33_33
+label: Avaldatud
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

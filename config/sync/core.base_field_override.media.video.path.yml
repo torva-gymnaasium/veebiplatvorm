@@ -1,0 +1,20 @@
+uuid: ecb4183a-629c-4008-ad14-6fda5fae2db9
+langcode: et
+status: true
+dependencies:
+  config:
+    - media.type.video
+  module:
+    - path
+id: media.video.path
+field_name: path
+entity_type: media
+bundle: video
+label: 'URL-i alias'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

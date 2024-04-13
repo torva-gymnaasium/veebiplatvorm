@@ -1,0 +1,58 @@
+<?php
+/**
+ * Set default url aliases for EST listing pages
+ */
+function harno_translations_update_9001() {
+  harno_translations_import_translations('extra_translations.csv');
+  harno_translations_import_translations('extra_translations.csv',true);
+}
+
+/**
+ * Some translation updates
+ */
+function harno_translations_update_9002() {
+  harno_translations_import_translations('extra_translations.csv');
+  harno_translations_import_translations('extra_translations.csv',true);
+}
+/**
+ * Some translation updates
+ */
+function harno_translations_update_9003() {
+  harno_translations_import_translations('extra_translations.csv');
+  harno_translations_import_translations('extra_translations.csv',true);
+}
+
+/**
+ * Some translation updates
+ */
+function harno_translations_update_9004() {
+  harno_translations_import_translations('translations270123.csv');
+  harno_translations_import_translations('translations270123.csv',true);
+}
+/**
+ * Some translation updates
+ */
+function harno_translations_update_9005() {
+  harno_translations_import_translations('front_translation.csv');
+  harno_translations_import_translations('front_translation.csv',true);
+}
+
+/**
+ * Added mobile translations
+ */
+function harno_translations_update_9010() {
+  harno_translations_import_translations('translations06062023.csv');
+}
+/**
+ * Added date translations
+ */
+function harno_translations_update_9011() {
+  harno_translations_import_translations('translations06062023.csv');
+}
+
+/**
+ * Added date translations
+ */
+function harno_translations_update_9012() {
+  harno_translations_import_translations('translations19092023.csv');
+}

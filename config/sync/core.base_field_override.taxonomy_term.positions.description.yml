@@ -1,0 +1,20 @@
+uuid: 9e18f2a0-43be-4759-a9ae-a9c08af0e3e5
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.positions
+  module:
+    - text
+id: taxonomy_term.positions.description
+field_name: description
+entity_type: taxonomy_term
+bundle: positions
+label: Kirjeldus
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,10 @@
+uuid: 81b2cfd5-656e-4a7e-9ced-582c1c4ab530
+langcode: et
+status: true
+dependencies: {  }
+id: db_75_25
+label: 'Jaotusplokk 75/25'
+icon_uuid: null
+icon_default: null
+description: 'Jaotusplokk jagab lehe sisu kaheks osaks, millest esimene on 75% ja teine on 25%.'
+behavior_plugins: {  }

@@ -1,0 +1,15 @@
+uuid: 61b46eb5-393b-46e6-8b6c-e47bd24c0237
+langcode: et
+status: true
+dependencies: {  }
+name: modal_picture
+label: 'Modal picture'
+effects:
+  8da6fc58-6437-48f4-b899-216336996069:
+    uuid: 8da6fc58-6437-48f4-b899-216336996069
+    id: image_scale
+    weight: 1
+    data:
+      width: null
+      height: 1760
+      upscale: false

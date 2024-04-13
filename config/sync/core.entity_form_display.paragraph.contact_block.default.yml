@@ -1,0 +1,82 @@
+uuid: 010e26ab-7ec4-4ea0-a806-c02b543d6a53
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.contact_block.field_address
+    - field.field.paragraph.contact_block.field_contact_id
+    - field.field.paragraph.contact_block.field_contact_title
+    - field.field.paragraph.contact_block.field_email
+    - field.field.paragraph.contact_block.field_link
+    - field.field.paragraph.contact_block.field_name
+    - field.field.paragraph.contact_block.field_phone
+    - paragraphs.paragraphs_type.contact_block
+  module:
+    - link
+id: paragraph.contact_block.default
+targetEntityType: paragraph
+bundle: contact_block
+mode: default
+content:
+  field_address:
+    type: string_textfield
+    weight: 16
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_contact_id:
+    type: options_select
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_contact_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_email:
+    type: email_default
+    weight: 14
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+  field_link:
+    type: link_default
+    weight: 15
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_name:
+    type: string_textfield
+    weight: 12
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_phone:
+    type: string_textfield
+    weight: 13
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

@@ -1,0 +1,18 @@
+uuid: 1c8adf85-d508-4598-b002-d349a14ce946
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.school_hours
+id: taxonomy_term.school_hours.name
+field_name: name
+entity_type: taxonomy_term
+bundle: school_hours
+label: Nimetus
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

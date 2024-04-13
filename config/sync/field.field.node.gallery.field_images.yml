@@ -1,0 +1,29 @@
+uuid: d31e5a2a-bf85-46e4-81aa-13247932fbf5
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_images
+    - media.type.image
+    - node.type.gallery
+id: node.gallery.field_images
+field_name: field_images
+entity_type: node
+bundle: gallery
+label: Pildid
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: created
+      direction: DESC
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,25 @@
+uuid: 5f524bf1-245e-406c-9788-7cf58b3a751a
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_weight
+    - node.type.class
+id: node.class.field_weight
+field_name: field_weight
+entity_type: node
+bundle: class
+label: 'Järjekord teiste lendude suhtes'
+description: 'Järjekorra numbriks lisada lennu number. Vilistlaste lehel järjestatakse selle alusel lennud suuremast väiksemaks. Vaikimisi antakse uuele lisatavale lennule suurim number ja see pannakse vilistlaste lehel esimeseks.'
+required: true
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

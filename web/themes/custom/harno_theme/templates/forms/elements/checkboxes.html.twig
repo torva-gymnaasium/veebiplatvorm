@@ -1,0 +1,57 @@
+{#
+/**
+ * @file
+ * Theme override for a 'checkboxes' #type form element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The rendered checkboxes.
+ *
+ * @see template_preprocess_checkboxes()
+ */
+ @todo: remove this file once https://www.drupal.org/node/1819284 is resolved.
+ This is identical to core/modules/system/templates/container.html.twig
+#}
+{% set describedby = element['#id'] %}
+{% if element['#errors'] %}
+  {% set describedby = describedby ~ 'error-' ~ element['#id'] %}
+{% endif %}
+{% if element['#help'] %}
+  {% set describedby = describedby ~ ' help-' ~ element['#id'] %}
+{% endif %}
+
+{% if element['#webform_element'] %}
+  <div class="form-group">
+    <div class="checkbox-list{% if element['#help'] %} help-text{% endif %} {% if element['#errors'] %} error{% endif %}" role="group" {% if describedby %} aria-describedby="{{ describedby }}" {% endif %}>
+      <span id="{{ element['#id']}}" class="{% if element['#title_display'] == 'invisible' or element['#title_display'] == 'none'%}sr-only{% else %}checkbox-list-label{% endif %}">{{ element['#title'] }}{% if element['#required'] %} *{% endif %}</span>
+        {{ children }}
+      {% if element['#errors'] %}
+        <span class="error-text" id="error-{{ element['#id'] }}">{{element['#errors']}}</span>
+      {% endif %}
+      {% if element['#help'] %}
+        <span class="form-help-text" id="help-{{ element['#id'] }}">{{ element['#help'] }}</span>
+      {% endif %}
+    </div>
+  </div>
+{% else %}
+  {% if element['#id']=="gallery-years" %}
+    {{ children }}
+  {% elseif element['#id']=="event_type" %}
+    <span class="filter-title">{{ element['#title'] }}:</span>
+    {{ children }}
+  {% elseif element['#id'] == 'article_type' %}
+    <div class="filters-tags" role="group" aria-label="{{ "News tags group" |t }}">
+      {{ children }}
+    </div>
+  {% elseif element['#id']=='article_type_mobile' %}
+    <div class="mobile-filters-tags">
+      <div class="filters-tags" role="group" aria-label="{{ "News tags group" |t }}">
+        {{ children }}
+      </div>
+    </div><!--/mobile-filters-tags-->
+  {% else %}
+    <div{{ attributes.addClass('form-checkboxes') }}>{{ children }}</div>
+  {% endif %}
+{% endif %}
+
+

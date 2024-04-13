@@ -1,0 +1,18 @@
+uuid: c939c8e3-f984-40cb-879c-87a15e2ffae4
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.food_menu
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: node.food_menu
+target_entity_type_id: node
+target_bundle: food_menu
+default_langcode: current_interface
+language_alterable: true

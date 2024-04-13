@@ -1,0 +1,14 @@
+uuid: 560684a4-7dde-4615-9af6-00646995fe09
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.worker
+id: node_type_worker
+entity_type_id: node_type
+entity_id: worker
+action: page_redirect
+allow_override: 0
+redirect: /contacts
+redirect_code: 301
+redirect_fallback_action: access_denied

@@ -1,0 +1,20 @@
+uuid: d2c602c4-aa52-4191-8563-f5cb3abdd4d2
+langcode: et
+status: true
+dependencies:
+  module:
+    - harno_blocks
+  theme:
+    - harno_theme
+id: searchapiform_2
+theme: harno_theme
+region: header
+weight: 0
+provider: null
+plugin: harno_blocks_search_api_form_block
+settings:
+  id: harno_blocks_search_api_form_block
+  label: 'Search API form'
+  label_display: '0'
+  provider: harno_blocks
+visibility: {  }

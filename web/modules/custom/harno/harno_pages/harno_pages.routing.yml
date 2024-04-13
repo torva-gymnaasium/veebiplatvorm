@@ -1,0 +1,99 @@
+harno_pages.galleries_page:
+  path: 'galleries'
+  defaults:
+    _controller: '\Drupal\harno_pages\Controller\GalleriesController::index'
+    _title: 'Galleries'
+  requirements:
+    _permission: 'access content'
+harno_pages.news_page:
+  path: 'news'
+  defaults:
+    _controller: '\Drupal\harno_pages\Controller\NewsController::index'
+    _title: 'News'
+  requirements:
+    _permission: 'access content'
+harno_pages.autocomplete:
+  path: '/galleries_autocomplete'
+  defaults:
+    _controller: '\Drupal\harno_pages\Controller\AutocompleteController::handleAutocomplete'
+  requirements:
+    _permission: 'access content'
+harno_pages.news.autocomplete:
+  path: '/news_autocomplete'
+  defaults:
+    _controller: '\Drupal\harno_pages\Controller\AutocompleteController::handleNewsAutocomplete'
+  requirements:
+    _permission: 'access content'
+harno_pages.calendar.autocomplete:
+  path: '/calendar_autocomplete'
+  defaults:
+    _controller: '\Drupal\harno_pages\Controller\AutocompleteController::handleCalendarAutocomplete'
+  requirements:
+    _permission: 'access content'
+harno_pages.contacts_page:
+  path: 'contacts'
+  defaults:
+    _controller: '\Drupal\harno_pages\Controller\ContactsController::index'
+    _title: 'Contacts'
+  requirements:
+    _permission: 'access content'
+harno_pages.modal:
+  path: 'modal/{type}/{id}'
+  defaults:
+    _controller: '\Drupal\harno_pages\Controller\ModalController::index'
+    _title: 'Modal'
+  requirements:
+    _permission: 'access content'
+#  options:
+#    parameters:
+#      id:
+#        type: entity:node
+harno_pages.alumni_all:
+  path: 'alumni'
+  defaults:
+    _controller: '\Drupal\harno_pages\Controller\ClassController::index'
+    _title: 'Alumni'
+  requirements:
+    _permission: 'access content'
+harno_pages.calendar:
+  path: 'calendar/events'
+  defaults:
+    _controller: '\Drupal\harno_pages\Controller\CalendarController::index'
+    _title: 'Events calendar'
+  requirements:
+    _permission: 'access content'
+harno_pages.training:
+  path: 'calendar/training'
+  defaults:
+    _controller: '\Drupal\harno_pages\Controller\CalendarController::index'
+    _title: 'Training calendar'
+  requirements:
+    _permission: 'access content'
+harno_pages.miniCalendar:
+  path: 'calendar/{type}/json'
+  defaults:
+    _controller: '\Drupal\harno_pages\Controller\CalendarController::index'
+    _title: 'Calendar json'
+  requirements:
+    _permission: 'access content'
+harno_pages.ical:
+  path: '/ical/{nid}'
+  defaults:
+    _controller: '\Drupal\harno_pages\Controller\CalendarController::get_calendar_links'
+  requirements:
+    _access: 'TRUE'
+    nid: '[0-9]+'
+harno_pages.ics:
+  path: '/ics/download/{nid}'
+  defaults:
+    _controller: '\Drupal\harno_pages\Controller\ICSController::download'
+  requirements:
+    _access: 'TRUE'
+    nid: '[0-9]+'
+harno_pages.icons:
+  path: '/ikoonid'
+  defaults:
+    _controller: '\Drupal\harno_pages\Controller\IconsController::get_icons_html'
+    _title: 'Ikoonid'
+  requirements:
+    _permission: 'administer harno settings'

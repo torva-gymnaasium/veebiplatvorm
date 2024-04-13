@@ -1,0 +1,24 @@
+uuid: 11efb940-4f37-47bd-8c64-d611df68892b
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_table_editor
+    - paragraphs.paragraphs_type.table_block_header_row
+  module:
+    - text
+id: paragraph.table_block_header_row.field_table_editor
+field_name: field_table_editor
+entity_type: paragraph
+bundle: table_block_header_row
+label: Tabel
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: "<table>\r\n\t<caption>Tabeli tiitel muuta seda teksti.</caption>\r\n\t<thead>\r\n\t\t<tr>\r\n\t\t\t<th scope=\"col\">Päis 1</th>\r\n\t\t\t<th scope=\"col\">Päis 2</th>\r\n\t\t\t<th scope=\"col\">Päis 3</th>\r\n\t\t\t<th scope=\"col\">Päis 4</th>\r\n\t\t</tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td>&nbsp;</td>\r\n\t\t\t<td>&nbsp;</td>\r\n\t\t\t<td>&nbsp;</td>\r\n\t\t\t<td>&nbsp;</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>&nbsp;</td>\r\n\t\t\t<td>&nbsp;</td>\r\n\t\t\t<td>&nbsp;</td>\r\n\t\t\t<td>&nbsp;</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>"
+    format: full_html
+default_value_callback: ''
+settings: {  }
+field_type: text_long

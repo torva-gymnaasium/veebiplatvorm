@@ -1,0 +1,91 @@
+{#
+/**
+ * @file
+ * Theme override to display a view of unformatted rows.
+ *
+ * Available variables:
+ * - title: The title of this group of rows. May be empty.
+ * - rows: A list of the view's row items.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's content.
+ * - view: The view object.
+ * - default_row_class: A flag indicating whether default classes should be
+ *   used on rows.
+ *
+ * @see template_preprocess_views_view_unformatted()
+ */
+#}
+
+{% if view and view.exposed_raw_input %}
+  {% if rows|length == 1 %}
+    {% set showall = "TRUE" %}
+  {% endif %}
+  {% if view.exposed_raw_input.keys %}
+    {% set keys = view.exposed_raw_input.keys|replace({' ': "+"}) %}
+  {% endif %}
+{% endif %}
+
+{% for group in rows %}
+  {% if group.title %}
+    <div class="title-block--search">
+      <h2>{{ group.title }} ({{ group.rows|length }})</h2>
+    </div>
+  {% endif %}
+  {% if group.rows %}
+    <article class="content-block content-block--search-results">
+      <div class="row">
+        <div class="col-12 md-12 sm-12">
+          {% if showall %}
+            {% for row in group.rows %}
+                {{ row.content }}
+            {% endfor %}
+          {% else %}
+            {% if group.rows|length < 3 %}
+              {% for row in group.rows  %}
+                {{ row.content }}
+              {% endfor %}
+            {% else %}
+              {% for row in group.rows |slice(0,3) %}
+                  {{ row.content }}
+              {% endfor %}
+            {% endif %}
+          {% endif %}
+
+          {% if showall is empty %}
+            {% if group.rows|length > 3 %}
+              {% if group.type == "page" %}
+                <a class="btn search-show-more" rel="nofollow" href="{{  path('view.general_search.general_search', {'keys': keys, 'search_type[1]': '1' }) }}">{{ "Show all content pages" | t }} ({{ group.rows|length }})</a>
+              {% elseif group.type == "worker" %}
+                <a class="btn search-show-more" rel="nofollow" href="{{  path('view.general_search.general_search', {'keys': keys, 'search_type[2]': '2' }) }}">{{ "Show all contacts" | t }} ({{ group.rows|length }})</a>
+              {% elseif group.type == 'location' %}
+                <a class="btn search-show-more" rel="nofollow" href="{{  path('view.general_search.general_search', {'keys': keys, 'search_type[3]': '3' }) }}">{{ "Show all locations" | t }} ({{ group.rows|length }})</a>
+              {% elseif group.type == 'article' %}
+                <a class="btn search-show-more" rel="nofollow" href="{{  path('view.general_search.general_search', {'keys': keys, 'search_type[4]': '4' }) }}">{{ "Show all news" | t }} ({{ group.rows|length }})</a>
+              {% elseif group.type == 'calendar_event' %}
+                <a class="btn search-show-more" rel="nofollow" href="{{  path('view.general_search.general_search', {'keys': keys, 'search_type[5]': '5' }) }}">{{ "Show all events" | t }} ({{ group.rows|length }})</a>
+              {% elseif group.type == 'calendar_training' %}
+                <a class="btn search-show-more" rel="nofollow" href="{{  path('view.general_search.general_search', {'keys': keys, 'search_type[6]': '6' }) }}">{{ "Show all trainings" | t }} ({{ group.rows|length }})</a>
+              {% elseif group.type == 'class' %}
+                <a class="btn search-show-more" rel="nofollow" href="{{  path('view.general_search.general_search', {'keys': keys, 'search_type[7]': '7' }) }}">{{ "Show all graduates" | t }} ({{ group.rows|length }})</a>
+              {% elseif group.type == 'gallery' %}
+                <a class="btn search-show-more" rel="nofollow" href="{{  path('view.general_search.general_search', {'keys': keys, 'search_type[8]': '8' }) }}">{{ "Show all galleries" | t }} ({{ group.rows|length }})</a>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </article>
+  {% endif %}
+{% endfor %}
+
+{% if search_result_total %}
+  <span id="search_result_total_span" class="hidden" aria-hidden="true">{{ search_result_total }}</span>
+{% endif %}
+{% if search_result_count %}
+  <span id="search_result_type_count_exists" class="hidden" aria-hidden="true">1</span>
+  {% for type_key, type_count in search_result_count %}
+    <span id="search_result_{{ type_key }}_span" class="hidden" aria-hidden="true">{{ type_count }}</span>
+  {% endfor %}
+{% else %}
+  <span id="search_page_url_span" class="hidden" aria-hidden="true">{{  path('view.general_search.general_search', {'keys': keys }) }}</span>
+{% endif %}

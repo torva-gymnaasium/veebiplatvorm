@@ -1,0 +1,35 @@
+uuid: a47e5b8e-3950-4273-8dea-0e9cd59df836
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.food_menu
+  module:
+    - admin_toolbar_search
+    - file
+    - node
+    - scheduler
+    - system
+    - toolbar
+    - userprotect
+id: external_service_provider
+label: 'Väline teenusepakkuja'
+weight: 5
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access content overview'
+  - 'access site in maintenance mode'
+  - 'access toolbar'
+  - 'cancel account'
+  - 'change own username'
+  - 'create food_menu content'
+  - 'delete own files'
+  - 'delete own food_menu content'
+  - 'edit own food_menu content'
+  - 'schedule publishing of nodes'
+  - 'use admin toolbar search'
+  - userprotect.account.edit
+  - userprotect.mail.edit
+  - 'view own unpublished content'
+  - 'view the administration theme'

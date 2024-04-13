@@ -1,0 +1,21 @@
+uuid: ee4bfaa5-74ea-4ef2-b7a3-e710fb2122e7
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_opening_time
+    - paragraphs.paragraphs_type.opening_days
+  module:
+    - time_field
+id: paragraph.opening_days.field_opening_time
+field_name: field_opening_time
+entity_type: paragraph
+bundle: opening_days
+label: 'Avamise aeg'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: time

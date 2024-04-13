@@ -1,0 +1,188 @@
+{#
+/**
+ * @file
+ * Theme override for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ */
+#}
+{#{{ devel_dump(children) }}#}
+
+{% if children['#storage']['type'] == 'contacts' %}
+  <div class="contacts-filters contacts-filters--mobile">
+    <form{{ attributes.addClass('filters-form') }}>
+      <div class="filters-wrapper filters-wrapper--mobile" role="dialog" aria-labelledby="filters-label" aria-modal="true">
+        <div class="modal-header" role="filters" aria-labelledby="filters-label">
+          <div class="focus-trap" aria-hidden="true" tabindex="0"></div>
+          {% if children['#storage'] is defined %}
+            {% if children['#storage']['modal_title'] is defined %}
+              <h5 id="filters-label">{{ children['#storage']['modal_title'] |t }}</h5>
+            {% endif %}
+          {% endif %}
+          <button class="btn btn-close">
+            <span class="sr-only">{{ "Close modal" |t }}</span>
+            <i class="mdi mdi-close" aria-hidden="true"></i>
+          </button><!--/btn-close-->
+        </div><!--/modal-header-->
+        {{ children }}
+      </div>
+      <div id="mobile-active-filters" class="mobile-filters-output">
+        {% if children['#storage'] and children['#storage']['positions'] %}
+          <span  class="btn-input btn-input--remove-tag" data-plugin="filterRefresh">
+                <label for="mobile-tag">{{ children['#storage']['positions'] }}</label>
+                <input data-remove-position-item="{{ children['#storage']['positions'] }}" type="checkbox" role="button" id="mobile-tag" name="positions_mobile" value="{{ children['#storage']['positions'] }}"  aria-label="{{ children['#storage']['positions'] }} {{ "Click to remove"|t }} ">
+                <span  class="btn btn-tag btn-tag-remove">{{ children['#storage']['positions'] }}</span>
+              </span>
+        {% endif %}
+        {% if children['#storage'] and children['#storage']['departments'] %}
+          <span  class="btn-input btn-input--remove-tag" data-plugin="filterRefresh">
+                <label for="mobile-tag">{{ children['#storage']['departments'] }}</label>
+                <input data-remove-department-item="{{ children['#storage']['departments'] }}" type="checkbox" role="button" id="mobile-tag" name="departments_mobile" value="{{ children['#storage']['departments'] }}"  aria-label="{{ children['#storage']['departments'] }} {{ "Click to remove"|t }} ">
+                <span  class="btn btn-tag btn-tag-remove">{{ children['#storage']['departments'] }}</span>
+              </span>
+        {% endif %}
+      </div><!--/mobile-filters-output-->
+      {{ form }}
+    </form>
+  </div><!--/news-filters news-filters--mobile-->
+{% else %}
+<div class="news-filters news-filters--mobile">
+  <form{{ attributes.addClass('filters-form') }}>
+    <div class="filters-wrapper filters-wrapper--mobile" role="dialog" aria-labelledby="filters-label" aria-modal="true">
+      <div class="modal-header" role="filters" aria-labelledby="filters-label">
+        <div class="focus-trap" aria-hidden="true" tabindex="0"></div>
+        {% if children['#storage'] is defined %}
+        {% if children['#storage']['modal_title'] is defined %}
+
+          <h5 id="filters-label">{{ children['#storage']['modal_title'] |t }}</h5>
+        {% endif %}
+        {% endif %}
+        <button class="btn btn-close">
+          <span class="sr-only">{{ "Close modal" |t }}</span>
+          <i class="mdi mdi-close" aria-hidden="true"></i>
+        </button><!--/btn-close-->
+      </div><!--/modal-header-->
+      {{ children|without('years-mobile') }}
+      {{ children.bottom.searchgroup.searchButton }}
+    </div>
+
+    <div id="mobile-active-filters" class="mobile-filters-output">
+      {% if children['#storage'] and children['#storage']['active-years'] %}
+        {% for year in children['#storage']['active-years']  %}
+          {% if year %}
+            <span  class="btn-input btn-input--remove-tag">
+              <label for="mobile-tag">{{ year }}</label>
+              <input data-remove-checkbox-item="{{ year }}" type="checkbox" role="button" id="mobile-tag" value="{{ year }}"  aria-label="{{ year }} {{ "Click to remove"|t }} ">
+              <span  class="btn btn-tag btn-tag-remove">{{ year }}</span>
+            </span>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      {% if children['#storage'] and children['#storage']['dates'] %}
+        <span class="btn-input btn-input--remove-tag">
+        {% set aria_label = '' %}
+            <label  for="mobile-tag">{% if children['#storage']['dates']['start'] %}
+                {{children['#storage']['dates']['start'] }}
+                {% set aria_label = aria_label ~  children['#storage']['dates']['start'] %}
+              {% endif %}
+              {{" - "}}
+              {% if children['#storage']['dates']['end'] %}
+                {% if aria_label %}
+                  {% set aria_label =   aria_label ~" - "~  children['#storage']['dates']['end'] %}
+                {% else %}
+                  {% set aaria_label = children['#storage']['dates']['end'] %}
+                {% endif %}
+
+                {{children['#storage']['dates']['end'] }}
+              {% endif %}</label>
+            <input  type="checkbox" data-remove-dates="{{ year }}" role="button"  id="mobile-tag" value="{{ year }}" aria-label=" {{ aria_label}}  {{ "Click to remove"|t }} " >
+            <span  data-plugin="filterRefresh"  class="btn btn-tag btn-tag-remove">
+            {% if children['#storage']['dates']['start'] %}
+              {{children['#storage']['dates']['start'] }}
+            {% endif %}
+              {{" - "}}
+              {% if children['#storage']['dates']['end'] %}
+                {{children['#storage']['dates']['end'] }}
+              {% endif %}
+            </span>
+          </span>
+      {% endif %}
+    </div><!--/mobile-filters-output-->
+    {{ form }}
+  </form>
+</div><!--/news-filters news-filters--mobile-->
+{% endif %}
+{#<div class="content-block content-block--filters">#}
+{#  <span class="filters-info md-hide sm-hide">{{ 'The options apply automatically'|t }}</span>#}
+{#<div class="row">#}
+{#  <div class="col-12 md-12 sm-12">#}
+{#    <div class="news-filters">#}
+{#      <form{{ attributes.addClass('filters-form') }}>#}
+
+{#        <div class="filters-wrapper">#}
+{#        <div class="modal-header" role="filters" aria-labelledby="filters-label">#}
+{#          <div class="focus-trap" aria-hidden="true" tabindex="0"></div>#}
+{#          <h5 id="filters-label">{{ "Filter news" |t }}</h5>#}
+{#          <button class="btn btn-close">#}
+{#            <span class="sr-only">{{ "Close modal" |t }}</span>#}
+{#            <i class="mdi mdi-close"></i>#}
+{#          </button><!--/btn-close-->#}
+{#          </div><!--/modal-header-->#}
+{#       {{ children|without('years') }}#}
+{#          {{ children.bottom.searchgroup.searchButton }}#}
+{#        </div>#}
+
+{#        <div id="mobile-active-filters" class="mobile-filters-output">#}
+{#          {% if children['#storage'] and children['#storage']['active-years'] %}#}
+{#            {% for year in children['#storage']['active-years']  %}#}
+{#              {% if year %}#}
+{#                <span  class="btn-input">#}
+{#                <label for="mobile-tag">{{ year }}</label>#}
+{#                <input data-remove-checkbox-item="{{ year }}" type="checkbox" role="button" id="mobile-tag" value="{{ year }}"  aria-label="{{ year }} {{ "click to remove"|t }} ">#}
+{#                <span  class="btn btn-tag btn-tag-remove">{{ year }}</span>#}
+{#              </span>#}
+{#              {% endif %}#}
+{#            {% endfor %}#}
+{#          {% endif %}#}
+{#          {% if children['#storage'] and children['#storage']['dates'] %}#}
+{#              <span class="btn-input">#}
+{#                {% set aria_label = '' %}#}
+{#                    <label  for="mobile-tag">{% if children['#storage']['dates']['start'] %}#}
+{#                    {{children['#storage']['dates']['start'] }}#}
+{#                        {% set aria_label = aria_label ~  children['#storage']['dates']['start'] %}#}
+{#                    {% endif %}#}
+{#                    {{" - "}}#}
+{#                    {% if children['#storage']['dates']['end'] %}#}
+{#                      {% if aria_label %}#}
+{#                        {% set aria_label =   aria_label ~" - "~  children['#storage']['dates']['end'] %}#}
+{#                        {% else %}#}
+{#                        {% set aaria_label = children['#storage']['dates']['end'] %}#}
+{#                      {% endif %}#}
+
+{#                    {{children['#storage']['dates']['end'] }}#}
+{#                    {% endif %}</label>#}
+{#                    <input  type="checkbox" data-remove-dates="{{ year }}" role="button"  id="mobile-tag" value="{{ year }}" aria-label=" {{ aria_label}}  {{ "click to remove"|t }} " >#}
+{#                    <span  data-plugin="filterRefresh"  class="btn btn-tag btn-tag-remove">#}
+{#                    {% if children['#storage']['dates']['start'] %}#}
+{#                    {{children['#storage']['dates']['start'] }}#}
+{#                    {% endif %}#}
+{#                    {{" - "}}#}
+{#                    {% if children['#storage']['dates']['end'] %}#}
+{#                    {{children['#storage']['dates']['end'] }}#}
+{#                    {% endif %}#}
+{#                    </span>#}
+{#                  </span>#}
+{#          {% endif %}#}
+{#        </div><!--/mobile-filters-output-->#}
+{#        {{ form }}#}
+{#      </form>#}
+
+{#    </div><!--/--gallery-filters-->#}
+
+{#  </div><!--/col-12-->#}
+{#</div><!--/row-->#}
+{#</div>#}

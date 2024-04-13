@@ -1,0 +1,10 @@
+uuid: fdc32c02-5e11-41ca-9728-4236388b1645
+langcode: et
+status: true
+dependencies: {  }
+id: school_hour
+label: Tund
+icon_uuid: null
+icon_default: null
+description: 'Võimaldab lisada tunde.'
+behavior_plugins: {  }

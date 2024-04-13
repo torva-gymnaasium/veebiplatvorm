@@ -1,0 +1,16 @@
+uuid: f1f6ceb2-c67d-47f0-8353-3407e3fe967b
+langcode: et
+status: true
+dependencies:
+  module:
+    - media
+  enforced:
+    module:
+      - media_library
+_core:
+  default_config_hash: pkq0uj-IoqEQRBOP_ddUDV0ZJ-dKQ_fLcppsEDF2UO8
+id: media.media_library
+label: Meediakogu
+description: ''
+targetEntityType: media
+cache: true

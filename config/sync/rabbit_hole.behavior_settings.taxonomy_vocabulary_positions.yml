@@ -1,0 +1,14 @@
+uuid: df75dace-51a9-4a49-87c4-4817452432dd
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.positions
+id: taxonomy_vocabulary_positions
+entity_type_id: taxonomy_vocabulary
+entity_id: positions
+action: display_page
+allow_override: 0
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

@@ -1,0 +1,19 @@
+uuid: f0f9236d-8913-4857-bde2-9f99c61e91d6
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_identifier
+    - node.type.worker
+id: node.worker.field_identifier
+field_name: field_identifier
+entity_type: node
+bundle: worker
+label: 'Töötaja identifikaator'
+description: 'Selle abil saab teha töötaja kirjega uuendusi CSV faili kaudu.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

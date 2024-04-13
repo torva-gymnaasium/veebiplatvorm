@@ -1,0 +1,15 @@
+uuid: 22aa7f49-0e87-40c3-b947-ccf48c2bc4d5
+langcode: et
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: Söögikohad
+vid: eating_places
+description: 'Võimaldab toidumenüüsse tekitada lehed (nt "Suur maja", "Kooli söökla") ja siduda sellega iganädalased söögimenüüga.'
+weight: 0

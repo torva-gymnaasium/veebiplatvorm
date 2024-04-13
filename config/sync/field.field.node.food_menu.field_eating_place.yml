@@ -1,0 +1,29 @@
+uuid: 1a07d7f8-8831-411b-9036-6a1203ffdc9c
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_eating_place
+    - node.type.food_menu
+    - taxonomy.vocabulary.eating_places
+id: node.food_menu.field_eating_place
+field_name: field_eating_place
+entity_type: node
+bundle: food_menu
+label: Söögikoht
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      eating_places: eating_places
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

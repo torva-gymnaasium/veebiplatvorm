@@ -1,0 +1,20 @@
+uuid: 49f27a5c-9827-4229-bd07-cd2bac751d56
+langcode: et
+status: true
+dependencies:
+  module:
+    - harno_settings
+  theme:
+    - harno_theme
+id: footerimportantcontactsblock
+theme: harno_theme
+region: footer
+weight: -8
+provider: null
+plugin: harno_footer_important_contacts
+settings:
+  id: harno_footer_important_contacts
+  label: 'Footer Important Contacts Block'
+  label_display: visible
+  provider: harno_settings
+visibility: {  }

@@ -1,0 +1,10 @@
+uuid: 88aac84b-8b4e-482b-ae58-93eb7577f48e
+langcode: et
+status: true
+dependencies: {  }
+id: file
+label: Fail
+icon_uuid: null
+icon_default: null
+description: 'Lingi ja failiplokki saab selle abil lisada faile. '
+behavior_plugins: {  }

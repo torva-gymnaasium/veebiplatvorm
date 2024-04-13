@@ -1,0 +1,23 @@
+uuid: 9f79147e-4922-41cd-9f0a-f1928538783a
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_uue_valja_test
+    - node.type.front_page
+id: node.front_page.field_uue_valja_test
+field_name: field_uue_valja_test
+entity_type: node
+bundle: front_page
+label: 'Uue valja test'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

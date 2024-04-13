@@ -1,0 +1,54 @@
+uuid: 84f2eb20-bf3d-40de-8c10-84bea03a856d
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.school_hours_group.field_name
+    - field.field.paragraph.school_hours_group.field_school_hour_day
+    - paragraphs.paragraphs_type.school_hours_group
+  module:
+    - maxlength
+    - paragraphs
+id: paragraph.school_hours_group.default
+targetEntityType: paragraph
+bundle: school_hours_group
+mode: default
+content:
+  field_name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings:
+      maxlength:
+        maxlength_js: 15
+        maxlength_js_label: 'Tundide grupi nimetus on piiratud @limit tähemärgiga, veel saad sisestada <strong>@remaining</strong> tähemärki.'
+  field_school_hour_day:
+    type: paragraphs
+    weight: 1
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: closed
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: school_hour_day
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

@@ -1,0 +1,30 @@
+content:
+  location: 1
+  gallery: 1
+  worker: 1
+  class: 1
+  page: 1
+  calendar: 1
+  food_menu: 5
+  partner_logo: 1
+  article: 1
+taxonomy:
+  positions: 1
+  training_keywords: 1
+  media_catalogs: 1
+  departments: 1
+  eating_places: 5
+  event_keywords: 1
+  food_groups: 5
+  catering_service_provider: 5
+  school_hours: 1
+  academic_year: 1
+settings:
+  general: 1
+  frontpage_quick_links: 1
+  important_contacts: 1
+  footer_socialmedia_links: 1
+  footer_quick_links: 1
+  footer_free_text_area: 1
+  footer_copyright: 1
+  variables: 1

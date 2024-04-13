@@ -1,0 +1,30 @@
+harno_pages:
+  js:
+    js/urlparameters.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+calendar_js:
+  js:
+    js/filterRefreshCalendar.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+
+filter_focus:
+      js:
+        js/filterfocus.js: { }
+accordion:
+      js:
+        js/accordion.js: { }
+        js/contactModal.js: { }
+select2fix:
+      js:
+        js/select2fix.js: {}
+      dependecies:
+        - select2/select2.min
+
+
+

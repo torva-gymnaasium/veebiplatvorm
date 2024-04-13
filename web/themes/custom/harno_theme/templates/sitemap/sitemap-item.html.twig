@@ -1,0 +1,162 @@
+{#
+/**
+ * @file
+ * Theme implementation to display a single Sitemap plugin item.
+ *
+ * Available variables:
+ * - title: The title of the sitemap item if configured.
+ * - content: A renderable array of sitemap item content.
+ * - sitemap: The full sitemap plugin instance.
+ * - attributes: Attributes for the sitemap item container.
+ * - plugin_type: The plugin definition ID.
+ * - plugin_id: The specific plugin ID.
+ **/
+ #}
+{%
+  set classes = [
+    'sitemap-item',
+    plugin_type ? 'sitemap-plugin--' ~ plugin_type|clean_class,
+    plugin_id ? 'sitemap-item--' ~ plugin_id|clean_class,
+  ]
+ %}
+{% macro last_levels(last_items) %}
+  {% for last_item in last_items  %}
+    <li>
+      {% set external = last_item.url.external %}
+      {% set url = last_item.url.toString %}
+      {% if url %}
+        <a {% if external %} target="_blank" {% endif %} href="{{ last_item.url.toString }}">{{ last_item.title }}
+          {% if external %}
+            <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+            <span class="sr-only">{{ "Link will open on a new page"|t }}</span>
+          {% endif %}
+        </a>
+      {% else %}
+        {{ last_item.title }}
+      {% endif %}
+      {% if last_item.below %}
+        <ul class="sub-dropdown">
+          {{ _self.last_levels(last_item.below) }}
+        </ul>
+      {% endif %}
+    </li>
+  {% endfor %}
+{% endmacro %}
+{% if content %}
+  <div class="row">
+  {% set count = content['#items']|length %}
+  {% set half = count/2 %}
+    {% for i in 0..1  %}
+      {% if i==0 %}
+        {% set start = 0 %}
+        {% set end = half|round %}
+        {% else %}
+        {% set start = half|round %}
+        {% set end = count %}
+      {% endif %}
+      <div class="col-6 md-12 sm-12">
+        <div class="sitemap">
+          <div class="sitemap-item sitemap-plugin--menu sitemap-item--menu-main">
+            <div>
+              <ul class="main-menu">
+                {% for item in content['#items'] |slice(start,end) %}
+                  <li>
+                    {% set external = item.url.external %}
+                    {% set url = item.url.toString %}
+                    {% if url %}
+                      <a {% if external %} target="_blank" {% endif %} href="{{ item.url.toString }}">{{ item.title }}
+                        {% if external %}
+                          <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                          <span class="sr-only">{{ "Link will open on a new page"|t }}</span>
+                        {% endif %}
+                      </a>
+                    {% else %}
+                      <h4>{{ item.title }}</h4>
+                    {% endif %}
+                    {% if item.below %}
+                      <div class="main-menu-dropdown">
+                        <ul class="dropdown-link-block">
+                          {% for below_item in item.below  %}
+                            <li>
+                              {% set url = below_item.url.toString %}
+
+                              {% set external = below_item.url.external %}
+                              {% if url %}
+                                <a {% if external %} target="_blank" {% endif %} href="{{ below_item.url.toString }}">{{ below_item.title }}
+                                  {% if external %}
+                                    <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                                    <span class="sr-only">{{ "Link will open on a new page"|t }}</span>
+                                  {% endif %}
+                                </a>
+                              {% else %}
+                                {{ below_item.title }}
+                              {% endif %}
+                              {% if below_item.below %}
+                                <ul class="side-menu">
+                                  {% for below_below_item in below_item.below  %}
+                                    <li>
+                                      {% set external = below_below_item.url.external %}
+                                      {% set url = below_below_item.url.toString %}
+                                      {% if url %}
+                                        <a {% if external %} target="_blank" {% endif %} href="{{ below_below_item.url.toString }}" class="sitemap-3-layer">{{ below_below_item.title }}
+                                          {% if external %}
+                                            <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                                            <span class="sr-only">{{ "Link will open on a new page"|t }}</span>
+                                          {% endif %}
+                                        </a>
+                                      {% else %}
+                                        <p>{{ below_below_item.title }}</p>
+                                      {% endif %}
+                                      {% if below_below_item.below %}
+                                        <ul class="sub-dropdown">
+                                          {% for below_below_below_item in below_below_item.below  %}
+                                            <li>
+                                              {% set external = below_below_below_item.url.external %}
+                                              {% set url = below_below_below_item.url.toString %}
+                                              {% if url %}
+                                                <a {% if external %} target="_blank" {% endif %} href="{{ below_below_below_item.url.toString }}">{{ below_below_below_item.title }}
+                                                  {% if external %}
+                                                    <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                                                    <span class="sr-only">{{ "Link will open on a new page"|t }}</span>
+                                                  {% endif %}
+                                                </a>
+                                              {% else %}
+                                                {{ below_below_below_item.title }}
+                                              {% endif %}
+                                              {% if below_below_below_item.below %}
+                                                <ul class="sub-dropdown">
+                                                  {{ _self.last_levels(below_below_below_item.below) }}
+                                                </ul>
+
+                                              {% endif %}
+                                            </li>
+                                          {% endfor %}
+                                        </ul>
+                                      {% endif %}
+                                    </li>
+                                  {% endfor %}
+                                </ul>
+                              {% endif %}
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul><!--/main-menu-->
+            </div>
+          </div><!--/sitemap-item sitemap-plugin--menu sitemap-item--menu-main-->
+        </div><!--/sitemap-->
+      </div>
+    {% endfor %}
+  </div>
+{#<div{{ attributes.addClass(classes) }}>#}
+{#  {% if title %}#}
+{#    <h2>{{ title }}</h2>#}
+{#  {% endif %}#}
+{#  <div>#}
+{#    {{ content }}#}
+{#  </div>#}
+{#</div>#}
+{% endif %}

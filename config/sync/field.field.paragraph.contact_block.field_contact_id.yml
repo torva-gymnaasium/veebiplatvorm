@@ -1,0 +1,29 @@
+uuid: 3e202b17-9e71-4d3e-a929-01552ac0105f
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_contact_id
+    - node.type.worker
+    - paragraphs.paragraphs_type.contact_block
+id: paragraph.contact_block.field_contact_id
+field_name: field_contact_id
+entity_type: paragraph
+bundle: contact_block
+label: 'Kontakti viide'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      worker: worker
+    sort:
+      field: title
+      direction: ASC
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

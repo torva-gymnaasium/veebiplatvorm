@@ -1,0 +1,4 @@
+administer harno settings:
+  title: 'Administer Veebiplatvorm settings'
+  description: 'Configure site-wide settings.'
+  restrict access: true

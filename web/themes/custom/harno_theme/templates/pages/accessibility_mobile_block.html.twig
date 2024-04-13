@@ -1,0 +1,85 @@
+<li class="bg-blue">
+  <a href="#" aria-expanded="false">{{ 'Accessibility'|t }}</a>
+  <div class="main-menu-dropdown">
+    <div class="focus-trap-first" tabindex="-1"></div>
+    <ul class="dropdown-link-block">
+      <li>
+        <a href="#" class="back-to-menu" aria-label="{{ "Back to main menu" |t }}">
+          <i class="mdi mdi-menu-down" aria-hidden="true"></i>
+          {{ 'Accessibility'|t }}
+        </a>
+      </li>
+      <li>
+        <div class="accessibility accessibility--mobile">
+          <div class="accessibility__inner">
+            <div class="row">
+              <div class="col-4 md-12 sm-12">
+                <h3>{{ 'Text size'|t }}</h3>
+                <p>{{ 'When you select a text size, it changes automatically'|t }}</p>
+                <div class="form-group">
+                  <div class="radio-list change-font" role="group" aria-labelledby="accessibility-font">
+                    <span id="accessibility-font" class="sr-only">{{ 'Change font size'|t }}</span>
+                    <div class="custom-control custom-form-radio custom-form-inline" tabindex="0">
+                      <input type="radio" name="fontSize-mobile" id="input16691" class="custom-form-input" value="1x" checked>
+                      <label for="input16691" class="custom-form-label size-normal">{{ 'Default value'|t }}</label>
+                    </div><!--/custom-control custom-form-radio custom-form-inline-->
+                    <div class="custom-control custom-form-radio custom-form-inline" tabindex="0">
+                      <input type="radio" name="fontSize-mobile" id="input17197" class="custom-form-input" value="2x">
+                      <label for="input17197" class="custom-form-label size-2x">{{ 'Large'|t }}</label>
+                    </div><!--/custom-control custom-form-radio custom-form-inline-->
+                    <div class="custom-control custom-form-radio custom-form-inline" tabindex="0">
+                      <input type="radio" name="fontSize-mobile" id="input11898" class="custom-form-input" value="4x">
+                      <label for="input11898" class="custom-form-label size-4x">{{ 'Very large'|t }}</label>
+                    </div><!--/custom-control custom-form-radio custom-form-inline-->
+                  </div><!--/radio-list-->
+                </div><!--/form-group-->
+              </div><!--/col-4 md-12 sm-12-->
+              <div class="col-4 md-12 sm-12">
+                <h3>{{ 'Line spacing'|t }}</h3>
+                <p>{{ 'When you select a line spacing, it changes automatically'|t }}</p>
+                <div class="form-group">
+                  <div class="checkbox-list" role="group" aria-labelledby="accessibility-line-height">
+                    <span id="accessibility-line-height" class="sr-only">{{ 'Change line height'|t }}</span>
+                    <div class="custom-control custom-checkbox custom-form-inline">
+                      <input type="checkbox" name="paragraphSpacing" id="input16641" class="custom-form-input" value="high">
+                      <label for="input16641" class="custom-form-label size-normal">{{ 'Increase paragraph breaks'|t }}</label>
+                    </div><!--/custom-control custom-form-radio custom-form-inline-->
+                    <div class="custom-control custom-checkbox custom-form-inline word-spacing">
+                      <input type="checkbox" name="wordSpacing" id="input17741" class="custom-form-input" value="high">
+                      <label for="input17741" class="custom-form-label size-1x">{{ 'Increase word spacing'|t }}</label>
+                    </div><!--/custom-control custom-form-radio custom-form-inline-->
+                    <div class="custom-control custom-checkbox custom-form-inline letter-spacing">
+                      <input type="checkbox" name="letterSpacing" id="input18841" class="custom-form-input" value="high">
+                      <label for="input18841" class="custom-form-label size-2x">{{ 'Increase letter spacing'|t }}</label>
+                    </div><!--/custom-control custom-checkbox custom-form-inline-->
+                  </div><!--/checkbox-list-->
+                </div><!--/form-group-->
+              </div><!--/col-4 md-12 sm-12-->
+              <div class="col-4 md-12 sm-12">
+                <h3>{{ 'Contrast'|t }}</h3>
+                <p>{{ 'When you select a contrast, it changes automatically'|t }}</p>
+                <div class="form-group">
+                  <div class="radio-list" role="group" aria-labelledby="accessibility-contrast">
+                    <span id="accessibility-contrast" class="sr-only">{{ 'Change page contrast color'|t }}</span>
+                    <div class="custom-control custom-form-radio custom-form-inline" tabindex="0">
+                      <input type="radio" name="pageContrast-mobile" id="input1166994" class="custom-form-input" value="normal" checked>
+                      <label for="input1166994" class="custom-form-label">{{ 'Default value'|t }}</label>
+                    </div><!--/custom-control custom-form-radio custom-form-inline-->
+                    <div class="custom-control custom-form-radio custom-form-inline" tabindex="0">
+                      <input type="radio" name="pageContrast-mobile" id="input1177994" class="custom-form-input" value="high">
+                      <label for="input1177994" class="custom-form-label">{{ 'Black-yellow'|t }}</label>
+                    </div><!--/custom-control custom-form-radio custom-form-inline-->
+                  </div><!--/radio-list-->
+                </div><!--/form-group-->
+                {% if accessibility_url is not empty %}
+                  <a href="{{ accessibility_url }}" class="btn btn-accessible-info">{{ 'More information about accessibility'|t }}</a>
+                {% endif %}
+              </div><!--/col-4 md-12 sm-12-->
+            </div><!--/row-->
+          </div><!--/accessibility__inner-->
+        </div><!--/accessibility-->
+      </li>
+    </ul><!--/dropdown-link-block-->
+    <div class="focus-trap-last" tabindex="-1"></div>
+  </div><!--/main-menu-dropdown-->
+</li>

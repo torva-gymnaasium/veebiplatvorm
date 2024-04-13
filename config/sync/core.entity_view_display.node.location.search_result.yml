@@ -1,0 +1,45 @@
+uuid: a7e78f15-91fe-4db7-9e07-af5ba8c68808
+langcode: et
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_result
+    - field.field.node.location.field_additional_information
+    - field.field.node.location.field_address
+    - field.field.node.location.field_description
+    - field.field.node.location.field_distribution_blocks
+    - field.field.node.location.field_email
+    - field.field.node.location.field_map_scale
+    - field.field.node.location.field_map_x_coordinate
+    - field.field.node.location.field_map_y_coordinate
+    - field.field.node.location.field_opening_days
+    - field.field.node.location.field_phones_3
+    - node.type.location
+  module:
+    - user
+id: node.location.search_result
+targetEntityType: node
+bundle: location
+mode: search_result
+content:
+  field_address:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_additional_information: true
+  field_description: true
+  field_distribution_blocks: true
+  field_email: true
+  field_map_scale: true
+  field_map_x_coordinate: true
+  field_map_y_coordinate: true
+  field_opening_days: true
+  field_phones_3: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

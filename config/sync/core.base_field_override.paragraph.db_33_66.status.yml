@@ -1,0 +1,22 @@
+uuid: e7901e11-902e-4032-9942-91c5e90887eb
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.db_33_66
+id: paragraph.db_33_66.status
+field_name: status
+entity_type: paragraph
+bundle: db_33_66
+label: Avaldatud
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

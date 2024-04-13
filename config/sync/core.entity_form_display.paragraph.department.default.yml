@@ -1,0 +1,29 @@
+uuid: 6c4b7da0-cf56-4eff-b997-8225d1e2ab0e
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.department.field_department
+    - field.field.paragraph.department.field_weight
+    - paragraphs.paragraphs_type.department
+id: paragraph.department.default
+targetEntityType: paragraph
+bundle: department
+mode: default
+content:
+  field_department:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_weight:
+    type: number
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

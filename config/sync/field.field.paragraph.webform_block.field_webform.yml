@@ -1,0 +1,25 @@
+uuid: 0bb5ec8a-8bb6-47ee-8e34-5cb88dfe9b7a
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_webform
+    - paragraphs.paragraphs_type.webform_block
+  module:
+    - webform
+id: paragraph.webform_block.field_webform
+field_name: field_webform
+entity_type: paragraph
+bundle: webform_block
+label: Sisestusvorm
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:webform'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: webform

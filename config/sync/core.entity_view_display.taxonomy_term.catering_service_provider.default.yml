@@ -1,0 +1,72 @@
+uuid: 8b19db29-ad23-44cc-9f18-626b66dcdb11
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.catering_service_provider.field_address
+    - field.field.taxonomy_term.catering_service_provider.field_caterer_name
+    - field.field.taxonomy_term.catering_service_provider.field_email
+    - field.field.taxonomy_term.catering_service_provider.field_homepage
+    - field.field.taxonomy_term.catering_service_provider.field_phone
+    - taxonomy.vocabulary.catering_service_provider
+  module:
+    - link
+    - text
+id: taxonomy_term.catering_service_provider.default
+targetEntityType: taxonomy_term
+bundle: catering_service_provider
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_address:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_caterer_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_email:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_homepage:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_phone:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

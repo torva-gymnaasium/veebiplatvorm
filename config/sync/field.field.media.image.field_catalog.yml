@@ -1,0 +1,33 @@
+uuid: 476deb15-0dd0-437f-a7db-93355f6afa0c
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_catalog
+    - media.type.image
+    - taxonomy.vocabulary.media_catalogs
+  content:
+    - 'taxonomy_term:media_catalogs:b645263d-a29c-43a2-9e10-386925bdaadb'
+id: media.image.field_catalog
+field_name: field_catalog
+entity_type: media
+bundle: image
+label: 'Meedia kaust'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: b645263d-a29c-43a2-9e10-386925bdaadb
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      media_catalogs: media_catalogs
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

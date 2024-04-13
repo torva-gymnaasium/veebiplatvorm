@@ -1,0 +1,22 @@
+uuid: fb64b28f-b9d7-4101-94c7-8647b0ad57a3
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.food_menu
+id: node.food_menu.promote
+field_name: promote
+entity_type: node
+bundle: food_menu
+label: 'Ülendatud esilehele'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

@@ -1,0 +1,18 @@
+uuid: ec633d9c-8762-4866-b7d1-a67599d17111
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.academic_year
+id: taxonomy_term.academic_year.name
+field_name: name
+entity_type: taxonomy_term
+bundle: academic_year
+label: Nimetus
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

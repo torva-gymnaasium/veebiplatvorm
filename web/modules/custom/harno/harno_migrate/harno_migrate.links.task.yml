@@ -1,0 +1,6 @@
+harno_migrate.migrate_form:
+  title: 'Migratsioon'
+  description: 'Kasutaja saab alustada migreetimist veebiplatvormi eelmiselt versioonilt.'
+  route_name: harno_migrate.migrate_form
+  base_route: harno_migrate.migrate_form
+  parent: harno_settings.admin_index

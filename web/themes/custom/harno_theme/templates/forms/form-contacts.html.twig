@@ -1,0 +1,45 @@
+{#
+/**
+ * @file
+ * Theme override for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ */
+#}
+<div class="content-block content-block--filters">
+  <span class="filters-info sm-hide">{{ 'The options apply automatically'|t }}</span>
+  <div class="row">
+    <div class="col-12 md-12 sm-12">
+      <div class="contacts-filters">
+        <form {{ attributes.addClass('filters-form') }}>
+          {{ children }}
+          <div id="mobile-active-filters" class="mobile-filters-output">
+            {% if children['#storage'] and children['#storage']['positions'] %}
+              {% if children['#storage']['positions'] != 'all' %}
+                <span  class="btn-input btn-input--remove-tag" data-plugin="filterRefresh">
+                  <label for="mobile-tag">{{ children['#storage']['positions'] }}</label>
+                  <input data-remove-position-item="{{ children['#storage']['positions'] }}" type="checkbox" role="button" id="mobile-tag" name="positions_mobile" value="{{ children['#storage']['positions'] }}"  aria-label="{{ children['#storage']['positions'] }} {{ "Click to remove"|t }} ">
+                  <span  class="btn btn-tag btn-tag-remove">{{ children['#storage']['positions'] }}</span>
+                </span>
+              {% endif %}
+            {% endif %}
+            {% if children['#storage'] and children['#storage']['departments'] %}
+              {% if children['#storage']['departments'] != 'all' %}
+                <span  class="btn-input btn-input--remove-tag" data-plugin="filterRefresh">
+                  <label for="mobile-tag">{{ children['#storage']['departments'] }}</label>
+                  <input data-remove-department-item="{{ children['#storage']['departments'] }}" type="checkbox" role="button" id="mobile-tag" name="departments_mobile" value="{{ children['#storage']['departments'] }}"  aria-label="{{ children['#storage']['departments'] }} {{ "Click to remove"|t }} ">
+                  <span  class="btn btn-tag btn-tag-remove">{{ children['#storage']['departments'] }}</span>
+                </span>
+              {% endif %}
+            {% endif %}
+          </div><!--/mobile-filters-output-->
+          {{ form }}
+        </form><!--/filters-form-->
+      </div><!--/contacts-filter-->
+    </div><!--/col-12 md-12 sm-12-->
+  </div><!--/row-->
+</div><!--/content-block-->

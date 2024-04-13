@@ -1,0 +1,14 @@
+uuid: 429e4d88-ed30-4cfa-a104-cf00dd7e33cb
+langcode: et
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Tundide ajad'
+vid: school_hours
+description: 'Kasutaja lisab või muudab tundide aegade andmeid.'
+weight: 0

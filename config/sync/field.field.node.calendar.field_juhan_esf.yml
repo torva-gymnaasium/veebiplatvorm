@@ -1,0 +1,23 @@
+uuid: 9d46e015-3ed5-479a-8bb4-73cf06d60d93
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_juhan_esf
+    - node.type.calendar
+id: node.calendar.field_juhan_esf
+field_name: field_juhan_esf
+entity_type: node
+bundle: calendar
+label: 'Juhani ESF logo'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

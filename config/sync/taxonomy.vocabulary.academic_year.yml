@@ -1,0 +1,14 @@
+uuid: ff7b7db6-ebb6-4c9d-937b-01066e93432f
+langcode: et
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Õppeaastad
+vid: academic_year
+description: 'Automaatse genereerimise saab sisse või välja lülitada <a href="/admin/config/veebiplatvorm/uldised-seaded">siit</a>.'
+weight: 0

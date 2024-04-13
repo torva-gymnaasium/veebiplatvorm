@@ -1,0 +1,22 @@
+uuid: b587bda2-6095-49f0-bdde-d9da44098601
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.webform_block
+id: paragraph.webform_block.status
+field_name: status
+entity_type: paragraph
+bundle: webform_block
+label: Avaldatud
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

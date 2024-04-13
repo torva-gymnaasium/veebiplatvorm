@@ -1,0 +1,8 @@
+uuid: 791e861f-b960-4e5f-b768-51ce88f1fa54
+langcode: et
+status: true
+dependencies: {  }
+id: short_date
+label: 'Lühike kuupäevaformaat'
+locked: false
+pattern: 'd. F Y'

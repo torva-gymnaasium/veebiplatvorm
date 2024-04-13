@@ -1,0 +1,99 @@
+# Schema for the configuration files of the Harno settings module.
+
+harno_migrate.settings:
+  type: config_object
+  label: 'Veebiplatvormi migreerimise seaded'
+  mapping:
+    content:
+      type: mapping
+      label: 'Sisutüüpide migreerimise olekud'
+      mapping:
+        location:
+          type: integer
+          label: 'Asukoht'
+        gallery:
+          type: integer
+          label: 'Galerii'
+        worker:
+          type: integer
+          label: 'Kontakt'
+        class:
+          type: integer
+          label: 'Lend'
+        page:
+          type: integer
+          label: 'Sisuleht'
+        calendar:
+          type: integer
+          label: 'Sündmus või koolitus'
+        food_menu:
+          type: integer
+          label: 'Toidumenüü'
+        partner_logo:
+          type: integer
+          label: 'Tunnustuse või koostööpartneri logo'
+        article:
+          type: integer
+          label: 'Uudis'
+    taxonomy:
+      type: mapping
+      label: 'Klassifikatsioonide migreerimise olekud'
+      mapping:
+        positions:
+          type: integer
+          label: 'Ametikohad'
+        training_keywords:
+          type: integer
+          label: 'Koolituse tüübid'
+        media_catalogs:
+          type: integer
+          label: 'Meedia kaustad'
+        departments:
+          type: integer
+          label: 'Osakonnad'
+        eating_places:
+          type: integer
+          label: 'Söögikohad'
+        event_keywords:
+          type: integer
+          label: 'Sündmuse tüübid'
+        food_groups:
+          type: integer
+          label: 'Toidu grupid'
+        catering_service_provider:
+          type: integer
+          label: 'Toitlustusteenuse pakkujad'
+        school_hours:
+          type: integer
+          label: 'Tundide ajad'
+        academic_year:
+          type: integer
+          label: 'Õppeaastad'
+    settings:
+      type: mapping
+      label: 'Seadistuste ja menüüde migreerimise olekud'
+      mapping:
+        general:
+          type: integer
+          label: 'Haridusasutuse üldinfo'
+        frontpage_quick_links:
+          type: integer
+          label: 'Avalahe kiirlingid'
+        important_contacts:
+          type: integer
+          label: 'Jaluse olulisemad kontaktid'
+        footer_socialmedia_links:
+          type: integer
+          label: 'Jaluse sotsiaalmeedia lingid'
+        footer_quick_links:
+          type: integer
+          label: 'Jaluse kiirlingid'
+        footer_free_text_area:
+          type: integer
+          label: 'Jaluse vabatekstiala'
+        footer_copyright:
+          type: integer
+          label: 'Kasutusõiguste märkus'
+        variables:
+          type: integer
+          label: 'Muutujad'

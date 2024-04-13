@@ -1,0 +1,4 @@
+harno_translations.harno_translations_form:
+  title: 'Import translations'
+  route_name: harno_translations.import_form
+  parent: harno_settings.admin_index

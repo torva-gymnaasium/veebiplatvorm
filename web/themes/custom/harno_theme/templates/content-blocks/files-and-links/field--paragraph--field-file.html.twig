@@ -1,0 +1,105 @@
+{#
+/**
+ * @file
+ * Theme override for a field.
+ *
+ * To override output, copy the "field.html.twig" from the templates directory
+ * to your theme's directory and customize it, just like customizing other
+ * Drupal templates such as page.html.twig or node.html.twig.
+ *
+ * Instead of overriding the theming for all fields, you can also just override
+ * theming for a subset of fields using
+ * @link themeable Theme hook suggestions. @endlink For example,
+ * here are some theme hook suggestions that can be used for a field_foo field
+ * on an article node type:
+ * - field--node--field-foo--article.html.twig
+ * - field--node--field-foo.html.twig
+ * - field--node--article.html.twig
+ * - field--field-foo.html.twig
+ * - field--text-with-summary.html.twig
+ * - field.html.twig
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ * - label_hidden: Whether to show the field label or not.
+ * - title_attributes: HTML attributes for the title.
+ * - label: The label for the field.
+ * - multiple: TRUE if a field can contain multiple items.
+ * - items: List of all the field items. Each item contains:
+ *   - attributes: List of HTML attributes for each item.
+ *   - content: The field item's content.
+ * - entity_type: The entity type to which the field belongs.
+ * - field_name: The name of the field.
+ * - field_type: The type of the field.
+ * - label_display: The display settings for the label.
+ *
+ * @see template_preprocess_field()
+ */
+#}
+{#{{ dd() }}#}
+{% set title_classes = [
+  label_display == 'visually_hidden' ? 'visually-hidden'
+] %}
+{% if items %}
+  {% for item in items %}
+    {% if item.content['#media'] %}
+      {% set file_url = item.content['#media']|file_uri|file_url %}
+
+      {% set bundle = item.content['#media'].bundle() %}
+
+      {% if bundle == 'audio' %}
+        {% set field_name = 'field_media_audio_file' %}
+        {% set download = true %}
+      {% elseif bundle == 'video'%}
+        {% set field_name = 'field_media_video_file' %}
+        {% set download = true %}
+      {% elseif bundle == 'image'%}
+        {% set field_name = 'field_media_image' %}
+        {% set download = true %}
+      {% endif %}
+    {% endif %}
+    {% if bundle == 'image' or bundle=='audio' or bundle == 'video' %}
+      {% if item.content['#media'].get(field_name) %}
+        {% if item.content['#media'].hasTranslation(curr_lang) %}
+        {% set values =
+          item.content['#media'].getTranslation(curr_lang).get(field_name).getValue()
+        %}
+          {% else %}
+            {% set values =
+              item.content['#media'].get(field_name).getValue()
+            %}
+            {% endif %}
+{#        {{ dd(item.content['#media'].getTranslation(curr_lang)) }}#}
+        {% if values %}
+          {% if values[0].title %}
+            {% set title = values[0].title %}
+          {% else %}
+            {% set title = item.content['#media'].getName() %}
+          {% endif %}
+
+          <a href="{{ file_url }}" {% if download %}download {% endif%}  target="_blank" alt="{{ values[0].alt }}">
+            {% if bundle == 'image' %}
+              <i class="mdi mdi-file-image" aria-hidden="true"></i>{{ title }}
+              <i class="mdi mdi-download" aria-hidden="true"></i>
+              <span class="sr-only">&nbsp;{{ 'Download picture file'|t }}</span>
+              {% elseif bundle == 'audio' %}
+                <i class="mdi mdi-file-music" aria-hidden="true"></i>{{ title }}
+                <i class="mdi mdi-download" aria-hidden="true"></i>
+                <span class="sr-only">&nbsp;{{ 'Download audio file'|t }}</span>
+              {% elseif bundle == 'video' %}
+                <i class="mdi mdi-file-video" aria-hidden="true"></i>{{ title }}
+                <span class="sr-only">&nbsp;{{ 'Download video file'|t }}</span>
+                <i class="mdi mdi-download" aria-hidden="true"></i>
+              {% else %}
+                <i class="mdi mdi-file" aria-label="blank file"></i>{{ title }}
+                <span class="sr-only">&nbsp;{{ 'Download file'|t }}</span>
+                <i class="mdi mdi-download" aria-hidden="true"></i>
+            {% endif %}
+          </a>
+        {% endif %}
+      {% endif %}
+    {% else %}
+      {{ item.content }}
+    {% endif %}
+  {% endfor %}
+{% endif %}

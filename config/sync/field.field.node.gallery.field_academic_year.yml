@@ -1,0 +1,29 @@
+uuid: 1acd0126-9a6f-414e-b0d6-5c0fd267b407
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_academic_year
+    - node.type.gallery
+    - taxonomy.vocabulary.academic_year
+id: node.gallery.field_academic_year
+field_name: field_academic_year
+entity_type: node
+bundle: gallery
+label: Õppeaasta
+description: 'Sama õppeaasta galeriid grupeeritakse ja selle abil on võimalik õppeaasta põhiselt galeriisid filtreerida.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      academic_year: academic_year
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

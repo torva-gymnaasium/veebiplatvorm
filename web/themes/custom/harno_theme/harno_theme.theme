@@ -1,0 +1,1147 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the SASS Starterkit subtheme.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\datetime\Plugin\views\filter\Date;
+use Drupal\file\Entity\File;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\node\Entity\Node;
+use Drupal\Core\Routing\RouteObjectInterface;
+
+/**
+ * Implements hook_form_system_theme_settings_alter() for settings form.
+ *
+ * Replace Barrio setting options with subtheme ones.
+ *
+ * Example on how to alter theme settings form
+ */
+function harno_theme_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+  $form['components']['navbar']['bootstrap_barrio_navbar_top_background']['#options'] = [
+    'bg-primary' => t('Primary'),
+    'bg-secondary' => t('Secondary'),
+    'bg-light' => t('Light'),
+    'bg-dark' => t('Dark'),
+    'bg-white' => t('White'),
+    'bg-transparent' => t('Transparent'),
+  ];
+  $form['components']['navbar']['bootstrap_barrio_navbar_background']['#options'] = [
+    'bg-primary' => t('Primary'),
+    'bg-secondary' => t('Secondary'),
+    'bg-light' => t('Light'),
+    'bg-dark' => t('Dark'),
+    'bg-white' => t('White'),
+    'bg-transparent' => t('Transparent'),
+  ];
+}
+function harno_check_menu_block_item_translation($menu_item){
+  $plugin_definition = $menu_item['original_link']->getPluginDefinition();
+  $data = $plugin_definition['metadata'];
+  if ($data['entity_id']) {
+    $entity = \Drupal::entityTypeManager()->getStorage('menu_link_content')->load($data['entity_id']);
+    $menu_item_lang = $entity->get('langcode')->value;
+    if ($menu_item_lang == 'und'){
+      return TRUE;
+    }
+    $translation_languages = $entity->getTranslationLanguages();
+    $language_block =  \Drupal::languageManager()->getCurrentLanguage()->getId();
+    if ($menu_item_lang!=$language_block and !isset($translation_languages[$language_block])){
+      return FALSE;
+    }
+  }
+  return TRUE;
+}
+function harno_theme_preprocess_block(&$variables) {
+  $language = \Drupal::languageManager()->getCurrentLanguage()->getName();
+  $variables['current_language'] = strtoupper(substr($language,0,'3'));
+  if(!empty($variables['elements'])){
+    if (isset($variables['elements']['#sidemenu'])){
+      if (!$variables['elements']['#sidemenu']) {
+        $variables['content']['#sidemenu'] = true;
+      }
+    }
+  }
+  if (isset($variables['plugin_id'])){
+    if ($variables['plugin_id']== 'menu_block:main' or $variables['plugin_id'] == 'system_menu_block:main'){
+      $current_path = \Drupal::service('path.current')->getPath();
+      $front_check = \Drupal::service('path.matcher')->isFrontPage();
+      if (!empty($variables['content']) && !empty($variables['content']['#items'])){
+        foreach ($variables['content']['#items'] as $menu_item_key => &$menu_item){
+          if ($front_check){
+            if ($menu_item['url']->isRouted()){
+              if ($menu_item['url']->getRouteName() == '<front>'){
+                $menu_item['in_active_trail'] = true;
+              }
+            }
+          }
+          if (empty($menu_item['below'])){
+            $routed = $menu_item['url']->isRouted();
+            if ($routed) {
+              $internal_path = $menu_item['url']->getInternalPath();
+              if (!str_contains($current_path, $internal_path)) {
+
+                $menu_item['in_active_trail'] = false;
+              }
+            }
+          }
+            if ($variables['base_plugin_id']=='menu_block'){
+              if (isset($menu_item['below'])){
+                foreach ($menu_item['below'] as $below_key => $below_item){
+                  if (harno_check_menu_block_item_translation($below_item)==FALSE){
+                    unset($menu_item['below'][$below_key]);
+                  }
+                }
+              }
+              if (harno_check_menu_block_item_translation($menu_item)==FALSE){
+                unset($variables['content']['#items'][$menu_item_key]);
+              }
+            }
+            $routed = $menu_item['url']->isRouted();
+            if ($routed) {
+                $internal_path = $menu_item['url']->getInternalPath();
+                if (!empty($internal_path)) {
+                  if (strpos($current_path, $internal_path) !== false) {
+                    $menu_item['actually_active'] = true;
+                  }
+                }
+//             dump($menu_item['url']->getInternalPath());
+            }
+        }
+      }
+    }
+  }
+
+}
+function harno_theme_preprocess_media(&$vars){
+  if(isset($vars['elements']['#element_width'])){
+    foreach ($vars['content'] as &$value){
+      if (isset($value['#items'])){
+        $value['#element_width'] = $vars['elements']['#element_width'];
+      }
+    }
+  }
+  if (isset($vars['elements'])){
+    if (isset($vars['elements']['#header_image'])){
+      $vars['content']['field_media_image']['#header_image'] = true;
+    }
+    if(isset($vars['elements']['#thumbnail'])){
+      if(isset($vars['content'])){
+        if(!empty(($vars['content']['field_media_image']))){
+//          dump($vars['content']['field_media_image']);
+          $vars['content']['field_media_image']['#thumbnail'] = true;
+        }
+      }
+    }
+    if(isset($vars['elements']['#orientation'])){
+      $vars['content']['field_media_image']['#orientation'] = $vars['elements']['#orientation'];
+    }
+    if(isset($vars['elements']['#paragraph_id'])){
+      $vars['content']['field_media_image']['#paragraph_id'] = $vars['elements']['#paragraph_id'];
+    }
+    if(isset($vars['elements']['#setmodal'])){
+      $vars['content']['field_media_image']['#setmodal'] = $vars['elements']['#setmodal'];
+    }
+    if(isset($vars['elements']['#gallerythumb'])){
+      $vars['content']['field_media_image']['#gallerythumb'] = $vars['elements']['#gallerythumb'];
+    }
+  }
+}
+function harno_theme_preprocess_pager(&$vars){
+  $vars['pager']['#quantity'] = 5;
+  $pager = \Drupal::service('pager.manager')->getPager();
+  if (!empty($vars['items'])){
+    $param = '';
+    if(!empty(($_REQUEST['days']))){
+      $param = '&days='.$_REQUEST['days'];
+    }
+    foreach ($vars['items'] as $key => &$pot_pager){
+      if (isset($pot_pager['href'])){
+        $pot_pager['href'] = urldecode($pot_pager['href']).$param;
+      }
+      if ($key=='pages'){
+        foreach ($pot_pager as &$page){
+          $page['href']  = urldecode($page['href']).$param;
+        }
+      }
+    }
+  }
+  if (!empty($vars['items'])){
+    if (!empty($vars['items']['last'])){
+      $vars['items']['last']['real_number'] = $pager->getTotalPages();
+    }
+    if (!empty($vars['items']['first'])){
+
+      $vars['items']['first']['real_number'] = 1;
+    }
+  }
+}
+function harno_theme_preprocess_checkboxes(&$vars){
+  if(isset($vars['element']['#webform_element'])){
+    if(isset($vars['element']['#options'])){
+      foreach ($vars['element']['#options'] as $key =>$option){
+        if (isset($vars['element'][$key])){
+          $vars['element'][$key]['#webform_element'] = true;
+        }
+      }
+    }
+  }
+}
+function harno_theme_find_links($text){
+  $regexp = "<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>";
+  if(preg_match_all("/$regexp/siU", $text, $matches)) {
+    if(!empty($matches[0])){
+      foreach ($matches[0] as $key => $full_link){
+
+        $new_full_link = '';
+        $new_full_link = $full_link;
+        if (!empty($matches[2][$key])) {
+          $link = $matches[2][$key];
+          $external_test = \Drupal\Component\Utility\UrlHelper::isExternal($link);
+          if(!empty($matches[3][$key])){
+            $link_text = $matches[3][$key];
+          }
+          if(!empty($link) && !empty($link_text)){
+            if ($external_test){
+              $new_full_link = '<a class="link-in-new" target="_blank" href="'.$link.'">'.$link_text.'<span class="sr-only">'.t( "link opens on new page" ).'</span><i class="mdi mdi-open-in-new" aria-label="'.$link_text.'"></i></a>';
+            }
+            else{
+              $new_full_link = '<a class="btn-link-secondary" href="'.$link.'">'.$link_text.'</a>';
+            }
+          }
+          else{
+            $new_full_link = $full_link;
+          }
+        }
+        $text = str_replace($full_link,$new_full_link,$text);
+      }
+    }
+  }
+  return $text;
+}
+function harno_theme_preprocess_status_messages(&$vars){
+  $route_name = \Drupal::requestStack()->getCurrentRequest()->get('exception');
+  if (!empty($route_name)) {
+    if (is_object($route_name)) {
+      if (get_class($route_name)=='Drupal\Core\Form\FormAjaxException') {
+        $route_name = $route_name->getForm();
+        if (str_contains($route_name['#id'], 'webform')) {
+          $vars['route_name'] = $route_name;
+        }
+      }
+    }
+  }
+}
+function harno_theme_preprocess_field(&$vars){
+  $language =  \Drupal::languageManager()->getCurrentLanguage()->getId();
+
+  for ($i=1 ;$i<=2; $i++) {
+   $domain = \Drupal::state()->get('domain_'.$i);
+   if (!empty($domain)) {
+     $vars['domains'][$i] = $domain;
+   }
+  }
+  if (!empty($vars['domains'])) {
+    $host =  \Drupal::request()->getHost();
+    if (str_contains($host,'www.')) {
+      $host = str_replace('www.','',$host);
+    }
+    $vars['host'] = $host;
+
+  }
+  $vars['curr_lang'] = $language;
+  if($vars['field_name']=='body' or $vars['field_name']=='field_body'){
+    if(!empty($vars['items'])){
+      foreach ($vars['items'] as &$content){
+        if (!empty($content['content'])){
+          if(!empty($content['content']['#text'])){
+            $text = $content['content']['#text'];
+            $text = harno_theme_find_links($text);
+            $content['content']['#text'] = $text;
+          }
+
+        }
+//        $content['content']['#text'] = str_replace('<table>','<table class="main-table">',$content['content']['#text'] );
+        $content['content']['#text'] = str_replace('<table',' <div class="table-wrapper" data-plugin="tableScroll">
+                  <div class="table-scrollable"><table class="main-table"',$content['content']['#text'] );
+        $content['content']['#text'] = str_replace('</table>','</table>
+  </div><!--/table-scrollable-->
+</div><!--/table-wrapper-->',$content['content']['#text'] );
+//        if (!empty($vars['domains'])) {
+//          foreach ($vars['domains'] as $domain) {
+//            $content['content']['#text'] = str_replace($domain,$vars['host'],$content['content']['#text'])
+//          }
+//        }
+      }
+    }
+  }
+//  if (str_contains($vars['field_name'],'field_content_blocks_')){
+    if (isset($vars['element']['#element_width'])){
+      foreach ($vars['items'] as &$content){
+        $content['content']['#element_width'] = $vars['element']['#element_width'];
+      }
+    }
+//  }
+  if ($vars['field_name'] == 'field_images'){
+    $vars['#cache']['tags'] = ['gallery-block'];
+  }
+  if ($vars['field_name']=='field_one_image'){
+    $vars['items'][0]['content']['#header_image']= true;
+  }
+  if($vars['field_name']=='field_content_blocks_100'){
+    if(isset($vars['element']['#col_with'])){
+      foreach ($vars['items'] as &$content){
+//        devel_dump($content);
+        $content['content']['#content-width'] = $vars['element']['#col_with'];
+      }
+    }
+  }
+  if($vars['field_name'] == 'field_table_editor'){
+    if (!empty($vars['items'])){
+      foreach ($vars['items'] as &$item){
+        if(!empty($item['content'])){
+          if(!empty(($item['content']['#text']))){
+
+//            $item['content']['#text'] = str_replace('<table>','<table class="main-table">',$item['content']['#text'] );
+            $item['content']['#text'] = str_replace('<table',' <div class="table-wrapper" data-plugin="tableScroll">
+                  <div class="table-scrollable"><table class="main-table"',$item['content']['#text'] );
+            $item['content']['#text'] = str_replace('</table>','</table>
+  </div><!--/table-scrollable-->
+</div><!--/table-wrapper-->',$item['content']['#text'] );
+            $item['content']['#text'] = harno_theme_find_links($item['content']['#text']);
+          }
+        }
+      }
+    }
+  }
+}
+function harno_theme_preprocess_paragraph(&$vars){
+
+  if(isset($vars['elements'])){
+    if(isset($vars['content']['field_images'])) {
+      $vars['content']['field_images']['#paragraph_id'] = $vars['elements']['#paragraph']->id();
+    }
+    if (isset($vars['content']['field_content_blocks_25_1']) && isset($vars['content']['field_content_blocks_25_2']) && isset($vars['content']['field_content_blocks_25_3'])&& isset($vars['content']['field_content_blocks_25_4'])){
+      $numitems = count($vars['content']);
+      $i=0;
+      foreach ($vars['content'] as $key => &$content){
+        if (!isset($content['#title'])){
+          $i++;
+        }
+      }
+        $j=0;
+      $reverse_array = array_reverse($vars['content'],true);
+      if ($i==1 or $i==3) {
+        foreach ($reverse_array as &$content) {
+          if (!empty($content['#title'])) {
+            if ($j < $i) {
+                $content['#tablet_with'] = TRUE;
+
+            }
+            if ($i == 3) {
+              $content['#tablet_with'] = TRUE;
+            }
+            $j++;
+          }
+        }
+      }
+      $vars['content'] = array_reverse($reverse_array,true);
+
+    }
+    if (isset($vars['content']['field_content_blocks_25_1']) && isset($vars['content']['field_content_blocks_75_1'])) {
+      $i=0;
+      foreach ($vars['content'] as $key => &$content){
+        if (!isset($content['#title'])){
+          $i++;
+        }
+      }
+      $reverse_array = array_reverse($vars['content'],true);
+      if ($i==1) {
+        $j=0;
+        foreach ($reverse_array as &$content) {
+          if (!empty($content['#title'])) {
+            if ($j < $i) {
+              $content['#tablet_with'] = TRUE;
+            }
+            $j++;
+          }
+        }
+      }
+      $vars['content'] = array_reverse($reverse_array,true);
+    }
+    if (isset($vars['content']['field_content_blocks_25_1']) && isset($vars['content']['field_content_blocks_50_1'])&& isset($vars['content']['field_content_blocks_25_2'])) {
+      $i=0;
+      $quarter_width = 0;
+      foreach ($vars['content'] as $key => &$content){
+
+        if (isset($content['#field_name'])){
+          if (strpos($content['#field_name'], 'field_content_blocks_25') !== false) {
+            $quarter_width++;
+          }
+        }
+        if (!isset($content['#title'])){
+          $i++;
+        }
+      }
+      if ($quarter_width>0 && $quarter_width<2){
+
+        foreach ($vars['content'] as &$content) {
+          if (isset($content['#field_name'])){
+            if (strpos($content['#field_name'], 'field_content_blocks_50') !== false) {
+              $content['#tablet_with'] = true;
+              $quarter_width--;
+            }
+          }
+          if ($quarter_width==0){
+            break;
+          }
+        }
+      }
+      $reverse_array = array_reverse($vars['content'],true);
+      if ($i==1) {
+        $j=0;
+        foreach ($reverse_array as &$content) {
+          if (!empty($content['#title'])) {
+            if ($j < $i) {
+              $content['#tablet_with'] = TRUE;
+            }
+            $j++;
+          }
+        }
+      }
+      $vars['content'] = array_reverse($reverse_array,true);
+    }
+      if(isset($vars['elements']['field_orientation'])){
+
+      $orientation = $vars['elements']['field_orientation']['#object']->get('field_orientation')->getValue();
+      $orientation = $orientation[0]['value'];
+        if (!empty($vars['content']['field_gallery_id'])){
+          $vars['content']['field_gallery_id']['#orientation'] = $orientation;
+        }
+     $vars['content']['field_images']['#orientation'] = $orientation;
+    }
+    if(isset($vars['elements']['field_content_blocks_100'])){
+      $vars['content']['field_content_blocks_100']['#col_with'] = '100';
+    }
+  }
+  if ($vars['content']){
+    foreach ($vars['content'] as $field_key => &$content){
+      if (str_contains($field_key,'field_content_blocks_')) {
+        $width = str_replace('field_content_blocks_', '', $field_key);
+        $width = explode('_', $width);
+        $width = $width[0];
+        $content['#element_width'] = $width;
+      }
+      if (isset($vars['elements']['#element_width'])){
+        if (isset($content['#items'])) {
+
+          $content['#element_width'] = $vars['elements']['#element_width'];
+        }
+      }
+    }
+  }
+//  dpm($vars);
+}
+function harno_theme_check_link_existanse($link){
+  $out = [];
+  $menu_tree = \Drupal::menuTree()->load('main', new \Drupal\Core\Menu\MenuTreeParameters());
+
+  $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  $last_only = false;
+  foreach ($menu_tree as $menu_link){
+    // $translation = $menu_link->getTranslation('en');
+    if (!empty($menu_link->subtree)){
+      foreach ($menu_link->subtree as $subtree_link){
+        $link_to_check = $subtree_link->link->getUrlObject()->toString();
+        $link_to_title = $subtree_link->link->getTitle();
+        if (strpos($link_to_check,$link)!==false){
+          $parent_link = $menu_link->link->getUrlObject()->toString();
+          $plugin_definition = $subtree_link->link->getPluginDefinition();
+          $data = $plugin_definition['metadata'];
+          if ($data['entity_id']){
+          $entity = \Drupal::entityTypeManager()->getStorage('menu_link_content')->load($data['entity_id']);
+          if($entity->hasTranslation($language)==FALSE){
+            $last_only = true;
+          }
+        }
+          $parent_link_title = $menu_link->link->getTitle();
+
+          if(!$last_only){
+
+          $out[] = [
+            'title' => $parent_link_title,
+            'url' => $parent_link
+          ];
+          }
+          $out[] = [
+            'title' => $link_to_title,
+            'url'=>$link_to_check,
+          ];
+        }
+      }
+    }
+  }
+  return $out;
+}
+function harno_theme_preprocess_breadcrumb(&$vars){
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if (!empty($node)){
+    $type = $node->getType();
+    if ($type=='gallery' ){
+//      $link_tree = harno_theme_check_link_existanse('galleries');
+//      if (!empty($link_tree)){
+//        foreach ($link_tree as $link_to_breadcrumb) {
+//          $vars['links'][] = $link_to_breadcrumb['url'];
+//          $vars['breadcrumb'][] = ['text' => $link_to_breadcrumb['title'], 'url' => $link_to_breadcrumb['url']];
+//        }
+//      }
+      $current_path = \Drupal::service('path.current')->getPath();
+      $request = \Drupal::request();
+      if ($route = $request->attributes->get(RouteObjectInterface::ROUTE_OBJECT)) {
+        $title = \Drupal::service('title_resolver')->getTitle($request, $route);
+
+      }
+      $vars['links'][] = Link::createFromRoute($title, $current_path);
+      $vars['breadcrumb'][] = [ 'text' => $title];
+    }
+    elseif ($type == 'article'){
+//      $link_tree = harno_theme_check_link_existanse('news');
+//      if (!empty($link_tree)){
+//        foreach ($link_tree as $link_to_breadcrumb) {
+//          $vars['links'][] = $link_to_breadcrumb['url'];
+//          $vars['breadcrumb'][] = ['text' => $link_to_breadcrumb['title'], 'url' => $link_to_breadcrumb['url']];
+//        }
+//      }
+      $current_path = \Drupal::service('path.current')->getPath();
+      $request = \Drupal::request();
+      if ($route = $request->attributes->get(RouteObjectInterface::ROUTE_OBJECT)) {
+        $title = \Drupal::service('title_resolver')->getTitle($request, $route);
+      }
+      $vars['links'][] = Link::createFromRoute($title, $current_path);
+      $vars['breadcrumb'][] = [ 'text' => $title];
+    }
+    else{
+        $menu_tree = \Drupal::menuTree()->load('main', new \Drupal\Core\Menu\MenuTreeParameters());
+        $current_uri = \Drupal::request()->getRequestUri();
+        $current_path = \Drupal::service('path.current')->getPath();
+        $breads = $vars['breadcrumb'];
+
+        $request = \Drupal::request();
+        if ($route = $request->attributes->get(RouteObjectInterface::ROUTE_OBJECT)) {
+          $title = \Drupal::service('title_resolver')->getTitle($request, $route);
+        }
+
+
+      $node_id = $node->Id();
+      $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
+      $result = $menu_link_manager->loadLinksByRoute('entity.node.canonical', array('node' => $node_id));
+      if (!empty($result)){
+        $link_to_title = reset($result);
+        $title = $link_to_title->getTitle();
+      }
+        $add_to_crumbs = TRUE;
+        foreach ($breads as $bread){
+          if (strpos($bread['url'],$current_uri)==FALSE){
+            foreach ($vars['links'] as $link) {
+              $gen_link = $link->toString()->getGeneratedLink();
+              if (strpos($gen_link,$current_uri)==FALSE){
+                $add_to_crumbs = TRUE;
+              }
+              else{
+                $add_to_crumbs = FALSE;
+              }
+            }
+          }
+          else{
+            $add_to_crumbs = FALSE;
+          }
+        }
+        if ($add_to_crumbs){
+          if (count($breads)==1){
+              $new_tree = harno_theme_check_link_existanse($current_uri);
+              if (count($new_tree)>count($breads)){
+                foreach ($new_tree as $tree){
+                  $vars['links'][] = $tree['url'];
+                  $vars['breadcrumb'][] = ['text' => $tree['title'], 'url' => $tree['url']];
+                }
+              }
+          }
+          else {
+            $vars['links'][] = Link::createFromRoute($title, $current_path);
+            $vars['breadcrumb'][] = ['text' => $title];
+          }
+        }
+    }
+  }
+  if (count($vars['links'])==1) {
+    $current_path = \Drupal::service('path.current')->getPath();
+    $request = \Drupal::request();
+    if ($route = $request->attributes->get(RouteObjectInterface::ROUTE_OBJECT)) {
+      $title = \Drupal::service('title_resolver')->getTitle($request, $route);
+    }
+    $vars['links'][] = Link::createFromRoute($title, $current_path);
+    $vars['breadcrumb'][] = [ 'text' => $title];
+  }
+  $vars['#cache']['contexts'][] = 'url';
+  $vars['#cache']['tags'][] = 'config:system.menu.main';
+}
+function harno_theme_preprocess_html(&$vars){
+  $config = \Drupal::config('harno_settings.settings');
+  $favicon = $config->get('general.favicon');
+  if(!empty($favicon) or $favicon != 0) {
+    $file = File::load($favicon);
+    if (!empty($file)) {
+      $file = \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri());
+      $vars['favicon'] = $file;
+    }
+  }
+
+  $accessibility_node = $config->get('accessibility_statement.node');
+  if(!empty(($accessibility_node))){
+    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+    $nodes = $node_storage->loadMultiple([$accessibility_node]);
+    $accessibility_node = reset($nodes);
+    $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    if ($accessibility_node) {
+      if ($accessibility_node->hasTranslation($language)) {
+        $accessibility_node = $accessibility_node->getTranslation($language);
+      }
+      $url = $accessibility_node->toUrl()->toString();
+      $vars['accessibility_url'] = $url;
+    }
+  }
+
+  $localconf = \Drupal::service('config.factory')->get('harno_settings.colors');
+  $colors = $localconf->get('color');
+  if(!empty($colors)){
+    $vars['site_colors'] = $colors;
+  }
+}
+function harno_theme_preprocess_node(&$variables) {
+  $node = $variables['node'];
+  $node_type = $node->getType();
+
+  $config = \Drupal::config('system.site');
+  $variables['site']['name'] = $config->get('name');
+  $variables['current_language'] = $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  $variables['bsrul'] = $GLOBALS['base_url'];
+  if($node_type == 'location') {
+    // Status messages
+    //$status_messages = array('#type' => 'status_messages');
+    //$messages = \Drupal::service('renderer')->renderRoot($status_messages);
+    //$variables['status_message'] = $messages;
+
+    $nid = $node->get('nid')->getValue()[0]['value'];
+    $config = \Drupal::config('harno_settings.node_location');
+    $variables['node_location'] = $config->get('node_location_' . $nid);
+  }
+
+  if ($node_type == 'calendar') {
+    $id = $node->field_webform->target_id;
+    if(!empty($id)) {
+      $webform = \Drupal\webform\Entity\Webform::load($id);
+      $base_url = \Drupal::request()->getSchemeAndHttpHost(); // w/ schema
+      $webform_url = $webform->toUrl()->setAbsolute()->toString();
+      $path = explode($base_url, $webform_url);
+//      $filter_form = \Drupal::formBuilder()->getForm('Drupal\harno_pages\Form\WebformCustomForm', $id, $webform, $node->id());
+      $variables['webform_path'] = $path[1];
+    }
+    $now = strtotime(date("Y-m-d H:i:s"));
+    $field_start_date = $node->get('field_start_date')->getValue();
+    $field_end_date = $node->get('field_event_end_date')->getValue();
+    $field_end_time = $node->get('field_event_end_time')->getValue();
+
+    if (!isset($field_end_date[0]['value']) ) {
+      $field_end_date = $field_start_date;
+    }
+    if (!isset($field_end_time[0]['value']) ) {
+      $field_end_time[0]['value'] = 86340; //23:59
+    }
+
+    if (isset($field_end_time[0]['value']) AND !empty($field_end_time[0]['value'])) {
+      $seconds = $field_end_time[0]['value'];
+      $hours = floor($seconds / 3600);
+      $mins = floor($seconds / 60 % 60);
+      $secs = floor($seconds % 60);
+      $timeFormat = sprintf('%02d:%02d:%02d', $hours, $mins, $secs);
+      $end_date = strtotime($field_end_date[0]['value'] . ' ' . $timeFormat );
+    }
+    else {
+      $end_date = strtotime($field_end_date[0]['value']);
+    }
+
+    #\Drupal::messenger()->addStatus('$end_date ' . date("d.m.Y H:i:s", $end_date));
+    #\Drupal::messenger()->addStatus('$today ' . date("d.m.Y H:i:s", $now));
+    #\Drupal::messenger()->addStatus('$field_start_time ' . print_r($field_start_time,1));
+    #\Drupal::messenger()->addStatus('$field_end_time ' . print_r($field_end_time,1));
+
+    //Node absolute path for share
+    $variables['url'] = $node->toUrl('canonical', [
+      'absolute' => TRUE,
+      'language' => $node->language(),
+    ])->toString();
+
+    $variables['multiple_dates'] = $node->field_show_end_date->value;
+
+//    $timezone = Drupal::config('system.date');
+    $timezone = 'UTC';
+    $formatter = \Drupal::service('date.formatter');
+    if(isset($node->get('field_event_start_time')->getValue()[0]['value'])) {
+      $start_time = $node->get('field_event_start_time')->getValue()[0]['value'];
+      $start_time = $formatter->format($start_time, 'custom', 'H:i', $timezone);
+      $variables['start_time'] = $start_time;
+    }
+    if(isset($node->get('field_event_end_time')->getValue()[0]['value'])) {
+      $end_time = $node->get('field_event_end_time')->getValue()[0]['value'];
+      $end_time = $formatter->format($end_time, 'custom', 'H:i', $timezone);
+      $variables['end_time'] = $end_time;
+    }
+    if ($end_date < $now)  {
+      $variables['past_event'] = TRUE;
+    }
+    else {
+      $variables['future_event'] = TRUE;
+    }
+  }
+}
+
+function harno_theme_preprocess_views_view_unformatted(&$variables)
+{
+  if ($variables['view']->current_display == 'general_search') {
+    $args = $variables['view']->getExposedInput();
+
+    $new_rows = [];
+    $types_order = [
+      'page' => ['order' => 1, 'label' => t('Content pages')],
+      'worker' => ['order' => 2, 'label' => t('Contacts')],
+      'location' => ['order' => 3, 'label' => t('Locations')],
+      'article' => ['order' => 4, 'label' => t('News')],
+      'calendar_event' => ['order' => 5, 'label' => t('Events')],
+      'calendar_training' => ['order' => 6, 'label' => t('Trainings')],
+      'class' => ['order' => 7, 'label' => t('Graduates')],
+      'gallery' => ['order' => 8, 'label' => t('Galleries')],
+    ];
+
+    $count = 0;
+    foreach ($variables['rows'] as $row) {
+      if (!empty($row['content'])) {
+        #\Drupal::messenger()->addStatus('$row' . print_r($row['content']['#node'],1));
+        if (!empty($row['content']['#node'])) {
+          $node = $row['content']['#node'];
+
+          $type = $node->getType();
+          if ($type == 'calendar') {
+            $calendar_types = $node->get('field_event_type')->getValue();
+            $count_calendar_types = count($calendar_types);
+            foreach ($calendar_types as $ct_key => $ct) {
+              if ($ct['value'] == 1) {
+                $type = 'calendar_training';
+              } elseif ($ct['value'] == 2) {
+                $type = 'calendar_event';
+              }
+
+              if ($ct_key <= $count_calendar_types - 2 and $count_calendar_types > 1) {
+                $label = $types_order[$type]['label'];
+
+                $new_rows[$types_order[$type]['order']]['title'] = $label;
+                $new_rows[$types_order[$type]['order']]['type'] = $type;
+                $new_rows[$types_order[$type]['order']]['rows'][] = $row;
+                $count++;
+              }
+            }
+            # \Drupal::messenger()->addStatus('$row' . print_r($calendar_types,1));
+          }
+
+          $label = $types_order[$type]['label'];
+
+          $new_rows[$types_order[$type]['order']]['title'] = $label;
+          $new_rows[$types_order[$type]['order']]['type'] = $type;
+          $new_rows[$types_order[$type]['order']]['rows'][] = $row;
+          $count++;
+        }
+      }
+    }
+    #
+    if (isset($args['search_type'])) {
+      if (!isset($args['search_type'][5]) and isset($new_rows[5])) {
+        $count = $count - count($new_rows[5]['rows']);
+        unset($new_rows[5]);
+      } elseif (!isset($args['search_type'][6]) and isset($new_rows[6])) {
+        $count = $count - count($new_rows[6]['rows']);
+        unset($new_rows[6]);
+      }
+    }
+
+
+    #\Drupal::messenger()->addStatus('New rows ' . print_r($new_rows,1));
+    if (!empty($new_rows)) {
+      ksort($new_rows);
+      #kalendri jarjekorra muutmine
+      for ($o = 5; $o <= 6; $o++) {
+        if (!empty($new_rows[$o]['rows'])) {
+          $new_calendar_rows = [];
+          foreach ($new_rows[$o]['rows'] as $c_row) {
+            $node = $c_row['content']['#node'];
+            $field_start_date = $node->get('field_start_date')->getValue();
+            $field_start_time = $node->get('field_event_start_time')->getValue();
+            $field_end_date = $node->get('field_event_end_date')->getValue();
+            $field_end_time = $node->get('field_event_end_time')->getValue();
+            $nid = $node->id();
+            if (isset($field_start_time[0]['value']) and !empty($field_start_time[0]['value'])) {
+              $seconds = $field_start_time[0]['value'];
+              $hours = floor($seconds / 3600);
+              $mins = floor($seconds / 60 % 60);
+              $secs = floor($seconds % 60);
+              $timeFormat = sprintf('%02d:%02d:%02d', $hours, $mins, $secs);
+              $start_date = strtotime($field_start_date[0]['value'] . ' ' . $timeFormat);
+            } else {
+              $start_date = strtotime($field_start_date[0]['value']);
+            }
+            if (!isset($field_end_date[0]['value'])) {
+              $field_end_date = $field_start_date;
+            }
+            if (!isset($field_end_time[0]['value'])) {
+              $field_end_time[0]['value'] = 86340; //23:59
+            }
+            if (isset($field_end_time[0]['value']) and !empty($field_end_time[0]['value'])) {
+              $seconds = $field_end_time[0]['value'];
+              $hours = floor($seconds / 3600);
+              $mins = floor($seconds / 60 % 60);
+              $secs = floor($seconds % 60);
+              $timeFormat = sprintf('%02d:%02d:%02d', $hours, $mins, $secs);
+              $end_date = strtotime($field_end_date[0]['value'] . ' ' . $timeFormat);
+            }
+            else {
+              $end_date = strtotime($field_end_date[0]['value']);
+            }
+            $c_row['calculated_start_date'] = $start_date;
+            $c_row['calculated_end_date'] = $end_date;
+            $merge_key = $start_date.$end_date.sprintf("%'.09d\n", $nid);
+
+            $new_calendar_rows[$merge_key] = $c_row;
+
+            #\Drupal::messenger()->addStatus('Node: ' .$nid .': ' . $start_date.$end_date.$nid . ', ');
+          }
+          #Esmane sort algusaja.lõpuaja.nid põhjal
+          krsort($new_calendar_rows);
+
+          #Nüüd liigutame koolitused nii, et hetkel toimuvad või algavad on ees pool
+          $now = strtotime(date("Y-m-d H:i:s"));
+          $past_events = $future_events = [];
+
+          foreach ($new_calendar_rows as $key => $c_row) {
+            $end_date = $c_row['calculated_end_date'];
+            if ($end_date < $now)  {
+              $past_events[$key] = $c_row;
+            }
+            else {
+              $future_events[$key] = $c_row;
+            }
+          }
+          $new_rows[$o]['rows'] = array_merge($future_events, $past_events);
+        }
+      }
+      $variables['rows'] = $new_rows;
+    }
+    if (isset($count)) {
+      $variables['search_result_total'] = $count;
+    }
+    if (!isset($args['search_type'])) {
+      for ($o = 1; $o <= 8; $o++) {
+        if (isset($variables['rows'][$o]['rows'])) {
+          $variables['search_result_count'][$o] = count($variables['rows'][$o]['rows']);
+        }
+      }
+    }
+  }
+}
+function harno_theme_preprocess_webform(&$vars){
+
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof \Drupal\node\NodeInterface) {
+    if ($node->getType() == 'location'|| $node->getType()=='page' || $node->getType()=='article') {
+      $wfid = $vars['element']['#webform_id'];
+      $wf = \Drupal\webform\Entity\Webform::load($wfid);
+      $vars['title'] = $wf->label();
+    }
+  }
+}
+
+/**
+ * Prepares variables for menu templates on the homepage.
+ *
+ * Default template: menu.html.twig.
+ *
+ * @param $variables
+ *   An Associative array containing:
+ *   - menu_name: The machine name of the menu.
+ *   - items: A nested list of menu items. Each menu item contains:
+ *     - attributes: HTML attributes for the menu item.
+ *     - below: The menu item child items.
+ *     - title: The menu link title.
+ *     - url: The menu link url, instance of \Drupal\Core\Url
+ *     - localized_options: Menu link localized options.
+ *     - is_expanded: TRUE if the link has visible children within the current
+ *       menu tree.
+ *     - is_collapsed: TRUE if the link has children within the current menu tree
+ *       that are not currently visible.
+ *     - in_active_trail: TRUE if the link is in the active trail.
+ */
+function harno_theme_preprocess_menu(&$variables){
+  if (!\Drupal::service('path.matcher')->isFrontPage()) {
+    return;
+  }
+
+  $homepagePath = \Drupal::config('system.site')->get('page.front');
+  $homepageUrl = \Drupal::service('path.validator')->getUrlIfValid($homepagePath);
+  if (!$homepageUrl instanceof Url) {
+    return;
+  }
+  $validHomepageRoutes = ['<front>', $homepageUrl->getRouteName()];
+  foreach ($variables['items'] as $key => $item) {
+    /** @var \Drupal\Core\Url $url */
+    $url = $item['url'];
+    if (
+      $url instanceof Url &&
+      $url->isRouted() &&
+      \in_array($url->getRouteName(), $validHomepageRoutes, TRUE)
+    ) {
+      $variables['items'][$key]['in_active_trail'] = TRUE;
+    }
+  }
+}
+function harno_theme_preprocess_page(&$vars){
+
+  $language = \Drupal::languageManager()->getCurrentLanguage()->getName();
+  $vars['current_language'] = strtoupper(substr($language,0,'3'));
+
+  $config = \Drupal::config('harno_settings.settings');
+  $config_site = \Drupal::config('system.site');
+  $file = $config->get('general.logo');
+  if(!empty($file) or $file != 0){
+    $file = File::load($config->get('general.logo'));
+    if (!empty($file)) {
+      $file = \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri());
+      $vars['site__logo'] = $file;
+    }
+  }
+  $accessibility_node = $config->get('accessibility_statement.node');
+  if(!empty(($accessibility_node))){
+    $url = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$accessibility_node);
+    $vars['accessibility_url'] = $url;
+  }
+  $vars['site_slogan'] = $config_site->get('slogan');
+  $vars['site_name'] = $config_site->get('name');
+
+  // For calendar events and training
+  $vars['calendar_node_view'] = false;
+  if(\Drupal::request()->attributes->get('node')){
+    if($vars['node']->getType() == 'calendar'){
+      $vars['calendar_node_view'] = true;
+      $vars['nodeID'] = $vars['node']->id();
+    }
+  }
+  $vars['allowPrint'] = true;
+  $vars['allowShare'] = true;
+  $vars['calendarView'] = false;
+  switch (\Drupal::routeMatch()->getRouteName()){
+    case 'view.general_search.general_search':
+    case 'harno_pages.news_page':
+    case 'harno_pages.galleries_page':
+      $vars['allowPrint'] = false;
+      $vars['allowShare'] = false;
+      $vars['filter_pad'] = true;
+      break;
+    case 'harno_pages.calendar':
+    case 'harno_pages.training':
+      $vars['allowShare'] = false;
+      $vars['filter_pad'] = true;
+      $vars['calendarView'] = true;
+      break;
+    case 'harno_pages.contacts_page':
+      $vars['allowPrint'] = true;
+      $vars['allowShare'] = true;
+      $vars['filter_pad'] = true;
+      break;
+    case 'user.login':
+      if(\Drupal::request()->query->get('showcore')){
+        $vars['showcore'] = TRUE;
+      }
+      break;
+  }
+  $vars['calendar_event'] = false;
+  if(
+    \Drupal::routeMatch()->getRouteName() == 'harno_pages.calendar' or
+    \Drupal::routeMatch()->getRouteName() == 'harno_pages.training'
+  ) {
+    $vars['calendar_event'] = true;
+  }
+  if (\Drupal::routeMatch()->getRouteName() == 'entity.taxonomy_term.canonical' && $tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term')) {
+    $catering =  new \Drupal\harno_pages\Controller\CateringController;
+    $catering->index();
+    $vars['page']['content']['food_menu'] = $catering->index($tid);
+  }
+  // Error page 4xx
+  $route_name = \Drupal::request()->attributes->get('_route');
+  if ($route_name == 'system.404') {
+    $vars['error_code'] = t('Error 404');
+  }
+  elseif ($route_name == 'system.403') {
+    $vars['error_code'] = t('Error 403');
+  }
+  else{
+    $vars['error_code'] = t('Error');
+  }
+  $vars['route_name'] = \Drupal::routeMatch()->getRouteName();
+}
+function harno_theme_preprocess_layout(&$variables) {
+
+}
+function harno_theme_preprocess_columns(&$variables){
+  if (!empty($variables)){
+    if (!empty($variables['content'])){
+      $blocks  = [];
+      foreach($variables['content'] as $content_key => &$content_value){
+        if (strpos($content_key, 'col_') !== false) {
+          foreach ($content_value as $pos_key => $pos_block){
+            if ($pos_key == 'layout_builder_add_block' || $pos_key == '#attributes' || $pos_key == 'region_label'){
+              continue;
+            }
+            if (!empty($pos_block['#plugin_id'])){
+              $blocks[$pos_block['#plugin_id']] = $pos_block['#plugin_id'];
+            }
+          }
+        }
+      }
+      if (isset($variables['settings'])){
+        if (isset($variables['settings']['column_width'])){
+          $widths = explode('-',$variables['settings']['column_width']);
+        }
+      }
+      foreach($variables['content'] as $content_key => &$content_value) {
+        if (strpos($content_key, 'col_') !== false) {
+          $col_stat = str_replace('col_','',$content_key);
+          foreach ($content_value as $pos_key => &$pos_block) {
+            if ($pos_key == 'layout_builder_add_block' || $pos_key == '#attributes' || $pos_key == 'region_label') {
+              continue;
+            }
+            if (!empty($pos_block['#plugin_id'])) {
+//              continue;
+              if (strpos($pos_block['#plugin_id'], 'harno_front_page') !== false) {
+
+                if (isset($blocks['harno_front_page_food_menu'])) {
+                  $pos_block['#configuration']['number_of_rows'] = 3;
+                } else {
+                  $pos_block['#configuration']['number_of_rows'] = 4;
+                }
+                if ($pos_block['#plugin_id']=='harno_front_page_logos_block'){
+                  if (isset($widths)){
+                    if (isset($widths[$col_stat-1])){
+                      if (strpos($widths[$col_stat-1],'75')!==false or strpos($widths[$col_stat-1],'50')!==false or strpos($widths[$col_stat-1],'25')!==false){
+
+                        $pos_block['#configuration']['number_of_rows'] = 9;
+                        if ($widths[$col_stat-1]==25){
+
+                          $pos_block['#configuration']['number_of_rows'] = 8;
+                        }
+                      }
+                    }
+                  }
+                }
+              } else {
+              $pos_block['#configuration']['number_of_rows'] = 4;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+function harno_theme_preprocess_sitemap(&$vars){
+
+  $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  if (!empty($vars['sitemap_items'])){
+    if (!empty($vars['sitemap_items'][0]['#content'])){
+      $items = $vars['sitemap_items'][0]['#content'];
+      if (!empty($items['#items'])){
+        $items = $items['#items'];
+
+        foreach ($items as $key => $item){
+          $original_link = $item['original_link'];
+          $class= get_class($original_link);
+          if ($class!='Drupal\Core\Menu\MenuLinkDefault'){
+            $plugin_definition = $original_link->getPluginDefinition();
+            $data = $plugin_definition['metadata'];
+
+            if ($data['entity_id']){
+              $entity = \Drupal::entityTypeManager()->getStorage('menu_link_content')->load($data['entity_id']);
+              $menu_item_lang = $entity->get('langcode')->value;
+              $translation_languages = $entity->getTranslationLanguages();
+              if ($menu_item_lang!=$language and !isset($translation_languages[$language])){
+                unset($items[$key]);
+              }
+              else{
+                if ($item['below']){
+                 $items[$key]['below'] = harno_menu_item_language_checker($item['below']);
+                }
+              }
+            }
+          }
+        }
+      }
+      $vars['sitemap_items'][0]['#content']['#items'] = $items;
+    }
+  }
+}
+function harno_menu_item_language_checker($menu_items){
+  $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  foreach ($menu_items as $key => $item) {
+    $original_link = $item['original_link'];
+    $class= get_class($original_link);
+    if ($class!='Drupal\Core\Menu\MenuLinkDefault'){
+      $plugin_definition = $original_link->getPluginDefinition();
+      $data = $plugin_definition['metadata'];
+      if ($data['entity_id']){
+        $entity = \Drupal::entityTypeManager()->getStorage('menu_link_content')->load($data['entity_id']);
+        $menu_item_lang = $entity->get('langcode')->value;
+        $translation_languages = $entity->getTranslationLanguages();
+        if ($menu_item_lang!=$language and !isset($translation_languages[$language])){
+          unset($menu_items[$key]);
+        }
+        else{
+          if ($item['below']){
+           $menu_items[$key]['below'] = harno_menu_item_language_checker($item['below']);
+          }
+        }
+      }
+    }
+  }
+  return $menu_items;
+}
+function harno_theme_page_attachments_alter(array &$attachments) {
+  $config = \Drupal::config('harno_settings.settings');
+  $favicon = $config->get('general.favicon');
+  if(!empty($favicon) or $favicon != 0) {
+    $file = File::load($favicon);
+    if (!empty($file)) {
+      $file = \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri());
+      $vars['favicon'] = $file;
+    }
+  }
+  if (!empty($attachments['#attached'])){
+    if (!empty($attachments['#attached']['html_head_link'])) {
+      foreach ($attachments['#attached']['html_head_link'] as $key =>  $html_head_link) {
+        if (str_contains($html_head_link[0]['href'],'favicon.ico')) {
+          if (!empty($file)) {
+            $attachments['#attached']['html_head_link'][$key][0]['href'] = $file;
+          }
+        }
+      }
+    }
+  }
+}

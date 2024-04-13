@@ -1,0 +1,94 @@
+uuid: fb36b49c-b506-44d6-8759-1faeea2105ee
+langcode: et
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_result
+    - field.field.node.calendar.body
+    - field.field.node.calendar.field_all_day
+    - field.field.node.calendar.field_contact_block
+    - field.field.node.calendar.field_event_end_date
+    - field.field.node.calendar.field_event_end_time
+    - field.field.node.calendar.field_event_keywords
+    - field.field.node.calendar.field_event_start_time
+    - field.field.node.calendar.field_event_type
+    - field.field.node.calendar.field_juhan_esf
+    - field.field.node.calendar.field_juhan_id
+    - field.field.node.calendar.field_juhan_image_link
+    - field.field.node.calendar.field_juhan_training
+    - field.field.node.calendar.field_juhan_training_url
+    - field.field.node.calendar.field_one_image
+    - field.field.node.calendar.field_price
+    - field.field.node.calendar.field_show_end_date
+    - field.field.node.calendar.field_start_date
+    - field.field.node.calendar.field_training_keywords
+    - field.field.node.calendar.field_venue
+    - field.field.node.calendar.field_webform
+    - node.type.calendar
+  module:
+    - datetime
+    - options
+    - text
+    - user
+id: node.calendar.search_result
+targetEntityType: node
+bundle: calendar
+mode: search_result
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 300
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_event_end_date:
+    type: datetime_default
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: html_date
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_event_type:
+    type: list_key
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_start_date:
+    type: datetime_default
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: html_date
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  search_api_excerpt:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+hidden:
+  field_all_day: true
+  field_contact_block: true
+  field_event_end_time: true
+  field_event_keywords: true
+  field_event_start_time: true
+  field_juhan_esf: true
+  field_juhan_id: true
+  field_juhan_image_link: true
+  field_juhan_training: true
+  field_juhan_training_url: true
+  field_one_image: true
+  field_price: true
+  field_show_end_date: true
+  field_training_keywords: true
+  field_venue: true
+  field_webform: true
+  langcode: true
+  links: true

@@ -1,0 +1,146 @@
+general:
+  logo: 0
+  favicon: 0
+  address: ''
+  phone: ''
+  email: ''
+important_contacts:
+  name_1: ''
+  body_1: ''
+  weight_1: -10
+  name_2: ''
+  body_2: ''
+  weight_2: -9
+  name_3: ''
+  body_3: ''
+  weight_3: -8
+  name_4: ''
+  body_4: ''
+  weight_4: -7
+footer_socialmedia_links:
+  link_icon_1: ''
+  link_name_1: ''
+  link_url_1: ''
+  link_weight_1: -10
+  link_icon_2: ''
+  link_name_2: ''
+  link_url_2: ''
+  link_weight_2: -9
+  link_icon_3: ''
+  link_name_3: ''
+  link_url_3: ''
+  link_weight_3: -8
+  link_icon_4: ''
+  link_name_4: ''
+  link_url_4: ''
+  link_weight_4: -7
+  link_icon_5: ''
+  link_name_5: ''
+  link_url_5: ''
+  link_weight_5: -6
+  link_icon_6: ''
+  link_name_6: ''
+  link_url_6: ''
+  link_weight_6: -5
+  link_icon_7: ''
+  link_name_7: ''
+  link_url_7: ''
+  link_weight_7: -4
+  link_icon_8: ''
+  link_name_8: ''
+  link_url_8: ''
+  link_weight_8: -3
+  link_icon_9: ''
+  link_name_9: ''
+  link_url_9: ''
+  link_weight_9: -2
+footer_quick_links:
+  link_name_1: ''
+  link_entity_1: NULL
+  link_url_1: ''
+  link_weight_1: -10
+  link_name_2: ''
+  link_entity_2: NULL
+  link_url_2: ''
+  link_weight_2: -9
+  link_name_3: ''
+  link_entity_3: NULL
+  link_url_3: ''
+  link_weight_3: -8
+  link_name_4: ''
+  link_entity_4: NULL
+  link_url_4: ''
+  link_weight_4: -7
+  link_name_5: ''
+  link_entity_5: NULL
+  link_url_5: ''
+  link_weight_5: -6
+  link_name_6: ''
+  link_entity_6: NULL
+  link_url_6: ''
+  link_weight_6: -5
+  link_name_7: ''
+  link_entity_7: NULL
+  link_url_7: ''
+  link_weight_7: -4
+  link_name_8: ''
+  link_entity_8: NULL
+  link_url_8: ''
+  link_weight_8: -3
+footer_free_text_area:
+  name: ''
+  body: ''
+footer_copyright:
+  name: ''
+news_our_story:
+  name: 'Meie lugu'
+automatic_generation_academic_year:
+  on: true
+  date: 15.06.
+juhan:
+  api_key: ''
+accessibility_statement:
+  node: NULL
+location:
+  node: NULL
+frontpage_quick_links:
+  link_name_1: ''
+  link_entity_1: NULL
+  link_url_1: ''
+  link_weight_1: -10
+  link_name_2: ''
+  link_entity_2: NULL
+  link_url_2: ''
+  link_weight_2: -9
+  link_name_3: ''
+  link_entity_3: NULL
+  link_url_3: ''
+  link_weight_3: -8
+  link_name_4: ''
+  link_entity_4: NULL
+  link_url_4: ''
+  link_weight_4: -7
+  link_name_5: ''
+  link_entity_5: NULL
+  link_url_5: ''
+  link_weight_5: -6
+  link_name_6: ''
+  link_entity_6: NULL
+  link_url_6: ''
+  link_weight_6: -5
+  link_name_7: ''
+  link_entity_7: NULL
+  link_url_7: ''
+  link_weight_7: -4
+  link_name_8: ''
+  link_entity_8: NULL
+  link_url_8: ''
+  link_weight_8: -3
+frontpage_messages:
+  body_1: ''
+  type_1: 1
+  published_1: 0
+  body_2: ''
+  type_2: 1
+  published_2: 0
+langcode: et

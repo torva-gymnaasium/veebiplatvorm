@@ -1,0 +1,19 @@
+uuid: 50bdbe42-bc14-4279-b8a5-d1b792d1a74f
+langcode: et
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - time_field
+id: paragraph.field_opening_time
+field_name: field_opening_time
+entity_type: paragraph
+type: time
+settings: {  }
+module: time_field
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,14 @@
+uuid: a6d92a9b-1f2e-4107-a4fb-c16e68620cf1
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.food_groups
+id: taxonomy_vocabulary_food_groups
+entity_type_id: taxonomy_vocabulary
+entity_id: food_groups
+action: display_page
+allow_override: 0
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

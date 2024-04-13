@@ -1,0 +1,20 @@
+name: Veebiplatvormi kujundus
+type: theme
+description: 'Haridusasutustele mõeldud veebiplatvormi kujundus'
+core: 8.x
+core_version_requirement: ^8 || ^9 || ^10
+base theme: false
+libraries:
+  - harno_theme/harno_custom
+  - harno_theme/global-styling
+
+regions:
+  header: Header
+  content: Content
+  sidebar_first: 'Sidebar first'
+  footer: 'Footer'
+ckeditor5-stylesheets:
+  - ckeditor_stylesheets/content.css
+libraries-extend:
+  core/ckeditor5:
+    - harno_theme/ckeditor5

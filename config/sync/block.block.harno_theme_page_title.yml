@@ -1,0 +1,20 @@
+uuid: c0839ba3-e436-47f1-8ab6-c40946973c5f
+langcode: et
+status: true
+dependencies:
+  theme:
+    - harno_theme
+_core:
+  default_config_hash: 7rR9chwXvdM2H8OYMAYx9Zj3GGlPMrZp_M3ZA4thYTk
+id: harno_theme_page_title
+theme: harno_theme
+region: content
+weight: -9
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

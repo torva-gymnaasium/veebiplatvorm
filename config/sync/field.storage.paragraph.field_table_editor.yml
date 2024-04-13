@@ -1,0 +1,19 @@
+uuid: f493dec4-c728-4315-ac81-19c29611dfaa
+langcode: et
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - text
+id: paragraph.field_table_editor
+field_name: field_table_editor
+entity_type: paragraph
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

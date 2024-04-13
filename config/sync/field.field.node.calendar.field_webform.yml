@@ -1,0 +1,25 @@
+uuid: 7e0060ca-c7f0-444f-a0d8-1492e3d0a0e3
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_webform
+    - node.type.calendar
+  module:
+    - webform
+id: node.calendar.field_webform
+field_name: field_webform
+entity_type: node
+bundle: calendar
+label: Sisestusvorm
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:webform'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: webform

@@ -1,0 +1,18 @@
+uuid: 6c683a68-495f-4f77-bde2-6936a72a5f99
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.gallery
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: node.gallery
+target_entity_type_id: node
+target_bundle: gallery
+default_langcode: current_interface
+language_alterable: true

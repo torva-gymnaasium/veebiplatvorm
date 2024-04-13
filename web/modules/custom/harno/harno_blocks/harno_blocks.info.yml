@@ -1,0 +1,5 @@
+name: 'Veebiplatvormi plokid'
+type: module
+description: 'Veebiplatvormi erinevad plokid'
+package: 'Veebiplatvorm'
+core_version_requirement: ^8 || ^9 || ^10

@@ -1,0 +1,18 @@
+uuid: bdc0d30a-f3c2-4472-b6b9-ac0ae07f9e3f
+langcode: et
+status: true
+dependencies:
+  config:
+    - block_content.type.basic
+id: block_content.basic.changed
+field_name: changed
+entity_type: block_content
+bundle: basic
+label: Muudetud
+description: 'Kohandatud ploki viimati muutmise aeg.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

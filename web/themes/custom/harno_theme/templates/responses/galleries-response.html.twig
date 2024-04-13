@@ -1,0 +1,98 @@
+
+<a id="focus-trap" style="display: none"></a>
+<div id="filter-target">
+  {% if content %}
+    {% for year_name,year in content %}
+      <div class="row">
+        <div class="col-12 md-12 sm-12">
+
+          <div class="title-block--gallery">
+            <h2>{{ year_name }}</h2>
+          </div>
+          <!--/title-block--gallery-->
+
+        </div>
+        <!--/col-12 md-12 sm-12-->
+      </div>
+      <!--/row-->
+
+      <div class="row">
+        {% for gallery in year %}
+
+          {% if gallery.field_images %}
+            {% if gallery.field_images.0 %}
+              {% if gallery.field_images.0.getValue() %}
+                {% set target_id = gallery.field_images.0.value.target_id %}
+                {% if target_id %}
+
+                  {% set media = drupal_entity('media',target_id) %}
+                  {% if media %}
+                    {% set media_image = drupal_image( media['#media'].field_media_image.0.value.target_id ,'thumbnail') %}
+                    {% set alt = '' %}
+                    {% if media['#media'].field_media_image.0.get('alt').getString %}
+                      {% set alt = media['#media'].field_media_image.0.get('alt').getString %}
+                    {% endif %}
+                    {% set title = '' %}
+                    {% if media['#media'].field_media_image.0.get('title').getString %}
+                      {% set title = media['#media'].field_media_image.0.get('title').getString %}
+                    {% endif %}
+
+
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+          <div class="col-3 md-xl-4 md-4 sm-md-6 sm-12">
+
+            <a class="gallery-block" href=" {{ drupal_url('node/'~ gallery.id) }}">
+              {% if media_image['#uri'] %}
+                <div class="gallery-block__thumbnail" style="background-image: url({{ media_image['#uri']|image_style('galleries_and_news') }});">
+                  <img src="/{{ base_path }}/static/assets/images/placeholder-1.gif" {% if alt %} alt="{{alt}}" {% else %}alt=""{% endif %} {% if title %} title="{{title}}" {% endif %}>
+
+                </div>
+                <!--/gallery-block__thumbnail-->
+              {% endif %}
+
+              <div class="gallery-block__gallery-info">
+                <h3>
+
+
+                  {{ gallery.getTitle() }}
+                </h3>
+                <span class="date-indicator">
+                        <i class="mdi mdi-calendar-month" aria-hidden="true"></i>
+                        <span class="sr-only">{{ "Date created"|t }}</span>
+                       {{ gallery.getCreatedTime()|date('d.m.Y') }}
+                      </span>
+              </div>
+            </a>
+            <!--/gallery-block__gallery-info-->
+
+          </div>
+          <!--/col-3 md-6 sm-12-->
+        {% endfor %}
+      </div>
+    {% endfor %}
+    <div class="row">
+      <div class="col-12 md-12 sm-12">
+        <div class="paginator-block">
+          {{ pager }}
+        </div>
+
+      </div>
+      <!--/col-12-->
+    </div>
+    <!--/row-->
+
+
+  {% else %}
+    <div class="row">
+      <div class="col-12 md-12 sm-12">
+        <div class="search-null-results">
+          <h4>{{"No galleries matching the filters were found!"|t}}</h4>
+        </div><!--/search-null-results-->
+      </div>
+    </div>
+  {% endif %}
+</div>

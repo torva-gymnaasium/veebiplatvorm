@@ -1,0 +1,21 @@
+uuid: 0c75ddb0-a65f-4ae7-b173-f2ac96e92fcc
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_partner_logo_type
+    - node.type.partner_logo
+  module:
+    - options
+id: node.partner_logo.field_partner_logo_type
+field_name: field_partner_logo_type
+entity_type: node
+bundle: partner_logo
+label: Tüüp
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

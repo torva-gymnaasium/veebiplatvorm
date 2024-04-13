@@ -1,0 +1,22 @@
+uuid: 95660a52-78d3-4ba8-9d22-dc8301e21c3d
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.front_page
+id: node.front_page.promote
+field_name: promote
+entity_type: node
+bundle: front_page
+label: 'Ülendatud esilehele'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

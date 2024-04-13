@@ -1,0 +1,29 @@
+title: Контакт
+elements: |-
+  name:
+    '#type': textfield
+    '#title': Nimi
+    '#required': true
+    '#default_value': '[current-user:display-name]'
+  email:
+    '#type': email
+    '#title': 'E-posti aadress'
+    '#required': true
+    '#default_value': '[current-user:mail]'
+  message:
+    '#type': textarea
+    '#title': Sõnum
+    '#required': true
+    '#test': 'Please ignore this email.'
+  actions:
+    '#type': webform_actions
+    '#title': 'Submit button(s)'
+    '#submit__label': Saada
+settings:
+  confirmation_message: 'Ваше сообщение отправлено.'
+handlers:
+  email_notification:
+    label: 'Уведомления по email'
+    settings:
+      subject: '[webform:title] vormi sisestus'
+      body: "[webform_submission:values]\r\n\r\nParimate soovidega\r\n[site:name] \r\n\r\n[site:url]"

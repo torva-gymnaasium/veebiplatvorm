@@ -1,0 +1,39 @@
+uuid: e323b023-3a22-49dc-a2ac-94619f4f864d
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.picture_block.field_image
+    - field.field.paragraph.picture_block.field_orientation
+    - paragraphs.paragraphs_type.picture_block
+  module:
+    - media_library
+    - media_library_edit
+id: paragraph.picture_block.default
+targetEntityType: paragraph
+bundle: picture_block
+mode: default
+content:
+  field_image:
+    type: media_library_widget
+    weight: 0
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
+  field_orientation:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

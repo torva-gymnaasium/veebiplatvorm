@@ -1,0 +1,328 @@
+{#
+/**
+ * @file
+ * Bootstrap Barrio's theme implementation to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+     Only "getter" methods (method names starting with "get", "has", or "is")
+     and a few common methods such as "id" and "label" are available. Calling
+     other methods (such as node.delete) will result in an exception.
+ * - label: The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: Themed creation date field.
+ * - author_name: Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ * - readmore: Flag for more state. Will be true if the teaser content of the
+ *   node cannot hold the main body content.
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_node()
+ */
+#}
+
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    'clearfix',
+    'content-block',
+    'content-block--event-block'
+  ]
+%}
+{% set past = '' %}
+{% set multiple_date = '' %}
+{% if past_event %}
+	{% set past = 'event-card--disabled' %}
+{% endif %}
+{% if multiple_dates %}
+	{% set multiple_date = 'event-card--multiple-date' %}
+{% endif %}
+<article {{ attributes.addClass(classes) }}>
+	<div class="event-card {{ past }} {{ multiple_date }}">
+		{% if node.get('field_show_end_date').value %}
+			<div class="event-card-dates">
+				<div class="event-card__date">
+          <span class="sr-only">{{ node.get('field_start_date').value|date('d') }}.{{ node.get('field_start_date').value|date('F')|t({}, {'context' : 'Long month name'}) }}.{{ node.get('field_start_date').value|date('Y') }}</span>
+					<span class="event-date" aria-hidden="true">{{ node.get('field_start_date').value|date('d') }}</span>
+					<span class="event-month" aria-hidden="true">{{ node.get('field_start_date').value|date('M')|t({}, {'context' : 'Abbreviated month name'}) }} {{ node.get('field_start_date').value|date('Y') }}</span>
+				</div>
+				<div class="event-card__date">
+          <span class="sr-only">{{ node.get('field_event_end_date').value|date('d') }}.{{ node.get('field_event_end_date').value|date('F')|t({}, {'context' : 'Long month name'}) }}.{{ node.get('field_event_end_date').value|date('Y') }}</span>
+					<span class="date-arrow" aria-hidden="true"></span>
+					<span class="event-date" aria-hidden="true">{{ node.get('field_event_end_date').value|date('d') }}</span>
+          <span class="event-month" aria-hidden="true">{{ node.get('field_event_end_date').value|date('M')|t({}, {'context' : 'Abbreviated month name'}) }} {{ node.get('field_event_end_date').value|date('Y') }}</span>
+				</div>
+			</div>
+		{% else %}
+			<div class="event-card-date">
+        <div class="event-card__date">
+          <span class="sr-only">{{ node.get('field_start_date').value|date('d') }}.{{ node.get('field_start_date').value|date('F')|t({}, {'context' : 'Long month name'}) }}.{{ node.get('field_start_date').value|date('Y') }}</span>
+          <span class="event-date" aria-hidden="true">{{ node.get('field_start_date').value|date('d') }}</span>
+          <span class="event-month" aria-hidden="true">{{ node.get('field_start_date').value|date('M')|t({}, {'context' : 'Abbreviated month name'}) }} {{ node.get('field_start_date').value|date('Y') }}</span>
+        </div>
+				<!--/event-card__date-->
+			</div>
+		{% endif %}
+		<div class="event-card__content">
+			<div class="event-card__header">
+				<h4>{{ node.getTitle() }}</h4>
+				<div class="event-header-buttons">
+					<a href="/ical/{{ node.id }}" class="btn btn-primary before-add-calendar" aria-label="{{ "Share calendar"|t }}" data-plugin="modal"></a>
+					<a href="javascript:void(0);" class="btn btn-primary before-share" aria-label="{{"Share" |t}}" data-plugin="shareModal" data-url="{{ url }}"></a>
+				</div>
+				<!--/event-header-buttons-->
+			</div>
+			<!--/event-card__header-->
+			{% if future_event %}
+				{% if node.field_event_keywords is not empty or node.field_training_keywords is not empty %}
+					<ul class="event-tags sm-hide">
+						{% if node.field_event_keywords is not empty %}
+							{% for tags in node.field_event_keywords %}
+								{% if tags.entity.tid.0.value != 0 %}
+									<li>
+										<a href="/calendar/events?event_type[{{ tags.entity.tid.value }}]={{ tags.entity.tid.value }}">{{ tags.entity.name.value }}</a>
+									</li>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+						{% if node.field_training_keywords is not empty %}
+							{% for tags in node.field_training_keywords %}
+								{% if tags.entity.tid.0.value != 0 %}
+									<li>
+										<a href="/calendar/training?event_type[{{ tags.entity.tid.value }}]={{ tags.entity.tid.value }}">{{ tags.entity.name.value }}</a>
+									</li>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					</ul>
+					<!--/event-tags-->
+				{% endif %}
+				{% if not node.field_all_day.value or node.field_price.value is not empty %}
+					<div class="event-time-price">
+						{% if not node.field_all_day.value %}
+							<span>
+								<i class="mdi mdi-clock-outline" aria-hidden="true"></i>
+                <span class="sr-only">{{ "Time"|t }}</span>
+								{% if node.field_event_end_time.value is not empty %}
+									{{ start_time }}
+									-
+									{{ end_time }}
+								{% else %}
+									{{ start_time }}
+								{% endif %}
+							</span>
+						{% endif %}
+						{% if node.field_price.value is not empty %}
+							<span>
+								<i class="mdi mdi-currency-eur" aria-hidden="true"></i>
+                <span class="sr-only">{{ "Price"|t }}</span>
+								{{ node.field_price.value }}
+              </span>
+						{% endif %}
+					</div>
+					<!--/event-time-price-->
+				{% endif %}
+				{% if node.field_venue.value is not empty %}
+					<span class="event-location">
+						<i class="mdi mdi-map-marker" aria-hidden="true"></i>
+            <span class="sr-only">{{ "Location"|t }}</span>
+						{{ node.field_venue.value }}
+					</span>
+				{% endif %}
+			{% endif %}
+
+			<div class="accordion accordion--events" data-plugin="accordion">
+				<div class="accordion__item">
+					<h3 class="accordion__title">
+						<button id="accordion1" class="btn btn-accordion" aria-expanded="false" aria-controls="collapse1">
+							<i class="mdi mdi-chevron-down" aria-hidden="true"></i>
+							<span class="btn-label">{{ 'More information'|trans }}</span>
+						</button>
+						<!--/btn-accordion-->
+					</h3>
+					<!--/accordion__title-->
+					<div id="collapse1" class="accordion__content" aria-labelledby="accordion1" role="region">
+						<div class="accordion__content--body">
+							<div class="row accordion-gutters">
+                {% set col_classes = 'col-12 md-12 sm-12' %}
+                {% if node.field_one_image.0 is not empty or node.field_juhan_image_link.uri is not empty or node.field_juhan_esf.value == 1 %}
+                  {% set col_classes = 'col-8 md-6 sm-12' %}
+                {% endif %}
+								<div class="{{ col_classes }} sm-order-2">
+									{% if past_event %}
+										{% if node.field_event_keywords is not empty or node.field_training_keywords is not empty %}
+											<ul class="event-tags sm-hide">
+												{% if node.field_event_keywords is not empty %}
+													{% for tags in node.field_event_keywords %}
+														{% if tags.entity.tid.0.value != 0 %}
+															<li>
+																<a href="/calendar/events?event_type[{{ tags.entity.tid.value }}]={{ tags.entity.tid.value }}">{{ tags.entity.name.value }}</a>
+															</li>
+														{% endif %}
+													{% endfor %}
+												{% endif %}
+												{% if node.field_training_keywords is not empty %}
+													{% for tags in node.field_training_keywords %}
+														{% if tags.entity.tid.0.value != 0 %}
+															<li>
+																<a href="/calendar/training?event_type[{{ tags.entity.tid.value }}]={{ tags.entity.tid.value }}">{{ tags.entity.name.value }}</a>
+															</li>
+														{% endif %}
+													{% endfor %}
+												{% endif %}
+											</ul>
+											<!--/event-tags-->
+										{% endif %}
+										{% if not node.field_all_day.value or node.field_price.value is not empty %}
+											<div class="event-time-price">
+												{% if not node.field_all_day.value %}
+													<span>
+														<i class="mdi mdi-clock-outline" aria-label="{{ "Time"|t }}"></i>
+														{% if node.field_event_end_time.value is not empty %}
+															{{ start_time }}
+															-
+															{{ end_time }}
+														{% else %}
+															{{ start_time }}
+														{% endif %}
+													</span>
+												{% endif %}
+												{% if node.field_price.value is not empty %}
+													<span>
+														<i class="mdi mdi-currency-eur" aria-label="{{ "Price"|t }}"></i>
+														{{ node.field_price.value }}</span>
+												{% endif %}
+											</div>
+											<!--/event-time-price-->
+										{% endif %}
+										{% if node.field_venue.value is not empty %}
+											<span class="event-location">
+												<i class="mdi mdi-map-marker" aria-label="{{ "Location"|t }}"></i>
+												{{ node.field_venue.value }}
+											</span>
+										{% endif %}
+									{% endif %}
+									<div class="text-field">
+										{{ node.body.value|raw }}
+									</div>
+                  {% if node.field_webform.target_id is not empty %}
+                    <a href="{{ webform_path }}" class="btn btn-primary webform-dialog use-ajax" data-dialog-type="modal">{{ 'Register'|t }}</a>
+                  {% endif %}
+									{% if node.field_juhan_training_url is not empty %}
+										<a href="{{ node.field_juhan_training_url.uri }}" target="_blank" class="btn btn-primary">
+											{{ "Additional information in Juhan"|t }}
+											<i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+											<span class="sr-only">{{ 'Link will open on a new page'|t }}</span>
+										</a>
+									{% endif %}
+								</div>
+                {% if node.field_one_image.0 is not empty or node.field_juhan_image_link.uri is not empty or node.field_juhan_esf.value == 1 %}
+                <div class="col-4 md-6 sm-12 sm-order-1">
+									{% if node.field_event_keywords is not empty or node.field_training_keywords is not empty %}
+										<ul class="event-tags sm-show-flex">
+											{% if node.field_event_keywords is not empty %}
+												{% for tags in node.field_event_keywords %}
+													{% if tags.entity.tid.0.value != 0 %}
+														<li>
+															<a href="/calendar/events?event_type[{{ tags.entity.tid.value }}]={{ tags.entity.tid.value }}">{{ tags.entity.name.value }}</a>
+														</li>
+													{% endif %}
+												{% endfor %}
+											{% endif %}
+											{% if node.field_training_keywords is not empty %}
+												{% for tags in node.field_training_keywords %}
+													{% if tags.entity.tid.0.value != 0 %}
+														<li>
+															<a href="/calendar/training?event_type[{{ tags.entity.tid.value }}]={{ tags.entity.tid.value }}">{{ tags.entity.name.value }}</a>
+														</li>
+													{% endif %}
+												{% endfor %}
+											{% endif %}
+										</ul>
+										<!--/event-tags-->
+									{% endif %}
+									<div class="image-block">
+										{% if node.field_juhan_image_link.uri %}
+                      <a id="juhan" class="image-field image-field--landscape" alt="" aria-label="{{ "Image, opens in modal"|t }}" data-bigPicture="{{ node.field_juhan_image_link.uri }}" data-image="{{ node.field_juhan_image_link.uri }}" style="height: 100%; padding-top: unset" tabindex="0" data-plugin="modalOpener" data-modal="single" title="{{ node.getTitle() }}">
+                        <img src="{{ node.field_juhan_image_link.uri }}" alt="" aria-label="{{ "Image, opens in modal"|t }}" style="object-fit: contain; width: 100%; height: auto; position:relative; opacity:1;">
+                        <span class="gallery-icon">
+                          <i class="mdi mdi-image-multiple" aria-hidden="true"></i>
+                          <span class="sr-only">{{ 'Open picture'|t }}</span>
+                        </span>
+                      </a><!--/image-field-->
+											<!--/image-field-->
+										{% else %}
+											{{ content.field_one_image }}
+										{% endif %}
+									</div>
+									<!--/image-block-->
+									{% if node.field_juhan_esf.value %}
+										<span class="supporter-logo">
+											<img src="/themes/custom/harno_theme/static/assets/images/ESF.jpg" alt="{{ "European union. European social fund. Investing in your future"|t }}">
+										</span>
+										<!--/supporter-logo-->
+									{% endif %}
+								</div>
+                {% endif %}
+								<div class="col-12 md-12 sm-12 sm-order-3">
+									{{ content.field_contact_block }}
+								</div>
+							</div>
+							<!--/row -->
+						</div>
+						<!--/accordion__content--body-->
+					</div>
+					<!--/accordion__content-->
+				</div>
+				<!--/accordion__item-->
+			</div>
+			<!--/accordion accordion--contacts-->
+		</div>
+	</div>
+	<!--/event-card-->
+</article>
+<!--/content-block content-block--event-block-->

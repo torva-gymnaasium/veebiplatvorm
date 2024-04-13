@@ -1,0 +1,22 @@
+uuid: c50b613f-2fd7-4317-8a85-b076e475e67e
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.location
+id: node.location.promote
+field_name: promote
+entity_type: node
+bundle: location
+label: 'Ülendatud esilehele'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

@@ -1,0 +1,24 @@
+uuid: e2e37a5f-c21b-41ae-a42c-c4a582bbc0ec
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_start_date
+    - node.type.calendar
+  module:
+    - datetime
+id: node.calendar.field_start_date
+field_name: field_start_date
+entity_type: node
+bundle: calendar
+label: Alguskuupäev
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

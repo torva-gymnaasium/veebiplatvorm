@@ -1,0 +1,15 @@
+uuid: bc96909e-d376-4fc4-8c78-2e54988d4ef8
+langcode: et
+status: true
+dependencies: {  }
+name: detail_one_image
+label: 'Detail one image'
+effects:
+  f9ed9886-f765-4d58-8a0a-2a55cf3825c2:
+    uuid: f9ed9886-f765-4d58-8a0a-2a55cf3825c2
+    id: image_scale
+    weight: 2
+    data:
+      width: 800
+      height: 532
+      upscale: true

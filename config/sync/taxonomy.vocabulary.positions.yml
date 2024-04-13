@@ -1,0 +1,14 @@
+uuid: 99455817-835a-4555-beea-51679a7185c5
+langcode: et
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Ametikohad
+vid: positions
+description: 'Ametikohad, kus asutuse töötajad töötavad.'
+weight: 0

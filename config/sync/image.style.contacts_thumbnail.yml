@@ -1,0 +1,17 @@
+uuid: 35b14435-3c78-4964-9c4f-64c79f4ccfc2
+langcode: et
+status: true
+dependencies:
+  module:
+    - focal_point
+name: contacts_thumbnail
+label: 'Contacts Thumbnail'
+effects:
+  422c616c-bf60-4718-b736-d4e5b279778d:
+    uuid: 422c616c-bf60-4718-b736-d4e5b279778d
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 200
+      height: 200
+      crop_type: focal_point

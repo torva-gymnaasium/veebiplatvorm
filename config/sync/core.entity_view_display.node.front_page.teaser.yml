@@ -1,0 +1,22 @@
+uuid: 80c71ba9-c607-4120-87a3-d1610b3cf94e
+langcode: et
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.front_page.body
+    - field.field.node.front_page.layout_builder__layout
+    - node.type.front_page
+  module:
+    - user
+id: node.front_page.teaser
+targetEntityType: node
+bundle: front_page
+mode: teaser
+content: {  }
+hidden:
+  body: true
+  langcode: true
+  layout_builder__layout: true
+  links: true
+  search_api_excerpt: true

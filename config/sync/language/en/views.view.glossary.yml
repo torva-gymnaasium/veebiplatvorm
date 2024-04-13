@@ -1,0 +1,23 @@
+label: Sõnastik
+description: 'Kogu sisu, tähestikuliselt.'
+display:
+  default:
+    display_title: Vaikimisi
+    display_options:
+      fields:
+        title:
+          label: Title
+        name:
+          label: Author
+        changed:
+          label: 'Viimati uuendatud'
+      exposed_form:
+        options:
+          reset_button_label: Reset
+  attachment_1:
+    display_title: Manus
+  page_1:
+    display_title: Veebileht
+    display_options:
+      menu:
+        title: Sõnastik

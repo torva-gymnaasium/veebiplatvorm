@@ -1,0 +1,10 @@
+uuid: 7404da72-50f3-4c8e-a522-ad5d4bd0c21f
+langcode: et
+status: true
+dependencies: {  }
+id: db_50_25_25
+label: 'Jaotusplokk 50/25/25'
+icon_uuid: null
+icon_default: null
+description: 'Jaotusplokk jagab lehe sisu kolmeks osaks, millest esimene on 50%, teine on 25% ja kolmas on 25%.'
+behavior_plugins: {  }

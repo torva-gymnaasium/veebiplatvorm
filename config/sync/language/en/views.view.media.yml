@@ -1,0 +1,53 @@
+label: Meedia
+display:
+  default:
+    display_title: Vaikimisi
+    display_options:
+      title: Meedia
+      fields:
+        media_bulk_form:
+          action_title: Action
+        bundle:
+          label: Tüüp
+        uid:
+          label: Author
+        status:
+          label: Status
+          settings:
+            format_custom_false: Unpublished
+            format_custom_true: Published
+        changed:
+          label: Uuendati
+        operations:
+          label: Operations
+      pager:
+        options:
+          tags:
+            next: 'Järgmine ›'
+            previous: '‹ Eelmine'
+            first: '« Esimene'
+            last: 'Viimane »'
+      exposed_form:
+        options:
+          submit_button: Filter
+          reset_button_label: Reset
+      filters:
+        bundle:
+          expose:
+            label: Tüüp
+        status:
+          group_info:
+            label: 'Published status'
+            group_items:
+              1:
+                title: Published
+              2:
+                title: Unpublished
+        langcode:
+          expose:
+            label: Language
+  media_page_list:
+    display_title: Meedia
+    display_options:
+      menu:
+        title: Meedia

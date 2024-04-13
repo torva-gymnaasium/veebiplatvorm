@@ -1,0 +1,7 @@
+name: 'Veebiplatvormi lehed'
+type: module
+description: 'Veebiplatvormide lehed/koondlehed'
+core_version_requirement: ^8 || ^9 || ^10
+package: 'Veebiplatvorm'
+dependencies:
+  - drupal:path_alias

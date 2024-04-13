@@ -1,0 +1,502 @@
+uuid: d88038cf-3cc4-4572-a291-08b702660bf2
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.node.calendar.body
+    - field.field.node.calendar.field_all_day
+    - field.field.node.calendar.field_contact_block
+    - field.field.node.calendar.field_event_end_date
+    - field.field.node.calendar.field_event_end_time
+    - field.field.node.calendar.field_event_keywords
+    - field.field.node.calendar.field_event_start_time
+    - field.field.node.calendar.field_event_type
+    - field.field.node.calendar.field_juhan_esf
+    - field.field.node.calendar.field_juhan_id
+    - field.field.node.calendar.field_juhan_image_link
+    - field.field.node.calendar.field_juhan_training
+    - field.field.node.calendar.field_juhan_training_url
+    - field.field.node.calendar.field_one_image
+    - field.field.node.calendar.field_price
+    - field.field.node.calendar.field_show_end_date
+    - field.field.node.calendar.field_start_date
+    - field.field.node.calendar.field_training_keywords
+    - field.field.node.calendar.field_venue
+    - field.field.node.calendar.field_webform
+    - node.type.calendar
+  module:
+    - conditional_fields
+    - datetime
+    - field_group
+    - media_library
+    - media_library_edit
+    - paragraphs
+    - path
+    - readonly_field_widget
+    - scheduler
+    - text
+    - time_field
+    - webform
+third_party_settings:
+  field_group:
+    group_date:
+      children:
+        - field_all_day
+        - field_show_end_date
+        - field_start_date
+        - field_event_start_time
+        - field_event_end_date
+        - field_event_end_time
+      label: 'Toimumise aeg'
+      region: content
+      parent_name: ''
+      weight: 12
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        id: ''
+        description: ''
+        required_fields: true
+        open: false
+        weight: 0
+    group_type:
+      children:
+        - field_training_keywords
+        - field_event_keywords
+      label: Tüübid
+      region: content
+      parent_name: ''
+      weight: 11
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        id: ''
+        description: ''
+        required_fields: true
+        open: false
+        weight: 0
+    group_contact:
+      children:
+        - field_contact_block
+      label: Kontaktiplokk
+      region: content
+      parent_name: ''
+      weight: 15
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        id: ''
+        description: ''
+        required_fields: true
+    group_webform:
+      children:
+        - field_webform
+      label: Sisestusvorm
+      region: content
+      parent_name: ''
+      weight: 16
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        id: ''
+        description: ''
+        required_fields: true
+    group_juhan:
+      children:
+        - field_juhan_training
+        - field_juhan_esf
+        - field_juhan_id
+        - field_juhan_image_link
+        - field_juhan_training_url
+      label: 'Juhani andmed'
+      region: content
+      parent_name: ''
+      weight: 17
+      format_type: details_sidebar
+      format_settings:
+        classes: ''
+        id: ''
+        open: false
+        description: ''
+        required_fields: false
+        weight: 0
+id: node.calendar.default
+targetEntityType: node
+bundle: calendar
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 13
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_all_day:
+    type: boolean_checkbox
+    weight: 14
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_contact_block:
+    type: entity_reference_paragraphs
+    weight: 16
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+  field_event_end_date:
+    type: datetime_default
+    weight: 19
+    region: content
+    settings: {  }
+    third_party_settings:
+      conditional_fields:
+        6b6c174a-24e2-4d01-8809-9a0df3315c71:
+          entity_type: node
+          bundle: calendar
+          dependee: field_show_end_date
+          settings:
+            state: visible
+            condition: checked
+            grouping: AND
+            values_set: 2
+            value: ''
+            values: '1'
+            value_form:
+              value: 1
+            effect: fade
+            effect_options:
+              fade:
+                speed: '400'
+              slide:
+                speed: '400'
+            selector: ''
+  field_event_end_time:
+    type: time_widget
+    weight: 20
+    region: content
+    settings:
+      enabled: false
+      step: 5
+    third_party_settings:
+      conditional_fields:
+        d22de3df-c5a5-43f2-8597-acc744b909b5:
+          entity_type: node
+          bundle: calendar
+          dependee: field_all_day
+          settings:
+            state: visible
+            condition: '!checked'
+            grouping: AND
+            values_set: 2
+            value: ''
+            values: '1'
+            value_form:
+              value: 1
+            effect: fade
+            effect_options:
+              fade:
+                speed: '400'
+              slide:
+                speed: '400'
+            selector: ''
+  field_event_keywords:
+    type: options_buttons
+    weight: 13
+    region: content
+    settings: {  }
+    third_party_settings:
+      conditional_fields:
+        f28f7792-82e5-419f-8584-08a35bfbac0c:
+          entity_type: node
+          bundle: calendar
+          dependee: field_event_type
+          settings:
+            state: visible
+            condition: value
+            grouping: AND
+            values_set: 3
+            value: ''
+            values: '2'
+            value_form:
+              -
+                value: '2'
+            effect: fade
+            effect_options:
+              fade:
+                speed: '400'
+              slide:
+                speed: '400'
+            selector: ''
+  field_event_start_time:
+    type: time_widget
+    weight: 18
+    region: content
+    settings:
+      enabled: false
+      step: 5
+    third_party_settings:
+      conditional_fields:
+        a2d9e815-103f-4c2b-9ccb-adc6db5a237a:
+          entity_type: node
+          bundle: calendar
+          dependee: field_all_day
+          settings:
+            state: visible
+            condition: '!checked'
+            grouping: AND
+            values_set: 2
+            value: ''
+            values: '1'
+            value_form:
+              value: 1
+            effect: fade
+            effect_options:
+              fade:
+                speed: '400'
+              slide:
+                speed: '400'
+            selector: ''
+  field_event_type:
+    type: options_buttons
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_juhan_esf:
+    type: readonly_field_widget
+    weight: 28
+    region: content
+    settings:
+      label: above
+      formatter_type: null
+      formatter_settings: null
+      show_description: false
+    third_party_settings: {  }
+  field_juhan_id:
+    type: readonly_field_widget
+    weight: 29
+    region: content
+    settings:
+      label: above
+      formatter_type: null
+      formatter_settings: null
+      show_description: false
+    third_party_settings: {  }
+  field_juhan_image_link:
+    type: readonly_field_widget
+    weight: 30
+    region: content
+    settings:
+      label: above
+      formatter_type: link
+      formatter_settings:
+        link:
+          trim_length: 80
+          url_only: false
+          url_plain: false
+          rel: nofollow
+          target: _blank
+        link_separate:
+          trim_length: 80
+          url_only: false
+          url_plain: false
+          rel: '0'
+          target: '0'
+      show_description: false
+    third_party_settings: {  }
+  field_juhan_training:
+    type: readonly_field_widget
+    weight: 27
+    region: content
+    settings:
+      label: above
+      formatter_type: null
+      formatter_settings: null
+      show_description: false
+    third_party_settings: {  }
+  field_juhan_training_url:
+    type: readonly_field_widget
+    weight: 31
+    region: content
+    settings:
+      label: above
+      formatter_type: link
+      formatter_settings:
+        link:
+          trim_length: 80
+          url_only: false
+          url_plain: false
+          rel: nofollow
+          target: _blank
+        link_separate:
+          trim_length: 80
+          url_only: false
+          url_plain: false
+          rel: '0'
+          target: '0'
+      show_description: false
+    third_party_settings: {  }
+  field_one_image:
+    type: media_library_widget
+    weight: 14
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings:
+      media_library_edit:
+        show_edit: '1'
+  field_price:
+    type: string_textfield
+    weight: 10
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_show_end_date:
+    type: boolean_checkbox
+    weight: 16
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_start_date:
+    type: datetime_default
+    weight: 17
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_training_keywords:
+    type: options_buttons
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings:
+      conditional_fields:
+        9a101006-4cdc-4fed-bb4c-c42ee545d3c3:
+          entity_type: node
+          bundle: calendar
+          dependee: field_event_type
+          settings:
+            state: visible
+            condition: value
+            grouping: AND
+            values_set: 3
+            value: ''
+            values: '1'
+            value_form:
+              -
+                value: '1'
+            effect: fade
+            effect_options:
+              fade:
+                speed: '400'
+              slide:
+                speed: '400'
+            selector: ''
+  field_venue:
+    type: string_textfield
+    weight: 9
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_webform:
+    type: webform_entity_reference_select
+    weight: 17
+    region: content
+    settings:
+      default_data: false
+      webforms: {  }
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 1
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 52
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  scheduler_settings:
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 54
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  url_redirects:
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  promote: true
+  sticky: true

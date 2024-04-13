@@ -1,0 +1,17 @@
+uuid: e43cde05-2686-43dd-a72f-60258c2153ca
+langcode: et
+status: true
+dependencies:
+  module:
+    - focal_point
+name: galleries_and_news
+label: 'Galleries and news'
+effects:
+  6ba784af-c328-40fd-9750-c448b94175a5:
+    uuid: 6ba784af-c328-40fd-9750-c448b94175a5
+    id: focal_point_scale_and_crop
+    weight: 2
+    data:
+      width: 1052
+      height: 714
+      crop_type: focal_point

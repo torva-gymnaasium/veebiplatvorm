@@ -1,0 +1,23 @@
+
+{% if content.field_title_level %}
+  {% set level = content.field_title_level.0['#markup'] |raw %}
+{% endif %}
+{% if level == 'Pealkiri 2' %}
+  {% set title_level = 'h2' %}
+{% elseif level == 'Pealkiri 3' %}
+  {% set title_level = 'h3' %}
+{% elseif level == 'Pealkiri 4' %}
+  {% set title_level = 'h4' %}
+{% elseif level == 'Pealkiri 5' %}
+  {% set title_level = 'h5' %}
+{% elseif level == 'Pealkiri 6' %}
+  {% set title_level = 'h6' %}
+{% endif %}
+{% if title_level %}
+  <div class="title-block">
+    <{{ title_level }}>
+  {{ elements.field_title }}
+
+  </{{ title_level }}><!--/{{title_level}}-->
+  </div><!--/title-block-->
+{% endif %}

@@ -1,0 +1,14 @@
+uuid: e471895e-616f-4834-98e3-3c8c845022ee
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.school_hours
+id: taxonomy_vocabulary_school_hours
+entity_type_id: taxonomy_vocabulary
+entity_id: school_hours
+action: page_redirect
+allow_override: 1
+redirect: /<front>
+redirect_code: 301
+redirect_fallback_action: access_denied

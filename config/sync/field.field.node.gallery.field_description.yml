@@ -1,0 +1,19 @@
+uuid: 9a6d4087-9f88-490a-be90-1388395213a1
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description
+    - node.type.gallery
+id: node.gallery.field_description
+field_name: field_description
+entity_type: node
+bundle: gallery
+label: 'Galerii kirjeldus'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

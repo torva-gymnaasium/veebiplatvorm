@@ -1,0 +1,21 @@
+uuid: ecbc7739-2066-4b35-897f-cf3759571899
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_opening_time
+    - paragraphs.paragraphs_type.school_hour
+  module:
+    - time_field
+id: paragraph.school_hour.field_opening_time
+field_name: field_opening_time
+entity_type: paragraph
+bundle: school_hour
+label: 'Alguse aeg'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: time

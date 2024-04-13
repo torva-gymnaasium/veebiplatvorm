@@ -1,0 +1,33 @@
+uuid: 7acdbd1c-6764-4f4b-ae1b-9babe72045ae
+langcode: et
+status: true
+dependencies:
+  module:
+    - language
+    - node
+id: node_pattern_news
+label: 'Node pattern news'
+type: 'canonical_entities:node'
+pattern: '/news/[node:title]'
+selection_criteria:
+  fae482c2-f9e2-40c3-895e-aeb41c18f615:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: fae482c2-f9e2-40c3-895e-aeb41c18f615
+    context_mapping:
+      node: node
+    bundles:
+      article: article
+  0a0d485a-9bb5-4152-8d6a-56bd8e1210db:
+    id: language
+    negate: false
+    uuid: 0a0d485a-9bb5-4152-8d6a-56bd8e1210db
+    context_mapping:
+      language: 'node:langcode:language'
+    langcodes:
+      en: en
+selection_logic: and
+weight: -10
+relationships:
+  'node:langcode:language':
+    label: Keel

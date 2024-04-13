@@ -1,0 +1,6 @@
+get_renewed_block:
+  path: 'front_renew_block_data'
+  defaults:
+    _controller: '\Drupal\front_layout\Controller\ReNew::Render'
+  requirements:
+    _access: 'TRUE'

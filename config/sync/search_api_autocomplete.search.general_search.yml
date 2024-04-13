@@ -1,0 +1,31 @@
+uuid: 0133f288-d270-46ef-a375-455611e4c484
+langcode: et
+status: true
+dependencies:
+  config:
+    - search_api.index.search_index
+    - views.view.general_search
+  module:
+    - views
+    - search_api_autocomplete
+id: general_search
+label: Otsing
+index_id: search_index
+suggester_settings:
+  server:
+    fields: {  }
+suggester_weights:
+  server: 0
+suggester_limits: {  }
+search_settings:
+  'views:general_search':
+    displays:
+      default: true
+      selected: {  }
+options:
+  limit: 3
+  min_length: 3
+  show_count: false
+  delay: 600
+  submit_button_selector: .search-submit-btn
+  autosubmit: false

@@ -1,0 +1,24 @@
+uuid: 0d132efb-aaa0-4ec1-9fa6-5f2640548132
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_logo_weight
+    - node.type.partner_logo
+  module:
+    - weight
+id: node.partner_logo.field_logo_weight
+field_name: field_logo_weight
+entity_type: node
+bundle: partner_logo
+label: Kaal
+description: ' Määrab logode omavahelise järjekorra avalehel. Madalam väärtus tähendab, et see on eespool. '
+required: true
+translatable: false
+default_value:
+  -
+    value: '0'
+default_value_callback: ''
+settings:
+  range: '20'
+field_type: weight

@@ -1,0 +1,13 @@
+uuid: 2c948069-0729-4f24-bed7-0582731ebec2
+langcode: et
+status: false
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: fVFfJv_GzBRE-wpRHbfD5a3VjnhbEOXG6lvRd3uaccY
+id: node.search_index
+label: Otsinguindeks
+description: ''
+targetEntityType: node
+cache: true

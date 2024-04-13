@@ -1,0 +1,29 @@
+uuid: 7db81644-57c3-4e51-81c3-1ea636574eb2
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_food_group
+    - paragraphs.paragraphs_type.menu_food
+    - taxonomy.vocabulary.food_groups
+id: paragraph.menu_food.field_food_group
+field_name: field_food_group
+entity_type: paragraph
+bundle: menu_food
+label: 'Toidu grupp'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      food_groups: food_groups
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

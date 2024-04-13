@@ -1,0 +1,36 @@
+uuid: 986dc675-89bc-4414-8feb-d64ad77ac99a
+langcode: et
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_title_level
+field_name: field_title_level
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: h2
+      label: 'Pealkiri 2'
+    -
+      value: h3
+      label: 'Pealkiri 3'
+    -
+      value: h4
+      label: 'Pealkiri 4'
+    -
+      value: h5
+      label: 'Pealkiri 5'
+    -
+      value: h6
+      label: 'Pealkiri 6'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

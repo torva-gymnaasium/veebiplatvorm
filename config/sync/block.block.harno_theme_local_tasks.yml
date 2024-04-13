@@ -1,0 +1,29 @@
+uuid: 8e723947-185d-415d-8bbf-aa93010c2e9e
+langcode: et
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - harno_theme
+_core:
+  default_config_hash: X9I1OB0W3WlWtrK-CNcg6hNWwa8wficanpH8pYnDZDE
+id: harno_theme_local_tasks
+theme: harno_theme
+region: content
+weight: -8
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Sakid
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    context_mapping: {  }
+    pages: /user/login

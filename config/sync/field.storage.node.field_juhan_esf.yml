@@ -1,0 +1,18 @@
+uuid: 9077dd14-f72f-4f4c-871f-ed18197c5627
+langcode: et
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_juhan_esf
+field_name: field_juhan_esf
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

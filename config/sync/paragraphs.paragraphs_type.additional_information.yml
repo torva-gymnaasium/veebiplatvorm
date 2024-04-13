@@ -1,0 +1,10 @@
+uuid: 9208663f-af0b-49ea-a48b-4e865c7a2076
+langcode: et
+status: true
+dependencies: {  }
+id: additional_information
+label: Lisainfo
+icon_uuid: null
+icon_default: null
+description: 'Kasutajad saavad lisada akordionites kuvatavaid lisainfo plokke. Nt saab seda kasutada parkimise või transpordi info lisamiseks. '
+behavior_plugins: {  }

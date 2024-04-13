@@ -1,0 +1,559 @@
+<?php
+
+/**
+ * @file
+ * Contains harno_settings.module.
+ */
+
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Routing\TrustedRedirectResponse;
+use Drupal\Core\Url;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\webform\Utility\WebformFormHelper;
+use Drupal\Component\Utility\Variable;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+/**
+ * Implements hook_help().
+ */
+function harno_settings_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the pria_settings module.
+    case 'help.page.harno_settings':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('HARNO settings module') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+/**
+ * Implements hook_theme().
+ */
+function harno_settings_theme($existing, $type, $theme, $path) {
+  $items = [];
+  global $base_path;
+  $theme_path = $theme = \Drupal::theme()->getActiveTheme()->getPath();
+  $path = $base_path.'/'.$theme_path.'/templates/blocks';
+
+  $items['harno_social_block'] = [
+    'variables' => [
+      'data' => []
+    ],
+    'path' => $path,
+  ];
+  $items['harno_footer_free_text_block'] = [
+    'variables' => [
+      'data' => []
+    ],
+    'path' => $path,
+  ];
+  $items['harno_important_contacts_block'] = [
+    'variables' => [
+      'data' => []
+    ],
+    'path' => $path,
+  ];
+  $items['harno_main_contacts_block'] = [
+    'variables' => [
+      'data' => []
+    ],
+    'path' => $path,
+  ];
+  $items['harno_footer_quick_links_block'] = [
+    'variables' => [
+      'data' => []
+    ],
+    'path' => $path,
+  ];
+  $items['harno_tos_block'] = [
+    'variables' => [
+      'data' => []
+    ],
+    'path' => $path,
+  ];
+  return $items;
+}
+/**
+ * Implements hook_ENTITY_TYPE_prepare_form() for Nodes.
+ */
+
+function harno_settings_node_prepare_form(\Drupal\Core\Entity\EntityInterface $entity, $operation, \Drupal\Core\Form\FormStateInterface $form_state) {
+  //galerii ja uudise lisamisel õppeaasta default väärtuse muutmine
+  $node_types = ['gallery', 'article'];
+  if (in_array($entity->getType(), $node_types)) {
+    if ($operation == 'default' AND $entity->isNew()) {
+      $default_value = 0;
+      $today = date('Y-m-d');
+      $vid = 'academic_year';
+      $terms =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid, 0,  NULL, TRUE);
+      foreach ($terms as $term) {
+        $dates = $term->get('field_date_range')->getValue();
+        $start_date = $dates[0]['value'];
+        $end_date = $dates[0]['end_value'];
+        if ($start_date <= $today AND $end_date >= $today) {
+          $default_value = $term->id();
+          break;
+        }
+      }
+
+      $entity->set('field_academic_year', $default_value);
+    }
+  }
+  // uudise lisamisel autori nime default väärtuse muutmine
+  $node_types = ['article'];
+  if (in_array($entity->getType(), $node_types)) {
+    if ($operation == 'default' AND $entity->isNew()) {
+      // Load the current user.
+      $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+      if (isset($user->get('field_first_name')->value) AND isset($user->get('field_last_name')->value) ) {
+        $default_value = $user->get('field_first_name')->value . ' ' . $user->get('field_last_name')->value;
+        $entity->set('field_author_name', $default_value);
+      }
+    }
+  }
+  // lennu lisamisel järjekorra default väärtuse muutmine
+  $node_types = ['class'];
+  if (in_array($entity->getType(), $node_types)) {
+    if ($operation == 'default' AND $entity->isNew()) {
+
+      $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+      $query = \Drupal::entityQuery('node');
+      $high_weight = $query->condition('type', 'class')
+        ->sort('field_weight', 'DESC')
+        ->range(0, 1);
+      $nids = $query->accessCheck(true)->execute();
+      $nodes = $node_storage->loadMultiple($nids);
+      foreach ($nodes as $node) {
+        $default_value = $node->get('field_weight')->value + 1;
+        $entity->set('field_weight', $default_value);
+      }
+
+    }
+  }
+  // toidumenüüs päevade toidu grupid sisestada
+  $node_types = ['food_menu'];
+  if (in_array($entity->getType(), $node_types)) {
+    if ($operation == 'default' AND $entity->isNew()) {
+      $default_value = 0;
+      $vid = 'eating_places';
+      $terms =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid, 0,  NULL, TRUE);
+      foreach ($terms as $term) {
+        $default_value = $term->id();
+        break;
+      }
+      $entity->set('field_eating_place', $default_value);
+
+      $default_value = 0;
+      $vid = 'catering_service_provider';
+      $terms =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid, 0,  NULL, TRUE);
+      foreach ($terms as $term) {
+        $default_value = $term->id();
+        break;
+      }
+      $entity->set('field_catering_service_provider', $default_value);
+    }
+
+    if ($operation == 'default' OR $operation == 'edit') {
+      $vid = 'food_groups';
+      $terms =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid, 0,  NULL, TRUE);
+      foreach ($terms as $term) {
+        $term_id = $term->id();
+        $fields = ['field_monday', 'field_tuesday', 'field_wednesday', 'field_thursday', 'field_friday', 'field_saturday', 'field_sunday'];
+        $paragraph_storage = \Drupal::entityTypeManager()->getStorage('paragraph');
+        foreach ($fields as $field) {
+          $found = FALSE;
+          if ($paragraph_field_items = $entity->get($field)->getValue()) {
+            $ids = array_column($paragraph_field_items, 'target_id');
+            $paragraphs_objects = $paragraph_storage->loadMultiple($ids);
+            foreach ($paragraphs_objects as $paragraph) {
+              $target_id = $paragraph->get('field_food_group')->target_id;
+              if ($target_id == $term_id) {
+                $found = TRUE;
+              }
+            }
+          }
+
+          if (!$found)  {
+            $storage = \Drupal::entityTypeManager()->getStorage('paragraph');
+            $paragraph = $storage->create([
+              'type' => 'menu_food',
+              'field_food_group' => [
+                'target_id' => $term_id,
+              ]
+            ]);
+            $paragraph->isNew();
+            $paragraph->save();
+            $paragraph_field = $entity->get($field);
+            $paragraph_field->appendItem($paragraph);
+          }
+        }
+      }
+    }
+  }
+}
+/**
+ * Implements hook_ENTITY_TYPE_presave() for Nodes.
+ */
+function harno_settings_node_presave(Drupal\Core\Entity\EntityInterface $entity)   {
+  $node_types = ['article'];
+  $calendar_types = ['calendar'];
+  if (in_array($entity->getType(), $node_types)) {
+    $sticky = $entity->get('sticky')->value;
+    //kui lisati oluline uudis, siis eemaldame kõigilt teistelt selle valiku.
+    if ($sticky) {
+      $storage = \Drupal::service('entity_type.manager')->getStorage('node');
+      $sticky_entities = $storage->loadByProperties([
+        'type' => 'article',
+        'langcode' => $entity->get('langcode')->value,
+        'sticky' => 1,
+      ]);
+      foreach ($sticky_entities as $se) {
+        if ($entity->get('nid')->value != $se->get('nid')->value) {
+          $se->set('sticky', 0);
+          $se->save();
+          $node_link = $se->toLink(t('View'))->toString();
+          \Drupal::logger('harno_settings')->notice('Eemaldati "Olulise uudise" märge uudiselt "%title". @link',
+            array(
+              '%title' => $se->get('title')->value,
+              '@link' => $node_link,
+            )
+          );
+        }
+      }
+    }
+  }
+  elseif (in_array($entity->getType(), $calendar_types)) {
+    $field_event_type = $entity->get('field_event_type')->getValue();
+    $field_all_day = $entity->get('field_all_day')->value;
+    $field_show_end_date = $entity->get('field_show_end_date')->value;
+    $active_types = [];
+    foreach ($field_event_type as $event_type) {
+      $active_types[] = $event_type['value'];
+    }
+    if (!in_array('1',$active_types)) {
+      $entity->set('field_training_keywords', 0);
+    }
+    if (!in_array('2',$active_types)) {
+      $entity->set('field_event_keywords', 0);
+    }
+    if ($field_all_day == 1) {
+      $entity->set('field_event_start_time', '');
+      $entity->set('field_event_end_time', '');
+    }
+    if ($field_show_end_date == 0) {
+      $entity->set('field_event_end_date', '');
+    }
+  }
+  elseif($entity->getType()=='front_page'){
+    $front_page = $entity->get('field_front_page')->value;
+    $status = $entity->get('status')->value;
+    if ($front_page && $status){
+      $storage = \Drupal::service('entity_type.manager')->getStorage('node');
+      $front_pages = $storage->loadByProperties([
+        'type' => 'front_page',
+        'langcode' => $entity->get('langcode')->value,
+        'field_front_page' => 1,
+      ]);
+      foreach ($front_pages as $fp) {
+        if ($entity->get('nid')->value != $fp->get('nid')->value) {
+        $fp->set('field_front_page',0);
+        $fp->save();
+          $node_link = $fp->toLink(t('View'))->toString();
+          \Drupal::logger('harno_settings')->notice('Eemaldati "Olulise uudise" märge uudiselt "%title". @link',
+            array(
+              '%title' => $fp->get('title')->value,
+              '@link' => $node_link,
+            )
+          );
+        }
+      }
+      \Drupal::configFactory()
+        ->getEditable('system.site')
+        ->set('page.front', '/node/'.$entity->id())
+        ->save();
+    }
+    elseif ($front_page && $status==false){
+      $entity->set('field_front_page',0);
+      $redirect = new RedirectResponse(Url::fromUserInput('/node/'.$entity->id().'/edit')->toString());;
+      \Drupal::messenger()->addError(t('Selleks et määrata lehte esileheks, peab see olema avaldatud'));
+      $redirect->send();
+
+
+    }
+  }
+}
+
+/**
+ * Adding our custom validation functions.
+ */
+function harno_settings_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  if ($form_id == 'config_translation_edit_form') {
+    $form['#submit'][] = 'harno_settings_config_translations_submit';
+  }
+  $forms = ['node_article_edit_form', 'node_article_form'];
+  $forms_user = ['user_register_form', 'user_form'];
+
+  if (in_array($form['#form_id'], $forms)) {
+    $form['#validate'][] = '_harno_settings_validate_sticky';
+
+    $config = \Drupal::config('harno_settings.settings');
+    $news_our_story_name = $config->get('news_our_story.name');
+    $form['field_article_type']['widget']['#options'][2] = $news_our_story_name;
+    $form['sticky']['widget']['#title'] = $form['sticky']['widget']['value']['#title'] = 'Oluline uudis';
+  }
+  elseif (in_array($form['#form_id'], $forms_user)) {
+    if (!empty($form['account'])) {
+      if (!empty($form['account']['mail'])) {
+        $form['account']['mail']['#required'] = TRUE;
+      }
+    }
+    $form['#validate'][] = '_harno_settings_validate_integer_length';
+    $form['#attached']['library'][]  = 'harno_settings/admin_user_forms';
+    if(!empty($form['field_identification_number']['widget'][0]['value']['#default_value']) AND
+    !\Drupal\user\Entity\User::load(\Drupal::currentUser()->id())->hasRole('administrator')) {
+      $form['field_identification_number']['widget'][0]['value']['#attributes']['readonly'] = TRUE;
+    }
+
+    $account = \Drupal::service('current_route_match')->getParameter('user');
+    if ( !empty($account) ) {
+      // Turn off Current password field's validation
+      $form_state->set('user_pass_reset', 1);
+      // Hide the Current password fields
+      $form['account']['current_pass']['#access'] = FALSE;
+    }
+  }
+  elseif (in_array($form['#form_id'], ['taxonomy_term_catering_service_provider_form'])) {
+    $form['name']['widget'][0]['value']['#title'] = 'Ärinimi';
+    $form['name']['widget'][0]['value']['#description'] = 'Juhul kui kuvatavat toitlustaja nime ei ole sisestatud, siis näidatakse külastajale ärinime.';
+  }
+  elseif (in_array($form['#form_id'], ['taxonomy_term_food_groups_form'])) {
+    $form['name']['widget'][0]['value']['#title'] = 'Toidu grupp';
+    $form['name']['widget'][0]['value']['#description'] = 'Toidu gruppide sisestamisel on võimalik tekitada toidumenüü tabelisse vahepealkirju. <br> Näiteks võimalikud kasutusviisid on tekitada: a) hommikusöök, lõunasöök ja õhtusöök. b) algkooli lõuna, põhikooli lõuna jne. c) Praad 1, Praad 2 jne.';
+  }
+  elseif (in_array($form['#form_id'], ['taxonomy_term_eating_places_form'])) {
+    $form['name']['widget'][0]['value']['#title'] = 'Söögikoht';
+    $form['name']['widget'][0]['value']['#description'] = 'Söögikoht võimaldab tekitada lehed (nt "Suur maja", "Kooli söökla" või "Kohvik" jne) ja siduda sellega iganädalased söögimenüüd. <br> Järjekord taksonoomias määrab ka nende toidukohtade kuvamise järjekorra.';
+  }
+  elseif (in_array($form['#form_id'], ['node_food_menu_edit_form', 'node_food_menu_form'])) {
+    $form['#attached']['library'][]  = 'harno_settings/admin_food_menu_form';
+  }
+  elseif (in_array($form['#form_id'], ['views_exposed_form'])) {
+    $form['#attributes']['class'][]  = 'filters-form';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * @see admin/structure/webform/manage/{webform}/element/{element_key}/edit
+ */
+function harno_settings_form_webform_ui_element_form_alter(array &$form, FormStateInterface $form_state) {
+  $elements = WebformFormHelper::flattenElements($form);
+
+  $properties_hide = [
+    'terms_type',
+    'time_format',
+    'date_date_format',
+    'options_display',
+    'submit__label',
+    'help_title',
+    'placeholder'
+  ];
+  foreach ($properties_hide as $property) {
+    if (isset($elements[$property])) {
+      $elements[$property]['#access'] = FALSE;
+    }
+  }
+  if (isset($elements['element_description']['description'])) {
+    $elements['element_description']['description']['#access'] = FALSE;
+  }
+  if (isset($elements['element_description']['more'])) {
+    $elements['element_description']['more']['#access'] = FALSE;
+  }
+
+  if (isset($elements['select2'])){
+    $elements['select2']['#default_value'] = TRUE;
+  }
+  if (isset($elements['timepicker'])) {
+    $elements['step']['#default_value'] = 900;
+  }
+  if (isset($elements['international_initial_country'])) {
+    $elements['international_initial_country']['#default_value'] = 'EE';
+  }
+  if (isset($elements['date_date_format'])) {
+    $elements['date_date_format']['#options']['d/m/Y'] = 'dd/mm/yyyy';
+    $elements['date_date_format']['#default_value'] = 'd/m/Y';
+  }
+  // DEBUG: List all properties.
+  //print '<pre>' . Variable::export(array_keys($elements)) . '<pre>'; exit;
+}
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function harno_settings_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type, $bundle) {
+  if ($bundle === 'user') {
+    if (isset($fields['field_identification_number'])) {
+      $fields['field_identification_number']->addConstraint('UniqueField', []);
+    }
+  }
+}
+
+
+/**
+ * Custom validation function for news sticky value.
+ */
+function _harno_settings_validate_sticky(&$form, FormStateInterface $form_state) {
+  if ($form_state->hasValue('field_article_type')) {
+    $field_article_type = $form_state->getValue('field_article_type');
+    $sticky = $form_state->getValue('sticky');
+    if ($field_article_type[0]['value'] == 2 AND $sticky['value']) {
+      $config = \Drupal::config('harno_settings.settings');
+      $news_our_story_name = $config->get('news_our_story.name');
+      $form_state->setErrorByName('sticky', 'Oluline uudis ei saa olla "'.$news_our_story_name.'" tüüpi.');
+    }
+  }
+}
+
+/**
+ * Custom validation function for news sticky value.
+ */
+function _harno_settings_validate_integer_length(&$form, FormStateInterface $form_state) {
+  if ($form_state->hasValue('field_identification_number')) {
+    $field_identification_number = $form_state->getValue('field_identification_number');
+    $length = strlen($field_identification_number[0]['value']);
+    if ($length != 11) {
+      $form_state->setErrorByName('field_identification_number', 'Isikukood peab olema täpselt 11 numbrit. Hetkel on see ' . $length . '.');
+    }
+  }
+}
+
+/**
+ * Implements hook_cron().
+ *
+ * We implement hook_cron() to do "background" processing. It gets called every
+ * time the Drupal cron runs. We then decide what has to happen in response.
+ *
+ */
+function harno_settings_cron() {
+  $config = \Drupal::config('harno_settings.settings');
+  //Õppeaasta automaatne genereerimine
+  $on = $config->get('automatic_generation_academic_year.on');
+  $date = $config->get('automatic_generation_academic_year.date');
+  $today = date('d.m.');
+  if ($on AND $today == $date) {
+    $vid = 'academic_year';
+    $terms =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid, 0,  NULL, TRUE);
+    $found = FALSE;
+    $today_year = date('Y');
+    $next_year = date('Y', strtotime('+1 year'));
+    foreach ($terms as $term) {
+      $term_name = $term->getName();
+      $next_term_name = $today_year . '/' . $next_year;
+      if ($term_name == $next_term_name) {
+        $found = TRUE;
+        break;
+      }
+    }
+
+    if (!$found) {
+      $start_time = new DateTime();
+      $start_time->setDate($today_year, 7, 16);
+
+      $end_time = new DateTime();
+      $end_time->setDate($next_year, 7, 15);
+
+      $term = Term::create([
+        'name' => $next_term_name,
+        'vid' => $vid,
+        'field_date_range' => [
+          'value'=> $start_time->format('Y-m-d'),
+          'end_value' => $end_time->format('Y-m-d')
+        ]
+      ]);
+      $term->save();
+      \Drupal::logger('harno_settings')->notice('Õppeaasta %title genereeriti automaatselt.',
+        array(
+          '%title' => $next_term_name,
+        )
+      );
+    }
+  }
+
+  //Uudistel arhiveerimise kuupäeva alusel "Ülendatud esilehele" eemaldamine
+  $today = date('Y-m-d');
+  $storage = \Drupal::service('entity_type.manager')->getStorage('node');
+  $archive_entities = $storage->loadByProperties([
+    'type' => 'article',
+    'promote' => 1,
+    'field_archiving_date' => $today,
+  ]);
+  foreach ($archive_entities as $ae) {
+    $ae->set('promote', 0);
+    $ae->save();
+    $node_link = $ae->toLink(t('View'))->toString();
+    $message = t('Eemaldati "Ülendatud esilehele" märge uudiselt "%title". @link',
+      [
+        '%title' => $ae->get('title')->value,
+        '@link' => $node_link,
+      ]);
+    \Drupal::logger('harno_settings')->notice($message);
+    \Drupal::messenger()->addStatus($message);
+  }
+  #Sync Juhan training, if API key existis.
+  if ($config->get('juhan.api_key')) {
+    \Drupal::service('harno_settings.juhan_api_sync')->cron();
+  }
+}
+
+function harno_settings_openid_connect_userinfo_alter(array &$userinfo, array $context) {
+  // Add some custom information.
+
+  if ($context['plugin_id'] == 'harid') {
+    $no_permissions_text = t('The user does not have the permissions to use the system.');
+    $id_code = str_replace('EE:EID:', '', $userinfo['personal_code']);
+    #\Drupal::logger('harno_settings')->debug('<pre>' . print_r($userinfo, TRUE) . '</pre>');
+    $user_load = \Drupal::entityTypeManager()->getStorage('user')
+      ->loadByProperties([
+        'field_identification_number' => $id_code,
+      ]);
+    if ($user_load != NULL ) {
+      if (count($user_load) > 1){
+        foreach ($user_load as $user){
+          $user_names .= $user->getAccountName() . ', ' ;
+        }
+        \Drupal::logger('harno_settings')->error('There are more than one user with same ID-code. @users', ['@users' => $user_names]);
+        \Drupal::messenger()->addError($no_permissions_text);
+        return false;
+      }
+      else {
+        foreach ($user_load as $user){
+          $roles = $user->getRoles();
+          if (count($roles) < 2) {
+            \Drupal::logger('harno_settings')->error($no_permissions_text . ' User: @user', ['@user' => $user->getEmail()]);
+            \Drupal::messenger()->addError($no_permissions_text);
+            return false;
+          }
+          $userinfo['email'] = $user->getEmail();
+        }
+      }
+    }
+    else{
+      \Drupal::logger('harno_settings')->error('There are no user with @id_code ID code ', ['@id_code' => $id_code]);
+      \Drupal::messenger()->addError($no_permissions_text);
+      return false;
+    }
+  }
+  return $userinfo;
+}
+
+/**
+ * Function to invalidate cache tags on translation saving
+ */
+function harno_settings_config_translations_submit($form,$form_state){
+  Cache::invalidateTags(['harno-config']);
+}

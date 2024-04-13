@@ -1,0 +1,33 @@
+uuid: f6603619-d611-434b-8adc-c47b14708880
+langcode: et
+status: true
+dependencies:
+  module:
+    - language
+    - node
+id: node_pattern_alumni
+label: 'Node pattern alumni'
+type: 'canonical_entities:node'
+pattern: '/alumni/[node:title]'
+selection_criteria:
+  1ee8f13e-e40a-48a2-a8fd-7fe7b7c81a2b:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 1ee8f13e-e40a-48a2-a8fd-7fe7b7c81a2b
+    context_mapping:
+      node: node
+    bundles:
+      class: class
+  335e44b5-3215-4d76-8da0-9945e62d3dd8:
+    id: language
+    negate: false
+    uuid: 335e44b5-3215-4d76-8da0-9945e62d3dd8
+    context_mapping:
+      language: 'node:langcode:language'
+    langcodes:
+      en: en
+selection_logic: and
+weight: -10
+relationships:
+  'node:langcode:language':
+    label: Keel

@@ -1,0 +1,23 @@
+uuid: 3d23032c-41d1-4fcc-afb9-149508518b7d
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_all_day
+    - node.type.calendar
+id: node.calendar.field_all_day
+field_name: field_all_day
+entity_type: node
+bundle: calendar
+label: 'Terve päev'
+description: 'Kui tegu on terve päeva sündmusega siis eeldatakse, et sündmus algab mingi kuupäev ja lõppeb mingi kuupäev, täpsed kellaajad ei oma tähtsust nt Matemaatikanädal. '
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: '1'
+  off_label: '0'
+field_type: boolean

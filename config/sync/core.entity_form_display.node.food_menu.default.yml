@@ -1,0 +1,327 @@
+uuid: c944872b-f4f1-439c-8f0d-5c6b9bcfb0da
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.node.food_menu.field_catering_service_provider
+    - field.field.node.food_menu.field_eating_place
+    - field.field.node.food_menu.field_friday
+    - field.field.node.food_menu.field_monday
+    - field.field.node.food_menu.field_saturday
+    - field.field.node.food_menu.field_sunday
+    - field.field.node.food_menu.field_thursday
+    - field.field.node.food_menu.field_tuesday
+    - field.field.node.food_menu.field_wednesday
+    - field.field.node.food_menu.field_week
+    - node.type.food_menu
+  module:
+    - dwr
+    - field_group
+    - paragraphs
+    - path
+    - scheduler
+third_party_settings:
+  field_group:
+    group_days:
+      children:
+        - field_monday
+      label: Esmaspäev
+      region: content
+      parent_name: group_week
+      weight: 14
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: closed
+        description: 'Päevad, kuhu ei ole sisestatud ühtegi toitu, ei kuvata ka toidumenüüs välja.'
+        required_fields: true
+    group_t:
+      children:
+        - field_tuesday
+      label: Teisipäev
+      region: content
+      parent_name: group_week
+      weight: 15
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: closed
+        description: 'Päevad, kuhu ei ole sisestatud ühtegi toitu, ei kuvata ka toidumenüüs välja.'
+        required_fields: true
+    group_week:
+      children:
+        - group_days
+        - group_t
+        - group_w
+        - group_n
+        - group_r
+        - group_l
+        - group_p
+      label: Nädalapäevad
+      region: content
+      parent_name: ''
+      weight: 11
+      format_type: tabs
+      format_settings:
+        classes: ''
+        id: ''
+        direction: horizontal
+    group_w:
+      children:
+        - field_wednesday
+      label: Kolmapäev
+      region: content
+      parent_name: group_week
+      weight: 16
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: closed
+        description: 'Päevad, kuhu ei ole sisestatud ühtegi toitu, ei kuvata ka toidumenüüs välja.'
+        required_fields: true
+    group_n:
+      children:
+        - field_thursday
+      label: Neljapäev
+      region: content
+      parent_name: group_week
+      weight: 17
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: closed
+        description: 'Päevad, kuhu ei ole sisestatud ühtegi toitu, ei kuvata ka toidumenüüs välja.'
+        required_fields: true
+    group_r:
+      children:
+        - field_friday
+      label: Reede
+      region: content
+      parent_name: group_week
+      weight: 18
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: closed
+        description: 'Päevad, kuhu ei ole sisestatud ühtegi toitu, ei kuvata ka toidumenüüs välja.'
+        required_fields: true
+    group_l:
+      children:
+        - field_saturday
+      label: Laupäev
+      region: content
+      parent_name: group_week
+      weight: 19
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: closed
+        description: 'Päevad, kuhu ei ole sisestatud ühtegi toitu, ei kuvata ka toidumenüüs välja.'
+        required_fields: true
+    group_p:
+      children:
+        - field_sunday
+      label: Pühapäev
+      region: content
+      parent_name: group_week
+      weight: 20
+      format_type: tab
+      format_settings:
+        classes: ''
+        id: ''
+        formatter: closed
+        description: 'Päevad, kuhu ei ole sisestatud ühtegi toitu, ei kuvata ka toidumenüüs välja.'
+        required_fields: true
+id: node.food_menu.default
+targetEntityType: node
+bundle: food_menu
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_catering_service_provider:
+    type: options_buttons
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_eating_place:
+    type: options_buttons
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_friday:
+    type: entity_reference_paragraphs
+    weight: 27
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: menu_food
+    third_party_settings: {  }
+  field_monday:
+    type: entity_reference_paragraphs
+    weight: 14
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: menu_food
+    third_party_settings: {  }
+  field_saturday:
+    type: entity_reference_paragraphs
+    weight: 28
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: menu_food
+    third_party_settings: {  }
+  field_sunday:
+    type: entity_reference_paragraphs
+    weight: 29
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: menu_food
+    third_party_settings: {  }
+  field_thursday:
+    type: entity_reference_paragraphs
+    weight: 26
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: menu_food
+    third_party_settings: {  }
+  field_tuesday:
+    type: entity_reference_paragraphs
+    weight: 15
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: menu_food
+    third_party_settings: {  }
+  field_wednesday:
+    type: entity_reference_paragraphs
+    weight: 16
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: menu_food
+    third_party_settings: {  }
+  field_week:
+    type: date_week_range
+    weight: 10
+    region: content
+    settings:
+      week_start: 1
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 1
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 52
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  scheduler_settings:
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 54
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  url_redirects:
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  promote: true
+  sticky: true

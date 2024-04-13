@@ -1,0 +1,157 @@
+{#
+/**
+ * @file
+ * Theme override for the basic structure of a single Drupal page.
+ *
+ * Variables:
+ * - logged_in: A flag indicating if user is logged in.
+ * - root_path: The root path of the current page (e.g., node, admin, user).
+ * - node_type: The content type for the current node, if the page is a node.
+ * - head_title: List of text elements that make up the head_title variable.
+ *   May contain or more of the following:
+ *   - title: The title of the page.
+ *   - name: The name of the site.
+ *   - slogan: The slogan of the site.
+ * - page_top: Initial rendered markup. This should be printed before 'page'.
+ * - page: The rendered page markup.
+ * - path_info.args: Array of URL arguments un aliassed.
+ * - page_bottom: Closing rendered markup. This variable should be printed after
+ *   'page'.
+ * - db_offline: A flag indicating if the database is offline.
+ * - placeholder_token: The token for generating head, css, js and js-bottom
+ *   placeholders.
+ *
+ * @see template_preprocess_html()
+ */
+#}
+{%
+  set body_classes = [
+    logged_in ? 'user-logged-in',
+    not root_path ? 'path-frontpage' : 'path-' ~ root_path|clean_class,
+    node_type ? 'node--type-' ~ node_type|clean_class,
+    db_offline ? 'db-offline',
+  ]
+%}
+<!DOCTYPE html>
+<html{{ html_attributes }} >
+  <head>
+    <head-placeholder token="{{ placeholder_token|raw }}">
+      <div style="display: none !important;">Git tag 0.0.20</div>
+    <title>{{ head_title|safe_join(' | ') }}</title>
+    <css-placeholder token="{{ placeholder_token|raw }}">
+    <js-placeholder token="{{ placeholder_token|raw }}">
+    {% if favicon %}
+      <link rel="shortcut icon" href="{{ favicon }}" type="image/vnd.microsoft.icon">
+    {% endif %}
+    <style>
+      :root {
+      {% if site_colors %}
+      {% if site_colors.main %}
+        --main-highlight:{{ site_colors.main }};
+      {% endif %}
+      {% if site_colors.lighter %}
+        --lighten-highlight:{{ site_colors.lighter }};
+      {% endif %}
+      {% if site_colors.lighter %}
+        --secondary-highlight:{{ site_colors.additional }};
+      {% endif %}
+      {% endif %}
+      }
+    </style>
+      <script>
+        var ariaLabels = {
+          share: '{{ 'share picture'|t }}',
+          print: '{{ 'print picture'|t }}',
+          download: '{{ 'download picture'|t }}',
+          close: '{{ 'close modal'|t }}',
+          pause: '{{'Pause slider'|t}}',
+          start: '{{'Start slider'|t}}',
+        }
+      </script>
+  </head>
+  <body{{ attributes.addClass(body_classes) }}>
+    <div class="accessibility" aria-expanded="false" aria-labelledby="accessibility-id">
+      <span id="accessibility-id" class="sr-only">{{ 'Accessibility modal'|t }}</span>
+      <div class="container">
+        <button class="btn btn-close-accessibility">
+          <span class="sr-only">{{ 'Close accessibility modal'|t }}</span>
+          <i class="mdi mdi-close" aria-hidden="true"></i>
+        </button><!--/btn btn-close-accessibility-->
+        <div class="row">
+          <div class="col-12 md-12 sm-12">
+            <div class="accessibility__inner">
+              <div class="row">
+                <div class="col-4 md-12 sm-12">
+                  <h3>{{ 'Text size'|t }}</h3>
+                  <p>{{ 'When you select a text size, it changes automatically'|t }}</p>
+                  <div class="form-group">
+                    <div class="radio-list" role="group" aria-labelledby="accessibility-font">
+                      <span id="accessibility-font" class="sr-only">{{ 'Change font size'|t }}</span>
+                      <div class="custom-control custom-form-radio custom-form-inline">
+                        <input type="radio" name="fontSize" id="input1696" class="custom-form-input" value="1x" checked>
+                        <label for="input1696" class="custom-form-label size-normal">{{ 'Default value'|t }}</label>
+                      </div><!--/custom-control custom-form-radio custom-form-inline-->
+                      <div class="custom-control custom-form-radio custom-form-inline">
+                        <input type="radio" name="fontSize" id="input1797" class="custom-form-input" value="2x">
+                        <label for="input1797" class="custom-form-label size-2x">{{ 'Large'|t }}</label>
+                      </div><!--/custom-control custom-form-radio custom-form-inline-->
+                      <div class="custom-control custom-form-radio custom-form-inline">
+                        <input type="radio" name="fontSize" id="input1898" class="custom-form-input" value="4x">
+                        <label for="input1898" class="custom-form-label size-4x">{{ 'Very large'|t }}</label>
+                      </div><!--/custom-control custom-form-radio custom-form-inline-->
+                    </div><!--/radio-list-->
+                  </div><!--/form-group-->
+                </div><!--/col-4 md-12 sm-12-->
+                <div class="col-4 md-12 sm-12">
+                  <h3>{{ 'Line spacing'|t }}</h3>
+                  <p>{{ 'When you select a line spacing, it changes automatically'|t }}</p>
+                  <div class="form-group">
+                    <div class="checkbox-list" role="group" aria-labelledby="accessibility-line-height">
+                      <span id="accessibility-line-height" class="sr-only">{{ 'Change line height'|t }}</span>
+                      <div class="custom-control custom-checkbox custom-form-inline">
+                        <input type="checkbox" name="paragraphSpacing" id="input1664" class="custom-form-input" value="high">
+                        <label for="input1664" class="custom-form-label">{{ 'Increase paragraph breaks'|t }}</label>
+                      </div><!--/custom-control custom-form-radio custom-form-inline-->
+                      <div class="custom-control custom-checkbox custom-form-inline word-spacing">
+                        <input type="checkbox" name="wordSpacing" id="input1774" class="custom-form-input" value="high">
+                        <label for="input1774" class="custom-form-label">{{ 'Increase word spacing'|t }}</label>
+                      </div><!--/custom-control custom-form-radio custom-form-inline-->
+                      <div class="custom-control custom-checkbox custom-form-inline letter-spacing">
+                        <input type="checkbox" name="letterSpacing" id="input1884" class="custom-form-input" value="high">
+                        <label for="input1884" class="custom-form-label">{{ 'Increase letter spacing'|t }}</label>
+                      </div><!--/custom-control custom-checkbox custom-form-inline-->
+                    </div><!--/checkbox-list-->
+                  </div><!--/form-group-->
+                </div><!--/col-4 md-12 sm-12-->
+                <div class="col-4 md-12 sm-12">
+                  <h3>{{ 'Contrast'|t }}</h3>
+                  <p>{{ 'When you select a contrast, it changes automatically'|t }}</p>
+                  <div class="form-group">
+                    <div class="radio-list" role="group" aria-labelledby="accessibility-line-height">
+                      <span id="accessibility-line-height" class="sr-only">{{ 'Change page contrast color'|t }}</span>
+                      <div class="custom-control custom-form-radio custom-form-inline">
+                        <input type="radio" name="pageContrast" id="input11664" class="custom-form-input" value="normal" checked>
+                        <label for="input11664" class="custom-form-label">{{ 'Default value'|t }}</label>
+                      </div><!--/custom-control custom-form-radio custom-form-inline-->
+                      <div class="custom-control custom-form-radio custom-form-inline">
+                        <input type="radio" name="pageContrast" id="input11774" class="custom-form-input" value="high">
+                        <label for="input11774" class="custom-form-label">{{ 'Black-yellow'|t }}</label>
+                      </div><!--/custom-control custom-form-radio custom-form-inline-->
+                    </div><!--/radio-list-->
+                  </div><!--/form-group-->
+                  {% if accessibility_url is not empty %}
+                    <a href="{{ accessibility_url }}" class="btn btn-accessible-info">{{ 'More information about accessibility'|t }}</a>
+                  {% endif %}
+                </div><!--/col-4 md-12 sm-12-->
+              </div><!--/row-->
+            </div><!--/accessibility__inner-->
+          </div><!--/col-12 md-12 sm-12-->
+        </div><!--/row-->
+      </div><!--/container-->
+    </div><!--/accessibility-->
+    {{ page_top }}
+    {{ page }}
+    {{ page_bottom }}
+    <js-bottom-placeholder token="{{ placeholder_token|raw }}">
+  </body>
+</html>

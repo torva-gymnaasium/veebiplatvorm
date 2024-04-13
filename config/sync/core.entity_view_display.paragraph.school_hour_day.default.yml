@@ -1,0 +1,34 @@
+uuid: 2252a7cb-5961-4db0-9e5f-f3d5240da3f7
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.school_hour_day.field_school_hour
+    - field.field.paragraph.school_hour_day.field_school_hour_days
+    - paragraphs.paragraphs_type.school_hour_day
+  module:
+    - entity_reference_revisions
+    - options
+id: paragraph.school_hour_day.default
+targetEntityType: paragraph
+bundle: school_hour_day
+mode: default
+content:
+  field_school_hour:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_school_hour_days:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

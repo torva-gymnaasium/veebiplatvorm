@@ -1,0 +1,14 @@
+uuid: 81173dbb-bee7-4866-993e-2810223375e7
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.class
+id: node_type_class
+entity_type_id: node_type
+entity_id: class
+action: display_page
+allow_override: 0
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

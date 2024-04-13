@@ -1,0 +1,29 @@
+uuid: 34936ad7-fe9b-4c9b-839a-958782fcc6a9
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_position
+    - node.type.worker
+    - taxonomy.vocabulary.positions
+id: node.worker.field_position
+field_name: field_position
+entity_type: node
+bundle: worker
+label: Ametikoht
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      positions: positions
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,26 @@
+harno_settings.settings_form:
+  title: 'Üldised seaded'
+  description: 'Kasutaja saab sisestada ja muuta lehe üldseadistuse elemente, mis kuvatakse avaliku vaate avalehel, jaluses või päises.
+                Näiteks haridusasutuse üldised kontaktid, haridusasutuse sotsiaalmeedia lingid, avalehe ja jaluse kiirlingid,
+                jaluse vabatekstiala ja jaluses kuvatav kasutusõiguste märkus.'
+  route_name: harno_settings.settings_form
+  base_route: harno_settings.settings_form
+  parent: harno_settings.admin_index
+harno_settings.colors_form:
+  title: 'Kujundus'
+  description: 'Kasutaja saab sisestada ja muuta veebilehele põhivärvitooni ja lisatooni.'
+  route_name: harno_settings.colors_form
+  base_route: harno_settings.colors_form
+  parent: harno_settings.admin_index
+harno_settings.frontpage_form:
+    title: 'Avalehe bänneri ja taustapildi haldus'
+    description: 'Avalehe bänneri/tausatapildi seadistus.'
+    route_name: harno_settings.frontpage_form
+    base_route: harno_settings.frontpage_form
+    parent: harno_settings.admin_index
+harno_settings.workers_import_form:
+  title: 'Töötajate andmete importimine failist'
+  description: 'Kasutaja saab importida failiga haridusasutuse töötajate andmeid. Failis olevate andmete põhjal lisatakse uued töötajate kirjed või uuendatakse olemasolevaid kirjeid.'
+  route_name: harno_settings.workers_import_form
+  base_route: harno_settings.workers_import_form
+  parent: harno_settings.admin_index

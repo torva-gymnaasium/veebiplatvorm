@@ -1,0 +1,22 @@
+uuid: eef1fe6e-13c8-44a2-ae5c-7d5681015245
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.db_75_25
+id: paragraph.db_75_25.status
+field_name: status
+entity_type: paragraph
+bundle: db_75_25
+label: Avaldatud
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

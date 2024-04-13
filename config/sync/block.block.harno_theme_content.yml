@@ -1,0 +1,22 @@
+uuid: 7bf6777d-a174-4f11-bda2-6883a7cd1348
+langcode: et
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - harno_theme
+_core:
+  default_config_hash: 9EoWV2Lot6FVSr50t4hoKgiz1LIXYWNG-IIPYsWxBqo
+id: harno_theme_content
+theme: harno_theme
+region: content
+weight: -4
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

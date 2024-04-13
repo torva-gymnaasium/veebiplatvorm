@@ -1,0 +1,58 @@
+uuid: 3398e720-eb72-4829-934a-3065d0d8c34c
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.departments.field_introduction
+    - taxonomy.vocabulary.departments
+  module:
+    - maxlength
+id: taxonomy_term.departments.default
+targetEntityType: taxonomy_term
+bundle: departments
+mode: default
+content:
+  field_introduction:
+    type: string_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 3
+      placeholder: ''
+    third_party_settings:
+      maxlength:
+        maxlength_js: 150
+        maxlength_js_label: 'Sisu on piiratud @limit tähemärgiga, veel saab sisestada: <strong>@remaining</strong> tähemärki.'
+        maxlength_js_enforce: false
+        maxlength_js_truncate_html: false
+  menu:
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 2
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  description: true
+  langcode: true
+  path: true
+  publish_on: true
+  unpublish_on: true

@@ -1,0 +1,43 @@
+uuid: 06bf3936-8f25-45dd-8620-a7f303ee285f
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.opening_days.field_closing_time
+    - field.field.paragraph.opening_days.field_opening_time
+    - field.field.paragraph.opening_days.field_week_day
+    - paragraphs.paragraphs_type.opening_days
+  module:
+    - conditional_fields
+    - time_field
+id: paragraph.opening_days.default
+targetEntityType: paragraph
+bundle: opening_days
+mode: default
+content:
+  field_closing_time:
+    type: time_widget
+    weight: 3
+    region: content
+    settings:
+      enabled: false
+      step: 5
+    third_party_settings: {  }
+  field_opening_time:
+    type: time_widget
+    weight: 2
+    region: content
+    settings:
+      enabled: false
+      step: 5
+    third_party_settings:
+      conditional_fields: {  }
+  field_week_day:
+    type: options_buttons
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

@@ -1,0 +1,18 @@
+uuid: 21259416-bdff-4bb3-9b95-b7322efd2ea4
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.school_hours
+id: taxonomy_term.school_hours.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: school_hours
+label: Muudetud
+description: 'Termi viimase muutmise aeg.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

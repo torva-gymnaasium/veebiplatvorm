@@ -1,0 +1,33 @@
+uuid: f94a0475-8a01-4ed7-9546-ef5cc3467bd9
+langcode: et
+status: true
+dependencies:
+  module:
+    - language
+    - node
+id: node_pattern_galerii
+label: 'Node pattern galerii'
+type: 'canonical_entities:node'
+pattern: '/galeriid/[node:title]'
+selection_criteria:
+  d8be4abe-dd05-4889-81e6-4f90a271558e:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: d8be4abe-dd05-4889-81e6-4f90a271558e
+    context_mapping:
+      node: node
+    bundles:
+      gallery: gallery
+  7c3f5fce-2ade-4d6d-903b-e79b93c5c05c:
+    id: language
+    negate: false
+    uuid: 7c3f5fce-2ade-4d6d-903b-e79b93c5c05c
+    context_mapping:
+      language: 'node:langcode:language'
+    langcodes:
+      et: et
+selection_logic: and
+weight: -5
+relationships:
+  'node:langcode:language':
+    label: Keel

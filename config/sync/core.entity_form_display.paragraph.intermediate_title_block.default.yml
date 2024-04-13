@@ -1,0 +1,35 @@
+uuid: 0fb6876a-e8f6-4788-a8f2-887e6a22c1a3
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.intermediate_title_block.field_title
+    - field.field.paragraph.intermediate_title_block.field_title_level
+    - paragraphs.paragraphs_type.intermediate_title_block
+id: paragraph.intermediate_title_block.default
+targetEntityType: paragraph
+bundle: intermediate_title_block
+mode: default
+content:
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_title_level:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

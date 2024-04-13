@@ -1,0 +1,20 @@
+uuid: 30414610-876a-4aa6-89c5-2e8465057d7e
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_first_name
+  module:
+    - user
+id: user.user.field_first_name
+field_name: field_first_name
+entity_type: user
+bundle: user
+label: Eesnimi
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

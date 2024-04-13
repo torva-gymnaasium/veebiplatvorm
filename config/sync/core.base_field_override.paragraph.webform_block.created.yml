@@ -1,0 +1,18 @@
+uuid: 39e48cb6-b9ce-4e72-8d25-9aa277feb9ec
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.webform_block
+id: paragraph.webform_block.created
+field_name: created
+entity_type: paragraph
+bundle: webform_block
+label: 'Loomise kuupäev'
+description: 'The time that the Paragraph was created.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

@@ -1,0 +1,22 @@
+uuid: 97492c50-86ec-481a-a0c5-d7288a4626af
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.menu_food
+id: paragraph.menu_food.status
+field_name: status
+entity_type: paragraph
+bundle: menu_food
+label: Avaldatud
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

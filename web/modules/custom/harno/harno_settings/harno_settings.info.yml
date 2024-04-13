@@ -1,0 +1,9 @@
+name: 'Veebiplatvormi seadistused'
+type: module
+description: 'Veebiplatvormide seadistused'
+core_version_requirement: ^8 || ^9 || ^10
+package: 'Veebiplatvorm'
+configure: harno_settings.settings_form
+default_content:
+  taxonomy_term:
+    - b645263d-a29c-43a2-9e10-386925bdaadb

@@ -1,0 +1,22 @@
+uuid: 155b1b7b-fe50-4aeb-b05d-dac489288e77
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.departments
+id: taxonomy_term.departments.status
+field_name: status
+entity_type: taxonomy_term
+bundle: departments
+label: Avaldatud
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

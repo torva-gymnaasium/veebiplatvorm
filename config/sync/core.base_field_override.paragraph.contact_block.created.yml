@@ -1,0 +1,18 @@
+uuid: faa565c7-5baa-43b1-82f2-02cd10fd2768
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.contact_block
+id: paragraph.contact_block.created
+field_name: created
+entity_type: paragraph
+bundle: contact_block
+label: 'Loomise kuupäev'
+description: 'The time that the Paragraph was created.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

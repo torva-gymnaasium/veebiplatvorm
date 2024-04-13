@@ -1,0 +1,19 @@
+uuid: 5a49665a-571b-4644-9931-82b621ffc05b
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_caterer_name
+    - taxonomy.vocabulary.catering_service_provider
+id: taxonomy_term.catering_service_provider.field_caterer_name
+field_name: field_caterer_name
+entity_type: taxonomy_term
+bundle: catering_service_provider
+label: 'Kuvatav toitlustaja nimi'
+description: 'Kuvatakse toitlustaja kontaktiplokis võib sisestada nii ettevõtte kui ka kontaktisiku. Seda saab kasutada selleks, et ei kuvataks toitlustaja ärinime.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

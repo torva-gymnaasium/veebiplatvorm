@@ -1,0 +1,94 @@
+
+{% set column_widths = settings.column_width|split('-') %}
+
+{% set delta = 0 %}
+{% if content['#attributes'] %}
+  {% if content['#attributes']['data-layout-delta'] is defined %}
+    {% set delta = content['#attributes']['data-layout-delta'] %}
+  {% endif %}
+{% endif %}
+{% set current_path = path('<current>') %}
+
+  <div {{ attributes.addClass('row') }}>
+
+    {% set withouts = ['layout_builder_add_block','#attributes','region_label'] %}
+    {% set original_withouts = withouts %}
+    {% set count = 1 %}
+    {% for content_key,content_blocks in content %}
+      {% if 'col_' in content_key %}
+        {% set content_count = content_blocks|without(withouts)|length %}
+        {% if content_count >count %}
+          {% set count = content_count %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    {% for i in 1..count  %}
+  {% for width in column_widths %}
+
+    {% set col_name = 'col_'~loop.index %}
+    {% if '25' in width %}
+      {% set actual_width = 25 %}
+      {% set col_classes = ['col-3','md-12','sm-12','homepage-gutters','layout__region','layout__region--'~width] %}
+    {% elseif '50' in  width%}
+      {% set actual_width = 50 %}
+      {% set col_classes = ['col-6','md-12','sm-12','homepage-gutters','layout__region','layout__region--'~width] %}
+    {% elseif '75' in width%}
+      {% set actual_width = 75 %}
+      {% set col_classes = ['col-9','md-12','sm-12','homepage-gutters','layout__region','layout__region--'~width] %}
+    {% elseif '100' in width%}
+      {% set actual_width = 100 %}
+      {% set col_classes = ['col-12','md-12','sm-12','homepage-gutters','layout__region','layout__region--'~width] %}
+    {% endif %}
+    {% if 'layout' in current_path  %}
+      <div {{ region_attributes[col_name].addClass(col_classes).setAttribute('style','height:100%') }}>
+    {% endif %}
+
+      {% set break = false %}
+
+      {% for key,content_blocks in content[col_name]|without(withouts) %}
+        {% if not break %}
+          {% set withouts  = withouts|merge([key]) %}
+          {% if 'layout' not in current_path  %}
+            <div class="{{ col_classes|join(' ')}}">
+          {% endif %}
+          {%
+            set classes = [
+            'block',
+            'block-' ~ content_blocks.configuration.provider|clean_class,
+            'block-' ~ content_blocks.plugin_id|clean_class,
+            'content-block',
+            'content-block--front-page',
+          ]
+          %}
+          {% if is_admin %}
+            {% set classes = classes|merge(['layout-builder-block','js-layout-builder-block','block-layout-builder']) %}
+          {% endif %}
+          {% if content_blocks['#configuration'].number_of_rows %}
+            {{ drupal_block(content_blocks['#plugin_id'], {number_of_rows:content_blocks['#configuration'].number_of_rows,attributes:content_blocks['#attributes'],label:content_blocks['#configuration'].label,label_display:content_blocks['#configuration'].label_display,col_name:col_name,col_width: actual_width,delta:delta,event_type:content_blocks['#configuration'].event_type,link_url:content_blocks['#configuration'].link_url,schedule_link:content_blocks['#configuration'].schedule_link,block_key:key },true) }}
+            {{ content[col_name]|without(content[col_name]|without(original_withouts)|keys) }}
+          {% else %}
+            {{ content_blocks }}
+          {% endif %}
+          {% if 'layout' not in current_path  %}
+            </div>
+          {% endif %}
+        {% endif %}
+
+        {% set break = true %}
+      {% endfor %}
+
+    {% if not content[col_name]|without(original_withouts) %}
+
+      {{ content[col_name]|without(content[col_name]|without(original_withouts)|keys) }}
+    {% endif %}
+
+
+        {% if 'layout' in current_path%}
+          </div><!--/col-9 md-6 sm-12 homepage-gutters-->
+          {% endif %}
+  {% endfor %}
+
+    {% endfor %}
+
+
+</div>

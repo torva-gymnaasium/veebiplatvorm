@@ -1,0 +1,305 @@
+uuid: e38be0bd-11a6-4bcb-b58e-5569ed772629
+langcode: et
+status: true
+dependencies:
+  config:
+    - core.entity_view_display.node.front_page.default
+    - filter.format.full_html
+    - media.type.audio
+    - media.type.document
+    - media.type.image
+    - media.type.remote_video
+    - media.type.video
+    - node.type.article
+    - node.type.calendar
+    - node.type.class
+    - node.type.food_menu
+    - node.type.front_page
+    - node.type.gallery
+    - node.type.location
+    - node.type.page
+    - node.type.partner_logo
+    - node.type.worker
+    - taxonomy.vocabulary.academic_year
+    - taxonomy.vocabulary.catering_service_provider
+    - taxonomy.vocabulary.departments
+    - taxonomy.vocabulary.eating_places
+    - taxonomy.vocabulary.event_keywords
+    - taxonomy.vocabulary.food_groups
+    - taxonomy.vocabulary.media_catalogs
+    - taxonomy.vocabulary.positions
+    - taxonomy.vocabulary.school_hours
+    - taxonomy.vocabulary.training_keywords
+  module:
+    - admin_toolbar_search
+    - config_translation
+    - content_translation
+    - contextual
+    - disable_language
+    - dropzonejs
+    - file
+    - file_delete
+    - filter
+    - google_tag
+    - harno_settings
+    - language
+    - layout_builder
+    - maillog
+    - media
+    - media_bulk_upload
+    - menu_admin_per_menu
+    - menu_link_content
+    - node
+    - paragraphs
+    - path
+    - redirect
+    - role_delegation
+    - scheduler
+    - shortcut
+    - system
+    - taxonomy
+    - toolbar
+    - userprotect
+    - webform
+id: website_administrator
+label: 'Veebilehe administraator'
+weight: 3
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access any webform configuration'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access files overview'
+  - 'access media overview'
+  - 'access own webform configuration'
+  - 'access site in maintenance mode'
+  - 'access site reports'
+  - 'access taxonomy overview'
+  - 'access toolbar'
+  - 'access user profiles'
+  - 'access webform overview'
+  - 'access webform submission user'
+  - 'administer google tag manager'
+  - 'administer harno settings'
+  - 'administer languages'
+  - 'administer main menu items'
+  - 'administer nodes'
+  - 'administer redirects'
+  - 'administer shortcuts'
+  - 'administer taxonomy'
+  - 'administer users'
+  - 'administer webform submission'
+  - 'assign content_moderator role'
+  - 'assign external_service_provider role'
+  - 'assign website_administrator role'
+  - 'bypass node access'
+  - 'cancel account'
+  - 'change own username'
+  - 'configure all front_page node layout overrides'
+  - 'configure any layout'
+  - 'configure editable front_page node layout overrides'
+  - 'create article content'
+  - 'create audio media'
+  - 'create calendar content'
+  - 'create class content'
+  - 'create content in disabled language'
+  - 'create content translations'
+  - 'create document media'
+  - 'create food_menu content'
+  - 'create front_page content'
+  - 'create gallery content'
+  - 'create image media'
+  - 'create location content'
+  - 'create media'
+  - 'create page content'
+  - 'create partner_logo content'
+  - 'create remote_video media'
+  - 'create terms in academic_year'
+  - 'create terms in catering_service_provider'
+  - 'create terms in departments'
+  - 'create terms in eating_places'
+  - 'create terms in event_keywords'
+  - 'create terms in food_groups'
+  - 'create terms in media_catalogs'
+  - 'create terms in positions'
+  - 'create terms in school_hours'
+  - 'create terms in training_keywords'
+  - 'create url aliases'
+  - 'create video media'
+  - 'create webform'
+  - 'create worker content'
+  - 'customize shortcut links'
+  - 'delete all revisions'
+  - 'delete any article content'
+  - 'delete any audio media'
+  - 'delete any calendar content'
+  - 'delete any class content'
+  - 'delete any document media'
+  - 'delete any food_menu content'
+  - 'delete any front_page content'
+  - 'delete any gallery content'
+  - 'delete any image media'
+  - 'delete any location content'
+  - 'delete any media'
+  - 'delete any page content'
+  - 'delete any partner_logo content'
+  - 'delete any remote_video media'
+  - 'delete any video media'
+  - 'delete any webform submission'
+  - 'delete any worker content'
+  - 'delete article revisions'
+  - 'delete calendar revisions'
+  - 'delete class revisions'
+  - 'delete content translations'
+  - 'delete files'
+  - 'delete food_menu revisions'
+  - 'delete front_page revisions'
+  - 'delete gallery revisions'
+  - 'delete location revisions'
+  - 'delete media'
+  - 'delete own article content'
+  - 'delete own audio media'
+  - 'delete own calendar content'
+  - 'delete own class content'
+  - 'delete own document media'
+  - 'delete own files'
+  - 'delete own food_menu content'
+  - 'delete own front_page content'
+  - 'delete own gallery content'
+  - 'delete own image media'
+  - 'delete own location content'
+  - 'delete own page content'
+  - 'delete own partner_logo content'
+  - 'delete own remote_video media'
+  - 'delete own video media'
+  - 'delete own webform'
+  - 'delete own webform submission'
+  - 'delete own worker content'
+  - 'delete page revisions'
+  - 'delete partner_logo revisions'
+  - 'delete terms in academic_year'
+  - 'delete terms in catering_service_provider'
+  - 'delete terms in departments'
+  - 'delete terms in eating_places'
+  - 'delete terms in event_keywords'
+  - 'delete terms in food_groups'
+  - 'delete terms in media_catalogs'
+  - 'delete terms in positions'
+  - 'delete terms in school_hours'
+  - 'delete terms in training_keywords'
+  - 'delete worker revisions'
+  - 'dropzone upload files'
+  - 'edit any article content'
+  - 'edit any audio media'
+  - 'edit any calendar content'
+  - 'edit any class content'
+  - 'edit any document media'
+  - 'edit any food_menu content'
+  - 'edit any front_page content'
+  - 'edit any gallery content'
+  - 'edit any image media'
+  - 'edit any location content'
+  - 'edit any page content'
+  - 'edit any partner_logo content'
+  - 'edit any remote_video media'
+  - 'edit any video media'
+  - 'edit any webform'
+  - 'edit any webform submission'
+  - 'edit any worker content'
+  - 'edit own article content'
+  - 'edit own audio media'
+  - 'edit own calendar content'
+  - 'edit own class content'
+  - 'edit own document media'
+  - 'edit own food_menu content'
+  - 'edit own front_page content'
+  - 'edit own gallery content'
+  - 'edit own image media'
+  - 'edit own location content'
+  - 'edit own page content'
+  - 'edit own partner_logo content'
+  - 'edit own remote_video media'
+  - 'edit own video media'
+  - 'edit own webform'
+  - 'edit own webform submission'
+  - 'edit own worker content'
+  - 'edit terms in academic_year'
+  - 'edit terms in catering_service_provider'
+  - 'edit terms in departments'
+  - 'edit terms in eating_places'
+  - 'edit terms in event_keywords'
+  - 'edit terms in food_groups'
+  - 'edit terms in media_catalogs'
+  - 'edit terms in positions'
+  - 'edit terms in school_hours'
+  - 'edit terms in training_keywords'
+  - 'revert all revisions'
+  - 'revert article revisions'
+  - 'revert calendar revisions'
+  - 'revert class revisions'
+  - 'revert food_menu revisions'
+  - 'revert front_page revisions'
+  - 'revert gallery revisions'
+  - 'revert location revisions'
+  - 'revert page revisions'
+  - 'revert partner_logo revisions'
+  - 'revert worker revisions'
+  - 'schedule publishing of nodes'
+  - 'switch shortcut sets'
+  - 'translate any entity'
+  - 'translate article node'
+  - 'translate audio media'
+  - 'translate calendar node'
+  - 'translate catering_service_provider taxonomy_term'
+  - 'translate class node'
+  - 'translate configuration'
+  - 'translate departments taxonomy_term'
+  - 'translate document media'
+  - 'translate eating_places taxonomy_term'
+  - 'translate editable entities'
+  - 'translate event_keywords taxonomy_term'
+  - 'translate food_groups taxonomy_term'
+  - 'translate food_menu node'
+  - 'translate front_page node'
+  - 'translate gallery node'
+  - 'translate image media'
+  - 'translate location node'
+  - 'translate menu_link_content'
+  - 'translate page node'
+  - 'translate paragraph'
+  - 'translate partner_logo node'
+  - 'translate positions taxonomy_term'
+  - 'translate remote_video media'
+  - 'translate school_hours taxonomy_term'
+  - 'translate training_keywords taxonomy_term'
+  - 'translate video media'
+  - 'update any media'
+  - 'update content translations'
+  - 'update media'
+  - 'use admin toolbar search'
+  - 'use images_bulk_upload bulk upload form'
+  - 'use text format full_html'
+  - userprotect.account.edit
+  - userprotect.mail.edit
+  - 'view all media revisions'
+  - 'view all revisions'
+  - 'view any webform submission'
+  - 'view article revisions'
+  - 'view calendar revisions'
+  - 'view class revisions'
+  - 'view disabled languages'
+  - 'view food_menu revisions'
+  - 'view front_page revisions'
+  - 'view gallery revisions'
+  - 'view location revisions'
+  - 'view maillog'
+  - 'view own unpublished content'
+  - 'view own unpublished media'
+  - 'view own webform submission'
+  - 'view page revisions'
+  - 'view partner_logo revisions'
+  - 'view scheduled content'
+  - 'view the administration theme'
+  - 'view user email addresses'
+  - 'view worker revisions'

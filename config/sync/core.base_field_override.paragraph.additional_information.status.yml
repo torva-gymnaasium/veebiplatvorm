@@ -1,0 +1,22 @@
+uuid: 917100a1-4488-482c-867e-7bf64f65e48c
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.additional_information
+id: paragraph.additional_information.status
+field_name: status
+entity_type: paragraph
+bundle: additional_information
+label: Avaldatud
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

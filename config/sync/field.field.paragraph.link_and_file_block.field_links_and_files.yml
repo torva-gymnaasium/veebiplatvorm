@@ -1,0 +1,87 @@
+uuid: 1497691f-801f-403d-8bac-bb53f2ee7ddf
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_links_and_files
+    - paragraphs.paragraphs_type.file
+    - paragraphs.paragraphs_type.link
+    - paragraphs.paragraphs_type.link_and_file_block
+  module:
+    - entity_reference_revisions
+id: paragraph.link_and_file_block.field_links_and_files
+field_name: field_links_and_files
+entity_type: paragraph
+bundle: link_and_file_block
+label: 'Link või fail'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      link: link
+      file: file
+    negate: 0
+    target_bundles_drag_drop:
+      db_100:
+        weight: -37
+        enabled: false
+      db_25_25_25_25:
+        weight: -36
+        enabled: false
+      db_25_25_50:
+        weight: -35
+        enabled: false
+      db_25_75:
+        weight: -34
+        enabled: false
+      db_33_33_33:
+        weight: -33
+        enabled: false
+      db_33_66:
+        weight: -32
+        enabled: false
+      db_50_25_25:
+        weight: -31
+        enabled: false
+      db_50_50:
+        weight: -30
+        enabled: false
+      db_66_33:
+        weight: -29
+        enabled: false
+      db_75_25:
+        weight: -28
+        enabled: false
+      file:
+        weight: -25
+        enabled: true
+      intermediate_title_block:
+        weight: -27
+        enabled: false
+      link:
+        weight: -26
+        enabled: true
+      link_and_file_block:
+        weight: -24
+        enabled: false
+      picture_block:
+        weight: 34
+        enabled: false
+      table_block_header_both:
+        weight: -23
+        enabled: false
+      table_block_header_column:
+        weight: -22
+        enabled: false
+      table_block_header_row:
+        weight: -21
+        enabled: false
+      text_block:
+        weight: -20
+        enabled: false
+field_type: entity_reference_revisions

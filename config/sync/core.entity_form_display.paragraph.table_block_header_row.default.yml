@@ -1,0 +1,30 @@
+uuid: ed8d5cc0-186e-4254-8c72-faad5638bf61
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.table_block_header_row.field_table_editor
+    - paragraphs.paragraphs_type.table_block_header_row
+  module:
+    - text
+id: paragraph.table_block_header_row.default
+targetEntityType: paragraph
+bundle: table_block_header_row
+mode: default
+content:
+  field_table_editor:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

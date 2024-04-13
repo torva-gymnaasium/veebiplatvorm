@@ -1,0 +1,42 @@
+uuid: 27c067bf-856a-4112-a539-81bab7ab01b4
+langcode: et
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.food_menu.field_catering_service_provider
+    - field.field.node.food_menu.field_eating_place
+    - field.field.node.food_menu.field_friday
+    - field.field.node.food_menu.field_monday
+    - field.field.node.food_menu.field_saturday
+    - field.field.node.food_menu.field_sunday
+    - field.field.node.food_menu.field_thursday
+    - field.field.node.food_menu.field_tuesday
+    - field.field.node.food_menu.field_wednesday
+    - field.field.node.food_menu.field_week
+    - node.type.food_menu
+  module:
+    - user
+id: node.food_menu.teaser
+targetEntityType: node
+bundle: food_menu
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_catering_service_provider: true
+  field_eating_place: true
+  field_friday: true
+  field_monday: true
+  field_saturday: true
+  field_sunday: true
+  field_thursday: true
+  field_tuesday: true
+  field_wednesday: true
+  field_week: true
+  langcode: true
+  search_api_excerpt: true

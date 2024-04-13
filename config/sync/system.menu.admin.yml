@@ -1,0 +1,10 @@
+uuid: 49497843-fd70-4d6d-b2d0-409f843a339e
+langcode: et
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: sapEi2YDGoI9yQIT_WgIV2vUdQ6DScH0V3fAyTadAL0
+id: admin
+label: Haldus
+description: 'Haldustööde lingid'
+locked: true

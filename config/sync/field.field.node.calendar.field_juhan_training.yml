@@ -1,0 +1,23 @@
+uuid: 0548a440-db98-4db6-9199-2de7a5ac0325
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_juhan_training
+    - node.type.calendar
+id: node.calendar.field_juhan_training
+field_name: field_juhan_training
+entity_type: node
+bundle: calendar
+label: 'Juhani koolitus'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

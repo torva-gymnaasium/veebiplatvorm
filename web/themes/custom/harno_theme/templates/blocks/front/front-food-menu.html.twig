@@ -1,0 +1,112 @@
+<div class="col-12 md-12 sm-12">
+	<div class="title-block title-block--home-page">
+		{% if configuration.label_display == 'visible' %}
+			<h3>{{configuration.label |t}}</h3>
+		{% endif %}
+	</div>
+	<!--/title-block title-block--home-page-->
+  {% if configuration.block_key %}
+    {% set block_id = configuration.block_key|split('-') %}
+    {% set block_id = block_id[0] %}
+  {% endif %}
+  {% if block_id is not defined %}
+    {% set block_id = random(100,1000) %}
+  {% endif %}
+	<div class="tabs tabs--borders" data-plugin="tabs">
+		<ul class="tabs__navigation" role="tablist" aria-label="{{ "Food menu items" |t }}">
+			{% for key,day in data  %}
+				<li class="tabs__nav-item {% if loop.first %} active{% endif %}">
+					<button class="btn btn-tab" id="tab-item-{{ block_id }}{{ key }}" role="tab"  aria-selected="{%if loop.first%}true{%else%}false{%endif%}" aria-controls="tab-content-{{ block_id }}{{ key }}">{{ day.type|t }}</button>
+				</li>
+				<!--/tabs__nav-item-->
+			{% endfor %}
+		</ul>
+		<!--/tabs__navigation-->
+		<div class="tabs__panels">
+			{% for key,day in data %}
+				<div class="tabs__panel" id="tab-content-{{ block_id }}{{ key }}" role="tabpanel" tabindex="0" aria-labelledby="tab-item-{{ key }}" {% if not loop.first %} hidden {% endif %}>
+					<div class="tabs tabs--underline sm-hide" data-plugin="tabs">
+
+						<ul class="tabs__navigation" role="tablist" aria-label="{{ "Choose building" |t }}">
+							{% for place_name,place in day|without('type')  %}
+								<li class="tabs__nav-item {% if loop.first %} active{% endif %}">
+									<button class="btn btn-tab" id="tab-item-{{ block_id }}{{ place_name }}" data-placeId = "{{place.place_tid}}" role="tab"  aria-selected="{%if loop.first%}true{%else%}false{%endif%}" aria-controls="tab-content-{{ block_id }}{{ place_name }}">{{ place.place }}</button>
+								</li>
+								<!--/tabs__nav-item-->
+							{% endfor %}
+						</ul>
+						<!--/tabs__navigation-->
+
+						<div class="tabs__panels">
+							{% for place_name,place in day|without('type')  %}
+								<div class="tabs__panel" id="tab-content-{{ block_id }}{{ place_name }}" role="tabpanel" tabindex="0" aria-labelledby="tab-item-{{ place_name }}" {% if not loop.first %} hidden="" {% endif %}>
+									{% for meal_type,meal in place|without('place','place_tid') %}
+										{% if meal %}
+
+											<strong>{{ meal_type }}</strong>
+											{% for meal_name in meal %}
+
+												<p>{{meal_name}}</p>
+                        {% if loop.last and not loop.parent.loop.last%}
+                          <div class="row-spacer-8"></div>
+                        {%endif%}
+											{% endfor %}
+										{% endif %}
+
+
+									{% endfor %}
+
+								</div>
+								<!--/tabs__panel-->
+
+							{% endfor %}
+						</div>
+						<!--/tabs__panels-->
+
+					</div>
+					<!--/tabs tabs--underline sm-hide-->
+
+          <div class="form-item custom-select md-hide xl-hide">
+            <label for="tabs-select{{ key }}" class="form-label">
+              <span class="sr-only">{{ "Choose location"|t }}</span>
+            </label>
+            <select name="input-{{ key }}" data-changeaccordion="catering" data-tab-panel="tab-content-{{ block_id }}{{ key }}" id="tabs-select{{ block_id }}{{ key }}" data-plugin="selectTwo">
+              {% for place_name,place in day|without('type')  %}
+                <option data-original-value="{{loop.index}}" value="{{ block_id }}{{ place_name }}"{% if loop.first %} selected {% endif %}>{{ place.place }}</option>
+              {% endfor %}
+            </select>
+          </div><!--/form-item custom-select md-hide xl-hide-->
+          {% for place_name,place in day|without('type')  %}
+            <div data-catering="{{ block_id }}{{ place_name }}" class="mobile-content-block md-hide xl-hide" style="{% if loop.first %}display:block;{% else %}display:none;{% endif %}">
+              {% for meal_type,meal in place|without('place','place_tid') %}
+
+                {% if meal %}
+                  <strong>{{ meal_type }}</strong>
+                  {% for meal_name in meal %}
+                    <p>{{meal_name}}</p>
+                    {% if loop.last and not loop.parent.loop.last%}
+                      <div class="row-spacer-8"></div>
+                    {%endif%}
+                  {% endfor %}
+                {% endif %}
+
+
+              {% endfor %}
+            </div>
+            <!--/tabs__panel-->
+
+          {% endfor %}
+
+        </div>
+				<!--/tabs__panel-->
+			{% endfor %}
+		</div>
+		<!--/tabs__panels-->
+	</div>
+	<!--/tabs tabs--borders-->
+
+	<div class="row-spacer-24 xl-hide"></div>
+	<div class="row-spacer-40 sm-hide md-hide"></div>
+	<a href="{{ info.link_url }}" class="btn btn-secondary btn-show-more">{{ "Look at weekly menu" |t}}</a>
+
+</div>

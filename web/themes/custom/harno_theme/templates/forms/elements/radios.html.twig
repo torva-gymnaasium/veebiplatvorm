@@ -1,0 +1,74 @@
+{#
+/**
+ * @file
+ * Theme override for a 'radios' #type form element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The rendered radios.
+ *
+ * @see template_preprocess_radios()
+ */
+#}
+{% set classes = [
+  'radio-list',
+  element['#help'] ? 'help-text',
+  element['#errors'] ? 'error',
+] %}
+{% set describedby = element['#id'] %}
+{% if element['#errors'] %}
+  {% set describedby = describedby ~ 'error-' ~ element['#id'] %}
+{% endif %}
+{% if element['#help'] %}
+  {% set describedby = describedby ~ ' help-' ~ element['#id'] %}
+{% endif %}
+{% if element['#id'] == 'article_type' or element['#id'] == 'article_type_mobile' %}
+  {% if element['#id']=='article_type_mobile' %}
+
+      <div class="mobile-filters-tags">
+          <div class="filters-tags" role="group" aria-label="news tags group">
+            {{ children }}
+          </div>
+      </div>
+    {% else %}
+
+      <div class="filters-tags" role="group" aria-label="news tags group">
+        {{ children }}
+      </div>
+  {% endif %}
+  {% else %}
+    {% if element['#name'] == 'days' or element['#name'] == 'days_mobile' %}
+      {% if element['#name'] == 'days_mobile' %}
+        <div class="mobile-filters-tags">
+          <div class="filters-tags" role="group" aria-label="{{ "Calendar tags group"|t }}">
+            {{ children }}
+          </div>
+        </div>
+      {% else %}
+        <div class="mobile-filters-tags">
+          <div class="filters-tags" role="group">
+            {{ children }}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if element['#errors'] %}
+        <span class="error-text" id="error-{{ element['#id'] }}">{{element['#errors']}}</span>
+      {% endif %}
+      {% if element['#help'] %}
+        <span class="form-help-text" id="help-{{ element['#id'] }}">{{ element['#help'] }}</span>
+      {% endif %}
+    {% else %}
+      <div{{ attributes.addClass(classes).setAttribute('role','group') }} {% if describedby %} aria-describedby="{{ describedby }}" {% endif %}>
+        <span id="{{ element['#id'] }}" class="{% if element['#title_display'] == 'invisible' or element['#title_display'] == 'none'%}sr-only{% else %}radio-list-label{% endif %}">{{ element['#title'] }}{% if element['#required'] %} *{% endif %}</span>
+        {{ children }}
+        {% if element['#errors'] %}
+          <span class="error-text" id="error-{{ element['#id'] }}">{{element['#errors']}}</span>
+        {% endif %}
+        {% if element['#help'] %}
+          <span class="form-help-text" id="help-{{ element['#id'] }}">{{ element['#help'] }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+{% endif %}

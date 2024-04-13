@@ -1,0 +1,33 @@
+uuid: e8467e61-a102-4fc9-9008-9963a516faeb
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.picture_block.field_image
+    - field.field.paragraph.picture_block.field_orientation
+    - paragraphs.paragraphs_type.picture_block
+  module:
+    - options
+id: paragraph.picture_block.default
+targetEntityType: paragraph
+bundle: picture_block
+mode: default
+content:
+  field_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_orientation:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true

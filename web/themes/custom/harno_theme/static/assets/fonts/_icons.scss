@@ -1,0 +1,28 @@
+
+//main:build.scss
+
+
+
+@font-face {
+	font-family:"icons";
+	src:url("../fonts/iconFont.eot?f47d0dbba1401d9a408b9c869e7d7fc9");
+	src:url("../fonts/iconFont.eot?f47d0dbba1401d9a408b9c869e7d7fc9#iefix") format("embedded-opentype"),
+		url("../fonts/iconFont.woff2?f47d0dbba1401d9a408b9c869e7d7fc9") format("woff2"),
+		url("../fonts/iconFont.woff?f47d0dbba1401d9a408b9c869e7d7fc9") format("woff"),
+		url("../fonts/iconFont.ttf?f47d0dbba1401d9a408b9c869e7d7fc9") format("truetype"),
+		url("../fonts/iconFont.svg?f47d0dbba1401d9a408b9c869e7d7fc9#icons") format("svg");
+	font-weight:normal;
+	font-style:normal;
+}
+
+
+i[class*='before-']{font-style:normal;}
+i[class*='after-']{font-style:normal;}
+[class*='before-']:before{font-family:"icons";}
+[class*='after-']:after{font-family:"icons";}
+
+// Icons
+
+.before-asd { &:before {font-family:"icons"; content:"\f101"; }}
+.after-asd { &:after {font-family:"icons"; content:"\f101"; }}
+

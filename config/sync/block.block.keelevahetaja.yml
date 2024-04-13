@@ -1,0 +1,20 @@
+uuid: 8b4b6d0a-2760-4f73-a41a-ce24f8b4db49
+langcode: et
+status: true
+dependencies:
+  module:
+    - language
+  theme:
+    - harno_theme
+id: keelevahetaja
+theme: harno_theme
+region: header
+weight: -5
+provider: null
+plugin: 'language_block:language_interface'
+settings:
+  id: 'language_block:language_interface'
+  label: 'Keele vahetaja'
+  label_display: '0'
+  provider: language
+visibility: {  }

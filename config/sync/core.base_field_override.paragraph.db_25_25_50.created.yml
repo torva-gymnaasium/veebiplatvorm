@@ -1,0 +1,18 @@
+uuid: 6102e7a9-008c-438e-b5b3-ada7c9ee7919
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.db_25_25_50
+id: paragraph.db_25_25_50.created
+field_name: created
+entity_type: paragraph
+bundle: db_25_25_50
+label: 'Loomise kuupäev'
+description: 'The time that the Paragraph was created.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

@@ -1,0 +1,8 @@
+services:
+  harno_settings.twig_extension:
+    class: Drupal\harno_settings\TwigExtension\IFrameSrcChanger
+    tags:
+      - { name: twig.extension }
+  harno_settings.juhan_api_sync:
+    class: Drupal\harno_settings\JuhanApiSync
+    arguments: ['@config.factory', '@http_client', '@logger.factory', '@messenger', '@string_translation', '@entity_type.manager', '@state']

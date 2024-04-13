@@ -1,0 +1,10 @@
+harno_settings_translation.config:
+  title: 'Üldised seaded'
+  base_route_name: harno_settings.settings_form
+  names:
+    - harno_settings.settings
+harno_settings_frontpage_translation.config:
+  title: 'Avalehe bänneri ja taustapildi haldus'
+  base_route_name: harno_settings.frontpage_form
+  names:
+    - harno_settings.frontpage

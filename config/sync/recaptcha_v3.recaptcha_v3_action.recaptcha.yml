@@ -1,0 +1,8 @@
+uuid: b7a828ec-c4a9-4290-a29f-3cce83b7e547
+langcode: et
+status: true
+dependencies: {  }
+id: recaptcha
+label: Recaptcha
+threshold: 0.5
+challenge: default

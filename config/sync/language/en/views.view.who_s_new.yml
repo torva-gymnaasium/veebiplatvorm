@@ -1,0 +1,15 @@
+label: 'Uued kasutajad'
+description: 'Näitab nimekirja viimati loodud kasutajakontodest.'
+display:
+  default:
+    display_title: Vaikimisi
+    display_options:
+      title: 'Uued kasutajad'
+      exposed_form:
+        options:
+          reset_button_label: Reset
+  block_1:
+    display_title: 'Uued kasutajad'
+    display_options:
+      display_description: 'Uute kasutajate nimekiri'
+      block_description: 'Uued kasutajad'

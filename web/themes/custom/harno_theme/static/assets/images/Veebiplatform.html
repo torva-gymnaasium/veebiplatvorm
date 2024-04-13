@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://127.0.0.1:8861/index3.html# -->
+<html lang="et" class="high-contrast"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    
+    <meta name="Author" content="Trinidad Wiseman Oü  twn.ee">
+    <link rel="stylesheet" href="./Veebiplatform_files/default.css">
+    <link rel="shortcut icon" href="http://127.0.0.1:8861/assets/imgs/favicon.ico" type="image/x-icon">
+    
+    <title>Veebiplatform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script>
+      var ariaLabels = {
+        share: 'share picture',
+        print: 'print picture',
+        download: 'download picture',
+        close: 'close modal',
+        pause: 'pause swiper',
+        start: 'start swiper'
+      }
+    </script>
+  <script type="text/javascript" data-name="TokenSigning">(function() {
+    // Promises
+    var _eid_promises = {};
+    // Turn the incoming message from extension
+    // into pending Promise resolving
+    window.addEventListener("message", function(event) {
+        if (event.source !== window) return;
+        if (event.data.src && (event.data.src === "background.js")) {
+            console.log("Page received: ");
+            console.log(event.data);
+            // Get the promise
+            if (event.data.nonce) {
+                var p = _eid_promises[event.data.nonce];
+                // resolve
+                if (event.data.result === "ok") {
+                    if (event.data.signature !== undefined) {
+                        p.resolve({hex: event.data.signature});
+                    } else if (event.data.version !== undefined) {
+                        p.resolve(event.data.extension + "/" + event.data.version);
+                    } else if (event.data.cert !== undefined) {
+                        p.resolve({hex: event.data.cert});
+                    } else {
+                        console.log("No idea how to handle message");
+                        console.log(event.data);
+                    }
+                } else {
+                    // reject
+                    p.reject(new Error(event.data.result));
+                }
+                delete _eid_promises[event.data.nonce];
+            } else {
+                console.log("No nonce in event msg");
+            }
+        }
+    }, false);
+
+    window.TokenSigning = function() {
+        function nonce() {
+            var val = "";
+            var hex = "abcdefghijklmnopqrstuvwxyz0123456789";
+            for (var i = 0; i < 16; i++) val += hex.charAt(Math.floor(Math.random() * hex.length));
+            return val;
+        }
+
+        function messagePromise(msg) {
+            return new Promise(function(resolve, reject) {
+                // amend with necessary metadata
+                msg["nonce"] = nonce();
+                msg["src"] = "page.js";
+                // send message
+                window.postMessage(msg, "*");
+                // and store promise callbacks
+                _eid_promises[msg.nonce] = {
+                    resolve: resolve,
+                    reject: reject
+                };
+            });
+        }
+        this.getCertificate = function(options) {
+            var msg = {type: "CERT", lang: options.lang, filter: options.filter};
+            console.log("getCertificate()");
+            return messagePromise(msg);
+        };
+        this.sign = function(cert, hash, options) {
+            var msg = {type: "SIGN", cert: cert.hex, hash: hash.hex, hashtype: hash.type, lang: options.lang, info: options.info};
+            console.log("sign()");
+            return messagePromise(msg);
+        };
+        this.getVersion = function() {
+            console.log("getVersion()");
+            return messagePromise({
+                type: "VERSION"
+            });
+        };
+    };
+})();</script></head>
+  <body>
+    <a href="http://127.0.0.1:8861/index3.html#page-main" class="skip-link">Liigu edasi põhisisu juurde!</a>
+<div class="accessibility open" aria-expanded="true" aria-labelledby="accessibility-id">
+  <span id="accessibility-id" class="sr-only">accessibility modal</span>
+  <div class="container">
+    <button class="btn btn-close-accessibility">
+      <span class="sr-only">Close accessibility modal</span>
+      <i class="mdi mdi-close" aria-hidden="true"></i>
+    </button><!--/btn btn-close-accessibility-->
+    <div class="row">
+      <div class="col-12 md-12 sm-12">
+        <div class="accessibility__inner">
+          <div class="row">
+            <div class="col-4 md-12 sm-12">
+              <h3>Teksti suurus</h3>
+              <p>Suuruse valimisel muutub see automaatselt</p>
+              <div class="form-group">
+                <div class="radio-list" role="group" aria-labelledby="accessibility-font">
+                  <span id="accessibility-font" class="sr-only">Change font size</span>
+                  <div class="custom-control custom-form-radio custom-form-inline" tabindex="0">
+                    <input type="radio" name="font-size" id="input166" class="custom-form-input" value="text1x">
+                    <label for="input166" class="custom-form-label size-normal">Vaikimisi</label>
+                  </div><!--/custom-control custom-form-radio custom-form-inline-->
+                  <div class="custom-control custom-form-radio custom-form-inline" tabindex="0">
+                    <input type="radio" name="font-size" id="input177" class="custom-form-input" value="text2x">
+                    <label for="input177" class="custom-form-label size-2x">Suur</label>
+                  </div><!--/custom-control custom-form-radio custom-form-inline-->
+                  <div class="custom-control custom-form-radio custom-form-inline" tabindex="0">
+                    <input type="radio" name="font-size" id="input188" class="custom-form-input" value="text4x">
+                    <label for="input188" class="custom-form-label size-4x">Ülisuur</label>
+                  </div><!--/custom-control custom-form-radio custom-form-inline-->
+                </div><!--/radio-list-->
+              </div><!--/form-group-->
+            </div><!--/col-4 md-12 sm-12-->
+            <div class="col-4 md-12 sm-12">
+              <h3>Reavahe kõrgus</h3>
+              <p>Reavahe valimisel muutub see automaatselt</p>
+              <div class="form-group">
+                <div class="radio-list" role="group" aria-labelledby="accessibility-line-height">
+                  <span id="accessibility-line-height" class="sr-only">Change line height</span>
+                  <div class="custom-control custom-form-radio custom-form-inline" tabindex="0">
+                    <input type="radio" name="line-height" id="input1664" class="custom-form-input" value="line1x">
+                    <label for="input1664" class="custom-form-label size-normal">1x</label>
+                  </div><!--/custom-control custom-form-radio custom-form-inline-->
+                  <div class="custom-control custom-form-radio custom-form-inline" tabindex="0">
+                    <input type="radio" name="line-height" id="input1774" class="custom-form-input" value="line2x">
+                    <label for="input1774" class="custom-form-label size-1x">2x</label>
+                  </div><!--/custom-control custom-form-radio custom-form-inline-->
+                  <div class="custom-control custom-form-radio custom-form-inline" tabindex="0">
+                    <input type="radio" name="line-height" id="input1884" class="custom-form-input" value="line4x">
+                    <label for="input1884" class="custom-form-label size-2x">4x</label>
+                  </div><!--/custom-control custom-form-radio custom-form-inline-->
+                </div><!--/radio-list-->
+              </div>
+            </div><!--/col-4 md-12 sm-12-->
+            <div class="col-4 md-12 sm-12">
+              <h3>Värvikontrastsus</h3>
+              <p>Kontrastsuse valimisel muutub see automaatselt</p>
+              <div class="form-group">
+                <div class="radio-list" role="group" aria-labelledby="accessibility-line-height">
+                  <span id="accessibility-line-height" class="sr-only">Change page contrast color</span>
+                  <div class="custom-control custom-form-radio custom-form-inline" tabindex="0">
+                    <input type="radio" name="page-contrast" id="input11664" class="custom-form-input" value="normal">
+                    <label for="input11664" class="custom-form-label">Vaikimisi</label>
+                  </div><!--/custom-control custom-form-radio custom-form-inline-->
+                  <div class="custom-control custom-form-radio custom-form-inline" tabindex="0">
+                    <input type="radio" name="page-contrast" id="input11774" class="custom-form-input" value="black-and-yellow">
+                    <label for="input11774" class="custom-form-label">Must-kollane</label>
+                  </div><!--/custom-control custom-form-radio custom-form-inline-->
+                </div><!--/radio-list-->
+              </div>
+            </div><!--/col-4 md-12 sm-12-->
+          </div><!--/row-->
+        </div><!--/accessibility__inner-->
+      </div><!--/col-12 md-12 sm-12-->
+    </div><!--/row-->
+  </div><!--/container-->
+</div><!--/accessibility-->
+<div class="main-wrapper">
+  <header class="main-header">
+    <div class="container">
+      <div class="header-wrapper">
+        <div class="header-left">
+          <a href="http://127.0.0.1:8861/index3.html#" class="header-logo-content">
+            <div class="header-logo" style="background-image: url(&#39;https://www.viljandigymnaasium.edu.ee/sites/viljandigymnaasium.edu.ee/files/styles/hitsa_core_logo/public/vg_logo.jpg?itok=f4BIiU3G&#39;);">
+              <img src="./Veebiplatform_files/placeholder-1.gif" alt="school logo">
+            </div>
+            <div class="header-logo-text xl-hide">
+              <span>Ferdinand von Wrangell' i nimeline Roela Lasteaed-Põhikool</span>
+            </div>
+          </a><!--/header-logo-content-->
+        </div><!--/header-left-->
+    
+        <div class="header-right">
+    
+          <div class="header-right__top">
+            <div class="header-school-name">
+              <span class="school-name">Ferdinand von Wrangell' i nimeline Roela Lasteaed-Põhikool</span>
+              <span class="school-slogan"><em>Lorem ipsum dolor, amet consectetur adipisicing eliits. Dolorem rerum earumoo praeoosentium quam oequidem lquos dolor ipsam vel?</em></span>
+            </div><!--/header-school-name-->
+            <button class="btn btn-header-accessibility">Vaegnägijale</button>
+
+            <div class="language-picker">
+              <button class="language-picker__button" aria-expanded="false" aria-haspopup="true">EST
+                <i class="mdi mdi-menu-down" aria-hidden="true"></i>
+              </button><!--/language-picker__button-->
+              <div class="language-picker__dropdown" aria-describedby="language-picker-desc">
+                <span class="sr-only" id="language-picker-desc">Select your language</span>
+                <ul class="language-picker__list">
+                  <li class="language-picker__item active">
+                    <a href="http://127.0.0.1:8861/index3.html#" aria-current="true">EST</a>
+                  </li><!--/language-picker__item-->
+                  <li class="language-picker__item">
+                    <a href="http://127.0.0.1:8861/index3.html#">ENG</a>
+                  </li><!--/language-picker__item-->
+                  <li class="language-picker__item">
+                    <a href="http://127.0.0.1:8861/index3.html#">RUS</a>
+                  </li><!--/language-picker__item-->
+                </ul><!--/language-picker__list-->
+              </div><!--/language-picker__dropdown-->
+            </div><!--/language-picker-->
+            
+            <div class="form-item search-input desktop-search">
+              <label class="form-label" for="search_field31" title="Otsi galeriidest">
+                <span class="sr-only">Otsi galeriist</span>
+              </label>
+              <input class="search" id="search_field31" name="search_field1" placeholder="Otsi...">
+              <button class="btn search-submit-btn" type="submit" aria-label="Otsi"></button>
+              <div class="autocomplete-suggestions">
+                <ul>
+                  <li>
+                    <a class="nav-link" href="http://127.0.0.1:8861/index3.html#">küsimus 1</a>
+                  </li>
+                  <li>
+                    <a class="nav-link" href="http://127.0.0.1:8861/index3.html#">küsimus 2</a>
+                  </li>
+                  <li>
+                    <a class="nav-link" href="http://127.0.0.1:8861/index3.html#">küsimus 3</a>
+                  </li>
+                </ul>
+              </div><!--/autocomplete-suggestions-->
+              <span class="error-text">Tekkis viga!</span>
+            </div><!--/form-item search-input-->
+
+            <div class="mobile-banner">
+              <div class="mobile-links">
+                <button class="btn btn-mobile-search" aria-expanded="false">
+                  <span class="sr-only">search</span>
+                  <i class="mdi mdi-magnify" aria-hidden="true"></i>
+                </button><!--/btn btn-mobile-search-->
+                <button class="menu-link" aria-expanded="false">
+                  <span class="sr-only">Open/close menu</span>
+                  <i class="mdi mdi-menu" aria-hidden="true"></i>
+                </button><!--/menu-link-->
+              </div><!--/mobile-links-->
+              <div class="mobile-search-overlay">
+                <div class="form-item search-input">
+                  <label class="form-label" for="search_field33" title="Otsi galeriidest">
+                    <span class="sr-only">Otsi galeriidest</span>
+                  </label>
+                  <input class="search" id="search_field33" name="search_field" placeholder="Otsi...">
+                  <button class="btn search-submit-btn" type="submit" aria-label="Otsi"></button>
+                  <div class="autocomplete-suggestions">
+                    <ul>
+                      <li>
+                        <a class="nav-link" href="http://127.0.0.1:8861/index3.html#">küsimus 1</a>
+                      </li>
+                      <li>
+                        <a class="nav-link" href="http://127.0.0.1:8861/index3.html#">küsimus 2</a>
+                      </li>
+                      <li>
+                        <a class="nav-link" href="http://127.0.0.1:8861/index3.html#">küsimus 3</a>
+                      </li>
+                    </ul>
+                  </div><!--/autocomplete-suggestions-->
+                  <span class="error-text">Tekkis viga!</span>
+                </div><!--/form-item search-input-->
+                <button class="btn close-btn-search" aria-label="close menu">
+                  <i class="mdi mdi-close"></i>
+                </button><!--/close-btn-->
+              </div><!--/mobile-search-overlay-->
+              <div class="focus-trap-first" tabindex="0"></div>
+              <div class="mobile-menu">
+                
+
+                <nav aria-label="main-navigation">
+                  <ul class="main-menu">
+                    <li>
+                      <a class="active" href="http://127.0.0.1:8861/index3.html#" aria-current="page">Avaleht</a>
+                    </li>
+                    <li>
+                      <a href="http://127.0.0.1:8861/index3.html#" aria-expanded="false">Sisseastujale<span class="mdi mdi-chevron-down"></span></a>
+                      <div class="main-menu-dropdown">
+                        <div class="focus-trap-first" tabindex="-1"></div>
+                        <ul class="dropdown-link-block">
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#" class="back-to-menu" aria-label="back to main menu">
+                              <i class="mdi mdi-menu-down"></i>
+                              Sisseastujale
+                            </a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">Kuidas kandideerida</a>
+                          </li>
+                          <li class="active" aria-current="page">
+                            <a href="http://127.0.0.1:8861/index3.html#">Avaldused</a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#" target="_blank">
+                              Testime linki mis peaks viima välja
+                              <span class="sr-only">link in new</span>
+                              <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">Stipendiumid</a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">Vastuvõtudokumendid</a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#" target="_blank">Vilistlased
+                              <span class="sr-only">link in new</span>
+                              <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">Korduma kippuvad küsimused</a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">Lorem ipsum dolor sit amet consectetur adipisicing elit</a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">Lorem ipsum dolor sit</a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">Avaldused avaldused</a>
+                          </li>
+                        </ul><!--/dropdown-link-block-->
+                        <div class="focus-trap-last" tabindex="-1"></div>
+                      </div><!--/main-menu-dropdown-->
+                    </li>
+                  
+                    <li>
+                      <a href="http://127.0.0.1:8861/index3.html#" aria-expanded="false" class="active" aria-current="page">Õpilasele<span class="mdi mdi-chevron-down"></span></a>
+                      <div class="main-menu-dropdown">
+                        <div class="focus-trap-first" tabindex="-1"></div>
+                        <ul class="dropdown-link-block">
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#" class="back-to-menu">
+                              <i class="mdi mdi-menu-down"></i>
+                              Õpilasele
+                            </a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">Vastuvõtudokumendid</a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">Vilistlased</a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">Korduma kippuvad küsimused</a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">Stipendiumid</a>
+                          </li>
+                          <li>
+                            <a class="active" href="http://127.0.0.1:8861/index3.html#" aria-current="page">Kuidas kandideerida</a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">Avaldused</a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">Pikk menüü mis ei mahu ritta</a>
+                          </li>
+                        </ul><!--/dropdown-link-block-->
+                        <div class="focus-trap-last" tabindex="-1"></div>
+                      </div><!--/main-menu-dropdown-->
+                    </li>
+                  
+                    <li>
+                      <a href="javascript:void(0)" aria-expanded="false">Nonlink<span class="mdi mdi-chevron-down"></span></a>
+                      <div class="main-menu-dropdown">
+                        <div class="focus-trap-first" tabindex="-1"></div>
+                        <ul class="dropdown-link-block">
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#" class="back-to-menu">
+                              <i class="mdi mdi-menu-down"></i>
+                              Nonlink
+                            </a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#" target="_blank">Kuidas kandideerida
+                              <i class="mdi mdi-open-in-new" aria-label="link in new"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">Avaldused</a>
+                          </li>
+                        </ul><!--/dropdown-link-block-->
+                        <div class="focus-trap-last" tabindex="-1"></div>
+                      </div><!--/main-menu-dropdown-->
+                    </li>
+                    <li>
+                      <a href="http://127.0.0.1:8861/index3.html#">Kontakt</a>
+                    </li>
+                    <li>
+                      <a href="http://127.0.0.1:8861/index3.html#" aria-expanded="false">Keel:
+                        <strong>EST</strong>
+                      <span class="mdi mdi-chevron-down"></span></a>
+                      <div class="main-menu-dropdown">
+                        <div class="focus-trap-first" tabindex="-1"></div>
+                        <ul class="dropdown-link-block">
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#" class="back-to-menu">
+                              <i class="mdi mdi-menu-down"></i>
+                              Keel
+                            </a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#" class="active" aria-current="page">EST</a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">ENG</a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">RUS</a>
+                          </li>
+                        </ul><!--/dropdown-link-block-->
+                        <div class="focus-trap-last" tabindex="-1"></div>
+                      </div><!--/main-menu-dropdown-->
+                    </li>
+                    <li>
+                      <a href="http://127.0.0.1:8861/index3.html#" tabindex="0" aria-expanded="false">Vaegnägijale<span class="mdi mdi-chevron-down"></span></a>
+                      <div class="main-menu-dropdown">
+                        <div class="focus-trap-first" tabindex="-1"></div>
+                        <ul class="dropdown-link-block">
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#" class="back-to-menu">
+                              <i class="mdi mdi-menu-down"></i>
+                              Vaegnägijale
+                            </a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#" target="_blank">Test 1
+                              <i class="mdi mdi-open-in-new" aria-label="link in new"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="http://127.0.0.1:8861/index3.html#">Test 2</a>
+                          </li>
+                        </ul><!--/dropdown-link-block-->
+                        <div class="focus-trap-last" tabindex="-1"></div>
+                      </div><!--/main-menu-dropdown-->
+                    </li>
+                  </ul><!--/main-menu-->
+                </nav>
+              </div><!--/mobile-menu-->
+              <div class="focus-trap-last" tabindex="0"></div>
+            </div><!--/mobile-banner-->
+          </div><!--/header-right__top-->
+    
+          <div class="header-right__bottom">
+            <div class="desktop-menu">
+              <ul class="main-menu">
+                <li>
+                  <a class="active" href="http://127.0.0.1:8861/index3.html#" aria-current="page">Avaleht</a>
+                </li>
+                <li>
+                  <a href="http://127.0.0.1:8861/index3.html#" aria-expanded="false" class="special">Sisseastujale<span class="mdi mdi-menu-down"></span></a>
+                  <div class="main-menu-dropdown">
+                    <ul class="dropdown-link-block">
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#">Kuidas kandideerida</a>
+                      </li>
+                      <li class="active" aria-current="page">
+                        <a href="http://127.0.0.1:8861/index3.html#">Avaldused</a>
+                      </li>
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#" target="_blank">
+                          Testime linki mis peaks viima välja
+                          <span class="sr-only">link in new</span>
+                          <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#">Stipendiumid</a>
+                      </li>
+                    </ul><!--/dropdown-link-block-->
+
+                    <ul class="dropdown-link-block">
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#">Vastuvõtudokumendid</a>
+                      </li>
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#" target="_blank">Vilistlased
+                          <span class="sr-only">link in new</span>
+                          <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#">Korduma kippuvad küsimused</a>
+                      </li>
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#">Lorem ipsum dolor sit amet consectetur adipisicing elit</a>
+                      </li>
+                    </ul><!--/dropdown-link-block-->
+
+                    <ul class="dropdown-link-block">
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#">Lorem ipsum dolor sit</a>
+                      </li>
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#">Avaldused avaldused</a>
+                      </li>
+                    </ul><!--/dropdown-link-block-->
+                  </div><!--/main-menu-dropdown-->
+                </li>
+
+                <li>
+                  <a href="http://127.0.0.1:8861/index3.html#" aria-expanded="false" class="active special" aria-current="page">Õpilasele<span class="mdi mdi-menu-down"></span></a>
+                  <div class="main-menu-dropdown">
+                    <ul class="dropdown-link-block">
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#">Vastuvõtudokumendid</a>
+                      </li>
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#">Vilistlased</a>
+                      </li>
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#">Korduma kippuvad küsimused</a>
+                      </li>
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#">Stipendiumid</a>
+                      </li>
+                    </ul><!--/dropdown-link-block-->
+                    <ul class="dropdown-link-block">
+                      <li>
+                        <a class="active" href="http://127.0.0.1:8861/index3.html#" aria-current="page">Kuidas kandideerida</a>
+                      </li>
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#">Avaldused</a>
+                      </li>
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#">Pikk menüü mis ei mahu ritta</a>
+                      </li>
+                    </ul><!--/dropdown-link-block-->
+                  </div><!--/main-menu-dropdown-->
+                </li>
+
+                <li>
+                  <a href="javascript:void(0)" tabindex="0" aria-expanded="false" class="special">Nonlink<span class="mdi mdi-menu-down"></span></a>
+                  <div class="main-menu-dropdown">
+                    <ul class="dropdown-link-block">
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#" target="_blank">Kuidas kandideerida
+                          <i class="mdi mdi-open-in-new" aria-label="link in new"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="http://127.0.0.1:8861/index3.html#">Avaldused</a>
+                      </li>
+                    </ul><!--/dropdown-link-block-->
+                  </div><!--/main-menu-dropdown-->
+                </li>
+
+                <li>
+                  <a href="http://127.0.0.1:8861/index3.html#">Kontakt</a>
+                </li>
+              </ul><!--/main-menu-->
+            </div><!--/desktop-menu-->
+          </div><!--/header-right__bottom-->
+    
+        </div><!--/header-right-->
+      </div><!--/header-wrapper-->
+    </div><!--/container-->
+  </header><!--/main-header-->
+
+  <main class="page-main">
+    <div class="hero hero__textbox">
+      <div class="hero hero__background hero__background--textbox">
+        <div class="swiper-container hero-textbox-swiper swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
+          <div class="hero__overlay">
+            <span class="overlay-block"></span>
+            <span class="overlay-empty-space"></span>
+          </div><!--/hero__overlay-->
+          <div class="swiper-wrapper" id="swiper-wrapper-bfdfbed4ff78f4ba" aria-live="off" style="transform: translate3d(-5760px, 0px, 0px); transition-duration: 0ms;"><div class="swiper-slide textbox-slide swiper-slide-duplicate swiper-slide-duplicate-active" data-title="Palju teksti mis peaks siia ära mahtuma" data-linktext="Loe edasi" data-link="locations.html" data-swiper-slide-index="3" role="group" aria-label="4 / 4" style="width: 1440px;">
+              <div class="hero-image" style="background-image: url(/assets/images/test-pilt-6.jpeg);">
+                <img src="./Veebiplatform_files/placeholder-2.gif" alt="test">
+              </div><!--/hero-image-->
+            </div>
+            <div class="swiper-slide textbox-slide link-out swiper-slide-duplicate-next" data-title="Õppimiskeskne ja õpilase arengule orienteeritud, terviklikku isiksust arendav kool." data-linktext="Loe edasi" data-link="locations.html" data-aria="link opens in new page" data-swiper-slide-index="0" role="group" aria-label="1 / 4" style="width: 1440px;">
+              <div class="hero-image" style="background-image: url(/assets/images/test-pilt-3.jpg);">
+                <img src="./Veebiplatform_files/placeholder-2.gif" alt="test">
+              </div><!--/hero-image-->
+            </div><!--/swiper-slide textbox-slide-->
+            <div class="swiper-slide textbox-slide" data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, repellat." data-linktext="Loe edasi" data-link="locations.html" data-swiper-slide-index="1" role="group" aria-label="2 / 4" style="width: 1440px;">
+              <div class="hero-image" style="background-image: url(/assets/images/test-pilt-7.jpg);">
+                <img src="./Veebiplatform_files/placeholder-2.gif" alt="test">
+              </div>
+            </div><!--/swiper-slide textbox-slide-->
+            <div class="swiper-slide textbox-slide swiper-slide-prev" data-title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, perferendis. Minima magni perferendis eum exercitationem excepturi atque facere? Nemo aperiam soluta unde quo debitis! Test!" data-linktext="Pika nimega link ppp" data-link="locations.html" data-swiper-slide-index="2" role="group" aria-label="3 / 4" style="width: 1440px;">
+              <div class="hero-image" style="background-image: url(/assets/images/test-pilt-2.jpg);">
+                <img src="./Veebiplatform_files/placeholder-2.gif" alt="test">
+              </div><!--/hero-image-->
+            </div><!--/swiper-slide textbox-slide-->
+            <div class="swiper-slide textbox-slide swiper-slide-active" data-title="Palju teksti mis peaks siia ära mahtuma" data-linktext="Loe edasi" data-link="locations.html" data-swiper-slide-index="3" role="group" aria-label="4 / 4" style="width: 1440px;">
+              <div class="hero-image" style="background-image: url(/assets/images/test-pilt-6.jpeg);">
+                <img src="./Veebiplatform_files/placeholder-2.gif" alt="test">
+              </div><!--/hero-image-->
+            </div><!--/swiper-slide textbox-slide-->
+          <div class="swiper-slide textbox-slide link-out swiper-slide-duplicate swiper-slide-next" data-title="Õppimiskeskne ja õpilase arengule orienteeritud, terviklikku isiksust arendav kool." data-linktext="Loe edasi" data-link="locations.html" data-aria="link opens in new page" data-swiper-slide-index="0" role="group" aria-label="1 / 4" style="width: 1440px;">
+              <div class="hero-image" style="background-image: url(/assets/images/test-pilt-3.jpg);">
+                <img src="./Veebiplatform_files/placeholder-2.gif" alt="test">
+              </div><!--/hero-image-->
+            </div></div><!--/swiper-wrapper-->
+        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div><!--/swiper-container textbox-swiper-->
+      </div><!--/hero__swiper--background hero__swiper-background--textbox-->
+      <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-bfdfbed4ff78f4ba"></div>
+      <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-bfdfbed4ff78f4ba"></div>
+      <div class="swiper-textbox">
+        <div class="swiper-textbox__block">
+          <span class="swiper-textbox__title">Palju teksti mis peaks siia ära mahtuma</span>
+          <a href="http://127.0.0.1:8861/locations.html" class="swiper-textbox__link swiper-textbox__link--link-out">Loe edasi</a>
+        </div><!--/hero__textbox-->
+      </div><!--/swiper-textbox-->
+      <button class="swiper-stop" aria-label="stop-slider">
+        <i class="mdi mdi-pause" aria-hidden="true"></i>
+      </button><!--/swiper-stop-->
+      <div class="swiper-pagination hero-paginator swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 4"></span></div>
+    </div><!--/hero-->
+
+    <div class="container homepage-container">
+      <div class="row">
+        <div class="col-12 md-12 sm-12 homepage-gutters">
+          <article class="content-block content-block--bookmarks">
+            <div class="bookmarks" aria-label="list of links">
+              <ul>
+                <li>
+                  <a href="http://127.0.0.1:8861/www.neti.ee" class="btn btn-primary link-in-new" target="_blank">Stuudium
+                    <span class="sr-only">link välja</span>
+                    <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://127.0.0.1:8861/calendar.html" class="btn btn-primary link-in-new" target="_blank">Moodle
+                    <span class="sr-only">link välja</span>
+                    <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://127.0.0.1:8861/gallery.html" class="btn btn-primary link-in-new" target="_blank">HARNO
+                    <span class="sr-only">link välja</span>
+                    <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://127.0.0.1:8861/tables.html" class="btn btn-primary link-in-new">Dokumendiregister
+                    <span class="sr-only">link välja</span>
+                    <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://127.0.0.1:8861/food-menu.html" class="btn btn-primary link-in-new" target="_blank">Videosuhtlus
+                    <span class="sr-only">link välja</span>
+                    <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://127.0.0.1:8861/form-elements.html" class="btn btn-primary link-in-new" target="_blank">Siseveeb
+                    <span class="sr-only">link välja</span>
+                    <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://127.0.0.1:8861/jaotusplokid.html" class="btn btn-primary link-in-new" target="_blank">COVID
+                    <span class="sr-only">link välja</span>
+                    <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://127.0.0.1:8861/gallery-detail-view.html" class="btn btn-primary link-in-new" target="_blank">rattattattattt
+                    <span class="sr-only">link välja</span>
+                    <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                  </a>
+              </li>
+              </ul>
+            </div>
+          </article><!--/content-block content-block--bookmarks-->
+        </div><!--/col-12 md-12 sm-12 homepage-gutters-->
+      </div><!--/row-->
+
+      <div class="row">
+        <div class="col-6 md-12 sm-12 homepage-gutters">
+          <article class="content-block content-block--front-page">
+            <div class="row">
+              <div class="col-12 md-12 sm-12">
+
+                <div class="title-block title-block--home-page">
+                  <h3>Tundide ajad täna</h3>
+                </div><!--/title-block title-block--home-page-->
+    
+                <div class="tabs tabs--underline sm-hide">
+                  <ul class="tabs__navigation" role="tablist" aria-label="toidumenüü kuupäevad">
+                    <li class="tabs__nav-item active">
+                      <button class="btn btn-tab" id="tab-item-1" role="tab" aria-selected="true" aria-controls="tab-content-1">Peamaja</button>
+                    </li><!--/tabs__nav-item-->
+                    <li class="tabs__nav-item">
+                      <button class="btn btn-tab" id="tab-item-2" role="tab" aria-selected="false" aria-controls="tab-content-2" tabindex="-1">B-maja</button>
+                    </li><!--/tabs__nav-item-->
+                  </ul><!--/tabs__navigation-->
+                  <div class="tabs__panels">
+                    <div class="tabs__panel" id="tab-content-1" role="tabpanel" tabindex="0" aria-labelledby="tab-item-1">
+                      <div class="table-wrapper">
+                        <div class="table-scrollable no-scroll">
+                          <table class="lesson-plan">
+                            <thead>
+                              <tr>
+                                <th>1.-6.klass</th>
+                                <th>7.-9.klass</th>
+                                <th>10.-12.klass</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1. 08.10 - 08.55asd</td>
+                                <td>1. 08.10 - 08.55</td>
+                                <td>1. 08.10 - 08.55</td>
+                              </tr>
+                              <tr>
+                                <td>2. 09.05 - 09.50</td>
+                                <td>2. 09.05 - 09.50</td>
+                                <td>2. 09.05 - 09.50</td>
+                              </tr>
+                              <tr>
+                                <td>3. 10.00 - 10.45</td>
+                                <td>3. 10.00 - 10.45</td>
+                                <td>3. 10.00 - 10.45</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <i class="mdi mdi-silverware-fork-knife" aria-hidden="true">
+                                    <span class="sr-only">lunch</span>
+                                  </i>
+                                   11.00 - 11.45</td>
+                                <td>4. 11.00 - 11.45</td>
+                                <td>4. 11.00 - 11.45</td>
+                              </tr>
+                              <tr>
+                                <td>5. 12.00 - 12.45</td>
+                                <td>
+                                  <i class="mdi mdi-silverware-fork-knife" aria-hidden="true">
+                                    <span class="sr-only">lunch</span>
+                                  </i>
+                                   12.00 - 12.45</td>
+                                <td>
+                                  <i class="mdi mdi-silverware-fork-knife" aria-hidden="true">
+                                    <span class="sr-only">lunch</span>
+                                  </i>
+                                   12.00 - 12.45</td>
+                              </tr>
+                              <tr>
+                                <td>6. 13.00 - 13.45</td>
+                                <td>6. 13.00 - 13.45</td>
+                                <td>6. 13.00 - 13.45</td>
+                              </tr>
+                            </tbody>
+                          </table><!--/lesson-plan-->
+                        </div><!--/table-scrollable-->
+                      </div><!--/table-wrapper-->
+                    </div><!--/tabs__panel-->
+                    <div class="tabs__panel" id="tab-content-2" role="tabpanel" tabindex="0" aria-labelledby="tab-item-2" hidden="">
+                      <div class="table-wrapper">
+                        <div class="table-scrollable no-scroll">
+                          <table class="lesson-plan">
+                            <thead>
+                              <tr>
+                                <th>1.-6.klass</th>
+                                <th>7.-9.klass</th>
+                                <th>10.-12.klass</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1. 08.10 - 08.55</td>
+                                <td>1. 08.10 - 08.55</td>
+                                <td>1. 08.10 - 08.55</td>
+                              </tr>
+                              <tr>
+                                <td>2. 09.05 - 09.50</td>
+                                <td>2. 09.05 - 09.50</td>
+                                <td>2. 09.05 - 09.50</td>
+                              </tr>
+                              <tr>
+                                <td>3. 10.00 - 10.45</td>
+                                <td>3. 10.00 - 10.45</td>
+                                <td>3. 10.00 - 10.45</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <i class="mdi mdi-silverware-fork-knife" aria-hidden="true">
+                                    <span class="sr-only">lunch</span>
+                                  </i>
+                                   11.00 - 11.45</td>
+                                <td>4. 11.00 - 11.45</td>
+                                <td>4. 11.00 - 11.45</td>
+                              </tr>
+                              <tr>
+                                <td>5. 12.00 - 12.45</td>
+                                <td>
+                                  <i class="mdi mdi-silverware-fork-knife" aria-hidden="true">
+                                    <span class="sr-only">lunch</span>
+                                  </i>
+                                   12.00 - 12.45</td>
+                                <td>
+                                  <i class="mdi mdi-silverware-fork-knife" aria-hidden="true">
+                                    <span class="sr-only">lunch</span>
+                                  </i>
+                                   12.00 - 12.45</td>
+                              </tr>
+                              <tr>
+                                <td>6. 13.00 - 13.45</td>
+                                <td>6. 13.00 - 13.45</td>
+                                <td>6. 13.00 - 13.45</td>
+                              </tr>
+                            </tbody>
+                          </table><!--/lesson-plan-->
+                        </div><!--/table-scrollable-->
+                      </div><!--/table-wrapper-->
+                    </div><!--/tabs__panel-->
+                  </div><!--/tabs__panels-->
+                </div><!--/tabs-->
+    
+                <div class="form-item custom-select md-hide xl-hide">
+                  <label for="tabs-select11" class="form-label">Vali hoone</label>
+                  <select name="input-3671" id="tabs-select11" data-select2-id="select2-data-tabs-select11" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true">
+                    <option value="161" data-select2-id="select2-data-2-z1kb">Suur maja</option>
+                    <option value="171">Väike maja</option>
+                  </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="select2-data-1-hk38" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-tabs-select11-container" aria-controls="select2-tabs-select11-container"><span class="select2-selection__rendered" id="select2-tabs-select11-container" role="textbox" aria-readonly="true" title="Suur maja">Suur maja</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                </div>
+    
+                <div class="accordion accordion--lesson-plan">
+                  <div class="accordion__item">
+                    <h3 class="accordion__title">
+                      <button id="accordion1" class="btn btn-accordion" aria-expanded="false" aria-controls="collapse1">
+                        <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
+                        <span class="btn-label">1.-6. klass</span>
+                      </button><!--/btn-accordion-->
+                    </h3><!--/accordion__title-->
+                    <div id="collapse1" class="accordion__content" aria-labelledby="accordion1" role="region">
+                      <div class="accordion__content--body">
+                        <ul>
+                          <li>1. 08.10 - 08.55</li>
+                          <li>2. 09.05 - 09.50</li>
+                          <li>3. 10.00 - 10.45</li>
+                          <li>                   
+                            <i class="mdi mdi-silverware-fork-knife" aria-hidden="true">
+                            <span class="sr-only">lunch</span>
+                            </i>
+                            11.00 - 11.45
+                          </li>
+                          <li>5. 12.00 - 12.45</li>
+                          <li>6. 13.00 - 13.45</li>
+                        </ul>
+                      </div><!--/accordion__content--body-->
+                    </div><!--/accordion__content-->
+                  </div><!--/accordion__item-->
+    
+                  <div class="accordion__item">
+                    <h3 class="accordion__title">
+                      <button id="accordion12" class="btn btn-accordion" aria-expanded="false" aria-controls="collapse12">
+                        <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
+                        <span class="btn-label">7.-9. klass</span>
+                      </button><!--/btn-accordion-->
+                    </h3><!--/accordion__title-->
+                    <div id="collapse12" class="accordion__content" aria-labelledby="accordion12" role="region">
+                      <div class="accordion__content--body">
+                        <ul>
+                          <li>1. 08.10 - 08.55</li>
+                          <li>2. 09.05 - 09.50</li>
+                          <li>3. 10.00 - 10.45</li>
+                          <li>4. 11.00 - 11.45</li>
+                          <li>
+                            <i class="mdi mdi-silverware-fork-knife" aria-hidden="true">
+                            <span class="sr-only">lunch</span>
+                            </i>
+                            12.00 - 12.45
+                          </li>
+                          <li>6. 13.00 - 13.45</li>
+                        </ul>
+                      </div><!--/accordion__content--body-->
+                    </div><!--/accordion__content-->
+                  </div><!--/accordion__item-->
+    
+                  <div class="accordion__item">
+                    <h3 class="accordion__title">
+                      <button id="accordion13" class="btn btn-accordion" aria-expanded="false" aria-controls="collapse13">
+                        <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
+                        <span class="btn-label">10.-12. klass</span>
+                      </button><!--/btn-accordion-->
+                    </h3><!--/accordion__title-->
+                    <div id="collapse13" class="accordion__content" aria-labelledby="accordion13" role="region">
+                      <div class="accordion__content--body">
+                        <ul>
+                          <li>1. 08.10 - 08.55</li>
+                          <li>2. 09.05 - 09.50</li>
+                          <li>3. 10.00 - 10.45</li>
+                          <li>4. 11.00 - 11.45</li>
+                          <li>
+                            <i class="mdi mdi-silverware-fork-knife" aria-hidden="true">
+                            <span class="sr-only">lunch</span>
+                            </i>
+                            12.00 - 12.45
+                          </li>
+                          <li>6. 13.00 - 13.45</li>
+                        </ul>
+                      </div><!--/accordion__content--body-->
+                    </div><!--/accordion__content-->
+                  </div><!--/accordion__item-->
+    
+                </div><!--/accordion accordion--food-menu-->
+                <div class="row-spacer-24 xl-hide"></div>
+                <div class="row-spacer-40 sm-hide md-hide"></div>
+                <a href="http://127.0.0.1:8861/index3.html#" class="btn btn-secondary btn-show-more">Vaata tunniplaani</a>
+              </div>
+            </div>
+          </article><!--/content-block content-block--front-page-->
+        </div><!--/col-6 md-12 sm-12 homepage-gutters-->
+
+        <div class="col-6 md-12 sm-12 homepage-gutters">
+          <article class="content-block content-block--front-page">
+            <div class="row">
+              <div class="col-12 md-12 sm-12">
+                <div class="title-block title-block--home-page">
+                  <h3>Toidumenüü</h3>
+                </div><!--/title-block title-block--home-page-->
+  
+                <div class="tabs tabs--borders">
+                  <ul class="tabs__navigation" role="tablist" aria-label="toidumenüü ajad">
+                    <li class="tabs__nav-item active">
+                      <button class="btn btn-tab" id="tab-item-11" role="tab" aria-selected="true" aria-controls="tab-content-11">Täna</button>
+                    </li><!--/tabs__nav-item-->
+                    <li class="tabs__nav-item">
+                      <button class="btn btn-tab" id="tab-item-12" role="tab" aria-selected="false" aria-controls="tab-content-12" tabindex="-1">Homme</button>
+                    </li><!--/tabs__nav-item-->
+                  </ul><!--/tabs__navigation-->
+                  <div class="tabs__panels">
+                    <div class="tabs__panel" id="tab-content-11" role="tabpanel" tabindex="0" aria-labelledby="tab-item-11">
+  
+                      <div class="tabs tabs--underline sm-hide">
+                        <ul class="tabs__navigation" role="tablist" aria-label="vali maja">
+                          <li class="tabs__nav-item active">
+                            <button class="btn btn-tab" id="tab-item-21" role="tab" aria-selected="true" aria-controls="tab-content-21">Suur maja</button>
+                          </li><!--/tabs__nav-item-->
+                          <li class="tabs__nav-item">
+                            <button class="btn btn-tab" id="tab-item-22" role="tab" aria-selected="false" aria-controls="tab-content-22" tabindex="-1">Väike maja</button>
+                          </li><!--/tabs__nav-item-->
+                        </ul><!--/tabs__navigation-->
+                        <div class="tabs__panels">
+                          <div class="tabs__panel" id="tab-content-21" role="tabpanel" tabindex="0" aria-labelledby="tab-item-21">
+                            <strong>Hommikusöök</strong>
+                            <p>Riisipuder</p>
+                            <p>Võisai</p>
+                            <p>Kohvijook</p>
+                            <br>
+                            <strong>Lõunasöök</strong>
+                            <p>Hakklihasupp 300g</p>
+                            <p>Kakaokissell moosiga 225g</p>
+                            <p>Kiivi sektorid 50g</p>
+                            <p>Alma piim 2,5% 200g</p>
+                            <p>Leiburi Seemne Ruks 15g</p>
+                            <p>Must rukkileib (Eesti Pagar) 15g</p>
+                            <p>Leiburi Saib Porgandiga 20g</p>
+                            <p>Joogivesi/Maitsevesi Makaronid juustuga 250g</p>
+                            <p>Tomati-kurgisalat 50g</p>
+                            <p>Mahlajook 200g</p>
+                            <p>Õun 1tk</p>
+                          </div><!--/tabs__panel-->
+                          <div class="tabs__panel" id="tab-content-22" role="tabpanel" tabindex="0" aria-labelledby="tab-item-22" hidden="">
+                            <strong>Hommikusöök</strong>
+                            <p>Kollatangupuder</p>
+                            <p>Tee</p>
+                            <br>
+                            <strong>Lõunasöök</strong>
+                            <p>Guljašš sealihast 125g</p>
+                            <p>Keedetud kartul 150g</p>
+                            <p>Hapukurgi-peedisalat 50g</p>
+                            <p>Kapsasalat tilliga 50g</p>
+                            <p>Maasika-jogurti smuuti 200g</p>
+                            <p>Alma piim 2,5% / keefir 2.5% 200g</p>
+                            <p>Leiburi Eesti rukkileib 15g</p>
+                            <p>Must rukkileib (Eesti Pagar) 15g</p>
+                            <p>Joogivesi/Maitsevesi</p>
+                            <p>Koolipuuvili PRIA toetusel: pirn</p>
+                          </div><!--/tabs__panel-->
+                        </div><!--/tabs__panels-->
+                      </div><!--/tabs tabs--underline sm-hide-->
+  
+                      <div class="form-item custom-select md-hide xl-hide">
+                        <label for="tabs-select" class="form-label">Vali hoone</label>
+                        <select name="input-36" id="tabs-select" data-select2-id="select2-data-tabs-select" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true">
+                          <option value="6" selected="" data-select2-id="select2-data-4-w05g">Suur maja</option>
+                          <option value="7">Väike maja</option>
+                        </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="select2-data-3-dsbb" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-tabs-select-container" aria-controls="select2-tabs-select-container"><span class="select2-selection__rendered" id="select2-tabs-select-container" role="textbox" aria-readonly="true" title="Suur maja">Suur maja</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                      </div><!--/form-item custom-select md-hide xl-hide-->
+  
+                      <div class="mobile-content-block md-hide xl-hide">
+                        <strong>Hommikusöök</strong>
+                        <p>Riisipuder</p>
+                        <p>Võisai</p>
+                        <p>Kohvijook</p>
+                        <br>
+                        <strong>Lõunasöök</strong>
+                        <p>Hakklihasupp 300g</p>
+                        <p>Kakaokissell moosiga 225g</p>
+                        <p>Kiivi sektorid 50g</p>
+                        <p>Alma piim 2,5% 200g</p>
+                        <p>Leiburi Seemne Ruks 15g</p>
+                        <p>Must rukkileib (Eesti Pagar) 15g</p>
+                        <p>Leiburi Saib Porgandiga 20g</p>
+                        <p>Joogivesi/Maitsevesi Makaronid juustuga 250g</p>
+                        <p>Tomati-kurgisalat 50g</p>
+                        <p>Mahlajook 200g</p>
+                        <p>Õun 1tk</p>
+                      </div><!--/mobile-content-block md-hide xl-hide-->
+                      
+                    </div><!--/tabs__panel-->
+                    <div class="tabs__panel" id="tab-content-12" role="tabpanel" tabindex="0" aria-labelledby="tab-item-12" hidden="">
+                      
+                      <div class="tabs tabs--underline sm-hide">
+                        <ul class="tabs__navigation" role="tablist" aria-label="vali maja">
+                          <li class="tabs__nav-item active">
+                            <button class="btn btn-tab" id="tab-item-212" role="tab" aria-selected="true" aria-controls="tab-content-212">Suur maja</button>
+                          </li><!--/tabs__nav-item-->
+                          <li class="tabs__nav-item">
+                            <button class="btn btn-tab" id="tab-item-222" role="tab" aria-selected="false" aria-controls="tab-content-222" tabindex="-1">Väike maja</button>
+                          </li><!--/tabs__nav-item-->
+                        </ul><!--/tabs__navigation-->
+                        <div class="tabs__panels">
+                          <div class="tabs__panel" id="tab-content-212" role="tabpanel" tabindex="0" aria-labelledby="tab-item-212">
+                            <strong>Hommikusöök</strong>
+                            <p>Mannapuder</p>
+                            <p>Kohvijook</p>
+                            <br>
+                            <strong>Lõunasöök</strong>
+                            <p>Hakklihasupp 300g</p>
+                            <p>Kakaokissell moosiga 225g</p>
+                            <p>Kiivi sektorid 50g</p>
+                            <p>Alma piim 2,5% 200g</p>
+                            <p>Leiburi Seemne Ruks 15g</p>
+                            <p>Õun 1tk</p>
+                          </div><!--/tabs__panel-->
+                          <div class="tabs__panel" id="tab-content-222" role="tabpanel" tabindex="0" aria-labelledby="tab-item-222" hidden="">
+                            <strong>Hommikusöök</strong>
+                            <p>Kollatangupuder</p>
+                            <p>Tee</p>
+                            <br>
+                            <strong>Lõunasöök</strong>
+                            <p>Guljašš sealihast 125g</p>
+                            <p>Keedetud kartul 150g</p>
+                            <p>Hapukurgi-peedisalat 50g</p>
+                          </div><!--/tabs__panel-->
+                        </div><!--/tabs__panels-->
+                      </div><!--/tabs tabs--underline sm-hide-->
+  
+                      <div class="form-item custom-select md-hide xl-hide">
+                        <label for="tabs-select1" class="form-label">Vali hoone</label>
+                        <select name="input-367" id="tabs-select1" data-select2-id="select2-data-tabs-select1" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true">
+                          <option value="16" data-select2-id="select2-data-6-mx9k">Suur maja</option>
+                          <option value="17">Väike maja</option>
+                        </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="select2-data-5-90bq" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-tabs-select1-container" aria-controls="select2-tabs-select1-container"><span class="select2-selection__rendered" id="select2-tabs-select1-container" role="textbox" aria-readonly="true" title="Suur maja">Suur maja</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                      </div><!--/form-item custom-select md-hide xl-hide-->
+  
+                      <div class="mobile-content-block md-hide xl-hide">
+                        <strong>Hommikusöök</strong>
+                        <p>Mannapuder</p>
+                        <p>Kohvijook</p>
+                        <br>
+                        <strong>Lõunasöök</strong>
+                        <p>Hakklihasupp 300g</p>
+                        <p>Kakaokissell moosiga 225g</p>
+                        <p>Kiivi sektorid 50g</p>
+                        <p>Alma piim 2,5% 200g</p>
+                        <p>Leiburi Seemne Ruks 15g</p>
+                        <p>Õun 1tk</p>
+                      </div><!--/mobile-content-block md-hide xl-hide-->
+  
+                    </div><!--/tabs__panel-->
+                  </div><!--/tabs__panels-->
+                </div><!--/tabs tabs--borders-->
+
+                <div class="row-spacer-24 xl-hide"></div>
+                <div class="row-spacer-40 sm-hide md-hide"></div>
+                <a href="http://127.0.0.1:8861/index3.html#" class="btn btn-secondary btn-show-more">Vaata nädalamenüüd</a>
+  
+              </div>
+            </div><!--/row-->
+
+          </article>
+        </div><!--/col-6 md-12 sm-12 homepage-gutters-->
+
+        <div class="col-12 md-12 sm-12 homepage-gutters">
+          <article class="content-block content-block--front-page">
+            <div class="row">
+              <div class="col-12 md-12 sm-12">
+                <div class="title-block title-block--home-page">
+                  <h3>Sündmused</h3>
+                </div><!--/title-block title-block--home-page-->
+
+                <div class="homepage-swiper-wrapper wide">
+                  <div class="swiper-container homepage-swiper-main">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                      <!-- Slides -->
+                      <div class="swiper-slide">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="event-card event-card--swiper">
+                          <div class="event-card__date">
+                            <span class="event-date">1</span>
+                            <span class="event-month">sept 2021</span>
+                          </div><!--/event-card__date-->
+                          <div class="event-card__content">
+                            <div class="event-card__header">
+                              <h4>Gümnaasiumi avaaktus</h4>
+                            </div><!--/event-card__header-->
+                            <div class="event-time-price">
+                              <span>
+                                <i class="mdi mdi-clock-outline" aria-label="time"></i>
+                                10:00 - 12:00
+                              </span>
+                            </div><!--/event-time-price-->
+                            <span class="event-location">
+                              <i class="mdi mdi-map-marker" aria-label="location"></i>
+                              Mesipere koolituskeskus, Tammsaare tee 54
+                            </span><!--/event-location-->
+                          </div><!--/event-card_content-->
+                        </a><!--/event-card-->
+                      </div><!--/swiper-slide-->
+                      <div class="swiper-slide">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="event-card event-card event-card--multiple-date event-card--swiper">
+                          <div class="event-card-dates">
+                            <div class="event-card__date">
+                              <span class="event-date">29</span>
+                              <span class="event-month">aug 2021</span>
+                            </div><!--/event-card__date-->
+                            <div class="event-card__date">
+                              <span class="date-arrow" aria-hidden="true"></span>
+                              <span class="event-date">30</span>
+                              <span class="event-month">aug 2021</span>
+                            </div><!--/event-card__date-->
+                          </div><!--/event-card-dates-->
+                          <div class="event-card__content">
+                            <div class="event-card__header">
+                              <h4>Esmaabi koolitus</h4>
+                            </div><!--/event-card__header-->
+                            <div class="event-time-price">
+                              <span>
+                                <i class="mdi mdi-clock-outline" aria-label="time"></i>
+                                10:00 - 17:00</span>
+                              <span>
+                                <i class="mdi mdi-currency-eur" aria-label="price"></i>
+                                TASUTA
+                              </span>
+                            </div><!--/event-time-price-->
+                            <span class="event-location">
+                              <i class="mdi mdi-map-marker" aria-label="location"></i>
+                              Mesipere koolituskeskus, Tammsaare tee 54
+                            </span><!--/event-location-->
+                          </div><!--/event-card_content-->
+                        </a><!--/event-card-->
+                      </div><!--/swiper-slide-->
+                      <div class="swiper-slide">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="event-card event-card--swiper">
+                          <div class="event-card__date">
+                            <span class="event-date">1</span>
+                            <span class="event-month">sept 2021</span>
+                          </div><!--/event-card__date-->
+                          <div class="event-card__content">
+                            <div class="event-card__header">
+                              <h4>Vilistlaste aktus</h4>
+                            </div><!--/event-card__header-->
+                            <div class="event-time-price">
+                              <span>
+                                <i class="mdi mdi-clock-outline" aria-label="time"></i>
+                                11:00
+                              </span>
+                            </div><!--/event-time-price-->
+                            <span class="event-location">
+                              <i class="mdi mdi-map-marker" aria-label="location"></i>
+                              Rahuvälja 142, Tallinn
+                            </span><!--/event-location-->
+                          </div><!--/event-card_content-->
+                        </a>
+                      </div><!--/swiper-slide-->
+                      <div class="swiper-slide">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="event-card event-card event-card--multiple-date event-card--swiper">
+                          <div class="event-card-dates">
+                            <div class="event-card__date">
+                              <span class="event-date">11</span>
+                              <span class="event-month">okt 2021</span>
+                            </div><!--/event-card__date-->
+                            <div class="event-card__date">
+                              <span class="date-arrow" aria-hidden="true"></span>
+                              <span class="event-date">12</span>
+                              <span class="event-month">okt 2021</span>
+                            </div><!--/event-card__date-->
+                          </div><!--/event-card-dates-->
+                          <div class="event-card__content">
+                            <div class="event-card__header">
+                              <h4>Mesilaste talvekodude ehitamine</h4>
+                            </div><!--/event-card__header-->
+                            <div class="event-time-price">
+                              <span>
+                                <i class="mdi mdi-clock-outline" aria-label="time"></i>
+                                11:00
+                              </span>
+                            </div><!--/event-time-price-->
+                            <span class="event-location">
+                              <i class="mdi mdi-map-marker" aria-label="location"></i>
+                              Mesipere koolituskeskus, Tammsaare tee 54
+                            </span><!--/event-location-->
+                          </div><!--/event-card_content-->
+                        </a><!--/event-card-->
+                      </div><!--/swiper-slide-->
+                    </div><!--/swiper-wrapper-->
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination home-paginator"></div>
+                  </div><!--/homepage-swiper-->
+                </div><!--/homepage-swiper-wrapper-->
+
+                <div class="row-spacer-24 xl-hide"></div>
+                <div class="row-spacer-40 sm-hide md-hide"></div>
+                <a href="http://127.0.0.1:8861/index3.html#" class="btn btn-secondary btn-show-more">Vaata sündmuseid</a>
+              </div><!--/col-12 md-12 sm-12-->
+            </div><!--/row-->
+          </article><!--/content-block content-block--front-page-->
+        </div><!--/col-12 md-12 sm-12 homepage-gutters-->
+
+        <div class="col-12 md-12 sm-12 homepage-gutters">
+          <article class="content-block content-block--front-page">
+            <div class="row">
+              <div class="col-12 md-12 sm-12">
+                <div class="title-block title-block--home-page">
+                  <h3>Uudised</h3>
+                  <!-- Slider main container -->
+                </div><!--/title-block title-block--home-page-->
+                <div class="homepage-swiper-wrapper wide">
+                  <div class="swiper-container homepage-swiper-main">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+
+                      <div class="swiper-slide">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="news-block">
+                          <div class="news-block__tag">
+                            <span>Meie lood</span>
+                          </div><!--/news-block__tag-->
+                          <div class="news-block__thumbnail" style="background-image: url(&#39;../../assets/images/test-pilt-2.jpg&#39;);">
+                            <img src="./Veebiplatform_files/placeholder-1.gif" alt="picture with nature">
+                          </div><!--/news-block__thumbnail-->
+                          <div class="news-block__news-info">
+                            <h3>Esimese septembri aktus 2020</h3>
+                            <div class="additional-info">
+                              <span class="date-indicator">
+                                <span class="sr-only">date created</span>
+                                18.06.2020
+                              </span>
+                              <span class="author-indicator">
+                                <span class="sr-only">author</span>
+                                Silvia Kalda
+                              </span>
+                            </div><!--/additional-info-->
+                          </div><!--/news-block__news-info-->
+                        </a>
+                      </div><!--/swiper-slide-->
+
+                      <div class="swiper-slide">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="news-block">
+                          <div class="news-block__tag">
+                            <span>Meie lood</span>
+                          </div><!--/news-block__tag-->
+                          <div class="news-block__thumbnail" style="background-image: url(&#39;../../assets/images/test-pilt-2.jpg&#39;);">
+                            <img src="./Veebiplatform_files/placeholder-1.gif" alt="picture with nature">
+                          </div><!--/news-block__thumbnail-->
+                          <div class="news-block__news-info">
+                            <h3>Esimese septembri aktus 2020</h3>
+                            <div class="additional-info">
+                              <span class="date-indicator">
+                                <span class="sr-only">date created</span>
+                                18.06.2020
+                              </span>
+                              <span class="author-indicator">
+                                <span class="sr-only">author</span>
+                                Silvia Kalda
+                              </span>
+                            </div><!--/additional-info-->
+                          </div><!--/news-block__news-info-->
+                        </a>
+                      </div><!--/swiper-slide-->
+
+                      <div class="swiper-slide">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="news-block">
+                          <div class="news-block__tag">
+                            <span>Meie lood</span>
+                          </div><!--/news-block__tag-->
+                          <div class="news-block__thumbnail" style="background-image: url(&#39;../../assets/images/test-pilt-2.jpg&#39;);">
+                            <img src="./Veebiplatform_files/placeholder-1.gif" alt="picture with nature">
+                          </div><!--/news-block__thumbnail-->
+                          <div class="news-block__news-info">
+                            <h3>Esimese septembri aktus 2020</h3>
+                            <div class="additional-info">
+                              <span class="date-indicator">
+                                <span class="sr-only">date created</span>
+                                18.06.2020
+                              </span>
+                              <span class="author-indicator">
+                                <span class="sr-only">author</span>
+                                Silvia Kalda
+                              </span>
+                            </div><!--/additional-info-->
+                          </div><!--/news-block__news-info-->
+                        </a>
+                      </div><!--/swiper-slide-->
+
+                      <div class="swiper-slide">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="news-block">
+                          <div class="news-block__tag">
+                            <span>Meie lood</span>
+                          </div><!--/news-block__tag-->
+                          <div class="news-block__thumbnail" style="background-image: url(&#39;../../assets/images/test-pilt-2.jpg&#39;);">
+                            <img src="./Veebiplatform_files/placeholder-1.gif" alt="picture with nature">
+                          </div><!--/news-block__thumbnail-->
+                          <div class="news-block__news-info">
+                            <h3>Esimese septembri aktus 2020</h3>
+                            <div class="additional-info">
+                              <span class="date-indicator">
+                                <span class="sr-only">date created</span>
+                                18.06.2020
+                              </span>
+                              <span class="author-indicator">
+                                <span class="sr-only">author</span>
+                                Silvia Kalda
+                              </span>
+                            </div><!--/additional-info-->
+                          </div><!--/news-block__news-info-->
+                        </a>
+                      </div><!--/swiper-slide-->
+
+                    </div><!--/swiper-wrapper-->
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination home-paginator"></div>
+
+                  </div><!--/homepage-swiper-->
+                </div><!--/homepage-swiper-wrapper-->
+
+                <div class="row-spacer-24 xl-hide"></div>
+                <div class="row-spacer-40 sm-hide md-hide"></div>
+                <a href="http://127.0.0.1:8861/index3.html#" class="btn btn-secondary btn-show-more">Vaata uudiseid</a>
+              </div><!--/col-12 md-12 sm-12-->
+            </div><!--/row-->
+          </article><!--/content-block content-block--front-page-->
+        </div><!--/col-12 md-12 sm-12 homepage-gutters-->
+
+        <div class="col-9 md-12 sm-12 homepage-gutters">
+          <article class="content-block content-block--front-page">
+            <div class="row">
+              <div class="col-12 md-12 sm-12">
+                <div class="title-block title-block--home-page">
+                  <h3>Uudised</h3>
+                </div><!--/title-block title-block--home-page-->
+                <div class="homepage-swiper-wrapper quarter">
+
+                  <div class="swiper-container homepage-swiper-main">
+                    <div class="swiper-wrapper">
+
+                      <div class="swiper-slide">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="news-block">
+                          <div class="news-block__tag">
+                            <span>Meie lood</span>
+                          </div><!--/news-block__tag-->
+                          <div class="news-block__thumbnail" style="background-image: url(&#39;../../assets/images/test-pilt-2.jpg&#39;);">
+                            <img src="./Veebiplatform_files/placeholder-1.gif" alt="picture with nature">
+                          </div><!--/news-block__thumbnail-->
+                          <div class="news-block__news-info">
+                            <h3>Esimese septembri aktus 2020</h3>
+                            <div class="additional-info">
+                              <span class="date-indicator">
+                                <span class="sr-only">date created</span>
+                                18.06.2020
+                              </span>
+                              <span class="author-indicator">
+                                <span class="sr-only">author</span>
+                                Silvia Kalda
+                              </span>
+                            </div><!--/additional-info-->
+                          </div><!--/news-block__news-info-->
+                        </a>
+                      </div><!--/swiper-slide-->
+
+                      <div class="swiper-slide">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="news-block">
+                          <div class="news-block__tag">
+                            <span>Meie lood</span>
+                          </div><!--/news-block__tag-->
+                          <div class="news-block__thumbnail" style="background-image: url(&#39;../../assets/images/test-pilt-2.jpg&#39;);">
+                            <img src="./Veebiplatform_files/placeholder-1.gif" alt="picture with nature">
+                          </div><!--/news-block__thumbnail-->
+                          <div class="news-block__news-info">
+                            <h3>Esimese septembri aktus 2020</h3>
+                            <div class="additional-info">
+                              <span class="date-indicator">
+                                <span class="sr-only">date created</span>
+                                18.06.2020
+                              </span>
+                              <span class="author-indicator">
+                                <span class="sr-only">author</span>
+                                Silvia Kalda
+                              </span>
+                            </div><!--/additional-info-->
+                          </div><!--/news-block__news-info-->
+                        </a>
+                      </div><!--/swiper-slide-->
+
+                      <div class="swiper-slide">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="news-block">
+                          <div class="news-block__tag">
+                            <span>Meie lood</span>
+                          </div><!--/news-block__tag-->
+                          <div class="news-block__thumbnail" style="background-image: url(&#39;../../assets/images/test-pilt-2.jpg&#39;);">
+                            <img src="./Veebiplatform_files/placeholder-1.gif" alt="picture with nature">
+                          </div><!--/news-block__thumbnail-->
+                          <div class="news-block__news-info">
+                            <h3>Esimese septembri aktus 2020</h3>
+                            <div class="additional-info">
+                              <span class="date-indicator">
+                                <span class="sr-only">date created</span>
+                                18.06.2020
+                              </span>
+                              <span class="author-indicator">
+                                <span class="sr-only">author</span>
+                                Silvia Kalda
+                              </span>
+                            </div><!--/additional-info-->
+                          </div><!--/news-block__news-info-->
+                        </a>
+                      </div><!--/swiper-slide-->
+
+                    </div><!--/swiper-wrapper-->
+                    <div class="swiper-pagination quarter-home-paginator"></div>
+
+                  </div><!--/homepage-swiper-->
+                </div><!--/homepage-swiper-wrapper-->
+
+                <div class="row-spacer-24 xl-hide"></div>
+                <div class="row-spacer-40 sm-hide md-hide"></div>
+                <a href="http://127.0.0.1:8861/index3.html#" class="btn btn-secondary btn-show-more">Vaata uudiseid</a>
+              </div><!--/col-12 md-12 sm-12-->
+            </div><!--/row-->
+          </article><!--/content-block content-block--front-page-->
+        </div><!--/col-9 md-12 sm-12 homepage-gutters-->
+
+        <div class="col-3 md-12 sm-12 homepage-gutters">
+          <article class="content-block content-block--front-page">
+            <div class="row">
+              <div class="col-12 md-12 sm-12">
+                <div class="title-block title-block--home-page">
+                  <h3>Uudised</h3>
+                  <!-- Slider main container -->
+                </div><!--/title-block title-block--home-page-->
+                <div class="homepage-swiper-wrapper small">
+
+                  <div class="swiper-container homepage-swiper-main">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+
+                      <div class="swiper-slide">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="news-block">
+                          <div class="news-block__tag">
+                            <span>Meie lood</span>
+                          </div><!--/news-block__tag-->
+                          <div class="news-block__thumbnail" style="background-image: url(&#39;../../assets/images/test-pilt-2.jpg&#39;);">
+                            <img src="./Veebiplatform_files/placeholder-1.gif" alt="picture with nature">
+                          </div><!--/news-block__thumbnail-->
+                          <div class="news-block__news-info">
+                            <h3>Esimese septembri aktus 2020</h3>
+                            <div class="additional-info">
+                              <span class="date-indicator">
+                                <span class="sr-only">date created</span>
+                                18.06.2020
+                              </span>
+                              <span class="author-indicator">
+                                <span class="sr-only">author</span>
+                                Silvia Kalda
+                              </span>
+                            </div><!--/additional-info-->
+                          </div><!--/news-block__news-info-->
+                        </a>
+                      </div><!--/swiper-slide-->
+
+                    </div><!--/swiper-wrapper-->
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination home-paginator"></div>
+
+                  </div><!--/homepage-swiper-->
+                </div><!--/homepage-swiper-wrapper-->
+
+                <div class="row-spacer-24 xl-hide"></div>
+                <div class="row-spacer-40 sm-hide md-hide"></div>
+                <a href="http://127.0.0.1:8861/index3.html#" class="btn btn-secondary btn-show-more">Vaata uudiseid</a>
+              </div>
+            </div><!--/row-->
+          </article><!--/content-block content-block--front-page-->
+        </div><!--/col-3 md-12 sm-12 homepage-gutters-->
+
+        <div class="col-12 md-12 sm-12 homepage-gutters">
+          <article class="content-block content-block--front-page">
+            <div class="row">
+              <div class="col-12 md-12 sm-12">
+                <div class="title-block title-block--home-page">
+                  <h3>Tunnustused 2</h3>
+                </div><!--/title-block title-block--home-page-->
+                <div class="homepage-swiper-wrapper logos logos--wide">
+                  <div class="swiper-container homepage-swiper-main swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
+                    <div class="swiper-wrapper" id="swiper-wrapper-b1570ff405b92c47" aria-live="polite" style="transform: translate3d(0px, 0px, 0px);">
+                      <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 8" style="width: 223.6px; margin-right: 32px;">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="logo-block tooltipstered" style="background-image: url(&#39;/assets/images/Haridus-ja-Noorteamet_3lovi_est_rgb-768x307.png&#39;);" data-tooltip-title="HARNO logo">
+                          <img src="./Veebiplatform_files/placeholder-2.gif" alt="ESF logo" title="picture title 1">
+                        </a><!--/logo-block-->
+                      </div><!--/swiper-slide-->
+                      <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 8" style="width: 223.6px; margin-right: 32px;">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="logo-block tooltipstered" style="background-image: url(&#39;/assets/images/tallinn-logo.jpeg&#39;);" data-tooltip-title="2017 Tallinna linnavalitsus tänab ja tunnustab osalemise ja esinduspeenra rajamise eest Tallinna laste ja noorte lillepeol">
+                          <img src="./Veebiplatform_files/placeholder-2.gif" alt="ESF logo" title="picture title 12">
+                        </a><!--/logo-block-->
+                      </div><!--/swiper-slide-->
+                      <div class="swiper-slide" role="group" aria-label="3 / 8" style="width: 223.6px; margin-right: 32px;">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="logo-block tooltipstered" style="background-image: url(&#39;/assets/images/tallinna-ha.jpeg&#39;);" data-tooltip-title="picture title 122">
+                          <img src="./Veebiplatform_files/placeholder-2.gif" alt="ESF logo" title="picture title 13">
+                        </a><!--/logo-block-->
+                      </div><!--/swiper-slide-->
+                      <div class="swiper-slide" role="group" aria-label="4 / 8" style="width: 223.6px; margin-right: 32px;">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="logo-block tooltipstered" style="background-image: url(&#39;/assets/images/edu-logo.svg&#39;);" data-tooltip-title="picture title 2324">
+                          <img src="./Veebiplatform_files/placeholder-2.gif" alt="ESF logo" title="picture title 14">
+                        </a><!--/logo-block-->
+                      </div><!--/swiper-slide-->
+                      <div class="swiper-slide" role="group" aria-label="5 / 8" style="width: 223.6px; margin-right: 32px;">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="logo-block tooltipstered" style="background-image: url(&#39;/assets/images/swedbank-logo.svg&#39;);" data-tooltip-title="ESF logo">
+                          <img src="./Veebiplatform_files/placeholder-2.gif" alt="ESF logo" title="picture title 1">
+                        </a><!--/logo-block-->
+                      </div><!--/swiper-slide-->
+                      <div class="swiper-slide" role="group" aria-label="6 / 8" style="width: 223.6px; margin-right: 32px;">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="logo-block tooltipstered" style="background-image: url(&#39;/assets/images/tallinn-logo.jpeg&#39;);" data-tooltip-title="2017 Tallinna linnavalitsus tänab ja tunnustab osalemise ja esinduspeenra rajamise eest Tallinna laste ja noorte lillepeol">
+                          <img src="./Veebiplatform_files/placeholder-2.gif" alt="ESF logo" title="picture title 12">
+                        </a><!--/logo-block-->
+                      </div><!--/swiper-slide-->
+                      <div class="swiper-slide" role="group" aria-label="7 / 8" style="width: 223.6px; margin-right: 32px;">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="logo-block tooltipstered" style="background-image: url(&#39;/assets/images/tallinna-ha.jpeg&#39;);" data-tooltip-title="picture title 122">
+                          <img src="./Veebiplatform_files/placeholder-2.gif" alt="ESF logo" title="picture title 13">
+                        </a><!--/logo-block-->
+                      </div><!--/swiper-slide-->
+                      <div class="swiper-slide" role="group" aria-label="8 / 8" style="width: 223.6px; margin-right: 32px;">
+                        <a href="http://127.0.0.1:8861/index3.html#" class="logo-block tooltipstered" style="background-image: url(&#39;/assets/images/edu-logo.svg&#39;);" data-tooltip-title="picture title 2324">
+                          <img src="./Veebiplatform_files/placeholder-2.gif" alt="ESF logo" title="picture title 14">
+                        </a><!--/logo-block-->
+                      </div><!--/swiper-slide-->
+                    </div><!--/swiper-wrapper-->     
+                  <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div><!--/homepage-swiper-->
+                  <div class="swiper-button-prev logos-wide-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-b1570ff405b92c47" aria-disabled="true" style="top: 17.5px;"></div>
+                  <div class="swiper-button-next logos-wide-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-b1570ff405b92c47" aria-disabled="false" style="top: 17.5px;"></div>
+                  <div class="swiper-pagination wide-logos-paginator swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span></div>
+                </div><!--/homepage-swiper-wrapper-->
+              </div><!--/col-12 md-12 sm-12-->
+            </div><!--/row-->
+          </article><!--/content-block content-block--front-page-->
+        </div>
+
+      </div>
+    </div><!--/container-->
+  </main><!--/page-main-->
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-3 md-6 sm-12">
+            <div class="block">
+              <div class="block-title">
+                <h3>Üldkontakt</h3>
+              </div><!--/block-title-->
+              <ul class="contacts">
+                <li>
+                  <span>Õnnepalu Ühisgümnaasium</span>
+                </li>
+                <li>
+                  <address>Akadeemia 21/1, Tallinn 12618 Harjumaa Estonia</address>
+                </li>
+                <li>
+                  <a class="btn btn-link" href="tel:+">6584930</a>
+                </li>
+                <li>
+                  <a class="btn btn-link" href="mailto:">onnepalu@mail.ee</a>
+                </li>
+                <li>
+                  <a class="btn btn-link map" href="http://127.0.0.1:8861/index3.html#">Asukoha info</a>    
+                </li>
+              </ul><!--/contact-->
+            </div><!--/block-->
+          </div><!--/col-3 sm-12-->
+
+          <div class="col-3 md-6 sm-12">
+            <div class="block">
+              <div class="block-title">
+                <h3>Tähtsamad kontaktid</h3>
+              </div><!--/block-title-->
+              <ul class="contacts important">
+                <li>
+                  <span>Täiendkoolituse osakonna juhataja</span>
+                  <span class="bold">+372 632 8901</span>
+                </li>
+                <li>
+                  <span>Täiendkoolituse osakonna juhataja</span>
+                  <strong>
+                    <a class="btn btn-link" href="mailto:">eduard.bezrodnov@mehaanikakool.ee</a>
+                  </strong>
+                  
+                </li>
+                <li>
+                  <span>Ühiselamu</span>
+                  <span class="bold">+372 685 999 30</span>
+                </li>
+                <li>
+                  <span>Registrikood</span>
+                  <span class="bold">1113789</span>
+                </li>
+              </ul><!--/contacts important-->
+            </div><!--/block-->
+          </div><!--/col-3 sm-12-->
+
+          <div class="col-3 md-6 sm-12">
+            <div class="block">
+              <div class="block-title">
+                <h3>Jälgi meid</h3>
+              </div><!--/block-title-->
+              <table class="social-links-table">
+                <thead>
+                  <tr>
+                    <th style="display: none;">test</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>
+                      <a class="btn btn-link" href="http://127.0.0.1:8861/index3.html#" target="_blank"><i class="mdi mdi-facebook" aria-hidden="true"></i>facebook</a>
+                    </td>
+                    <td>
+                      <a class="btn btn-link" href="http://127.0.0.1:8861/index3.html#" target="_blank"><i class="mdi mdi-twitter" aria-hidden="true"></i>twitter</a>
+                    </td>
+                    <td>
+                      <a class="btn btn-link" href="http://127.0.0.1:8861/index3.html#" target="_blank"><i class="mdi mdi-youtube" aria-hidden="true"></i>youtube</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a class="btn btn-link" href="http://127.0.0.1:8861/index3.html#" target="_blank"><i class="mdi mdi-instagram" aria-hidden="true"></i>instagram</a>
+                    </td>
+                    <td>
+                      <a class="btn btn-link" href="http://127.0.0.1:8861/index3.html#" target="_blank"><i class="mdi mdi-linkedin" aria-hidden="true"></i>linkedin</a>
+                    </td>
+                    <td>
+                      <a class="btn btn-link" href="http://127.0.0.1:8861/index3.html#" target="_blank"><i class="mdi mdi-google" aria-hidden="true"></i>google</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table><!--/social-links-table-->
+            </div><!--/block-->
+          </div><!--/col-3 sm-12-->
+
+          <div class="col-3 md-6 sm-12">
+            <div class="block">
+              <div class="block-title">
+                <h3>Leia kiirelt</h3>
+              </div><!--/block-title-->
+              <ul class="link-list">
+                <li>
+                  <a class="btn btn-link in-new" href="http://127.0.0.1:8861/index3.html#" title="Kooli age oh kooliaeg" aria-label="Link mis avaneb uuel lehel">Kooli age oh kooliaeg</a>
+                </li>
+                <li>
+                  <a class="btn btn-link" href="http://127.0.0.1:8861/index3.html#">Lorem ipsum dolor sit amet.</a>
+                </li>
+                <li>
+                  <a class="btn btn-link" href="http://127.0.0.1:8861/index3.html#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, veniam.</a>
+                </li>
+                <li>
+                  <a class="btn btn-link" href="http://127.0.0.1:8861/index3.html#">Pikapäevarühm </a>
+                </li>
+                <li>
+                  <a class="btn btn-link" href="http://127.0.0.1:8861/index3.html#">Raamatukogu</a>
+                </li>
+                <li>
+                  <a class="btn btn-link" href="http://127.0.0.1:8861/index3.html#">Koolitoit</a>
+                </li>
+                <li>
+                  <a class="btn btn-link" href="http://127.0.0.1:8861/index3.html#">Õppemaksust</a>
+                </li>
+                <li>
+                  <a class="btn btn-link" href="http://127.0.0.1:8861/index3.html#">Isikuandmete töötlemine</a>
+                </li>
+              </ul><!--/link-list-->
+            </div><!--/block-->
+          </div><!--/col-3 sm-12-->
+
+          <div class="col-3 md-6 sm-12">
+            <div class="block">
+              <div class="block-title">
+                <h3>Vabateksti ala</h3>
+              </div><!--/block-title-->
+              <p>Vabateksti ala</p>
+            </div><!--/block-->
+          </div><!--/col-3 sm-12-->
+
+        </div><!--/row-->
+      </div><!--/container-->
+    </div><!--/footer-content-->
+
+    <div class="footer-navigation">
+      <div class="container-fluid">
+        <div class="footer-bottom text-center">
+          <nav>
+            <ul class="sitemap-nav">
+              <li>
+                <a href="http://127.0.0.1:8861/index3.html#">Avaleht</a>
+              </li>
+              <li>
+                <a href="http://127.0.0.1:8861/index3.html#">Sisukaart</a>
+              </li>
+            </ul><!--/sitemap-nav-->
+          </nav>
+          <span class="copyright">Copyright 2020 Õnnepalu Gümnaasium</span>
+        </div><!--/footer-bottom text-center-->
+      </div><!--/container-fluid-->
+    </div><!--/footer-navigation-->
+  </footer>
+
+  <script src="./Veebiplatform_files/main.js"></script>
+</div><!--/main-wrapper-->
+    <script src="./Veebiplatform_files/livereload.js"></script>
+    <div class="share-wrapper">
+      <div class="share-modal" role="dialog" aria-labelledby="modal-text" aria-modal="true">
+        <div class="share-modal__header">
+          <h5 id="modal-text">Jaga lehte</h5>
+          <button class="btn-close-modal" aria-label="close modal" tabindex="0">
+            <span class="sr-only">close modal</span>
+            <i class="mdi mdi-close" aria-hidden="true"></i>
+          </button>
+        </div><!--/share-modal__header-->
+        <div class="share-modal__body">
+          <a href="http://127.0.0.1:8861/index3.html#" class="btn btn-secondary share-facebook">
+            <i class="mdi mdi-facebook" aria-hidden="true"></i>
+            Facebook</a>
+          <a href="http://127.0.0.1:8861/index3.html#" class="btn btn-secondary share-twitter">
+            <i class="mdi mdi-twitter" aria-hidden="true"></i>
+            Twitter</a>
+          <a href="http://127.0.0.1:8861/index3.html#" class="btn btn-secondary copy-link tooltipstered" data-copyurl="www.postimees.ee">
+            <i class="mdi mdi-link-variant" aria-hidden="true"></i>
+            Kopeeri link</a>
+        </div><!--/share-modal__body-->
+      </div><!--/share-modal-->
+    </div><!--/share-wrapper-->
+
+  
+<style></style></body></html>

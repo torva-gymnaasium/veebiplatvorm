@@ -1,0 +1,18 @@
+uuid: fbb8cb86-6cfa-4c67-8290-083766e2f115
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.worker
+id: node.worker.changed
+field_name: changed
+entity_type: node
+bundle: worker
+label: Muudetud
+description: 'Sisuelemendi viimase muutmise aeg.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

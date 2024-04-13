@@ -1,0 +1,20 @@
+uuid: f52421c0-2dce-4f4b-9d9e-fcaace494f77
+langcode: et
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_training_keywords
+field_name: field_training_keywords
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

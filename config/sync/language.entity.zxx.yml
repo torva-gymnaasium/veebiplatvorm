@@ -1,0 +1,11 @@
+uuid: d8d37281-2dc4-4045-b801-de800e1e870d
+langcode: et
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 35CefWbnzaiytcg3acexxz_GTvuwIjYd_ZTcmmR-tXA
+id: zxx
+label: 'Pole rakendatav'
+direction: ltr
+weight: 5
+locked: true

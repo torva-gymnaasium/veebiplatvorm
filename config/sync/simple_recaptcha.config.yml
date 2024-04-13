@@ -1,0 +1,11 @@
+_core:
+  default_config_hash: QkjHcOn8AFHsmuGjG7fhFnWgxSlX3WkghHksoK1pHeE
+langcode: et
+form_ids: ''
+site_key: ''
+secret_key: ''
+site_key_v3: ''
+secret_key_v3: ''
+recaptcha_type: v3
+v3_score: 80
+recaptcha_use_globally: false

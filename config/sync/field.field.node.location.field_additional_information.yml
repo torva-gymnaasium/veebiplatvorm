@@ -1,0 +1,103 @@
+uuid: b410aa25-2e59-4643-9eee-d28ff415f0ea
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_additional_information
+    - node.type.location
+    - paragraphs.paragraphs_type.additional_information
+  module:
+    - entity_reference_revisions
+id: node.location.field_additional_information
+field_name: field_additional_information
+entity_type: node
+bundle: location
+label: Lisainfo
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      additional_information: additional_information
+    negate: 0
+    target_bundles_drag_drop:
+      additional_information:
+        weight: 26
+        enabled: true
+      class:
+        weight: 27
+        enabled: false
+      contact_block:
+        weight: 28
+        enabled: false
+      db_100:
+        weight: 29
+        enabled: false
+      db_25_25_25_25:
+        weight: 30
+        enabled: false
+      db_25_25_50:
+        weight: 31
+        enabled: false
+      db_25_75:
+        weight: 32
+        enabled: false
+      db_33_33_33:
+        weight: 33
+        enabled: false
+      db_33_66:
+        weight: 34
+        enabled: false
+      db_50_25_25:
+        weight: 35
+        enabled: false
+      db_50_50:
+        weight: 36
+        enabled: false
+      db_66_33:
+        weight: 37
+        enabled: false
+      db_75_25:
+        weight: 38
+        enabled: false
+      department:
+        weight: 39
+        enabled: false
+      file:
+        weight: 40
+        enabled: false
+      gallery_block:
+        weight: 41
+        enabled: false
+      intermediate_title_block:
+        weight: 42
+        enabled: false
+      link:
+        weight: 43
+        enabled: false
+      link_and_file_block:
+        weight: 44
+        enabled: false
+      opening_days:
+        weight: 45
+        enabled: false
+      picture_block:
+        weight: 46
+        enabled: false
+      table_block_header_row:
+        weight: 47
+        enabled: false
+      text_block:
+        weight: 48
+        enabled: false
+      video_block:
+        weight: 49
+        enabled: false
+      webform_block:
+        weight: 50
+        enabled: false
+field_type: entity_reference_revisions

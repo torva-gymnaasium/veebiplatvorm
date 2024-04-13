@@ -1,0 +1,94 @@
+uuid: 77b41f11-9fa2-4062-b386-a1f1cc0a263e
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_department
+    - node.type.worker
+    - paragraphs.paragraphs_type.department
+  module:
+    - entity_reference_revisions
+id: node.worker.field_department
+field_name: field_department
+entity_type: node
+bundle: worker
+label: Osakonnad
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      department: department
+    negate: 0
+    target_bundles_drag_drop:
+      class:
+        weight: 24
+        enabled: false
+      contact_block:
+        weight: 25
+        enabled: false
+      db_100:
+        weight: 26
+        enabled: false
+      db_25_25_25_25:
+        weight: 27
+        enabled: false
+      db_25_25_50:
+        weight: 28
+        enabled: false
+      db_25_75:
+        weight: 29
+        enabled: false
+      db_33_33_33:
+        weight: 30
+        enabled: false
+      db_33_66:
+        weight: 31
+        enabled: false
+      db_50_25_25:
+        weight: 32
+        enabled: false
+      db_50_50:
+        weight: 33
+        enabled: false
+      db_66_33:
+        weight: 34
+        enabled: false
+      db_75_25:
+        weight: 35
+        enabled: false
+      department:
+        weight: 23
+        enabled: true
+      file:
+        weight: 36
+        enabled: false
+      gallery_block:
+        weight: 37
+        enabled: false
+      intermediate_title_block:
+        weight: 38
+        enabled: false
+      link:
+        weight: 39
+        enabled: false
+      link_and_file_block:
+        weight: 40
+        enabled: false
+      picture_block:
+        weight: 41
+        enabled: false
+      table_block_header_row:
+        weight: 42
+        enabled: false
+      text_block:
+        weight: 43
+        enabled: false
+      video_block:
+        weight: 44
+        enabled: false
+field_type: entity_reference_revisions

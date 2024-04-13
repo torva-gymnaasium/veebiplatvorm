@@ -1,0 +1,14 @@
+uuid: 5e54f62d-e4c4-42cb-baba-ade33ff61fe6
+langcode: et
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Meedia kaustad'
+vid: media_catalogs
+description: 'Kategooriad, millega on kasutajatel võimalik siduda pilte. Kasutatakse piltide süstematiseerimiseks.'
+weight: 0

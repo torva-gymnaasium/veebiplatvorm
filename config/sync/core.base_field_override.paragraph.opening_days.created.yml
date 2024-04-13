@@ -1,0 +1,18 @@
+uuid: 648954fb-858e-4d50-aa82-dc2b573103c3
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.opening_days
+id: paragraph.opening_days.created
+field_name: created
+entity_type: paragraph
+bundle: opening_days
+label: 'Loomise kuupäev'
+description: 'The time that the Paragraph was created.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

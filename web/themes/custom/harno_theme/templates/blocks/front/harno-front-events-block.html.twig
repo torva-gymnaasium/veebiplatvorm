@@ -1,0 +1,117 @@
+
+{% set amount = 4 %}
+{% if info.width == 50 %}
+  {% set amount = 4 %}
+  {% set size = 'half' %}
+    {% elseif info.width == 25 %}
+  {% set amount = 1 %}
+  {% set size = 'small' %}
+{% elseif info.width == 75 %}
+  {% set amount = 3 %}
+  {% set size = 'quarter' %}
+{% elseif info.width == 100 %}
+  {% set amount = 4 %}
+  {% set size = 'wide' %}
+{% endif %}
+<div class="col-12 md-12 sm-12">
+  <div class="title-block title-block--home-page">
+    {% if info.label_display == 'visible' %}
+
+      <h3>{{info.label |t}}</h3>
+    {% endif %}
+  </div><!--/title-block title-block--home-page-->
+  <div class="homepage-swiper-wrapper {{ size }}">
+    <div class="swiper-container homepage-swiper-main" data-plugin="frontSwipers">
+      <div class="swiper-wrapper">
+        {% if data %}
+          {% for key,event in data  %}
+            {% if loop.index <= amount %}
+              <div class="swiper-slide">
+                <a href="{{ event.url }}" class="event-card event-card event-card--multiple-date event-card--swiper">
+                  {% if event.end_date_day %}
+                    <div class="event-card-dates">
+                  {% endif %}
+
+                    <div class="event-card__date">
+                      <span class="sr-only">{{event.sr_start_day}}.{{event.sr_start_month}} {{event.sr_start_year}}</span>
+                      <span class="event-date" aria-hidden="true">{{ event.start_date_day }}</span>
+                      <span class="event-month" aria-hidden="true">{{ event.start_date_month}} {{ event.start_date_year }}</span>
+                    </div><!--/event-card__date-->
+                    {% if event.end_date_day  %}
+                      <div class="event-card__date">
+                        <span class="sr-only">{{event.sr_end_day}}.{{event.sr_end_month}} {{event.sr_end_year}}</span>
+                        <span class="date-arrow" aria-hidden="true"></span>
+                        <span class="event-date" aria-hidden="true">{{ event.end_date_day }}</span>
+                        <span class="event-month" aria-hidden="true">{{ event.end_date_month }} {{ event.end_date_year }}</span>
+                      </div><!--/event-card__date-->
+                    {% endif %}
+                      {% if event.end_date_day %}
+                       </div><!--/event-card-dates-->
+                     {% endif %}
+
+                  <div class="event-card__content">
+                    <div class="event-card__header">
+                      <h4>{{ event.title }}</h4>
+                    </div><!--/event-card__header-->
+                    <div class="event-time-price">
+                      {% if event.start_date_time or event.end_date_time %}
+                        <span>
+                                <i class="mdi mdi-clock-outline" aria-hidden="true"></i>
+                                  <span class="sr-only">{{"time"|t}}</span>
+                                {% if event.start_date_time %}
+                                  {{ event.start_date_time }}
+                                {% endif %}
+                          {% if event.start_date_time and event.end_date_time %}
+                            -
+                          {% endif %}
+                          {% if event.end_date_time %}
+                            {{ event.end_date_time }}
+                          {% endif %}
+                              </span>
+                      {% endif %}
+
+                      {% if event.price %}
+                        <span>
+                          <i class="mdi mdi-currency-eur" aria-hidden="true"></i>
+                          <span class="sr-only">{{"Price"|t}}</span>
+                                {{ event.price }}
+                          </span>
+                      {% endif %}
+                    </div><!--/event-time-price-->
+                    {% if event.venue %}
+                      <span class="event-location">
+                              <i class="mdi mdi-map-marker" aria-hidden="true"></i>
+                        <span class="sr-only">{{"Location"|t}}</span>
+                              {{ event.venue }}
+                            </span><!--/event-location-->
+                    {% endif %}
+
+                  </div><!--/event-card_content-->
+                </a><!--/event-card-->
+              </div><!--/swiper-slide-->
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div><!--/swiper-wrapper-->
+      <div class="swiper-pagination home-paginator home-paginator"></div>
+
+    </div><!--/homepage-swiper-->
+  </div><!--/homepage-swiper-wrapper half-->
+  <div class="row-spacer-40 sm-hide md-hide"></div>
+  {% if info.link %}
+    {% if info.event_type == 'trainings' %}
+      {% set calendar_url = drupal_url('calendar/training',{query:{'days':'month'}})%}
+      {% elseif info.event_type == 'events' %}
+      {% set calendar_url = drupal_url('calendar/events',{query:{'days':'month'}})%}
+      {% else %}
+{% set calendar_url = drupal_url('calendar/events') %}
+
+      {% endif %}
+  <a href="{{ calendar_url}}" class="btn btn-secondary btn-show-more">{{ info.link_title }}</a>
+    {% else %}
+
+      {% set calendar_url = drupal_url('calendar/events') %}
+
+      <a href="{{calendar_url}}" class="btn btn-secondary btn-show-more">{{ "Look at all events"|t({},{'context':'Front page calendar'}) }}</a>
+  {% endif %}
+</div><!--/col-12 md-12 sm-12-->

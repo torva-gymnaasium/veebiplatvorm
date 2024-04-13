@@ -1,0 +1,22 @@
+uuid: ebad5849-09b2-40a0-9457-5a31adbc6a82
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.link
+id: paragraph.link.status
+field_name: status
+entity_type: paragraph
+bundle: link
+label: Avaldatud
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

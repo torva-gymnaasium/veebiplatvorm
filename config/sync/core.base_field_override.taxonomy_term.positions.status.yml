@@ -1,0 +1,22 @@
+uuid: a2edae70-1149-45af-93c9-12aebceb8d93
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.positions
+id: taxonomy_term.positions.status
+field_name: status
+entity_type: taxonomy_term
+bundle: positions
+label: Avaldatud
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

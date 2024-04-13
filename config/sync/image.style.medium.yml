@@ -1,0 +1,19 @@
+uuid: 608aea77-75b0-41d1-8b2b-00776189287f
+langcode: et
+status: true
+dependencies:
+  module:
+    - focal_point
+_core:
+  default_config_hash: Y9NmnZHQq20ASSyTNA6JnwtWrJJiSajOehGDtmUFdM0
+name: medium
+label: 'Keskmine (480×480)'
+effects:
+  3d65393d-87be-4bd4-92e9-10f9c0d4586e:
+    uuid: 3d65393d-87be-4bd4-92e9-10f9c0d4586e
+    id: focal_point_scale_and_crop
+    weight: 2
+    data:
+      width: 480
+      height: 480
+      crop_type: focal_point

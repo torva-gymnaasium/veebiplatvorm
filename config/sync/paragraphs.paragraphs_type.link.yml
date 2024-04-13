@@ -1,0 +1,10 @@
+uuid: da64d3e2-7fa6-4adf-b9f6-98cc9b41b3db
+langcode: et
+status: true
+dependencies: {  }
+id: link
+label: Link
+icon_uuid: null
+icon_default: null
+description: 'Lingi ja failiplokki saab selle abil lisada linke. '
+behavior_plugins: {  }

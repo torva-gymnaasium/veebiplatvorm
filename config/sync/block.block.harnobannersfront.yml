@@ -1,0 +1,25 @@
+uuid: e9f07e01-f5cf-4c82-b6d6-c51c1c7ed65a
+langcode: et
+status: true
+dependencies:
+  module:
+    - harno_blocks
+    - system
+  theme:
+    - harno_theme
+id: harnobannersfront
+theme: harno_theme
+region: content
+weight: -10
+provider: null
+plugin: harno_front_banners
+settings:
+  id: harno_front_banners
+  label: 'Harno Banners front'
+  label_display: visible
+  provider: harno_blocks
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

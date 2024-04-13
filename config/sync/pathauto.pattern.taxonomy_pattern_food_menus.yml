@@ -1,0 +1,33 @@
+uuid: 24a5684b-14d1-4cfc-b0da-737f2caf808e
+langcode: et
+status: true
+dependencies:
+  module:
+    - language
+    - taxonomy
+id: taxonomy_pattern_food_menus
+label: 'Taxonomy pattern food menus'
+type: 'canonical_entities:taxonomy_term'
+pattern: '/food-menus/[term:name]'
+selection_criteria:
+  2e07973b-babb-4c99-9b95-42c4f503746e:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 2e07973b-babb-4c99-9b95-42c4f503746e
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      eating_places: eating_places
+  5293fbc5-8f2b-4008-a973-e2e40ea4ce30:
+    id: language
+    negate: false
+    uuid: 5293fbc5-8f2b-4008-a973-e2e40ea4ce30
+    context_mapping:
+      language: 'taxonomy_term:langcode:language'
+    langcodes:
+      en: en
+selection_logic: and
+weight: -10
+relationships:
+  'taxonomy_term:langcode:language':
+    label: Keel

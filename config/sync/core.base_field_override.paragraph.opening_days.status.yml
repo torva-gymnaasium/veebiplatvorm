@@ -1,0 +1,22 @@
+uuid: acac6459-149a-4554-b0bd-923b9eff0db2
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.opening_days
+id: paragraph.opening_days.status
+field_name: status
+entity_type: paragraph
+bundle: opening_days
+label: Avaldatud
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

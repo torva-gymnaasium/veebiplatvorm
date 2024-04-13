@@ -1,0 +1,7 @@
+uuid: 3609a1dd-088e-4d06-bb9a-ddc359630595
+langcode: et
+status: false
+dependencies: {  }
+formId: node_food_menu_form
+captchaType: default
+label: node_food_menu_form

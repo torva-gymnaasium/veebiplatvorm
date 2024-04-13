@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Theme override for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input()
+ */
+#}
+{% if element['#name'] == 'article_type' or element['#name']=='article_type_mobile' or element['#name']=='days' or element['#name']=='days_mobile' %}
+  {%set hide  = false%}
+  {% if element['#return_value']  and element['#return_value'] == 'all' and 'article_type' not in element['#name']%}
+    {% set hide = true%}
+  {% endif %}
+  <div class="filters-tags__button" {%if hide%} style="display: none" aria-hidden="true" tabindex="-1" {%endif%}>
+    <label for="tag-{{ element['#id'] }}">{{ element['#title'] |raw }}</label>
+    <input {{ attributes}} aria-label="{{element['#title']}}">
+    <span class="btn btn-tag" aria-hidden="true">{{ element['#title'] |raw }}</span>
+  </div><!--/filters-tags__button-->
+  {% else %}
+
+    <div class="custom-control custom-form-radio custom-form-inline {% if element['#errors'] %} error {% endif %}" tabindex="0">
+      <input {{ attributes.addClass('custom-form-input') }} />{{ children }}
+      <label for="{{ element['#id'] }}" class="custom-form-label">{{ element['#title'] |raw }}</label>
+    </div><!--/custom-control custom-checkbox custom-form-inline-->
+
+{% endif %}

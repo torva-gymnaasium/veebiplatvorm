@@ -1,0 +1,19 @@
+uuid: db3434a3-b63d-4fd0-957b-0e1e5dbb3db5
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_phone
+    - taxonomy.vocabulary.catering_service_provider
+id: taxonomy_term.catering_service_provider.field_phone
+field_name: field_phone
+entity_type: taxonomy_term
+bundle: catering_service_provider
+label: Telefoninumber
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,25 @@
+uuid: 3e65bcf3-be27-49f9-be0a-966c1e28d2a0
+langcode: et
+status: true
+dependencies:
+  module:
+    - focal_point
+name: landscape_75
+label: Landscape_75
+effects:
+  0db5bc2f-ff68-4f72-9ca6-ea617611e6b4:
+    uuid: 0db5bc2f-ff68-4f72-9ca6-ea617611e6b4
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 2916
+      height: 1944
+      crop_type: focal_point
+  1bfbcb1a-434d-470e-8389-1e3c26db9b1f:
+    uuid: 1bfbcb1a-434d-470e-8389-1e3c26db9b1f
+    id: image_scale
+    weight: 2
+    data:
+      width: 1880
+      height: null
+      upscale: false

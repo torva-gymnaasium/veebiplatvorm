@@ -1,0 +1,14 @@
+uuid: 5b21284c-bc25-4aea-944e-7bfe220dcf67
+langcode: et
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Toidu grupid'
+vid: food_groups
+description: 'Selle alusel järjestatakse toidumenüüs kuvatavad toidugrupid.'
+weight: 0

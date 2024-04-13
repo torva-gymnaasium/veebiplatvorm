@@ -1,0 +1,17 @@
+uuid: cf089fe0-4d44-4a57-b9be-3976d79bab63
+langcode: et
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 1noCXlegCr5HFehQRF1ViXy1jhU1jZ_sNN99a8Sj5jo
+id: front
+label: 'Front page'
+tags:
+  canonical_url: '[site:url]'
+  shortlink: '[site:url]'
+  title: '[site:name]'
+  og_title: '[site:name]'
+  og_url: '[node:url]'
+  twitter_cards_page_url: '[node:url]'
+  twitter_cards_title: '[site:name]'
+  twitter_cards_type: summary

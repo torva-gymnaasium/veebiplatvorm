@@ -1,0 +1,29 @@
+uuid: 77c30f5b-8c4b-4c88-842c-0e693b578d05
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_gallery_id
+    - node.type.gallery
+    - paragraphs.paragraphs_type.gallery_block
+id: paragraph.gallery_block.field_gallery_id
+field_name: field_gallery_id
+entity_type: paragraph
+bundle: gallery_block
+label: 'Galerii viide'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      gallery: gallery
+    sort:
+      field: created
+      direction: DESC
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

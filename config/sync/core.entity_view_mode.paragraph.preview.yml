@@ -1,0 +1,13 @@
+uuid: 2d3852fc-c131-4c1e-b295-f25c506bd04d
+langcode: et
+status: true
+dependencies:
+  module:
+    - paragraphs
+_core:
+  default_config_hash: h3BeHVei4Lnyqbkao3YiF4KqoY-DhRvUNfEgKG8Rgjg
+id: paragraph.preview
+label: Eelvaade
+description: ''
+targetEntityType: paragraph
+cache: true

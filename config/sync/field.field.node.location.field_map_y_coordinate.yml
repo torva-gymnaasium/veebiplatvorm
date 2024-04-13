@@ -1,0 +1,19 @@
+uuid: 0f65d7a3-250e-4e88-bf69-63bfea0b9fb8
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_map_y_coordinate
+    - node.type.location
+id: node.location.field_map_y_coordinate
+field_name: field_map_y_coordinate
+entity_type: node
+bundle: location
+label: 'Maa-ameti kaardil kuvatav aadressi y koordinaat'
+description: 'Siia sisestada Maa-ameti koha koordinaadid kujul 634569.68'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

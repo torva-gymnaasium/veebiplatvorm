@@ -1,0 +1,7 @@
+uuid: 04c5fd22-a34b-42bf-8ba9-a47fb4e602db
+langcode: et
+status: true
+dependencies: {  }
+name: natural
+label: Natural
+effects: {  }

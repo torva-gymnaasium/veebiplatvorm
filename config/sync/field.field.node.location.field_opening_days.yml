@@ -1,0 +1,106 @@
+uuid: a3451799-9ad4-48a5-94b2-fbf5919af138
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_opening_days
+    - node.type.location
+    - paragraphs.paragraphs_type.opening_days
+  module:
+    - entity_reference_revisions
+id: node.location.field_opening_days
+field_name: field_opening_days
+entity_type: node
+bundle: location
+label: 'Avamise päevad'
+description: 'Võimalik valida erinevad päevad, millal asukoht on avatud. Iga päeva kohta on võimalik määrata konkreetsed avamise ajad. Nimekirja mitte lisatud päevad kuvatakse, et need on suletud.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      opening_days: opening_days
+    negate: 0
+    target_bundles_drag_drop:
+      additional_information:
+        weight: 27
+        enabled: false
+      class:
+        weight: 26
+        enabled: false
+      contact_block:
+        weight: 27
+        enabled: false
+      db_100:
+        weight: 28
+        enabled: false
+      db_25_25_25_25:
+        weight: 29
+        enabled: false
+      db_25_25_50:
+        weight: 30
+        enabled: false
+      db_25_75:
+        weight: 31
+        enabled: false
+      db_33_33_33:
+        weight: 32
+        enabled: false
+      db_33_66:
+        weight: 33
+        enabled: false
+      db_50_25_25:
+        weight: 34
+        enabled: false
+      db_50_50:
+        weight: 35
+        enabled: false
+      db_66_33:
+        weight: 36
+        enabled: false
+      db_75_25:
+        weight: 37
+        enabled: false
+      department:
+        weight: 38
+        enabled: false
+      file:
+        weight: 39
+        enabled: false
+      gallery_block:
+        weight: 40
+        enabled: false
+      intermediate_title_block:
+        weight: 41
+        enabled: false
+      link:
+        weight: 42
+        enabled: false
+      link_and_file_block:
+        weight: 43
+        enabled: false
+      menu_food:
+        weight: 46
+        enabled: false
+      opening_days:
+        weight: 43
+        enabled: true
+      picture_block:
+        weight: 44
+        enabled: false
+      table_block_header_row:
+        weight: 45
+        enabled: false
+      text_block:
+        weight: 46
+        enabled: false
+      video_block:
+        weight: 47
+        enabled: false
+      webform_block:
+        weight: 48
+        enabled: false
+field_type: entity_reference_revisions

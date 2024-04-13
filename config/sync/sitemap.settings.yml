@@ -1,0 +1,183 @@
+_core:
+  default_config_hash: xu0yG13sSQJcXrOJJqsn44W_hUWAIFHVlphrzxT2ycU
+langcode: et
+page_title: Saidikaart
+message:
+  value: ''
+  format: full_html
+plugins:
+  book:
+    enabled: false
+    weight: 0
+  frontpage:
+    enabled: false
+    weight: 0
+    settings:
+      title: 'Front page'
+      rss: /rss.xml
+  'menu:account':
+    enabled: false
+    weight: 0
+    settings:
+      title: 'Kasutaja konto menüü'
+      show_disabled: false
+  'menu:admin':
+    enabled: false
+    weight: 0
+    settings:
+      title: Haldus
+      show_disabled: false
+  'menu:footer':
+    enabled: false
+    weight: 0
+    settings:
+      title: Jalus
+      show_disabled: false
+  'menu:main':
+    enabled: true
+    weight: 0
+    settings:
+      title: ''
+      show_disabled: false
+  'menu:tools':
+    enabled: false
+    weight: 0
+    settings:
+      title: Tööriistad
+      show_disabled: false
+  'vocabulary:academic_year':
+    enabled: false
+    weight: 0
+    settings:
+      title: Õppeaastad
+      show_description: false
+      show_count: false
+      term_depth: 9
+      term_count_threshold: 0
+      customize_link: false
+      term_link: entity.taxonomy_term.canonical|taxonomy_term
+      always_link: false
+      enable_rss: false
+      rss_link: view.taxonomy_term.feed_1|arg_0
+      rss_depth: 9
+  'vocabulary:catering_service_provider':
+    enabled: false
+    weight: 0
+    settings:
+      title: 'Toitlustusteenuse pakkujad'
+      show_description: false
+      show_count: false
+      term_depth: 9
+      term_count_threshold: 0
+      customize_link: false
+      term_link: entity.taxonomy_term.canonical|taxonomy_term
+      always_link: false
+      enable_rss: false
+      rss_link: view.taxonomy_term.feed_1|arg_0
+      rss_depth: 9
+  'vocabulary:departments':
+    enabled: false
+    weight: 0
+    settings:
+      title: Osakonnad
+      show_description: false
+      show_count: false
+      term_depth: 9
+      term_count_threshold: 0
+      customize_link: false
+      term_link: entity.taxonomy_term.canonical|taxonomy_term
+      always_link: false
+      enable_rss: false
+      rss_link: view.taxonomy_term.feed_1|arg_0
+      rss_depth: 9
+  'vocabulary:eating_places':
+    enabled: false
+    weight: 0
+    settings:
+      title: Söögikohad
+      show_description: false
+      show_count: false
+      term_depth: 9
+      term_count_threshold: 0
+      customize_link: false
+      term_link: entity.taxonomy_term.canonical|taxonomy_term
+      always_link: false
+      enable_rss: false
+      rss_link: view.taxonomy_term.feed_1|arg_0
+      rss_depth: 9
+  'vocabulary:event_keywords':
+    enabled: false
+    weight: 0
+    settings:
+      title: 'Sündmuse tüübid'
+      show_description: false
+      show_count: false
+      term_depth: 9
+      term_count_threshold: 0
+      customize_link: false
+      term_link: entity.taxonomy_term.canonical|taxonomy_term
+      always_link: false
+      enable_rss: false
+      rss_link: view.taxonomy_term.feed_1|arg_0
+      rss_depth: 9
+  'vocabulary:food_groups':
+    enabled: false
+    weight: 0
+    settings:
+      title: 'Toidu grupid'
+      show_description: false
+      show_count: false
+      term_depth: 9
+      term_count_threshold: 0
+      customize_link: false
+      term_link: entity.taxonomy_term.canonical|taxonomy_term
+      always_link: false
+      enable_rss: false
+      rss_link: view.taxonomy_term.feed_1|arg_0
+      rss_depth: 9
+  'vocabulary:media_catalogs':
+    enabled: false
+    weight: 0
+    settings:
+      title: 'Meedia kaustad'
+      show_description: false
+      show_count: false
+      term_depth: 9
+      term_count_threshold: 0
+      customize_link: false
+      term_link: entity.taxonomy_term.canonical|taxonomy_term
+      always_link: false
+      enable_rss: false
+      rss_link: view.taxonomy_term.feed_1|arg_0
+      rss_depth: 9
+  'vocabulary:positions':
+    enabled: false
+    weight: 0
+    settings:
+      title: Ametikohad
+      show_description: false
+      show_count: false
+      term_depth: 9
+      term_count_threshold: 0
+      customize_link: false
+      term_link: entity.taxonomy_term.canonical|taxonomy_term
+      always_link: false
+      enable_rss: false
+      rss_link: view.taxonomy_term.feed_1|arg_0
+      rss_depth: 9
+  'vocabulary:training_keywords':
+    enabled: false
+    weight: 0
+    settings:
+      title: 'Koolituse tüübid'
+      show_description: false
+      show_count: false
+      term_depth: 9
+      term_count_threshold: 0
+      customize_link: false
+      term_link: entity.taxonomy_term.canonical|taxonomy_term
+      always_link: false
+      enable_rss: false
+      rss_link: view.taxonomy_term.feed_1|arg_0
+      rss_depth: 9
+include_css: false

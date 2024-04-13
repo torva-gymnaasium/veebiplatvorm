@@ -1,0 +1,35 @@
+
+{% if data %}
+  <div class="row">
+    <div class="col-12 md-12 sm-12 homepage-gutters">
+      <article class="content-block content-block--bookmarks">
+        <div class="bookmarks" aria-label="{{ "List of links" |t}}">
+          <ul>
+            {% if data.entities is defined %}
+              {% for quicklink in  data.entities %}
+                {% if quicklink.name %}
+                  <li>
+                    {% if quicklink.entity %}
+                      {% set url  =  drupal_url('node/'~quicklink.entity) %}
+                    {% endif %}
+                    {% if not quicklink.enitity and quicklink.url %}
+                      {% set url  = quicklink.url %}
+                    {% endif %}
+                    <a href="{{ url }}" {% if quicklink.external%} target="_blank"{% endif%} class="btn btn-primary{% if quicklink.external%}  link-in-new{% endif %}"  >{{ quicklink.name }}
+                      {% if quicklink.external %}
+                        <span class="sr-only">{{"Link will open on a new page"|t}}</span>
+                        <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                      {% endif %}
+                    </a>
+                  </li>
+                {% endif %}
+
+              {% endfor %}
+            {% endif %}
+          </ul>
+        </div>
+      </article><!--/content-block content-block--bookmarks-->
+    </div><!--/col-12 md-12 sm-12 homepage-gutters-->
+  </div><!--/row-->
+
+{% endif %}

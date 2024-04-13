@@ -1,0 +1,23 @@
+label: Avaleht
+description: 'Kogu avalehele määratud sisu.'
+display:
+  default:
+    display_title: Vaikimisi
+    display_options:
+      pager:
+        options:
+          tags:
+            next: 'Järgmine ›'
+            previous: '‹ Eelmine'
+            first: '« Esimene'
+            last: 'Viimane »'
+      exposed_form:
+        options:
+          reset_button_label: Reset
+      empty:
+        title:
+          title: 'Tere tulemast lehele [site:name]'
+  feed_1:
+    display_title: Andmevoog
+  page_1:
+    display_title: Veebileht

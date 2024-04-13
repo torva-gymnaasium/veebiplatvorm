@@ -1,0 +1,11 @@
+_core:
+  default_config_hash: G8QQmvYdIX4fGt1SxVZIFa0KjWFS4FbLlNlt6N19qIM
+langcode: et
+system_match: ''
+system_prefix: ''
+system_regex: ''
+system_negate: false
+layout_match: "harno_front_page_events_block\r\nharno_front_page_food_menu\r\nharno_front_page_news_block\r\nharno_front_page_stories_block\r\nharno_front_page_galleries_block\r\nharno_front_page_logos_block\r\nharno_front_page_partners_block\r\nharno_front_page_study_times_block"
+layout_prefix: harno_front_
+layout_regex: ''
+layout_negate: true

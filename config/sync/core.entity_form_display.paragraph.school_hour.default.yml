@@ -1,0 +1,41 @@
+uuid: 0d25ce1e-db54-42ae-a6d7-d1e65612b1b6
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.school_hour.field_closing_time
+    - field.field.paragraph.school_hour.field_opening_time
+    - field.field.paragraph.school_hour.field_school_hour_type
+    - paragraphs.paragraphs_type.school_hour
+  module:
+    - time_field
+id: paragraph.school_hour.default
+targetEntityType: paragraph
+bundle: school_hour
+mode: default
+content:
+  field_closing_time:
+    type: time_widget
+    weight: 2
+    region: content
+    settings:
+      enabled: false
+      step: 5
+    third_party_settings: {  }
+  field_opening_time:
+    type: time_widget
+    weight: 1
+    region: content
+    settings:
+      enabled: false
+      step: 5
+    third_party_settings: {  }
+  field_school_hour_type:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

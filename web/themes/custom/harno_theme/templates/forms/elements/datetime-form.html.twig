@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Theme override of a datetime form element.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the datetime form element.
+ * - content: The datelist form element to be output.
+ *
+ * @see template_preprocess_datetime_form()
+ */
+#}
+
+<div class="form-row-items {% if element['#errors'] %}error {% endif %} {% if element['#help'] %} help-text {% endif %}">
+  {{ content }}
+  {% if element['#errors'] %}
+    <span class="error-text" id="error-{{ element['#id'] }}">{{element['#errors']}}</span>
+  {% endif %}
+  {% if element['#help'] %}
+    <span class="form-help-text" id="help-{{ element['#id'] }}">{{ element['#help'] }}</span>
+  {% endif %}
+</div>

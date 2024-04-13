@@ -1,0 +1,10 @@
+uuid: 44f641aa-7296-408d-aca9-eedc3566d186
+langcode: et
+status: true
+dependencies: {  }
+id: gallery_block
+label: Galeriiplokk
+icon_uuid: null
+icon_default: null
+description: 'Võimaldab lisada galerii sisusse. '
+behavior_plugins: {  }

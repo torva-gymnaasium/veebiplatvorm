@@ -1,0 +1,22 @@
+uuid: afe9624c-8094-4e8d-b32f-99b26aa2b6a1
+langcode: et
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - claro
+_core:
+  default_config_hash: b6mUaCq5YPapRUABXRHfNTT6fxWIj5lgf0Mg4HaRJ_I
+id: claro_breadcrumbs
+theme: claro
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Leivapuru
+  label_display: '0'
+  provider: system
+visibility: {  }

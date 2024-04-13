@@ -1,0 +1,23 @@
+uuid: 95961242-1be3-4e5a-8608-8425f6967f5b
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_show_end_date
+    - node.type.calendar
+id: node.calendar.field_show_end_date
+field_name: field_show_end_date
+entity_type: node
+bundle: calendar
+label: 'Näita lõpu kuupäeva'
+description: 'Kui lõpu kuupäeva ja kellaaega ei märgita siis eeldatakse, et sündmus või koolitus kestab alguse kuupäeva lõpuni nt Tutipäev.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: '1'
+  off_label: '0'
+field_type: boolean

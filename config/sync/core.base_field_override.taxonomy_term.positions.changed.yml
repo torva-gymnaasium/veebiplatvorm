@@ -1,0 +1,18 @@
+uuid: 2f7cf19c-0b7b-4389-a36f-906c979180d5
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.positions
+id: taxonomy_term.positions.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: positions
+label: Muudetud
+description: 'Termi viimase muutmise aeg.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

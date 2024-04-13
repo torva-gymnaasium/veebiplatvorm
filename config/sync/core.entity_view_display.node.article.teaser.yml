@@ -1,0 +1,44 @@
+uuid: 3e675353-0ab4-4f77-b244-a076a87492fa
+langcode: et
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.article.body
+    - field.field.node.article.field_academic_year
+    - field.field.node.article.field_archiving_date
+    - field.field.node.article.field_article_type
+    - field.field.node.article.field_author_name
+    - field.field.node.article.field_distribution_blocks
+    - field.field.node.article.field_one_image
+    - node.type.article
+  module:
+    - text
+    - user
+_core:
+  default_config_hash: 4NcL2hSQZBpJbYtNuh5jC6kyQTcAc1m5bQpTegEWEso
+id: node.article.teaser
+targetEntityType: node
+bundle: article
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_academic_year: true
+  field_archiving_date: true
+  field_article_type: true
+  field_author_name: true
+  field_distribution_blocks: true
+  field_one_image: true
+  langcode: true
+  search_api_excerpt: true

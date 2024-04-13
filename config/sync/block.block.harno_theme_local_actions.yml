@@ -1,0 +1,20 @@
+uuid: 055d0213-ba6c-41c4-9967-a8d7da53c79b
+langcode: et
+status: true
+dependencies:
+  theme:
+    - harno_theme
+_core:
+  default_config_hash: 13GQpeITIJsp1kyPniXtWZfyFH87vb1xxJCHifL4UeE
+id: harno_theme_local_actions
+theme: harno_theme
+region: content
+weight: -7
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

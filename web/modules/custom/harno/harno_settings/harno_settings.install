@@ -1,0 +1,304 @@
+<?php
+use Drupal\taxonomy\Entity\Term;
+/**
+ * @file
+ * Install and uninstall functions for the HARNO settings Module.
+ */
+function harno_settings_uninstall() {
+  // Deleting the configuration while uninstalling.
+  \Drupal::configFactory()->getEditable('harno_settings.settings')->delete();
+}
+/**
+ * Set default values for automatic_generation_academic_year config
+ */
+function harno_settings_update_8002() {
+  $config = \Drupal::configFactory()->getEditable('harno_settings.settings');
+  $config->set('automatic_generation_academic_year.on', TRUE);
+  $config->set('automatic_generation_academic_year.date', '15.06.');
+  $config->save();
+}
+/**
+ * Set default values for frontpage_quick_links link_weight config
+ */
+function harno_settings_update_8003() {
+  $config = \Drupal::configFactory()->getEditable('harno_settings.settings');
+  $config->set('frontpage_quick_links.link_weight_1', -10);
+  $config->set('frontpage_quick_links.link_weight_2', -9);
+  $config->set('frontpage_quick_links.link_weight_3', -8);
+  $config->set('frontpage_quick_links.link_weight_4', -7);
+  $config->set('frontpage_quick_links.link_weight_5', -6);
+  $config->set('frontpage_quick_links.link_weight_6', -5);
+  $config->set('frontpage_quick_links.link_weight_7', -4);
+  $config->set('frontpage_quick_links.link_weight_8', -3);
+  $config->save();
+}
+/**
+ * Set default value for news_our_story config
+ */
+function harno_settings_update_8004() {
+  $config = \Drupal::configFactory()->getEditable('harno_settings.settings');
+  $config->set('news_our_story.name', 'Meie lugu');
+  $config->save();
+}
+/**
+ * Set default taxonomy terms to Meedia kaustad
+ */
+function harno_settings_update_8006() {
+  $count = 0;
+  $categories_vocabulary = 'media_catalogs'; // Vocabulary machine name
+  $categories = ['Artiklid', 'Erialad', 'Galeriid', 'Töötajad', 'Sisulehed', 'Toitlustamine']; // List of test terms
+  foreach ($categories as $key => $category) {
+    $term = Term::create(array(
+      'parent' => array(),
+      'name' => $category,
+      'vid' => $categories_vocabulary,
+      'weight' => $key
+    ))->save();
+    $count += $term;
+  }
+  return 'Lisati ' . $count . ' termi.';
+}
+/**
+ * Set default taxonomy terms to Ametikohad
+ */
+function harno_settings_update_8007() {
+  $count = 0;
+  $categories_vocabulary = 'positions'; // Vocabulary machine name
+  $categories = ['Direktor', 'Arendusjuht', 'Õppenõustaja', 'Matemaatika', 'Ajalugu']; // List of test terms
+  foreach ($categories as $key => $category) {
+    $term = Term::create(array(
+      'parent' => array(),
+      'name' => $category,
+      'vid' => $categories_vocabulary,
+      'weight' => $key
+    ))->save();
+    $count += $term;
+  }
+  return 'Lisati ' . $count . ' termi.';
+}
+/**
+ * Set default taxonomy terms to Osakonnad
+ */
+function harno_settings_update_8008() {
+  $count = 0;
+  $categories_vocabulary = 'departments'; // Vocabulary machine name
+  $categories = ['Juhtkond', 'Õpetajad', 'Õppenõukogu', 'Töötajad']; // List of test terms
+  foreach ($categories as $key => $category) {
+    $term = Term::create(array(
+      'parent' => array(),
+      'name' => $category,
+      'vid' => $categories_vocabulary,
+      'weight' => $key
+    ))->save();
+    $count += $term;
+  }
+  return 'Lisati ' . $count . ' termi.';
+}
+/**
+ * Set default colors
+ */
+function harno_settings_update_8009() {
+  $config = \Drupal::configFactory()->getEditable('harno_settings.colors');
+  $config->set('color.main', '#14468A');
+  $config->set('color.lighter', '#E7ECF3');
+  $config->set('color.additional', '#393A4D');
+  $config->save();
+}
+/**
+ * Set default taxonomy terms to Koolituse tüübid
+ */
+function harno_settings_update_8010() {
+  $count = 0;
+  $categories_vocabulary = 'training_keywords'; // Vocabulary machine name
+  $categories = ['Tasuta', 'Tasuline']; // List of test terms
+  foreach ($categories as $key => $category) {
+    $term = Term::create(array(
+      'parent' => array(),
+      'name' => $category,
+      'vid' => $categories_vocabulary,
+      'weight' => $key
+    ))->save();
+    $count += $term;
+  }
+  return 'Lisati ' . $count . ' termi.';
+}
+/**
+ * Set default taxonomy terms to Sündmuse tüübid
+ */
+function harno_settings_update_8011() {
+  $count = 0;
+  $categories_vocabulary = 'event_keywords'; // Vocabulary machine name
+  $categories = ['Huvitegevus', 'Õppetöö']; // List of test terms
+  foreach ($categories as $key => $category) {
+    $term = Term::create(array(
+      'parent' => array(),
+      'name' => $category,
+      'vid' => $categories_vocabulary,
+      'weight' => $key
+    ))->save();
+    $count += $term;
+  }
+  return 'Lisati ' . $count . ' termi.';
+}
+/**
+ * Set default frontpage banner variables
+ */
+function harno_settings_update_8013() {
+  $config = \Drupal::configFactory()->getEditable('harno_settings.frontpage');
+  $config->set('general.background_type', 1);
+  $config->set('general.background_image', 0);
+  for ($i = 1; $i < 6; $i++) {
+    $config->set('banner_images.image_'.$i, 0);
+    $config->set('banner_images.text_'.$i, '');
+    $config->set('banner_images.link_name_'.$i, '');
+    $config->set('banner_images.link_entity_'.$i, 0);
+    $config->set('banner_images.link_url_'.$i, '');
+    $config->set('banner_images.link_weight_'.$i, $i);
+  }
+  $config->save();
+}
+/**
+ * Set default frontpage banner boxes variables
+ */
+function harno_settings_update_8014() {
+  $config = \Drupal::configFactory()->getEditable('harno_settings.frontpage');
+  for ($i = 1; $i < 6; $i++) {
+    $config->set('banner_boxes_images.image_'.$i, 0);
+    $config->set('banner_boxes_images.link_weight_'.$i, $i);
+  }
+  for ($i = 1; $i < 16; $i++) {
+    $config->set('banner_boxes_text.title_'.$i, '');
+    $config->set('banner_boxes_text.icon_'.$i, '');
+    $config->set('banner_boxes_text.link_entity_'.$i, 0);
+    $config->set('banner_boxes_text.link_weight_'.$i, $i);
+  }
+  $config->save();
+}
+/**
+ * Set default taxonomy terms to Toidu grupid
+ */
+function harno_settings_update_8015() {
+  $count = 0;
+  $categories_vocabulary = 'food_groups'; // Vocabulary machine name
+  $categories = ['Hommik', 'Lõuna', 'Õhtu']; // List of test terms
+  foreach ($categories as $key => $category) {
+    $term = Term::create(array(
+      'parent' => array(),
+      'name' => $category,
+      'vid' => $categories_vocabulary,
+      'weight' => $key
+    ))->save();
+    $count += $term;
+  }
+  return 'Lisati ' . $count . ' termi.';
+}
+/**
+ * Set default value for juhan api_key config
+ */
+function harno_settings_update_8016() {
+  $config = \Drupal::configFactory()->getEditable('harno_settings.settings');
+  $config->set('juhan.api_key', '');
+  $config->save();
+}
+
+/**
+ * Set default values for accessibility_statement.node config
+ */
+function harno_settings_update_8017() {
+  $config = \Drupal::configFactory()->getEditable('harno_settings.settings');
+  $config->set('accessibility_statement.node', NULL);
+  $config->save();
+}
+
+/**
+ * Set default values for frontpage_messages config
+ */
+function harno_settings_update_8018() {
+  $config = \Drupal::configFactory()->getEditable('harno_settings.settings');
+  $config->set('frontpage_messages.body_1', '');
+  $config->set('frontpage_messages.type_1', 1);
+  $config->set('frontpage_messages.published_1', 0);
+  $config->set('frontpage_messages.body_2', '');
+  $config->set('frontpage_messages.type_2', 1);
+  $config->set('frontpage_messages.published_2', 0);
+  $config->save();
+}
+
+/**
+ * Set default values for location.node config
+ */
+function harno_settings_update_8019() {
+  $config = \Drupal::configFactory()->getEditable('harno_settings.settings');
+  $config->set('location.node', NULL);
+  $config->save();
+}
+
+/**
+ * Remove default config values for leftovers
+ */
+function harno_settings_update_8021() {
+  $config = \Drupal::configFactory()->getEditable('harno_settings.settings');
+  $config->clear('food_menu');
+  for ($i = 10; $i < 1807; $i++) {
+    $config->clear('frontpage_quick_links.link_name_'.$i);
+    $config->clear('frontpage_quick_links.link_entity_'.$i);
+    $config->clear('frontpage_quick_links.link_url_'.$i);
+    $config->clear('frontpage_quick_links.link_weight_'.$i);
+  }
+  for ($i = 3; $i < 9; $i++) {
+    $config->clear('frontpage_messages.body_'.$i);
+    $config->clear('frontpage_messages.type_'.$i);
+    $config->clear('frontpage_messages.published_'.$i);
+  }
+  $config->save();
+}
+
+/**
+ * Change default install profile to minimal
+ */
+function harno_settings_update_8022() {
+  $extension_config = \Drupal::configFactory()->getEditable('core.extension');
+  // Change the site to use the minimal installation profile.
+  $current_profile = $extension_config->get('profile');
+  $extension_config
+    ->set('profile', 'minimal')
+    // Uninstall the current install profile.
+    ->clear('module.' . $current_profile)
+    // Install the minimal install profile. It will automatically go at the
+    // end.
+    ->set('module.minimal', 1000)
+    ->save();
+}
+/**
+ * Recall all need install hooks
+ * This is called only after install from config once and is not needed for other sites.
+ */
+function harno_settings_update_8023() {
+  #harno_settings_update_8009();
+  #harno_settings_update_8015();
+}
+/**
+ * Recall all need install hooks
+ * This is called only after install from config once and is not needed for other sites.
+ */
+function harno_settings_update_8024() {
+  #harno_settings_update_8006();
+  #harno_settings_update_8007();
+  #harno_settings_update_8008();
+  #harno_settings_update_8010();
+  #harno_settings_update_8011();
+}
+/**
+ * Remove colors translation
+ */
+function harno_settings_update_8025() {
+  $database = \Drupal::service('database');
+  $num_deleted = $database->delete('config')
+    ->condition('name', 'harno_settings.colors')
+    ->condition('collection', 'language.en')
+    ->execute();
+  $message = "Deleted " . $num_deleted . " colors translation.";
+  \Drupal::logger('harno_settings')->info($message);
+  $messenger = \Drupal::messenger();
+  $messenger->addMessage($message, 'status');
+}

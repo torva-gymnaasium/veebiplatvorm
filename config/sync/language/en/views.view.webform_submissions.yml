@@ -1,0 +1,39 @@
+display:
+  default:
+    display_options:
+      exposed_form:
+        options:
+          reset_button_label: Reset
+      pager:
+        options:
+          tags:
+            first: '« Esimene'
+            last: 'Viimane »'
+      fields:
+        view_webform_submission:
+          label: Operations
+      arguments:
+        in_draft:
+          exception:
+            title: All
+  embed_administer:
+    display_options:
+      fields:
+        webform_submission_bulk_form:
+          action_title: Action
+        operations:
+          label: Operations
+  embed_manage:
+    display_options:
+      fields:
+        webform_submission_bulk_form:
+          action_title: Action
+        view_webform_submission:
+          label: Operations
+        edit_webform_submission:
+          label: Operations
+  embed_review:
+    display_options:
+      fields:
+        view_webform_submission:
+          label: Operations

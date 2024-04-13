@@ -1,0 +1,34 @@
+description: 'Viimased logiteated'
+display:
+  default:
+    display_title: Vaikimisi
+    display_options:
+      title: 'Viimased logiteated'
+      fields:
+        nothing:
+          admin_label: Ikoon
+        severity:
+          label: Tõsidus
+        type:
+          label: Tüüp
+        message:
+          label: Teade
+        link:
+          label: Operations
+      exposed_form:
+        options:
+          submit_button: Filter
+          reset_button_label: Reset
+      empty:
+        area:
+          admin_label: 'Logis ei ole teateid.'
+          content: 'Logis ei ole teateid.'
+      filters:
+        type:
+          expose:
+            label: Tüüp
+        severity:
+          expose:
+            label: Tõsidus
+  page:
+    display_title: Veebileht

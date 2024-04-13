@@ -1,0 +1,18 @@
+uuid: 4457c2d1-feb4-411f-9d08-f59e4b635b3e
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.worker
+id: node.worker.publish_on
+field_name: publish_on
+entity_type: node
+bundle: worker
+label: 'Avaldamise aeg'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

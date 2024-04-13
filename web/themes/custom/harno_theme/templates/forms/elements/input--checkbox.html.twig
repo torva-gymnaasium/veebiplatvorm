@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * Theme override for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input()
+ */
+#}
+{% set describedby = '' %}
+{% if element['#errors'] %}
+  {% set describedby = 'error-' ~ element['#id'] %}
+{% endif %}
+{% if element['#help'] %}
+  {% set describedby = describedby ~ ' help-' ~ element['#id'] %}
+{% endif %}
+{% if element['#webform_element'] %}
+  <div class="custom-control custom-checkbox custom-form-inline {% if element['#errors'] %} error {% endif %} {% if element['#help'] %} help-text {% endif %}" tabindex="0">
+    <input {{ attributes.addClass('custom-form-input') }} {% if describedby %} aria-describedby="{{ describedby }}" {% endif %} />{{ children }}
+    <label for="{{ element['#id'] }}" class="custom-form-label">{{ element['#title'] |raw }}</label>
+    {% if element['#errors'] %}
+      <span class="error-text" id="error-{{ element['#id'] }}">{{element['#errors']}}</span>
+    {% endif %}
+    {% if element['#help'] %}
+      <span class="form-help-text" id="help-{{ element['#id'] }}">{{ element['#help'] }}</span>
+    {% endif %}
+  </div><!--/custom-control custom-checkbox custom-form-inline-->
+{% else %}
+  {% if element['#attributes']['checkbox-type'] == 'collect' %}
+    <input  {{ attributes }} aria-label="{{element['#title']}}"/>{{ children }}
+  {% elseif element['#attributes']['checkbox-type'] == 'position' %}
+    <input  {{ attributes }}/>{{ children }}
+  {% elseif element['#attributes']['checkbox-type'] == 'department' %}
+    <input  {{ attributes }}/>{{ children }}
+  {% elseif element['#attributes']['checkbox-type'] == 'news-type' %}
+    <input  {{ attributes }}/>{{ children }}
+  {% else %}
+    <div class="custom-control custom-checkbox custom-form-inline {% if element['#errors'] %} error {% endif %}" tabindex="0">
+      <input {{ attributes.addClass('custom-form-input') }} />{{ children }}
+      <label for="{{ element['#id'] }}" class="custom-form-label">{{ element['#title'] }}</label>
+    </div><!--/custom-control custom-checkbox custom-form-inline-->
+  {% endif %}
+{% endif %}

@@ -1,0 +1,44 @@
+uuid: 879c548a-04d9-4475-a060-9a12873584e2
+langcode: et
+status: false
+dependencies: {  }
+id: local
+label: Local
+description: ''
+weight: 0
+stackable: false
+no_patching: false
+storage: folder
+folder: ../config/local
+module: {  }
+theme: {  }
+complete_list: {  }
+partial_list:
+  - language.entity.en
+  - language.entity.und
+  - language.entity.zxx
+  - language.negotiation
+  - block.block.bartik_help
+  - block.block.bartik_search
+  - block.block.claro_help
+  - block.block.seven_help
+  - contact.form.feedback
+  - contact.form.personal
+  - search.page.node_search
+  - search.page.user_search
+  - comment.type.comment
+  - core.entity_view_mode.comment.full
+  - field.field.comment.comment.comment_body
+  - field.field.node.article.comment
+  - field.field.node.article.field_image
+  - field.field.node.article.field_tags
+  - field.field.user.user.user_picture
+  - system.action.comment_delete_action
+  - system.action.comment_publish_action
+  - system.action.comment_save_action
+  - system.action.comment_unpublish_action
+  - taxonomy.vocabulary.tags
+  - views.view.comment
+  - views.view.comments_recent
+  - 'language.entity.*'
+  - webform.webform.test_kaarel

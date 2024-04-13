@@ -1,0 +1,10 @@
+uuid: 70452334-f4e6-4d89-83a7-021fddaa507d
+langcode: et
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: EOQltUQPmgc6UQ2rcJ4Xi_leCEJj5ui0TR-12duS-Tk
+id: html_date
+label: 'HTML Kuupäev'
+locked: true
+pattern: Y-m-d

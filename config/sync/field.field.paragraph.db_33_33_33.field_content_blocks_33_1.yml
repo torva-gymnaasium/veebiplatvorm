@@ -1,0 +1,106 @@
+uuid: a1ad61d0-400a-4174-8e07-27fadc26b551
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_content_blocks_33_1
+    - paragraphs.paragraphs_type.contact_block
+    - paragraphs.paragraphs_type.db_33_33_33
+    - paragraphs.paragraphs_type.gallery_block
+    - paragraphs.paragraphs_type.intermediate_title_block
+    - paragraphs.paragraphs_type.link_and_file_block
+    - paragraphs.paragraphs_type.picture_block
+    - paragraphs.paragraphs_type.text_block
+    - paragraphs.paragraphs_type.video_block
+  module:
+    - entity_reference_revisions
+id: paragraph.db_33_33_33.field_content_blocks_33_1
+field_name: field_content_blocks_33_1
+entity_type: paragraph
+bundle: db_33_33_33
+label: 'Jaotus 33 esimene veerg'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      intermediate_title_block: intermediate_title_block
+      text_block: text_block
+      link_and_file_block: link_and_file_block
+      picture_block: picture_block
+      gallery_block: gallery_block
+      video_block: video_block
+      contact_block: contact_block
+    negate: 0
+    target_bundles_drag_drop:
+      contact_block:
+        weight: -29
+        enabled: true
+      db_100:
+        weight: -45
+        enabled: false
+      db_25_25_25_25:
+        weight: -44
+        enabled: false
+      db_25_25_50:
+        weight: -43
+        enabled: false
+      db_25_75:
+        weight: -42
+        enabled: false
+      db_33_33_33:
+        weight: -41
+        enabled: false
+      db_33_66:
+        weight: -37
+        enabled: false
+      db_50_25_25:
+        weight: -40
+        enabled: false
+      db_50_50:
+        weight: -39
+        enabled: false
+      db_66_33:
+        weight: -36
+        enabled: false
+      db_75_25:
+        weight: -38
+        enabled: false
+      file:
+        weight: -28
+        enabled: false
+      gallery_block:
+        weight: -31
+        enabled: true
+      intermediate_title_block:
+        weight: -35
+        enabled: true
+      link:
+        weight: -27
+        enabled: false
+      link_and_file_block:
+        weight: -33
+        enabled: true
+      picture_block:
+        weight: -32
+        enabled: true
+      table_block_header_both:
+        weight: -26
+        enabled: false
+      table_block_header_column:
+        weight: -25
+        enabled: false
+      table_block_header_row:
+        weight: -24
+        enabled: false
+      text_block:
+        weight: -34
+        enabled: true
+      video_block:
+        weight: -30
+        enabled: true
+field_type: entity_reference_revisions

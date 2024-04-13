@@ -1,0 +1,14 @@
+uuid: c269862c-4c04-4d98-b47c-d3bae7d444f2
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.partner_logo
+id: node_type_partner_logo
+entity_type_id: node_type
+entity_id: partner_logo
+action: page_redirect
+allow_override: 0
+redirect: /<front>
+redirect_code: 301
+redirect_fallback_action: access_denied

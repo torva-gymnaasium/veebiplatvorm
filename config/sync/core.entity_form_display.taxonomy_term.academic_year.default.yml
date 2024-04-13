@@ -1,0 +1,50 @@
+uuid: 1a5d84c8-c0ea-4524-9f6d-75af8994d27c
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.academic_year.field_date_range
+    - taxonomy.vocabulary.academic_year
+  module:
+    - datetime_range
+    - maxlength
+id: taxonomy_term.academic_year.default
+targetEntityType: taxonomy_term
+bundle: academic_year
+mode: default
+content:
+  field_date_range:
+    type: daterange_default
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  menu:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings:
+      maxlength:
+        maxlength_js: 255
+        maxlength_js_label: 'Soovitame hoida õppeaasta nimi lühike nt 2020/2021.'
+  status:
+    type: boolean_checkbox
+    weight: 2
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  description: true
+  langcode: true
+  path: true
+  publish_on: true
+  unpublish_on: true

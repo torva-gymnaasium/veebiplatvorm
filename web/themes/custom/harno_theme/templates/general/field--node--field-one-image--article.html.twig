@@ -1,0 +1,62 @@
+{#
+/**
+ * @file
+ * Theme override of an image.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the img tag.
+ * - style_name: (optional) The name of the image style applied.
+ *
+ * @see template_preprocess_image()
+ */
+#}
+{% if not base_path %}
+  {% set base_path = 'themes/custom/harno_theme' %}
+{% endif %}
+{% if items %}
+  {% for item in items %}
+
+    {% if item.content['#options'] %}
+      {% set entity_info = item.content['#options'] %}
+    {% endif %}
+    {% if entity_info %}
+      {% set media_image = entity_info.entity.get('field_media_image').getValue[0] %}
+
+        {% set img_classes = "thumb thumb--landscape" %}
+        {% if media_image %}
+        {% set media_width = media_image.width %}
+        {% set media_height = media_image.height %}
+
+          {% set padding = media_height/media_width*100 %}
+          {% set target_id = media_image.target_id %}
+        {% set drupal_media_image =  drupal_image(target_id) %}
+
+          {% set image_url = drupal_media_image['#uri']|file_url %}
+        {% set media_uri = drupal_media_image['#uri'] %}
+
+        {% set media_url = media_uri|image_style('detail_one_image') %}
+<style>
+  :root {
+    --one-image-size: {{ padding }}%;
+  }
+  </style>
+          <div class="image-block">
+            <a data-bigPicture="{{ media_uri|image_style('modal_picture') }}" id="{{ target_id }}"  data-image="{{image_url}}" href="{{ image_url }}"  data-plugin="modalOpener" {% if media_image.alt%}alt="{{ media_image.alt }}"{% else%}alt="" {% endif %} title="{{ media_image.title }}" data-modal="single" class="image-field image-field--landscape image-field--one-image-custom" style="background-image: url('{% if media_image %}{{media_url}}{% endif %}');
+              {% if media_image.width<699 %}
+                background-size: auto;
+                {% endif %}
+              " tabindex="0">
+              <img src="/{{ base_path }}/static/assets/images/placeholder-1.gif" {% if media_image.alt%}alt="{{ media_image.alt }}"{% else%}alt="" {% endif %}>
+
+              <span class="gallery-icon">
+                          <i class="mdi mdi-image-multiple" aria-hidden="true"></i>
+                          <span class="sr-only">{{ "Open picture"|t }}</span>
+                        </span>
+            </a><!--/image-field-->
+          </div><!--/image-block-->
+        {% endif %}
+
+    {% endif %}
+  {% endfor %}
+
+{% endif %}

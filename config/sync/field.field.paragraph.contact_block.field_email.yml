@@ -1,0 +1,19 @@
+uuid: b240f978-99ec-4e84-8f98-d40535de4c9d
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_email
+    - paragraphs.paragraphs_type.contact_block
+id: paragraph.contact_block.field_email
+field_name: field_email
+entity_type: paragraph
+bundle: contact_block
+label: E-post
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

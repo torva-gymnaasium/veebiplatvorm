@@ -1,0 +1,99 @@
+{% set width_class= 'homepage-swiper-wrapper' %}
+{% set base_path= base_path ~ directory  %}
+{% set shown = 1 %}
+{% if data['width'] %}
+	{% if data['width'] == 25 %}
+		{% set shown = 1 %}
+		{% set width_class = width_class~ ' small' %}
+	{% elseif data['width'] == 50 %}
+		{% set width_class = width_class~ ' half' %}
+		{% set shown = 4 %}
+	{% elseif data['width'] == 75 %}
+		{% set width_class = width_class~ ' quarter' %}
+		{% set shown = 3 %}
+	{% elseif data['width'] == 100 %}
+		{% set width_class = width_class~ ' wide' %}
+		{% set shown = 5 %}
+	{% endif %}
+{% endif %}
+{% set ignore_list = ['width','uuid','','nid'] %}
+<div class="col-12 md-12 sm-12">
+	<div class="title-block title-block--home-page">
+		{% if info.label_display == 'visible' %}
+			<h3>{{info.label |t}}</h3>
+		{% endif %}
+	</div>
+	<!--/title-block title-block--home-page-->
+	<div class=" {{ width_class }}">
+		<div class="swiper-container homepage-swiper-main" data-plugin="frontSwipers">
+			<div class="swiper-wrapper">
+
+				{% for gallery in data |without(ignore_list)%}
+					{% if loop.index <= shown %}
+
+						{% set media = gallery.image %}
+						{% if media %}
+							{% set image_width = media.get('field_media_image').width %}
+							{% set image_height = media.get('field_media_image').height %}
+							{% set ratio = image_width/image_height %}
+							{% set padding = image_height/image_width*100 %}
+							{% set media_uri = media|file_uri %}
+							{% set media_url = media_uri|image_style('galleries_and_news') %}
+							{% set media_alt = media.get('field_media_image').alt %}
+							{% set media_title = media.get('field_media_image').title %}
+						{% else %}
+							{% if info.default_logo %}
+								{% set media = drupal_image(info.default_logo,'thumbnail') %}
+								{% set media_url = media['#uri']|image_style('galleries_and_news')%}
+								{% set show_logo  = true %}
+							{% else %}
+								{% set media_url = '/'~base_path~'/haridusmin_3lovi_est.jpg' %}
+								{% set show_logo = true %}
+							{% endif %}
+						{% endif %}
+						<div class="swiper-slide">
+							<a href="{{ gallery.link }}" class="news-block">
+								{# <div class="news-block__tag"> #}
+								{# <span>Meie lood</span> #}
+								{# </div><!--/news-block__tag--> #}
+									<div class="news-block__thumbnail" style="background-image: url('{{ media_url }}'); {% if show_logo %}background-size:contain{% endif %}
+                  "> <img src="/{{ active_theme_path() }}/static/assets/images/placeholder-1.gif" alt="{% if media_alt %}{{ media_alt }}{% endif %}">
+								</div>
+								<!--/news-block__thumbnail-->
+								<div class="news-block__news-info">
+									<h3>{{ gallery.title }}</h3>
+									<div class="additional-info">
+										<span class="date-indicator">
+                      <i class="mdi mdi-calendar-month" aria-hidden="true"></i>
+											<span class="sr-only">{{ "Date created"|t }}</span>
+											{{ gallery.created }}
+										</span>
+										{% if gallery.author %}
+											<span class="author-indicator">
+												<span class="sr-only">{{ "Author" |t }}</span>
+												{{ gallery.author }}
+											</span>
+										{% endif %}
+									</div>
+									<!--/additional-info-->
+								</div>
+								<!--/news-block__news-info-->
+							</a>
+						</div>
+						<!--/swiper-slide-->
+					{% endif %}
+				{% endfor %}
+			</div>
+			<!--/swiper-wrapper-->
+			<div class="swiper-pagination home-paginator"></div>
+
+		</div>
+		<!--/homepage-swiper-->
+	</div>
+	<!--/homepage-swiper-->
+	<div class="row-spacer-24 xl-hide"></div>
+	<div class="row-spacer-40 sm-hide md-hide"></div>
+
+	<a href="{{ drupal_url('galleries') }}" class="btn btn-secondary btn-show-more">{{ "Open galleries" |t }}</a>
+
+</div>

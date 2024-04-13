@@ -1,0 +1,14 @@
+uuid: c4e023b6-0500-4b36-9fa5-ab8a56bcf4df
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.media_catalogs
+id: taxonomy_vocabulary_media_catalogs
+entity_type_id: taxonomy_vocabulary
+entity_id: media_catalogs
+action: display_page
+allow_override: 0
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

@@ -1,0 +1,27 @@
+uuid: 3ea3a844-2d94-4329-a87a-e79039ac1964
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cv
+    - node.type.worker
+  module:
+    - file
+id: node.worker.field_cv
+field_name: field_cv
+entity_type: node
+bundle: worker
+label: 'CV Failina'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: cv
+  file_extensions: pdf
+  max_filesize: ''
+  description_field: false
+field_type: file

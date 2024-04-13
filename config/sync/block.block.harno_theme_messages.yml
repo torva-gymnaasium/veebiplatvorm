@@ -1,0 +1,22 @@
+uuid: a65c7c2b-c27e-43ec-980c-869de3f8efff
+langcode: et
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - harno_theme
+_core:
+  default_config_hash: KHQIJ7Vfl25lTjzIc7qIvnuistt-Mw2O0kG4jCofmkI
+id: harno_theme_messages
+theme: harno_theme
+region: content
+weight: -5
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

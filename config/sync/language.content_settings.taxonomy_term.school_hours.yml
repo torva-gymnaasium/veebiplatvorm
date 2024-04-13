@@ -1,0 +1,18 @@
+uuid: 82784a41-8af7-4e48-bf7d-892b3b1261a6
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.school_hours
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: taxonomy_term.school_hours
+target_entity_type_id: taxonomy_term
+target_bundle: school_hours
+default_langcode: current_interface
+language_alterable: true

@@ -1,0 +1,18 @@
+uuid: 91232dd4-3f66-4647-8b4d-7b095bef4cb8
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.class
+id: node.class.changed
+field_name: changed
+entity_type: node
+bundle: class
+label: Muudetud
+description: 'Sisuelemendi viimase muutmise aeg.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

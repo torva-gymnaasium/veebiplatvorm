@@ -1,0 +1,20 @@
+_core:
+  default_config_hash: UVH1aJ4b44UM-VdPVN7hNNuuVqfReJxwfVeDQH1Hvsk
+langcode: et
+mode: simple
+ignored_config_entities:
+  - 'collections.language.*'
+  - 'core.entity_view_display.*'
+  - devel.settings
+  - devel.toolbar.settings
+  - 'google_tag.*'
+  - 'harno_migrate.*'
+  - 'harno_settings.*'
+  - 'language.entity.*'
+  - language.negotiation
+  - 'shortcut.*'
+  - system.menu.devel
+  - system.performance
+  - system.site
+  - 'webform.webform.*'
+  - ~core.entity_view_display.node.front_page.default

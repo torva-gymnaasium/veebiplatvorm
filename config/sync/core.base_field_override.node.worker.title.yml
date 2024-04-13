@@ -1,0 +1,18 @@
+uuid: 4e51d0e5-9fef-4723-aefe-eb4408cb9c3a
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.worker
+id: node.worker.title
+field_name: title
+entity_type: node
+bundle: worker
+label: Nimi
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

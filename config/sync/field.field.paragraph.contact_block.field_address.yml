@@ -1,0 +1,19 @@
+uuid: 5037076f-7041-4ab3-b039-d91bd01ac2e3
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_address
+    - paragraphs.paragraphs_type.contact_block
+id: paragraph.contact_block.field_address
+field_name: field_address
+entity_type: paragraph
+bundle: contact_block
+label: Aadress
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

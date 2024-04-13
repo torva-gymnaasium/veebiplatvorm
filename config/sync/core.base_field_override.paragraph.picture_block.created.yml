@@ -1,0 +1,18 @@
+uuid: be174443-1a8b-4a55-879f-98d5ebeaaf8f
+langcode: et
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.picture_block
+id: paragraph.picture_block.created
+field_name: created
+entity_type: paragraph
+bundle: picture_block
+label: 'Loomise kuupäev'
+description: 'The time that the Paragraph was created.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

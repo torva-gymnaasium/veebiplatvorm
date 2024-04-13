@@ -1,0 +1,33 @@
+_core:
+  default_config_hash: D5s51vEOncRuY_Oe55ENrLaDNuuw92ZAO-1nV7sxWNs
+langcode: et
+content:
+  location: 4
+  gallery: 5
+  worker: 4
+  class: 4
+  page: 4
+  calendar: 4
+  food_menu: 5
+  partner_logo: 4
+  article: 4
+taxonomy:
+  positions: 4
+  training_keywords: 4
+  media_catalogs: 4
+  departments: 4
+  eating_places: 5
+  event_keywords: 4
+  food_groups: 5
+  catering_service_provider: 5
+  school_hours: 4
+  academic_year: 4
+settings:
+  general: 4
+  frontpage_quick_links: 4
+  important_contacts: 4
+  footer_socialmedia_links: 4
+  footer_quick_links: 4
+  footer_free_text_area: 4
+  footer_copyright: 4
+  variables: 4

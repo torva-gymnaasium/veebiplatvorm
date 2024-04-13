@@ -1,0 +1,33 @@
+uuid: 8548575d-d14c-4973-af69-353257c44e0a
+langcode: et
+status: true
+dependencies:
+  module:
+    - language
+    - node
+id: node_pattern_vypuskniki
+label: 'Node pattern vypuskniki'
+type: 'canonical_entities:node'
+pattern: '/vypuskniki/[node:title]'
+selection_criteria:
+  4dd38d7b-bbc3-4e60-b8b1-938b83725ec4:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 4dd38d7b-bbc3-4e60-b8b1-938b83725ec4
+    context_mapping:
+      node: node
+    bundles:
+      class: class
+  b16b056c-56bf-4516-a5d5-5123b02bb1a2:
+    id: language
+    negate: false
+    uuid: b16b056c-56bf-4516-a5d5-5123b02bb1a2
+    context_mapping:
+      language: 'node:langcode:language'
+    langcodes:
+      ru: ru
+selection_logic: and
+weight: -10
+relationships:
+  'node:langcode:language':
+    label: Keel

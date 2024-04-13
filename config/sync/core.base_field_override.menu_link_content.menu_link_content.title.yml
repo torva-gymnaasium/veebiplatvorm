@@ -1,0 +1,18 @@
+uuid: 294f8c29-8488-4b62-8dff-471dba38b6e8
+langcode: et
+status: true
+dependencies:
+  module:
+    - menu_link_content
+id: menu_link_content.menu_link_content.title
+field_name: title
+entity_type: menu_link_content
+bundle: menu_link_content
+label: 'Menüüviite pealkiri'
+description: 'Menüüs kuvatav nimetus sellele viitele.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

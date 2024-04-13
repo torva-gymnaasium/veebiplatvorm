@@ -1,0 +1,13 @@
+uuid: 33f2b2ed-a54a-4e05-ac82-16ab473aa9f6
+langcode: et
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: C7X8h9FWlwkQ9y5mnU2JzgaZICAdc6HFbPVbhvjlAYE
+id: node_unpublish_action
+label: 'Sisu muutmine mitteavaldatuks'
+type: node
+plugin: 'entity:unpublish_action:node'
+configuration: {  }

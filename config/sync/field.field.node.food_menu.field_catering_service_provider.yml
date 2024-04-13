@@ -1,0 +1,29 @@
+uuid: a7c34e3c-11ce-4f88-af09-1219d6b7456f
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_catering_service_provider
+    - node.type.food_menu
+    - taxonomy.vocabulary.catering_service_provider
+id: node.food_menu.field_catering_service_provider
+field_name: field_catering_service_provider
+entity_type: node
+bundle: food_menu
+label: 'Toitlustaja valik'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      catering_service_provider: catering_service_provider
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

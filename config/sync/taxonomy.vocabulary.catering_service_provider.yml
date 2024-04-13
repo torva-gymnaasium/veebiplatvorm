@@ -1,0 +1,14 @@
+uuid: 8478022e-4e8e-49ad-9b38-9c7f2ef9e546
+langcode: et
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Toitlustusteenuse pakkujad'
+vid: catering_service_provider
+description: 'Neid on võimalik lisada söögimenüü juurde. Selle abil saab edastada toitlustuse pakkuja kohta lisainfot ja kontaktandmed.'
+weight: 0

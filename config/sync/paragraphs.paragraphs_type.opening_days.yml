@@ -1,0 +1,10 @@
+uuid: 5f0d8e84-e5a8-469c-9797-cb1c16a254f3
+langcode: et
+status: true
+dependencies: {  }
+id: opening_days
+label: 'Avamise päevad'
+icon_uuid: null
+icon_default: null
+description: 'Võimalik valida erinevad päevad, millal asukoht on avatud. Iga päeva kohta on võimalik määrata konkreetsed avamise ajad.'
+behavior_plugins: {  }

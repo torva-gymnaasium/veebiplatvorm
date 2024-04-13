@@ -1,0 +1,464 @@
+uuid: d60716f9-ebd2-4aab-9721-2cefecd70b11
+langcode: et
+status: open
+dependencies:
+  module:
+    - simple_recaptcha_webform
+weight: 0
+open: null
+close: null
+uid: null
+template: false
+archive: false
+id: all_elements
+title: 'Elementide testimine'
+description: 'Kuvab k&otilde;iki v&otilde;imalike elemente.'
+category: 'Vaikimisi ette loodud vormid'
+elements: |-
+  tekstivali:
+    '#type': textfield
+    '#title': Tekstiväli
+    '#help': '<strong>Tekstiv&auml;lja abitekst muudetud boldiks.</strong>'
+    '#required': true
+  textarea:
+    '#type': textarea
+    '#title': Textarea
+    '#help': 'Textarea abitekst'
+    '#required': true
+  autocomplete:
+    '#type': webform_autocomplete
+    '#title': Autocomplete
+    '#help': '<p>Saab otsida riiginimedest.</p>'
+    '#multiple__no_items_message': '<p>No items entered. Please add items below.</p>'
+    '#autocomplete_items': country_names
+  e_kiri:
+    '#type': email
+    '#title': E-kiri
+    '#required': true
+  number:
+    '#type': number
+    '#title': Number
+    '#help': 'Numbrid 1-10'
+    '#required': true
+    '#min': 1
+    '#max': 10
+    '#step': 1
+  horizontal_rule:
+    '#type': webform_horizontal_rule
+  ankeedi_vahepealkiri:
+    '#type': processed_text
+    '#text': |
+      <div>
+      <div class="inspect_panels--copyableRow--2_PiZ inspect_panels--highlightRow--21P9S">
+      <div class="inspect_panels--propertyRowContent--7Y-mu inspect_panels--copyableRow--2_PiZ inspect_panels--highlightRow--21P9S">
+      <h2 class="inspect_panels--contentProperty--2Z1QI text--fontPos11--RSei3 text--_fontBase--YWDo0 ellipsis--ellipsisAfter8Lines--2rn32 ellipsis--_ellipsisAfterNLines--26JkZ">Ankeedi vahepealkiri</h2>
+
+      <p>Vahetekst, mis on sisestatud kasutades Advances HTML / Text sisestusvõimalust.</p>
+      </div>
+      </div>
+      </div>
+    '#format': full_html
+  valikukast:
+    '#type': select
+    '#title': Valikukast
+    '#help': 'Valikukasti abitekst'
+    '#options':
+      1: 'Valik 1'
+      2: 'Valik 2'
+      3: 'Valik 3'
+    '#select2': true
+    '#required': true
+  valikukast_2:
+    '#type': webform_select_other
+    '#title': 'Valikukast 2'
+    '#options':
+      1: 'Õppeaine 1'
+      2: 'Õppeaine 2'
+      3: 'Õppeaine 3'
+    '#select2': true
+    '#other__placeholder': 'Lisa midagi muud…'
+  telefon:
+    '#type': tel
+    '#title': Telefon
+    '#help': 'Telefoninumbri lisamise v&auml;li'
+    '#international': true
+    '#international_initial_country': EE
+    '#required': true
+  url:
+    '#type': url
+    '#title': URL
+    '#help': 'Veebilingi lisamise v&auml;li'
+  hinnang:
+    '#type': webform_rating
+    '#title': Hinnang
+    '#help': 'Saad anda hinde viie pallis&uuml;steemis.'
+    '#reset': true
+  terms_of_service:
+    '#type': webform_terms_of_service
+    '#title': '{Ma nõustun tingimustega}'
+    '#help': '<p>Abitekst</p>'
+    '#required': true
+    '#terms_title': 'Vormi täitmise tingimused'
+    '#terms_content': |-
+      <ol>
+      	<li>Punkt 1</li>
+      	<li>Punkt 2</li>
+      </ol>
+  date_time:
+    '#type': datetime
+    '#title': Date/time
+    '#help': '<p>Mis formaadis kuupäev peaks siin olema?</p>'
+    '#required': true
+    '#multiple__no_items_message': '<p>No items entered. Please add items below.</p>'
+    '#date_date_element': text
+    '#date_date_format': d/m/Y
+    '#date_year_range': '2020:2030'
+    '#date_time_format': ''
+  fieldset:
+    '#type': fieldset
+    '#title': Fieldset
+    date:
+      '#type': date
+      '#title': Date
+      '#help': '<p>Siia ka mingi abitekst.</p>'
+      '#required': true
+      '#multiple__no_items_message': '<p>No items entered. Please add items below.</p>'
+      '#datepicker': true
+      '#date_date_format': d/m/Y
+    aeg:
+      '#type': webform_time
+      '#title': Aeg
+      '#help': '<p>Aega peaks saama valida 15 vahedega.</p>'
+      '#required': true
+      '#multiple__no_items_message': '<p>No items entered. Please add items below.</p>'
+      '#step': 900
+  checkboxes:
+    '#type': checkboxes
+    '#title': Checkboxes
+    '#help': '<p><strong>Abitekst</strong></p>'
+    '#title_display': before
+    '#options': days
+    '#options_description_display': help
+    '#required': true
+  horizontal_rule_01:
+    '#type': webform_horizontal_rule
+  raadionupud:
+    '#type': radios
+    '#title': Raadionupud
+    '#help': Abitekst
+    '#options': yes_no
+    '#options_description_display': help
+    '#required': true
+  horizontal_rule_02:
+    '#type': webform_horizontal_rule
+  see_on_uksik_valikukast:
+    '#type': checkbox
+    '#title': 'See on üksik märkeruut'
+    '#help': '<p>Üksiku märkeruudu abitekst.</p>'
+    '#required': true
+  horizontal_rule_03:
+    '#type': webform_horizontal_rule
+  see_on_uksik_raadionupp:
+    '#type': radios
+    '#title': 'See on üksik raadionupp'
+    '#help': '<p>Abitekst</p>'
+    '#options':
+      1: 'Radio valiku tekst'
+    '#required': true
+  horizontal_rule_04:
+    '#type': webform_horizontal_rule
+  fieldset_2:
+    '#type': fieldset
+    '#title': 'Fieldset 2'
+    vali:
+      '#type': select
+      '#title': Vali
+      '#options': education
+      '#select2': true
+    select_other:
+      '#type': webform_select_other
+      '#title': 'Select other'
+      '#options':
+        1: 'valik 1'
+        2: 'valik 2'
+        3: 'valik 3'
+      '#select2': true
+      '#other__placeholder': 'muu valik…'
+  link:
+    '#type': webform_link
+    '#title': Link
+    '#multiple__no_items_message': '<p>No items entered. Please add items below.</p>'
+    '#title__description': kirjeldus
+    '#url__description': 'urli kirjeldus'
+  actions:
+    '#type': webform_actions
+    '#title': 'Submit button(s)'
+css: ''
+javascript: ''
+settings:
+  ajax: true
+  ajax_scroll_top: form
+  ajax_progress_type: throbber
+  ajax_effect: fade
+  ajax_speed: 1000
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  page_theme_name: ''
+  form_title: both
+  form_submit_once: false
+  form_open_message: ''
+  form_close_message: ''
+  form_exception_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_disable_remote_addr: false
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
+  form_unsaved: false
+  form_disable_back: false
+  form_submit_back: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_disable_inline_errors: false
+  form_required: false
+  form_autofocus: false
+  form_details_toggle: false
+  form_reset: false
+  form_access_denied: default
+  form_access_denied_title: ''
+  form_access_denied_message: ''
+  form_access_denied_attributes: {  }
+  form_file_limit: ''
+  form_attributes: {  }
+  form_method: ''
+  form_action: ''
+  share: false
+  share_node: false
+  share_theme_name: ''
+  share_title: true
+  share_page_body_attributes: {  }
+  submission_label: ''
+  submission_exception_message: ''
+  submission_locked_message: ''
+  submission_log: false
+  submission_excluded_elements: {  }
+  submission_exclude_empty: false
+  submission_exclude_empty_checkbox: false
+  submission_views: {  }
+  submission_views_replace: {  }
+  submission_user_columns: {  }
+  submission_user_duplicate: false
+  submission_access_denied: default
+  submission_access_denied_title: ''
+  submission_access_denied_message: ''
+  submission_access_denied_attributes: {  }
+  previous_submission_message: ''
+  previous_submissions_message: ''
+  autofill: false
+  autofill_message: ''
+  autofill_excluded_elements: {  }
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_progress_link: false
+  wizard_progress_states: false
+  wizard_start_label: ''
+  wizard_preview_link: false
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_auto_forward: true
+  wizard_auto_forward_hide_next_button: false
+  wizard_keyboard: true
+  wizard_track: ''
+  wizard_prev_button_label: ''
+  wizard_next_button_label: ''
+  wizard_toggle: false
+  wizard_toggle_show_label: ''
+  wizard_toggle_hide_label: ''
+  preview: 0
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
+  preview_exclude_empty: true
+  preview_exclude_empty_checkbox: false
+  draft: none
+  draft_multiple: false
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  draft_pending_single_message: ''
+  draft_pending_multiple_message: ''
+  confirmation_type: modal
+  confirmation_url: ''
+  confirmation_title: 'Elementide testimine'
+  confirmation_message: ''
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  confirmation_exclude_query: false
+  confirmation_exclude_token: false
+  confirmation_update: false
+  limit_total: null
+  limit_total_interval: null
+  limit_total_message: ''
+  limit_total_unique: false
+  limit_user: null
+  limit_user_interval: null
+  limit_user_message: ''
+  limit_user_unique: false
+  entity_limit_total: null
+  entity_limit_total_interval: null
+  entity_limit_user: null
+  entity_limit_user_interval: null
+  purge: none
+  purge_days: null
+  results_disabled: false
+  results_disabled_ignore: false
+  results_customize: false
+  token_view: false
+  token_update: false
+  token_delete: false
+  serial_disabled: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+    permissions: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  administer:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  test:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+  configuration:
+    roles: {  }
+    users: {  }
+    permissions: {  }
+handlers:
+  recaptcha:
+    id: simple_recaptcha
+    handler_id: recaptcha
+    label: reCAPTCHA
+    notes: ''
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      recaptcha_type: v3
+      v3_score: '80'
+      v3_error_message: 'There was an error during validation of your form submission, please try to reload the page and submit form again.'
+  e_kiri:
+    id: email
+    handler_id: e_kiri
+    label: 'Email veebilehe administraatorile'
+    notes: ''
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      states:
+        - completed
+      to_mail: _default
+      to_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      reply_to: '[webform_submission:values:e_kiri:raw]'
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      subject: _default
+      body: "[webform_submission:values]\r\n\r\nParimate soovidega\r\n[site:name] \r\n\r\n[site:url]"
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: false
+      exclude_attachments: false
+      html: false
+      attachments: false
+      twig: false
+      theme_name: ''
+      parameters: {  }
+      debug: false
+  e_kiri_1:
+    id: email
+    handler_id: e_kiri_1
+    label: 'Kättesaamise kinnitus'
+    notes: ''
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      states:
+        - completed
+      to_mail: '[webform_submission:values:e_kiri:raw]'
+      to_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      subject: '[webform:title] vormi kättesaamise kinnitus'
+      body: "Tere [webform_submission:values:tekstivali]!\r\n\r\nTäname Teid saadetud e-kirja eest.\r\n\r\nTegemist on automaatvastusega, mis kinnitab, et oleme Teie kirja kätte saanud.\r\nPalume käesolevale kirjale mitte vastata.\r\nKui Teie kiri eeldab vastust, vastame esimesel võimalusel.\r\n\r\nParimate soovidega\r\n[site:name] \r\n\r\n[site:url]"
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: false
+      exclude_attachments: false
+      html: false
+      attachments: false
+      twig: false
+      theme_name: ''
+      parameters: {  }
+      debug: false
+variants: {  }

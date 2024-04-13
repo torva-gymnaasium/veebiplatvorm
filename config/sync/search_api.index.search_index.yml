@@ -1,0 +1,1429 @@
+uuid: e7a461f4-e973-40b1-9615-02e987db3d76
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - field.storage.node.field_address
+    - field.storage.node.field_distribution_blocks
+    - field.storage.paragraph.field_body
+    - field.storage.paragraph.field_content_blocks_33_2
+    - field.storage.paragraph.field_content_blocks_33_1
+    - field.storage.paragraph.field_content_blocks_33_3
+    - field.storage.paragraph.field_content_blocks_66_1
+    - field.storage.paragraph.field_content_blocks_50_1
+    - field.storage.paragraph.field_content_blocks_50_2
+    - field.storage.paragraph.field_content_blocks_75_1
+    - field.storage.paragraph.field_content_blocks_100
+    - field.storage.node.field_class
+    - field.storage.node.field_additional_information
+    - field.storage.paragraph.field_body_text
+    - field.storage.paragraph.field_contact_title
+    - field.storage.node.field_description
+    - field.storage.node.field_email
+    - field.storage.paragraph.field_email
+    - field.storage.paragraph.field_name
+    - field.storage.node.field_phone
+    - field.storage.paragraph.field_phone
+    - field.storage.node.field_phones_3
+    - field.storage.paragraph.field_table_editor
+    - field.storage.paragraph.field_title
+    - field.storage.node.field_venue
+    - field.storage.node.field_department
+    - field.storage.paragraph.field_department
+    - field.storage.node.field_position
+    - field.storage.paragraph.field_file
+    - field.storage.paragraph.field_links_and_files
+    - field.storage.paragraph.field_link
+    - search_api.server.search_server
+  module:
+    - paragraphs
+    - node
+    - taxonomy
+    - media
+    - search_api
+id: search_index
+name: 'Search index'
+description: ''
+read_only: false
+field_settings:
+  body:
+    label: Sisu
+    datasource_id: 'entity:node'
+    property_path: body
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.body
+  field_address:
+    label: Aadress
+    datasource_id: 'entity:node'
+    property_path: field_address
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_address
+  field_body:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 teine veerg » Paragraph » Klassi sisu'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_2:entity:field_body'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_body
+        - field.storage.paragraph.field_content_blocks_33_2
+      module:
+        - paragraphs
+  field_body_1:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 esimene veerg » Paragraph » Klassi sisu'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_1:entity:field_body'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_body
+        - field.storage.paragraph.field_content_blocks_33_1
+      module:
+        - paragraphs
+  field_body_2:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 kolmas veerg » Paragraph » Klassi sisu'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_3:entity:field_body'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_body
+        - field.storage.paragraph.field_content_blocks_33_3
+      module:
+        - paragraphs
+  field_body_3:
+    label: 'Jaotusplokid » Paragraph » Jaotus 66 esimene veerg » Paragraph » Klassi sisu'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_66_1:entity:field_body'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_body
+        - field.storage.paragraph.field_content_blocks_66_1
+      module:
+        - paragraphs
+  field_body_4:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 esimene veerg » Paragraph » Klassi sisu'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_1:entity:field_body'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_body
+        - field.storage.paragraph.field_content_blocks_50_1
+      module:
+        - paragraphs
+  field_body_5:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 teine veerg » Paragraph » Klassi sisu'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_2:entity:field_body'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_body
+        - field.storage.paragraph.field_content_blocks_50_2
+      module:
+        - paragraphs
+  field_body_6:
+    label: 'Jaotusplokid » Paragraph » Jaotus 75 esimene veerg » Paragraph » Klassi sisu'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_75_1:entity:field_body'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_body
+        - field.storage.paragraph.field_content_blocks_75_1
+      module:
+        - paragraphs
+  field_body_7:
+    label: 'Jaotusplokid » Paragraph » Jaotus 100 » Paragraph » Klassi sisu'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_100:entity:field_body'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_body
+        - field.storage.paragraph.field_content_blocks_100
+      module:
+        - paragraphs
+  field_body_8:
+    label: 'Lennu klassid » Paragraph » Klassi sisu'
+    datasource_id: 'entity:node'
+    property_path: 'field_class:entity:field_body'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_class
+        - field.storage.paragraph.field_body
+      module:
+        - paragraphs
+  field_body_text:
+    label: 'Lisainfo » Paragraph » Sisutekst'
+    datasource_id: 'entity:node'
+    property_path: 'field_additional_information:entity:field_body_text'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_additional_information
+        - field.storage.paragraph.field_body_text
+      module:
+        - paragraphs
+  field_contact_title:
+    label: 'Jaotusplokid » Paragraph » Jaotus 100 » Paragraph » Kontakti pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_100:entity:field_contact_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_contact_title
+        - field.storage.paragraph.field_content_blocks_100
+      module:
+        - paragraphs
+  field_contact_title_1:
+    label: 'Jaotusplokid » Paragraph » Jaotus 75 esimene veerg » Paragraph » Kontakti pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_75_1:entity:field_contact_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_contact_title
+        - field.storage.paragraph.field_content_blocks_75_1
+      module:
+        - paragraphs
+  field_contact_title_2:
+    label: 'Jaotusplokid » Paragraph » Jaotus 66 esimene veerg » Paragraph » Kontakti pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_66_1:entity:field_contact_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_contact_title
+        - field.storage.paragraph.field_content_blocks_66_1
+      module:
+        - paragraphs
+  field_contact_title_3:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 esimene veerg » Paragraph » Kontakti pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_1:entity:field_contact_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_contact_title
+        - field.storage.paragraph.field_content_blocks_33_1
+      module:
+        - paragraphs
+  field_contact_title_4:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 esimene veerg » Paragraph » Kontakti pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_1:entity:field_contact_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_contact_title
+        - field.storage.paragraph.field_content_blocks_50_1
+      module:
+        - paragraphs
+  field_contact_title_5:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 teine veerg » Paragraph » Kontakti pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_2:entity:field_contact_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_contact_title
+        - field.storage.paragraph.field_content_blocks_50_2
+      module:
+        - paragraphs
+  field_contact_title_6:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 teine veerg » Paragraph » Kontakti pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_2:entity:field_contact_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_contact_title
+        - field.storage.paragraph.field_content_blocks_33_2
+      module:
+        - paragraphs
+  field_contact_title_7:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 kolmas veerg » Paragraph » Kontakti pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_3:entity:field_contact_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_contact_title
+        - field.storage.paragraph.field_content_blocks_33_3
+      module:
+        - paragraphs
+  field_description:
+    label: 'Galerii kirjeldus'
+    datasource_id: 'entity:node'
+    property_path: field_description
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_description
+  field_email:
+    label: E-post
+    datasource_id: 'entity:node'
+    property_path: field_email
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_email
+  field_email_1:
+    label: 'Jaotusplokid » Paragraph » Jaotus 100 » Paragraph » E-post'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_100:entity:field_email'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_100
+        - field.storage.paragraph.field_email
+      module:
+        - paragraphs
+  field_email_2:
+    label: 'Jaotusplokid » Paragraph » Jaotus 75 esimene veerg » Paragraph » E-post'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_75_1:entity:field_email'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_75_1
+        - field.storage.paragraph.field_email
+      module:
+        - paragraphs
+  field_email_3:
+    label: 'Jaotusplokid » Paragraph » Jaotus 66 esimene veerg » Paragraph » E-post'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_66_1:entity:field_email'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_66_1
+        - field.storage.paragraph.field_email
+      module:
+        - paragraphs
+  field_email_4:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 esimene veerg » Paragraph » E-post'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_1:entity:field_email'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_1
+        - field.storage.paragraph.field_email
+      module:
+        - paragraphs
+  field_email_5:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 esimene veerg » Paragraph » E-post'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_1:entity:field_email'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_50_1
+        - field.storage.paragraph.field_email
+      module:
+        - paragraphs
+  field_email_6:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 teine veerg » Paragraph » E-post'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_2:entity:field_email'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_2
+        - field.storage.paragraph.field_email
+      module:
+        - paragraphs
+  field_email_7:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 teine veerg » Paragraph » E-post'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_2:entity:field_email'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_50_2
+        - field.storage.paragraph.field_email
+      module:
+        - paragraphs
+  field_email_8:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 kolmas veerg » Paragraph » E-post'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_3:entity:field_email'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_3
+        - field.storage.paragraph.field_email
+      module:
+        - paragraphs
+  field_name:
+    label: 'Jaotusplokid » Paragraph » Jaotus 100 » Paragraph » Nimi'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_100:entity:field_name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_100
+        - field.storage.paragraph.field_name
+      module:
+        - paragraphs
+  field_name_1:
+    label: 'Jaotusplokid » Paragraph » Jaotus 75 esimene veerg » Paragraph » Nimi'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_75_1:entity:field_name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_75_1
+        - field.storage.paragraph.field_name
+      module:
+        - paragraphs
+  field_name_2:
+    label: 'Jaotusplokid » Paragraph » Jaotus 66 esimene veerg » Paragraph » Nimi'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_66_1:entity:field_name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_66_1
+        - field.storage.paragraph.field_name
+      module:
+        - paragraphs
+  field_name_3:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 esimene veerg » Paragraph » Nimi'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_1:entity:field_name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_1
+        - field.storage.paragraph.field_name
+      module:
+        - paragraphs
+  field_name_4:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 esimene veerg » Paragraph » Nimi'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_1:entity:field_name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_50_1
+        - field.storage.paragraph.field_name
+      module:
+        - paragraphs
+  field_name_5:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 teine veerg » Paragraph » Nimi'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_2:entity:field_name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_50_2
+        - field.storage.paragraph.field_name
+      module:
+        - paragraphs
+  field_name_6:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 teine veerg » Paragraph » Nimi'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_2:entity:field_name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_2
+        - field.storage.paragraph.field_name
+      module:
+        - paragraphs
+  field_name_7:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 kolmas veerg » Paragraph » Nimi'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_3:entity:field_name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_3
+        - field.storage.paragraph.field_name
+      module:
+        - paragraphs
+  field_phone:
+    label: Telefon
+    datasource_id: 'entity:node'
+    property_path: field_phone
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_phone
+  field_phone_1:
+    label: 'Jaotusplokid » Paragraph » Jaotus 100 » Paragraph » Telefon'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_100:entity:field_phone'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_100
+        - field.storage.paragraph.field_phone
+      module:
+        - paragraphs
+  field_phone_2:
+    label: 'Jaotusplokid » Paragraph » Jaotus 75 esimene veerg » Paragraph » Telefon'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_75_1:entity:field_phone'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_75_1
+        - field.storage.paragraph.field_phone
+      module:
+        - paragraphs
+  field_phone_3:
+    label: 'Jaotusplokid » Paragraph » Jaotus 66 esimene veerg » Paragraph » Telefon'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_66_1:entity:field_phone'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_66_1
+        - field.storage.paragraph.field_phone
+      module:
+        - paragraphs
+  field_phone_4:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 esimene veerg » Paragraph » Telefon'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_1:entity:field_phone'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_1
+        - field.storage.paragraph.field_phone
+      module:
+        - paragraphs
+  field_phone_5:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 esimene veerg » Paragraph » Telefon'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_1:entity:field_phone'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_50_1
+        - field.storage.paragraph.field_phone
+      module:
+        - paragraphs
+  field_phone_6:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 teine veerg » Paragraph » Telefon'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_2:entity:field_phone'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_50_2
+        - field.storage.paragraph.field_phone
+      module:
+        - paragraphs
+  field_phone_7:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 teine veerg » Paragraph » Telefon'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_2:entity:field_phone'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_2
+        - field.storage.paragraph.field_phone
+      module:
+        - paragraphs
+  field_phone_8:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 kolmas veerg » Paragraph » Telefon'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_3:entity:field_phone'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_3
+        - field.storage.paragraph.field_phone
+      module:
+        - paragraphs
+  field_phones_3:
+    label: Telefon
+    datasource_id: 'entity:node'
+    property_path: field_phones_3
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_phones_3
+  field_table_editor:
+    label: 'Jaotusplokid » Paragraph » Jaotus 100 » Paragraph » Tabel'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_100:entity:field_table_editor'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_100
+        - field.storage.paragraph.field_table_editor
+      module:
+        - paragraphs
+  field_table_editor_1:
+    label: 'Jaotusplokid » Paragraph » Jaotus 75 esimene veerg » Paragraph » Tabel'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_75_1:entity:field_table_editor'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_75_1
+        - field.storage.paragraph.field_table_editor
+      module:
+        - paragraphs
+  field_table_editor_2:
+    label: 'Jaotusplokid » Paragraph » Jaotus 66 esimene veerg » Paragraph » Tabel'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_66_1:entity:field_table_editor'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_66_1
+        - field.storage.paragraph.field_table_editor
+      module:
+        - paragraphs
+  field_table_editor_3:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 teine veerg » Paragraph » Tabel'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_2:entity:field_table_editor'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_50_2
+        - field.storage.paragraph.field_table_editor
+      module:
+        - paragraphs
+  field_table_editor_4:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 esimene veerg » Paragraph » Tabel'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_1:entity:field_table_editor'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_50_1
+        - field.storage.paragraph.field_table_editor
+      module:
+        - paragraphs
+  field_title:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 esimene veerg » Paragraph » Pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_1:entity:field_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_1
+        - field.storage.paragraph.field_title
+      module:
+        - paragraphs
+  field_title_1:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 teine veerg » Paragraph » Pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_2:entity:field_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_2
+        - field.storage.paragraph.field_title
+      module:
+        - paragraphs
+  field_title_2:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 kolmas veerg » Paragraph » Pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_3:entity:field_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_3
+        - field.storage.paragraph.field_title
+      module:
+        - paragraphs
+  field_title_3:
+    label: 'Jaotusplokid » Paragraph » Jaotus 66 esimene veerg » Paragraph » Pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_66_1:entity:field_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_66_1
+        - field.storage.paragraph.field_title
+      module:
+        - paragraphs
+  field_title_4:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 esimene veerg » Paragraph » Pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_1:entity:field_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_50_1
+        - field.storage.paragraph.field_title
+      module:
+        - paragraphs
+  field_title_5:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 teine veerg » Paragraph » Pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_2:entity:field_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_50_2
+        - field.storage.paragraph.field_title
+      module:
+        - paragraphs
+  field_title_6:
+    label: 'Jaotusplokid » Paragraph » Jaotus 75 esimene veerg » Paragraph » Pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_75_1:entity:field_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_75_1
+        - field.storage.paragraph.field_title
+      module:
+        - paragraphs
+  field_title_7:
+    label: 'Jaotusplokid » Paragraph » Jaotus 100 » Paragraph » Pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_100:entity:field_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_100
+        - field.storage.paragraph.field_title
+      module:
+        - paragraphs
+  field_title_8:
+    label: 'Lisainfo » Paragraph » Pealkiri'
+    datasource_id: 'entity:node'
+    property_path: 'field_additional_information:entity:field_title'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_additional_information
+        - field.storage.paragraph.field_title
+      module:
+        - paragraphs
+  field_venue:
+    label: 'Toimumise koht '
+    datasource_id: 'entity:node'
+    property_path: field_venue
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_venue
+  langcode:
+    label: Keel
+    datasource_id: 'entity:node'
+    property_path: langcode
+    type: text
+    dependencies:
+      module:
+        - node
+  name:
+    label: 'Osakonnad » Paragraph » Osakond » Taksonoomia termin » Nimetus'
+    datasource_id: 'entity:node'
+    property_path: 'field_department:entity:field_department:entity:name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_department
+        - field.storage.paragraph.field_department
+      module:
+        - paragraphs
+        - taxonomy
+  name_1:
+    label: 'Ametikoht » Taksonoomia termin » Nimetus'
+    datasource_id: 'entity:node'
+    property_path: 'field_position:entity:name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_position
+      module:
+        - taxonomy
+  name_11:
+    label: 'Lisainfo » Paragraph » Link või fail » Paragraph » Fail » Meedia » Nimetus'
+    datasource_id: 'entity:node'
+    property_path: 'field_additional_information:entity:field_links_and_files:entity:field_file:entity:name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_additional_information
+        - field.storage.paragraph.field_file
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - media
+        - paragraphs
+  name_2:
+    label: 'Jaotusplokid » Paragraph » Jaotus 100 » Paragraph » Link või fail » Paragraph » Fail » Meedia » Nimetus'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_100:entity:field_links_and_files:entity:field_file:entity:name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_100
+        - field.storage.paragraph.field_file
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - media
+        - paragraphs
+  name_3:
+    label: 'Jaotusplokid » Paragraph » Jaotus 75 esimene veerg » Paragraph » Link või fail » Paragraph » Fail » Meedia » Nimetus'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_75_1:entity:field_links_and_files:entity:field_file:entity:name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_75_1
+        - field.storage.paragraph.field_file
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - media
+        - paragraphs
+  name_4:
+    label: 'Jaotusplokid » Paragraph » Jaotus 66 esimene veerg » Paragraph » Link või fail » Paragraph » Fail » Meedia » Nimetus'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_66_1:entity:field_links_and_files:entity:field_file:entity:name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_66_1
+        - field.storage.paragraph.field_file
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - media
+        - paragraphs
+  name_5:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 esimene veerg » Paragraph » Link või fail » Paragraph » Fail » Meedia » Nimetus'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_1:entity:field_links_and_files:entity:field_file:entity:name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_1
+        - field.storage.paragraph.field_file
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - media
+        - paragraphs
+  name_6:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 esimene veerg » Paragraph » Link või fail » Paragraph » Fail » Meedia » Nimetus'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_1:entity:field_links_and_files:entity:field_file:entity:name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_50_1
+        - field.storage.paragraph.field_file
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - media
+        - paragraphs
+  name_7:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 teine veerg » Paragraph » Link või fail » Paragraph » Fail » Meedia » Nimetus'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_2:entity:field_links_and_files:entity:field_file:entity:name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_50_2
+        - field.storage.paragraph.field_file
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - media
+        - paragraphs
+  name_8:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 teine veerg » Paragraph » Link või fail » Paragraph » Fail » Meedia » Nimetus'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_2:entity:field_links_and_files:entity:field_file:entity:name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_2
+        - field.storage.paragraph.field_file
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - media
+        - paragraphs
+  name_9:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 kolmas veerg » Paragraph » Link või fail » Paragraph » Fail » Meedia » Nimetus'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_3:entity:field_links_and_files:entity:field_file:entity:name'
+    type: text
+    boost: 2.0
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_3
+        - field.storage.paragraph.field_file
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - media
+        - paragraphs
+  title:
+    label: Pealkiri
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+    boost: 5.0
+    dependencies:
+      module:
+        - node
+  title_1:
+    label: 'Jaotusplokid » Paragraph » Jaotus 100 » Paragraph » Link või fail » Paragraph » Veebilehe link » Lingi tekst'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_100:entity:field_links_and_files:entity:field_link:title'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_100
+        - field.storage.paragraph.field_link
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - paragraphs
+  title_10:
+    label: 'Lisainfo » Paragraph » Link või fail » Paragraph » Veebilehe link » Lingi tekst'
+    datasource_id: 'entity:node'
+    property_path: 'field_additional_information:entity:field_links_and_files:entity:field_link:title'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_additional_information
+        - field.storage.paragraph.field_link
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - paragraphs
+  title_2:
+    label: 'Jaotusplokid » Paragraph » Jaotus 75 esimene veerg » Paragraph » Link või fail » Paragraph » Veebilehe link » Lingi tekst'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_75_1:entity:field_links_and_files:entity:field_link:title'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_75_1
+        - field.storage.paragraph.field_link
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - paragraphs
+  title_3:
+    label: 'Jaotusplokid » Paragraph » Jaotus 66 esimene veerg » Paragraph » Link või fail » Paragraph » Veebilehe link » Lingi tekst'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_66_1:entity:field_links_and_files:entity:field_link:title'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_66_1
+        - field.storage.paragraph.field_link
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - paragraphs
+  title_4:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 esimene veerg » Paragraph » Link või fail » Paragraph » Veebilehe link » Lingi tekst'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_1:entity:field_links_and_files:entity:field_link:title'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_1
+        - field.storage.paragraph.field_link
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - paragraphs
+  title_5:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 esimene veerg » Paragraph » Link või fail » Paragraph » Veebilehe link » Lingi tekst'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_1:entity:field_links_and_files:entity:field_link:title'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_50_1
+        - field.storage.paragraph.field_link
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - paragraphs
+  title_6:
+    label: 'Jaotusplokid » Paragraph » Jaotus 50 teine veerg » Paragraph » Link või fail » Paragraph » Veebilehe link » Lingi tekst'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_50_2:entity:field_links_and_files:entity:field_link:title'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_50_2
+        - field.storage.paragraph.field_link
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - paragraphs
+  title_7:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 teine veerg » Paragraph » Link või fail » Paragraph » Veebilehe link » Lingi tekst'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_2:entity:field_links_and_files:entity:field_link:title'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_2
+        - field.storage.paragraph.field_link
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - paragraphs
+  title_8:
+    label: 'Jaotusplokid » Paragraph » Jaotus 33 kolmas veerg » Paragraph » Link või fail » Paragraph » Veebilehe link » Lingi tekst'
+    datasource_id: 'entity:node'
+    property_path: 'field_distribution_blocks:entity:field_content_blocks_33_3:entity:field_links_and_files:entity:field_link:title'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_distribution_blocks
+        - field.storage.paragraph.field_content_blocks_33_3
+        - field.storage.paragraph.field_link
+        - field.storage.paragraph.field_links_and_files
+      module:
+        - paragraphs
+  type:
+    label: Sisutüüp
+    datasource_id: 'entity:node'
+    property_path: type
+    type: text
+    dependencies:
+      module:
+        - node
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: true
+      selected:
+        - food_menu
+        - front_page
+        - partner_logo
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  entity_status: {  }
+  highlight:
+    weights:
+      postprocess_query: 0
+    prefix: '<u>'
+    suffix: '</u>'
+    excerpt: true
+    excerpt_length: 300
+    exclude_fields:
+      - langcode
+      - type
+    highlight: always
+    highlight_partial: true
+  html_filter:
+    weights:
+      preprocess_index: -15
+      preprocess_query: -15
+    all_fields: true
+    fields:
+      - body
+      - field_address
+      - field_body
+      - field_body_1
+      - field_body_2
+      - field_body_3
+      - field_body_4
+      - field_body_5
+      - field_body_6
+      - field_body_7
+      - field_body_8
+      - field_body_text
+      - field_contact_title
+      - field_contact_title_1
+      - field_contact_title_2
+      - field_contact_title_3
+      - field_contact_title_4
+      - field_contact_title_5
+      - field_contact_title_6
+      - field_contact_title_7
+      - field_description
+      - field_email
+      - field_email_1
+      - field_email_2
+      - field_email_3
+      - field_email_4
+      - field_email_5
+      - field_email_6
+      - field_email_7
+      - field_email_8
+      - field_name
+      - field_name_1
+      - field_name_2
+      - field_name_3
+      - field_name_4
+      - field_name_5
+      - field_name_6
+      - field_name_7
+      - field_phone
+      - field_phone_1
+      - field_phone_2
+      - field_phone_3
+      - field_phone_4
+      - field_phone_5
+      - field_phone_6
+      - field_phone_7
+      - field_phone_8
+      - field_phones_3
+      - field_table_editor
+      - field_table_editor_1
+      - field_table_editor_2
+      - field_table_editor_3
+      - field_table_editor_4
+      - field_title
+      - field_title_1
+      - field_title_2
+      - field_title_3
+      - field_title_4
+      - field_title_5
+      - field_title_6
+      - field_title_7
+      - field_title_8
+      - field_venue
+      - langcode
+      - name
+      - name_1
+      - name_11
+      - name_2
+      - name_3
+      - name_4
+      - name_5
+      - name_6
+      - name_7
+      - name_8
+      - name_9
+      - title
+      - title_1
+      - title_10
+      - title_2
+      - title_3
+      - title_4
+      - title_5
+      - title_6
+      - title_7
+      - title_8
+      - type
+    title: true
+    alt: true
+    tags:
+      b: 2
+      h2: 5
+      h3: 3
+      h4: 2
+      strong: 2
+  ignore_character:
+    weights:
+      preprocess_index: -10
+      preprocess_query: -10
+    all_fields: true
+    fields:
+      - body
+      - field_address
+      - field_body
+      - field_body_1
+      - field_body_2
+      - field_body_3
+      - field_body_4
+      - field_body_5
+      - field_body_6
+      - field_body_7
+      - field_body_8
+      - field_body_text
+      - field_contact_title
+      - field_contact_title_1
+      - field_contact_title_2
+      - field_contact_title_3
+      - field_contact_title_4
+      - field_contact_title_5
+      - field_contact_title_6
+      - field_contact_title_7
+      - field_description
+      - field_email
+      - field_email_1
+      - field_email_2
+      - field_email_3
+      - field_email_4
+      - field_email_5
+      - field_email_6
+      - field_email_7
+      - field_email_8
+      - field_name
+      - field_name_1
+      - field_name_2
+      - field_name_3
+      - field_name_4
+      - field_name_5
+      - field_name_6
+      - field_name_7
+      - field_phone
+      - field_phone_1
+      - field_phone_2
+      - field_phone_3
+      - field_phone_4
+      - field_phone_5
+      - field_phone_6
+      - field_phone_7
+      - field_phone_8
+      - field_phones_3
+      - field_table_editor
+      - field_table_editor_1
+      - field_table_editor_2
+      - field_table_editor_3
+      - field_table_editor_4
+      - field_title
+      - field_title_1
+      - field_title_2
+      - field_title_3
+      - field_title_4
+      - field_title_5
+      - field_title_6
+      - field_title_7
+      - field_title_8
+      - field_venue
+      - langcode
+      - name
+      - name_1
+      - name_11
+      - name_2
+      - name_3
+      - name_4
+      - name_5
+      - name_6
+      - name_7
+      - name_8
+      - name_9
+      - title
+      - title_1
+      - title_10
+      - title_2
+      - title_3
+      - title_4
+      - title_5
+      - title_6
+      - title_7
+      - title_8
+      - type
+    ignorable: "['¿¡!?,.:;*]"
+    ignorable_classes:
+      - Pc
+      - Pd
+      - Pe
+      - Pf
+      - Pi
+      - Po
+      - Ps
+  ignorecase:
+    weights:
+      preprocess_index: -20
+      preprocess_query: -20
+    all_fields: true
+    fields:
+      - body
+      - field_address
+      - field_body
+      - field_body_1
+      - field_body_2
+      - field_body_3
+      - field_body_4
+      - field_body_5
+      - field_body_6
+      - field_body_7
+      - field_body_8
+      - field_body_text
+      - field_contact_title
+      - field_contact_title_1
+      - field_contact_title_2
+      - field_contact_title_3
+      - field_contact_title_4
+      - field_contact_title_5
+      - field_contact_title_6
+      - field_contact_title_7
+      - field_description
+      - field_email
+      - field_email_1
+      - field_email_2
+      - field_email_3
+      - field_email_4
+      - field_email_5
+      - field_email_6
+      - field_email_7
+      - field_email_8
+      - field_name
+      - field_name_1
+      - field_name_2
+      - field_name_3
+      - field_name_4
+      - field_name_5
+      - field_name_6
+      - field_name_7
+      - field_phone
+      - field_phone_1
+      - field_phone_2
+      - field_phone_3
+      - field_phone_4
+      - field_phone_5
+      - field_phone_6
+      - field_phone_7
+      - field_phone_8
+      - field_phones_3
+      - field_table_editor
+      - field_table_editor_1
+      - field_table_editor_2
+      - field_table_editor_3
+      - field_table_editor_4
+      - field_title
+      - field_title_1
+      - field_title_2
+      - field_title_3
+      - field_title_4
+      - field_title_5
+      - field_title_6
+      - field_title_7
+      - field_title_8
+      - field_venue
+      - langcode
+      - name
+      - name_1
+      - name_11
+      - name_2
+      - name_3
+      - name_4
+      - name_5
+      - name_6
+      - name_7
+      - name_8
+      - name_9
+      - title
+      - title_1
+      - title_10
+      - title_2
+      - title_3
+      - title_4
+      - title_5
+      - title_6
+      - title_7
+      - title_8
+      - type
+  language_with_fallback: {  }
+  rendered_item: {  }
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  cron_limit: 50
+  index_directly: true
+  track_changes_in_references: true
+server: search_server

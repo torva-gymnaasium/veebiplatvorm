@@ -1,0 +1,7 @@
+tips:
+  search-api-server-status:
+    label: Статус
+  search-api-server-backend:
+    label: Бэкенд
+  search-api-server-indexes:
+    label: 'Поисковые индексы'

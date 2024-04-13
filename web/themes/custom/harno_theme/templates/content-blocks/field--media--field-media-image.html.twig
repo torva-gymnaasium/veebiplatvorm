@@ -1,0 +1,179 @@
+{#
+/**
+ * @file
+ * Theme override for a field.
+ *
+ * To override output, copy the "field.html.twig" from the templates directory
+ * to your theme's directory and customize it, just like customizing other
+ * Drupal templates such as page.html.twig or node.html.twig.
+ *
+ * Instead of overriding the theming for all fields, you can also just override
+ * theming for a subset of fields using
+ * @link themeable Theme hook suggestions. @endlink For example,
+ * here are some theme hook suggestions that can be used for a field_foo field
+ * on an article node type:
+ * - field--node--field-foo--article.html.twig
+ * - field--node--field-foo.html.twig
+ * - field--node--article.html.twig
+ * - field--field-foo.html.twig
+ * - field--text-with-summary.html.twig
+ * - field.html.twig
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ * - label_hidden: Whether to show the field label or not.
+ * - title_attributes: HTML attributes for the title.
+ * - label: The label for the field.
+ * - multiple: TRUE if a field can contain multiple items.
+ * - items: List of all the field items. Each item contains:
+ *   - attributes: List of HTML attributes for each item.
+ *   - content: The field item's content.
+ * - entity_type: The entity type to which the field belongs.
+ * - field_name: The name of the field.
+ * - field_type: The type of the field.
+ * - label_display: The display settings for the label.
+ *
+ * @see template_preprocess_field()
+ */
+#}
+{% set title_classes = [
+  label_display == 'visually_hidden' ? 'visually-hidden',
+] %}
+{% if element %}
+  {% set orientation='landscape' %}
+  {% if element['#orientation'] %}
+    {% set orientation = element['#orientation'] %}
+  {% endif %}
+  {% set modal = true %}
+  {% if  element['#thumbnail'] ==1 %}
+    {% set orientation='landscape' %}
+    {% set img_classes = "thumb thumb--landscape" %}
+  {% else %}
+    {% set img_classes = "image-field image-field--"~orientation %}
+  {% endif %}
+  {% set paragraph_id = 0 %}
+  {% if element['#paragraph_id'] %}
+    {% set paragraph_id = element['#paragraph_id'] %}
+  {% endif %}
+{% endif %}
+{#{{ devel_dump() }}#}
+{% set placeholder = '/themes/custom/harno_theme/static/assets/images/placeholder-1.gif' %}
+{% for item in items %}
+  {% set image_uri = item.content['#item']|file_uri %}
+{#  {% set image_url = image_uri|image_style('detail_one_image')%}#}
+  {% set original_image = file_url(image_uri) %}
+  {% set image_alt = item.content['#item'].getValue().alt %}
+  {% set title = item.content['#item'].getValue().title %}
+  {% set image_width = item.content['#item'].getValue().width %}
+  {% set image_height = item.content['#item'].getValue().height %}
+  {% set ratio = image_width / image_height %}
+  {% set padding = image_height/image_width*100 %}
+  {% if not element['#setmodal'] and not element['#thumbnail']%}
+    {% set image_url = image_uri|image_style('detail_one_image')%}
+    <style>
+      :root {
+        --one-image-size: {{ padding }}%;
+      }
+    </style>
+    {% else %}
+      {% if element['#element_width'] == 100 %}
+        {% if orientation == 'portrait' %}
+            {% set image_url = image_uri|image_style('portrait_100')%}
+          {% elseif orientation=='landscape' %}
+            {% set image_url = image_uri|image_style('landscape_100')%}
+          {% elseif orientation=='natural' %}
+            {% set image_url = image_uri|image_style('natural_100')%}
+          {% endif %}
+      {% endif %}
+      {% if element['#element_width'] == 50 %}
+        {% if orientation == 'portrait' %}
+            {% set image_url = image_uri|image_style('portrait_50')%}
+        {% elseif orientation=='landscape' %}
+          {% set image_url = image_uri|image_style('landscape_50')%}
+        {% elseif orientation=='natural' %}
+          {% set image_url = image_uri|image_style('natural_50')%}
+          {% endif %}
+      {% endif %}
+      {% if element['#element_width'] == 25 %}
+
+        {% if orientation == 'portrait' %}
+            {% set image_url = image_uri|image_style('portrait_25')%}
+        {% elseif orientation=='landscape' %}
+          {% set image_url = image_uri|image_style('landscape_25')%}
+        {% elseif orientation=='natural' %}
+          {% set image_url = image_uri|image_style('natural_25')%}
+          {% endif %}
+
+      {% endif %}
+      {% if element['#element_width'] == 33 %}
+        {% if orientation == 'portrait' %}
+            {% set image_url = image_uri|image_style('portrait_33')%}
+        {% elseif orientation=='landscape' %}
+          {% set image_url = image_uri|image_style('landscape_33')%}
+        {% elseif orientation=='natural' %}
+          {% set image_url = image_uri|image_style('natural_33')%}
+          {% endif %}
+      {% endif %}
+      {% if element['#element_width'] == 66 %}
+        {% if orientation == 'portrait' %}
+            {% set image_url = image_uri|image_style('portrait_66')%}
+        {% elseif orientation=='landscape' %}
+          {% set image_url = image_uri|image_style('landscape_66')%}
+        {% elseif orientation=='natural' %}
+          {% set image_url = image_uri|image_style('natural_66')%}
+          {% endif %}
+      {% endif %}
+      {% if element['#element_width'] == 75 %}
+        {% if orientation == 'portrait' %}
+            {% set image_url = image_uri|image_style('portrait_75')%}
+        {% elseif orientation=='landscape' %}
+          {% set image_url = image_uri|image_style('landscape_75')%}
+        {% elseif orientation=='natural' %}
+          {% set image_url = image_uri|image_style('natural_75')%}
+          {% endif %}
+      {% endif %}
+      {% if element['#thumbnail'] %}
+        {% set image_url = image_uri|file_url %}
+      {% endif %}
+  {% endif %}
+  {% set image_block=true %}
+  {% if element['#setmodal'] %}
+    {% set image_block = false %}
+  {% elseif element['#gallerythumb'] %}
+    {% set image_block = false %}
+  {% endif %}
+  {% if image_block %}
+    <div class="image-block">
+  {% endif %}
+  {% if image_uri %}
+    {% set bigPicture = image_uri|image_style('modal_picture') %}
+  {% endif %}
+      <a {% if bigPicture is defined %}data-bigPicture = "{{ bigPicture }}" {% endif %} id="{{ paragraph_id }}-{{ item.content['#item'].getValue().target_id }}"
+         href="{{ image_url }}" title="{{ title }}" data-placeholder="{{ placeholder }}" data-image="{{ original_image }}"
+         data-plugin="modalOpener" {% if image_alt %} alt="{{ image_alt }}"{% else %} alt="" aria-label="{{ "Image, opens in modal"|t }}"  {% endif %} {% if not element['#gallerythumb'] %} data-modal="single" {% endif %}
+         href="#"
+         class="{{ img_classes }} {% if element['#gallerythumb'] %} gallery-image-item {% endif %} {% if not element['#header_image']%} image-field--{{ orientation }}-custom {% endif%}  {% if element['#setmodal'] is not defined and element['#thumbnail'] is not defined %}{% if  element['#header_image']%}image-field--one-image-custom{% endif%}{% endif%} {% if orientation=='natural' %}
+                    {% if image_width > 699 and ratio > 1 %}{% endif %} picture-contain-custom{% endif %}" style="
+        background-image: url('{{ image_url }}');
+      {% if orientation=='natural' %}
+          padding-top: {{ padding }}%;
+      {% endif %}
+        {% if image_width < 699 %}
+          background-size:auto;
+        {% endif %}
+
+        " tabindex="0">
+        <img {% if image_alt %} alt="{{ image_alt }}"{% else %} alt="" aria-label="{{ "Image, opens in modal"|t }}"  {% endif %}  {% if ratio >1 and not element['#thumbnail'] %}style="" {% endif %}
+          src="/themes/custom/harno_theme/static/assets/images/placeholder-1.gif">
+        {% if not element['#thumbnail'] %}
+
+        <span class="gallery-icon">
+      <i class="mdi mdi-image-multiple" aria-hidden="true"></i>
+      <span class="sr-only">{{ "Open picture" | t}}</span>
+        {% endif %}
+      </a><!--/image-field-->
+  {% if image_block %}
+    </div>
+  {% endif %}
+  {#   {{ item.content }} #}
+{% endfor %}

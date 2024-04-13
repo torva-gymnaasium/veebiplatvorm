@@ -1,0 +1,23 @@
+uuid: 633784ed-d6d1-4f5e-bc34-3a9a572459c4
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.calendar
+  module:
+    - text
+id: node.calendar.body
+field_name: body
+entity_type: node
+bundle: calendar
+label: Sisutekst
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+field_type: text_with_summary

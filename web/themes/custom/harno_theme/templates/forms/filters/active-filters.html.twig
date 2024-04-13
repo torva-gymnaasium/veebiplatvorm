@@ -1,0 +1,133 @@
+
+{% set show_filters = false %}
+{% if children %}
+   {% if children['#content'] %}
+    {% if children['#content']['years'] %}
+     {% for year in children['#content']['years'] %}
+       {% if year %}
+         {% set show_filters = true %}
+       {% endif %}
+     {% endfor %}
+    {% endif %}
+     {% if children['dates'] and children['#content']['type'] is not defined %}
+       {% set show_filters=true %}
+     {% endif %}
+     {% if children['#content']['positions'] %}
+       {% set show_filters=true %}
+     {% endif %}
+     {% if children['#content']['departments'] %}
+       {% set show_filters=true %}
+     {% endif %}
+     {% if children['#content']['event_type'] %}
+       {% set show_filters=true %}
+     {% endif %}
+     {%if children['#content']['days'] and children['#content']['days'] != 'all'%}
+     {% set show_filters = true%}
+     {% endif %}
+   {% endif %}
+<div id="mobile-active-filters" class="mobile-filters-output" {% if not show_filters %} style="display: none"{% endif %}>
+  {% if children['#content'] %}
+  {% if children['#content'] and children['#content']['days']  and children['#content']['days'] != 'all'%}
+    <script src="/{{  directory }}/templates/forms/filters/filterRefreshCalendar3.js"></script>
+    <span class="btn-input">
+                  <label for="mobile-tag">{{ children['#content']['days'] |capitalize|t}}</label>
+                  <input type="checkbox" data-remove-days="{{ children['#content']['days'] }}" id="mobile-tag" value="{{ children['#content']['days'] }}">
+                  <span  data-plugin="filterRefresh"  class="btn btn-tag btn-tag-remove">{{ children['#content']['days']|capitalize |t}}</span>
+                </span>
+  {% endif %}
+    {% if children['#content']['years'] %}
+      <script src="/{{  directory }}/templates/forms/filters/filterRefresh6.js"></script>
+      {% for year in children['#content']['years']  %}
+        {% if year %}
+          {% set shown_year = year |t %}
+          {% if year == 'older' %}
+            {% set shown_year = children['#content']['other_label']%}
+          {% endif %}
+          <span class="btn-input btn-input--remove-tag">
+          <label for="mobile-tag">{{ shown_year }}</label>
+          <input  type="checkbox" data-remove-checkbox-item="{{ year }}" id="mobile-tag" value="{{ year }}" role="button" aria-label="{{ shown_year }} {{ "Click to remove"|t }} ">
+          <span  aria-label="{{ shown_year }} {{ "click to remove"|t }}"  data-plugin="filterRefresh2"  class="btn btn-tag btn-tag-remove">{{ shown_year }}</span>
+        </span>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    {% if children['#content']['event_type'] %}
+      <script src="/{{  directory }}/templates/forms/filters/filterRefreshCalendar3.js"></script>
+      {% for key,year in children['#content']['event_type']  %}
+        {% if year %}
+          <span class="btn-input btn-input--remove-tag">
+          <label for="mobile-tag">{{ year }}</label>
+          <input type="checkbox" data-remove-checkbox-item="{{ year }}" data-remove-checkbox-value="{{key}}" id="mobile-tag" role="button" value="{{ year }}" aria-label="{{ year }} {{ "Click to remove"|t }} ">
+          <span  data-plugin="filterRefresh"  class="btn btn-tag btn-tag-remove">{{ year }}</span>
+        </span>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    {% if children['#content']['positions'] and children['#content']['positions'] != 'all' %}
+      <script src="/{{  directory }}/templates/forms/filters/filterRefresh6.js"></script>
+      <span id="mobile-tag" class="btn-input btn-input--remove-tag">
+        <label for="mobile-tag">{{ children['#content']['positions'] }}</label>
+        <span class="btn btn-tag btn-tag-remove">
+          <input data-remove-position-item="{{ children['#content']['positions'] }}" type="checkbox form-checkbox custom-form-input" id="mobile-tag" name="positions_mobile" value="{{ children['#content']['positions'] }}">
+          {{ children['#content']['positions'] }}
+        </span>
+      </span>
+    {% endif %}
+    {% if children['#content']['departments'] and children['#content']['departments'] != 'all' %}
+      <script src="/{{ directory }}/templates/forms/filters/filterRefresh6.js"></script>
+      <span id="mobile-tag" class="btn-input btn-input--remove-tag">
+        <label for="mobile-tag">{{ children['#content']['departments'] }}</label>
+        <span class="btn btn-tag btn-tag-remove">
+          <input data-remove-department-item="{{ children['#content']['departments'] }}" type="checkbox form-checkbox custom-form-input" id="mobile-tag" name="departments_mobile" value="{{ children['#content']['departments'] }}">
+          {{ children['#content']['departments'] }}
+        </span>
+      </span>
+    {% endif %}
+  {% endif %}
+  {% if children['dates']  and children['#content']['type'] is not defined%}
+
+    <script src="/{{  directory }}/templates/forms/filters/filterRefresh6.js"></script>
+    {% set aria_label = '' %}
+    {% if children['dates']['start'] %}
+      {% set aria_label = children['dates']['start'] %}
+    {% endif %}
+    {% if children['dates']['end'] %}
+      {% if aria_label %}
+        {% set aria_label = aria_label ~" - "~ children['dates']['end']  %}
+        {% else %}
+        {% set aria_label = children['dates']['end'] %}
+      {% endif %}
+    {% endif %}
+        <span class="btn-input btn-input--remove-tag">
+           <label  for="mobile-tag">{% if children['dates']['start'] %}
+               {{children['dates']['start'] }}
+               {% set aria_label = aria_label ~  children['dates']['start'] %}
+             {% endif %}
+             {% if children['dates']['start'] and children['dates']['end'] %}
+             {{" - "}}
+             {% endif %}
+             {% if children['dates']['end'] %}
+               {% if aria_label %}
+                 {% set aria_label =   aria_label ~" - "~  children['dates']['end'] %}
+               {% else %}
+                 {% set aaria_label = children['dates']['end'] %}
+               {% endif %}
+
+               {{children['dates']['end'] }}
+             {% endif %}</label>
+          <input type="checkbox" data-remove-dates="{{ aria_label }}" id="mobile-tag"  role="button" value="{{ aria_label }}" aria-label="{{ aria_label }} {{ "Click to remove"|t }} ">
+          <span  data-plugin="filterRefresh2"  class="btn btn-tag btn-tag-remove btn-input--remove-tag">
+            {% if children['dates']['start'] %}
+              {{ children['dates']['start'] }}
+            {% endif %}
+            {% if children['dates']['start'] and children['dates']['end'] %}
+              {{" - "}}
+            {% endif %}
+            {% if children['dates']['end'] %}
+              {{ children['dates']['end'] }}
+            {% endif %}
+          </span>
+        </span>
+  {% endif %}
+</div>
+{% endif %}

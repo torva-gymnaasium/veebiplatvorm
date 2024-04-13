@@ -1,0 +1,301 @@
+{#
+/**
+ * @file
+ * Theme override for a field.
+ *
+ * To override output, copy the "field.html.twig" from the templates directory
+ * to your theme's directory and customize it, just like customizing other
+ * Drupal templates such as page.html.twig or node.html.twig.
+ *
+ * Instead of overriding the theming for all fields, you can also just override
+ * theming for a subset of fields using
+ * @link themeable Theme hook suggestions. @endlink For example,
+ * here are some theme hook suggestions that can be used for a field_foo field
+ * on an article node type:
+ * - field--node--field-foo--article.html.twig
+ * - field--node--field-foo.html.twig
+ * - field--node--article.html.twig
+ * - field--field-foo.html.twig
+ * - field--text-with-summary.html.twig
+ * - field.html.twig
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ * - label_hidden: Whether to show the field label or not.
+ * - title_attributes: HTML attributes for the title.
+ * - label: The label for the field.
+ * - multiple: TRUE if a field can contain multiple items.
+ * - items: List of all the field items. Each item contains:
+ *   - attributes: List of HTML attributes for each item.
+ *   - content: The field item's content.
+ * - entity_type: The entity type to which the field belongs.
+ * - field_name: The name of the field.
+ * - field_type: The type of the field.
+ * - label_display: The display settings for the label.
+ *
+ * @see template_preprocess_field()
+ */
+#}
+{% if element['#object'] is defined %}
+  {% set para_id = element['#object'].get('id').value %}
+{% endif %}
+{% if element['#orientation'] %}
+  {% set orientation = element['#orientation'] %}
+{% endif %}
+{%
+  set title_classes = [
+  label_display == 'visually_hidden' ? 'visually-hidden',
+]
+%}
+{% set placeholder = '/themes/custom/harno_theme/static/assets/images/placeholder-1.gif' %}
+{% if field_name == 'field_gallery_id' %}
+  {% for item in items  %}
+    {% if item.content %}
+      {% if item.content['#options'] %}
+        {% if item.content['#options'].entity %}
+          {% set gallery_id = item.content['#options'].entity.id %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+    {% if gallery_id %}
+      {% set node =  drupal_entity('node',  gallery_id , 'teaser')['#node']%}
+
+      <div class="image-block">
+        {% set fields = [
+          {'fname':'title'},
+          {'fname':'field_phone','href_start':'tel:','class':'phone'},
+          {'fname':'field_email','href_start':'mailto:','class':'e-mail'},
+        ] %}
+        {% if node.get('field_images').value %}
+          {% set media_uri = node.field_images%}
+          {% set images = node.get('field_images').getValue() %}
+          {% if not orientation %}
+          {% set orientation = 'landscape' %}
+              {% endif %}
+          {% for image in images %}
+            {% set media = drupal_entity('media',image.target_id) %}
+            {% if media['#media'] %}
+              {% set image_width = media['#media'].get('field_media_image').width %}
+              {% set image_height = media['#media'].get('field_media_image').height %}
+              {% set ratio = image_width/image_height %}
+              {% set padding = image_height/image_width*100 %}
+              {% set media_uri = media['#media']|file_uri %}
+              {% set media_url = file_url(media_uri) %}
+              {% set media_alt = media['#media'].get('field_media_image').alt %}
+              {% set media_title = media['#media'].get('field_media_image').title %}
+
+              {% if element['#element_width'] == 100 %}
+                {% if orientation == 'portrait' %}
+                  {% set media_url = media_uri|image_style('portrait_100')%}
+                {% elseif orientation=='landscape' %}
+                  {% set media_url = media_uri|image_style('landscape_100')%}
+                {% elseif orientation=='natural' %}
+                  {% set media_url = media_uri|image_style('natural_100')%}
+                {% endif %}
+              {% endif %}
+              {% if element['#element_width'] == 50 %}
+                {% if orientation == 'portrait' %}
+                  {% set media_url = media_uri|image_style('portrait_50')%}
+                {% elseif orientation=='landscape' %}
+                  {% set media_url = media_uri|image_style('landscape_50')%}
+                {% elseif orientation=='natural' %}
+                  {% set media_url = media_uri|image_style('natural_50')%}
+                {% endif %}
+              {% endif %}
+              {% if element['#element_width'] == 25 %}
+                {% if orientation == 'portrait' %}
+                  {% set media_url = media_uri|image_style('portrait_25')%}
+                {% elseif orientation=='landscape' %}
+                  {% set media_url = media_uri|image_style('landscape_25')%}
+                {% elseif orientation=='natural' %}
+                  {% set media_url = media_uri|image_style('natural_25')%}
+                {% endif %}
+
+              {% endif %}
+              {% if element['#element_width'] == 33 %}
+                {% if orientation == 'portrait' %}
+                  {% set media_url = media_uri|image_style('portrait_33')%}
+                {% elseif orientation=='landscape' %}
+                  {% set media_url = media_uri|image_style('landscape_33')%}
+                {% elseif orientation=='natural' %}
+                  {% set media_url = media_uri|image_style('natural_33')%}
+                {% endif %}
+              {% endif %}
+              {% if element['#element_width'] == 66 %}
+                {% if orientation == 'portrait' %}
+                  {% set media_url = media_uri|image_style('portrait_66')%}
+                {% elseif orientation=='landscape' %}
+                  {% set media_url = media_uri|image_style('landscape_66')%}
+                {% elseif orientation=='natural' %}
+                  {% set media_url = media_uri|image_style('natural_66')%}
+                {% endif %}
+              {% endif %}
+              {% if element['#element_width'] == 75 %}
+                {% if orientation == 'portrait' %}
+                  {% set media_url = media_uri|image_style('portrait_75')%}
+                {% elseif orientation=='landscape' %}
+                  {% set media_url = media_uri|image_style('landscape_75')%}
+                {% elseif orientation=='natural' %}
+                  {% set media_url = media_uri|image_style('natural_75')%}
+                {% endif %}
+              {% endif %}
+              {% if para_id is defined %}
+                {% set image_id = para_id~image.target_id %}
+                {% else %}
+                {% set image_id = image.target_id %}
+              {% endif %}
+            {% if loop.first %}
+              <a data-bigPicture="{{ media_uri|image_style('modal_picture') }}" id="{{ image_id }}" href="{{ media_url }}" data-plugin="modalOpener" data-image="{{ media_url }}" data-placeholder="{{ placeholder }}" data-modal="single" {% if media_alt%}alt="{{ media_alt}}"{% else  %} aria-label="{{ "Image, opens in modal"|t }}" {% endif%} title="{{ media_title }}" class="image-field image-field--{{ orientation }}-custom  image-field--{{ orientation }}  {% if orientation=='natural' %}
+                {% if image_width > 699 and ratio > 1 %}{% endif %} picture-contain-custom{% endif %}" style="
+                background-image: url('{{ media_url}}');
+              {% if orientation=='natural' %}
+                  padding-top: {{ padding }}%;
+      {% if image_width > 699 and ratio < 1 %} padding-top:100%;{% endif %}
+      {% if image_width<699 %}
+        background-size: auto;
+        {#padding-top: {{ padding }}%;#}
+      {% else %}
+
+        {% if ratio <=1 %}
+          padding-top: 100%;
+        {% endif %}
+        background-size:contain;
+      {% endif %}
+    {% endif %}{% if image_width<699 %}
+              background-size: auto;
+              {#padding-top: {{ padding }}%;#}
+            {% endif %}" tabindex="0">
+                <img src="/{{ active_theme_path() }}/static/assets/images/placeholder-1.gif" {% if media_alt%} alt="{{ media_alt }}" {% else  %}alt="" aria-label="{{ "Image, opens in modal"|t }}" {% endif%}>
+                     <span class="gallery-icon">
+      <i class="mdi mdi-image-multiple" aria-hidden="true"></i>
+      <span class="sr-only">{{ "Open gallery" | t}}</span>
+              </a><!--/image-field-->
+              <ul class="gallery-thumbs" style="flex-wrap:unset ;margin: 0.5rem -0.5rem 0 0;">
+              {% if loop.index==1 %}
+
+              {% endif %}
+            {% else %}
+              {% if loop.index == 2 %}
+
+              {% endif %}
+              {% if not loop.first and loop.index<7 %}
+                {% set thumb_class = 'visible-thumb' %}
+              {% else %}
+                {% set thumb_class = 'hidden' %}
+              {% endif %}
+
+              <li class="{{ thumb_class }}">
+                <a data-bigPicture="{{ media_uri|image_style('modal_picture') }}" id="{{ image_id }}" href="{{ media_url }}" data-image="{{ media_url }}" data-placeholder="{{ placeholder }}" {% if media_alt%} alt="{{ media_alt }}" {% else  %}alt="" aria-label="{{ "Image, opens in modal"|t }}" {% endif%} title="{{ media_title }}" class="gallery-image-item image-field--landscape-custom thumb thumb--landscape  {% if image_width<399 %}
+                {{"picture-cover-custom" }}
+              {% endif %}" href="{{ media_url }}" style="{% if image_width<699 %}
+                  background-size: auto;
+            {% endif %}  background-image: url('{{ drupal_image(media_uri,'thumbnail')['#uri']|file_url }}');" tabindex="0">
+                  <img src="/{{ active_theme_path() }}/static/assets/images/placeholder-1.gif" {% if media_alt%} alt="{{ media_alt }}" {% else %} alt="" {% endif%}>
+                </a>
+              </li>
+              {% if loop.last %}
+              {% if element.extra_images %}
+              {% for extra_image in element.extra_images %}
+               {% set extra_media = drupal_entity('media',extra_image.target_id) %}
+            {% if extra_media['#media'] %}
+              {% set image_width = extra_media['#media'].get('field_media_image').width %}
+              {% set image_height = extra_media['#media'].get('field_media_image').height %}
+              {% set ratio = image_width/image_height %}
+              {% set padding = image_height/image_width*100 %}
+              {% set media_uri = extra_media['#media']|file_uri %}
+              {% set media_url = file_url(media_uri) %}
+              {% set media_alt = extra_media['#media'].get('field_media_image').alt %}
+              {% set media_title = extra_media['#media'].get('field_media_image').title %}
+              <li class="{{ thumb_class }}">
+                <a id="{{ extra_image.target_id }}" href="{{ media_url }}" data-image="{{ media_url }}" data-placeholder="{{ placeholder }}" {% if media_alt%} alt="{{ media_alt }}" {% else  %}alt="" aria-label="{{ "Image, opens in modal"|t }}" {% endif%} title="{{ media_title }}" class="gallery-image-item image-field--landscape-custom thumb thumb--landscape  {% if image_width<399 %}
+                {{"picture-cover-custom" }}
+              {% endif %}" href="{{ media_url }}" style="{% if image_width<699 %}
+                  background-size: auto;
+            {% endif %}  background-image: url('{{ drupal_image(media_uri,'thumbnail')['#uri']|file_url }}');" tabindex="0">
+                  <img src="/{{ active_theme_path() }}/static/assets/images/placeholder-1.gif" {% if media_alt%} alt="{{ media_alt }}" {% else %} alt="" {% endif%}>
+                </a>
+              </li>
+              {% endif %}
+              {% endfor %}
+              {% endif %}
+
+                </ul><!--/thumbnails-field-->
+              {% endif %}
+            {% endif %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+{#      {{  drupal_entity('node',  gallery_id , 'teaser')  }}#}
+    {% endif %}
+  {% endfor %}
+
+{% endif %}
+{% if field_name!='field_images' %}
+{#{% if label_hidden %}#}
+{#  {% if multiple %}#}
+{#    <div{{ attributes }}>#}
+{#      {% for item in items %}#}
+{#        <div{{ item.attributes }}>{{ item.content }}</div>#}
+{#      {% endfor %}#}
+{#    </div>#}
+{#  {% else %}#}
+{#    {% for item in items %}#}
+{#      <div{{ attributes }}>{{ item.content }}</div>#}
+{#    {% endfor %}#}
+{#  {% endif %}#}
+{#{% else %}#}
+{#  <div{{ attributes }}>#}
+{#    <div{{ title_attributes.addClass(title_classes) }}>{{ label }}</div>#}
+{#    {% if multiple %}#}
+{#    <div>#}
+{#      {% endif %}#}
+{#      {% for item in items %}#}
+{#        <div{{ item.attributes }}>{{ item.content }}</div>#}
+{#      {% endfor %}#}
+{#      {% if multiple %}#}
+{#    </div>#}
+{#    {% endif %}#}
+{#  </div>#}
+{#{% endif %}#}
+
+  {% else %}
+    <div class="image-block">
+    {% for item in items %}
+
+      {% set content  = item.content %}
+      {% set  content = content|merge({'#orientation':orientation}) %}
+      {% set  content = content|merge({'#paragraph_id':element['#paragraph_id']}) %}
+      {% if loop.first %}
+        {% set modal = true %}
+        {% set  content = content|merge({'#setmodal':modal}) %}
+        {% set  content = content|merge({'#paragraph_id':element['#paragraph_id']}) %}
+        {{ content }}
+
+        <ul class="gallery-thumbs" style="flex-wrap:unset ;margin: 0.5rem -0.5rem 0 0;">
+
+        {% else %}
+
+          {% if loop.index == 2 %}
+            {% endif %}
+          {% if loop.index <= 6 %}
+            <li class="visible-thumb">
+              {% else %}
+
+          <li class="hidden">
+          {% endif %}
+            {% set content  = item.content %}
+            {% set  content = content|merge({'#thumbnail':true}) %}
+             {% set  content = content|merge({'#orientation':orientation}) %}
+             {% set  content = content|merge({'#gallerythumb':true}) %}
+            {% set  content = content|merge({'#paragraph_id':element['#paragraph_id']}) %}
+
+            {{ content }}
+          </li>
+          {% if loop.last %}
+            </ul><!--/thumbnails-field-->
+            {% endif %}
+      {% endif %}
+    {% endfor %}
+    </div><!--/image-block-->
+{% endif %}

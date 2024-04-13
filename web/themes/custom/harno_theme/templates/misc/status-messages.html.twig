@@ -1,0 +1,147 @@
+{#
+/**
+ * @file
+ * Default theme implementation for status messages.
+ *
+ * Displays status, error, and warning messages, grouped by type.
+ *
+ * An invisible heading identifies the messages for assistive technology.
+ * Sighted users see a colored box. See http://www.w3.org/TR/WCAG-TECHS/H69.html
+ * for info.
+ *
+ * Add an ARIA label to the contentinfo area so that assistive technology
+ * user agents will better describe this landmark.
+ *
+ * Available variables:
+ * - message_list: List of messages to be displayed, grouped by type.
+ * - status_headings: List of all status types.
+ * - display: (optional) May have a value of 'status' or 'error' when only
+ *   displaying messages of that specific type.
+ * - attributes: HTML attributes for the element, including:
+ *   - class: HTML classes.
+ *
+ * @see template_preprocess_status_messages()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if route_name is defined %}
+
+  <div data-drupal-messages>
+    {% for type, messages in message_list %}
+      {% if type =='error' or type=='status' %}
+        {% set classes = [
+          'alert',
+          'alert-dismissible',
+          'fade',
+          'show',
+          type == 'status' ? 'notification-block--success',
+          type == 'warning' ? 'notification-block--alert',
+          type == 'error' ? 'notification-block--error',
+          type == 'info' ? 'notification-block--info',
+          'notification-block',
+        ] %}
+        {% set alert_icon = [
+          type == 'status' ? 'mdi-checkbox-marked-circle-outline',
+          type == 'warning' ? 'mdi-alert-circle-outline',
+          type == 'error' ? 'mdi-alert-circle-outline',
+          type == 'info' ? 'mdi-information-outline',
+          'mdi'
+        ] %}
+        {% set role = {
+          'status': 'status',
+          'error': 'alert',
+          'warning': 'alert',
+          'info': 'status',
+        } %}
+
+
+        <div data-alert="true" tabindex="-1" id="webformError">
+          <div {{ attributes|without('role', 'aria-label').addClass(classes).setAttribute('role', role[type]) }} >
+            {% if is_message_with_title or is_message_with_icon %}
+              {% if is_message_with_title %}
+                <h4 id="{{ title_ids[type] }}" class="alert-heading">
+                  {{ status_headings[type] }}
+                </h4>
+              {% endif %}
+            {% endif %}
+            <i class="{{ alert_icon|join(' ') }}" aria-hidden="true"></i>
+            <span class="sr-only">{{ status_headings[type] }}</span>
+            {% if type=='error' %}
+              <p
+                aria-live="assertive">{{ "Form contains errors. Mistakes have been marked below after the form fields that contain errors."|t }}</p>
+            {% else %}
+
+              {# {{ dd() }} #}
+              {% if message_list[type] is defined %}
+                {% if message_list[type][0] is defined %}
+                  {{ message_list[type][0] }}
+                {% endif %}
+              {% endif %}
+            {% endif %}
+            <button type="button" class="close btn btn-notification-close" data-dismiss="alert">
+              <i class="mdi mdi-close" aria-hidden="true"></i>
+              <span class="sr-only">{{ "Close notification"|t }}</span>
+            </button><!--/btn btn-notification-close-->
+          </div>
+          <div class="row-spacer-24"></div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% else %}
+
+
+  <div data-drupal-messages>
+    {% for type, messages in message_list %}
+      {% set classes = [
+        'alert',
+        'alert-dismissible',
+        'fade',
+        'show',
+        type == 'status' ? 'notification-block--success',
+        type == 'warning' ? 'notification-block--alert',
+        type == 'error' ? 'notification-block--error',
+        type == 'info' ? 'notification-block--info',
+        'notification-block',
+      ] %}
+      {% set alert_icon = [
+        type == 'status' ? 'mdi-checkbox-marked-circle-outline',
+        type == 'warning' ? 'mdi-alert-circle-outline',
+        type == 'error' ? 'mdi-alert-circle-outline',
+        type == 'info' ? 'mdi-information-outline',
+        'mdi'
+      ] %}
+      {% set role = {
+        'status': 'status',
+        'error': 'alert',
+        'warning': 'alert',
+        'info': 'status',
+      } %}
+      {% for message in messages %}
+
+        <div data-alert="true">
+          <div
+            aria-label="{{ status_headings[type] }}" {{ attributes|without('role', 'aria-label').addClass(classes).setAttribute('role', role[type]) }}>
+            {% if is_message_with_title or is_message_with_icon %}
+              {% if is_message_with_title %}
+                <h4 id="{{ title_ids[type] }}" class="alert-heading">
+                  {{ status_headings[type] }}
+                </h4>
+              {% endif %}
+            {% endif %}
+            <i class="{{ alert_icon|join(' ') }}" aria-hidden="true"></i>
+            <span class="sr-only">{{ type }}</span>
+            <p>{{ message }}</p>
+            <button type="button" class="close btn btn-notification-close" data-dismiss="alert">
+              <i class="mdi mdi-close" aria-hidden="true"></i>
+              <span class="sr-only">{{ "Close notification"|t }}</span>
+            </button><!--/btn btn-notification-close-->
+          </div>
+          <div class="row-spacer-24"></div>
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+{% endif %}
+

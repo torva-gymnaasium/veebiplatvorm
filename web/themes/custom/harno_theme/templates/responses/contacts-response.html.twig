@@ -1,0 +1,116 @@
+{% set base_path= base_path ~ directory %}
+<div id="filter-target">
+  <div class="accordion accordion--contacts" data-plugin="accordion">
+  {% if content %}
+    {% set i = 0 %}
+    {% for departments in content %}
+      {% for key, contacts in departments %}
+        <div class="accordion__item">
+          <h3 class="accordion__title">
+            <button id="accordion{{ loop.index }}{{ key }}" class="btn btn-accordion" aria-expanded="false" aria-controls="collapse{{ loop.index }}{{ key }}">
+              <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
+              <span class="btn-label">{{ key }} ({{ contacts.total }})</span>
+            </button><!--/btn-accordion-->
+          </h3><!--/accordion__title-->
+          <div id="collapse{{ loop.index }}{{ key }}" class="accordion__content" aria-labelledby="accordion{{ loop.index }}{{ key }}" role="region">
+            <div class="accordion__content--body">
+
+              {% if contacts.description and contacts.description is not empty %}
+              <span class="contacts-description">{{ contacts.description }}</span>
+              {% endif %}
+              <div class="row contacts-gutters">
+
+                {% for key, list in contacts %}
+                  {% for contact in list %}
+                    {% set media_image = '' %}
+                    {% set alt = '' %}
+                    {% set title = '' %}
+                    {% if contact.field_one_image %}
+                      {% if contact.field_one_image.0 %}
+                        {% if contact.field_one_image.0.getValue() %}
+                          {% set target_id = contact.field_one_image.0.value.target_id %}
+                          {% if target_id %}
+                            {% set media = drupal_entity('media',target_id) %}
+                            {% if media %}
+                              {% set media_image = drupal_image( media['#media'].field_media_image.0.value.target_id ,'thumbnail') %}
+                              {% if media['#media'].field_media_image.0.get('alt').getString %}
+                                {% set alt = media['#media'].field_media_image.0.get('alt').getString %}
+                              {% endif %}
+                              {% if media['#media'].field_media_image.0.get('title').getString %}
+                                {% set title = media['#media'].field_media_image.0.get('title').getString %}
+                              {% endif %}
+                            {% endif %}
+                          {% endif %}
+                        {% endif %}
+                      {% endif %}
+                    {% endif %}
+
+                    {% if not media_image %}
+                      {% set image = "/#{base_path}/static/assets/images/contact-placeholder.png" %}
+                    {% endif %}
+                    <div class="col-4 md-xxl-6 md-6 sm-xl-12 sm-12 bottom-line">
+                      <div class="contact-card">
+                        <div class="contact-card__avatar"
+                             style="background-image: url({% if media_image %}{{ media_image['#uri']|file_url }}{% else %} {{ image }} {% endif %});">
+                          <img
+                            src="/{{ base_path }}/static/assets/images/placeholder-2.gif" {% if alt %} alt="{{ alt }}" {% else %}alt="{{ "Contact photo"|t }}"{% endif %} {% if title %} title="{{ title }}" {% endif %}>
+                        </div><!--/contact-card__avatar-->
+                        <div class="contact-card__content">
+                          <a href="/{{ language }}/modal/content/{{ contact.id() }}" id="contact-modal-{{ i }}" class="btn btn-link contact-name"
+                             data-plugin="modal">{{ contact.getTitle() }}</a>
+                          {% if contact.field_position is not empty %}
+                            {% for positions in contact.field_position %}
+                              <p>{{ positions.entity.getName() }}</p>
+                            {% endfor %}
+                          {% endif %}
+                          <span class="contact-contacting-info">
+                              {% if contact.field_phone is not empty %}
+                                {% for number in contact.field_phone %}
+                                  <a href="tel:{{ number.value }}" class="btn btn-link phone">
+                                  <i class="mdi mdi-phone" aria-hidden="true"></i>
+                                  <span class="sr-only">{{ 'Phone number'|t }}</span>
+                                  {{ number.value }}</a>
+                                {% endfor %}
+                              {% endif %}
+                            {% if contact.field_email is not empty %}
+                              <a href="mailto:{{ contact.field_email.value }}" class="btn btn-link e-mail">
+                                  <i class="mdi mdi-email" aria-hidden="true"></i>
+                                <span class="sr-only">{{ 'Email address'|t }}</span>
+                                  {{ contact.field_email.value }}</a>
+                            {% endif %}
+                              </span><!--/contact-contacting-info-->
+
+                          {% if contact.field_consultation_hours is not empty %}
+                            {% set consulations_hours = contact.field_consultation_hours %}
+                            <span class="contact-reception-info">
+                                <p>
+                                  <strong>{{'Consulations time'|t }}:</strong>
+                                </p>
+                                {% for consulations_time in consulations_hours %}
+                                  <p>{{ consulations_time.value }}</p>
+                                {% endfor %}
+                              </span><!--/contact-reception-info-->
+                          {% endif %}
+
+                        </div><!--/contact-card__content-->
+                      </div><!--/contact-card-->
+                    </div><!--/col-4 md-xl-6 md-6 sm-xl-12 sm-12-->
+                    {% set i = i + 1 %}
+                  {% endfor %}
+                {% endfor %}
+              </div><!--/row contacts-gutters-->
+            </div><!--/accordion__content--body-->
+          </div><!--/accordion__content-->
+        </div><!--/accordion__item-->
+      {% endfor %}
+    {% endfor %}
+  {% else %}
+    <div class="row">
+      <div class="col-12 md-12 sm-12">
+        <div class="search-null-results">
+          <h4>{{ "No contacts matching the filters were found!"|t }}</h4>
+        </div><!--/search-null-results-->
+      </div>
+    </div>
+  {% endif %}
+</div><!--filter-target-->

@@ -1,0 +1,33 @@
+uuid: acd2823e-ff47-4b9b-a89e-d7471110e4ff
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_catalog
+    - media.type.audio
+    - taxonomy.vocabulary.media_catalogs
+  content:
+    - 'taxonomy_term:media_catalogs:b645263d-a29c-43a2-9e10-386925bdaadb'
+id: media.audio.field_catalog
+field_name: field_catalog
+entity_type: media
+bundle: audio
+label: 'Meedia kaust'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    target_uuid: b645263d-a29c-43a2-9e10-386925bdaadb
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      media_catalogs: media_catalogs
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

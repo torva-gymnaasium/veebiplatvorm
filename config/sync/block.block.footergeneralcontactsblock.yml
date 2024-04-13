@@ -1,0 +1,20 @@
+uuid: 6f5e7dd2-5c87-4b5a-8422-b2beca13e417
+langcode: et
+status: true
+dependencies:
+  module:
+    - harno_settings
+  theme:
+    - harno_theme
+id: footergeneralcontactsblock
+theme: harno_theme
+region: footer
+weight: -9
+provider: null
+plugin: harno_footer_main_contacts_block
+settings:
+  id: harno_footer_main_contacts_block
+  label: 'Footer General Contacts Block'
+  label_display: visible
+  provider: harno_settings
+visibility: {  }

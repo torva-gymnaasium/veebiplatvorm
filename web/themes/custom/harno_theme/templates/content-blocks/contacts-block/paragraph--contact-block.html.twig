@@ -1,0 +1,136 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a paragraph.
+ *
+ * Available variables:
+ * - paragraph: Full paragraph entity.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - paragraph.getCreatedTime() will return the paragraph creation timestamp.
+ *   - paragraph.id(): The paragraph ID.
+ *   - paragraph.bundle(): The type of the paragraph, for example, "image" or "text".
+ *   - paragraph.getOwnerId(): The user ID of the paragraph author.
+ *   See Drupal\paragraphs\Entity\Paragraph for a full list of public properties
+ *   and methods for the paragraph object.
+ * - content: All paragraph items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - paragraphs: The current template type (also known as a "theming hook").
+ *   - paragraphs--type-[type]: The current paragraphs type. For example, if the paragraph is an
+ *     "Image" it would result in "paragraphs--type--image". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - paragraphs--view-mode--[view_mode]: The View Mode of the paragraph; for example, a
+ *     preview would result in: "paragraphs--view-mode--preview", and
+ *     default: "paragraphs--view-mode--default".
+ * - view_mode: View mode; for example, "preview" or "full".
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_paragraph()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set classes = ['contact-block'] %}
+{% if content.field_contact_id['#items'] %}
+  {% set contact = content.field_contact_id['#items'].value %}
+{% endif %}
+{% block paragraph %}
+  <div {{ attributes.addClass(classes) }}>
+    {% if content.field_contact_title %}
+      {% block content %}
+        {{ content.field_contact_title }}
+      {% endblock %}
+    {% endif %}
+    {% set detailed_contact = content|without('field_contact_title') %}
+    <ul class="detailed-contact">
+      {% if contact %}
+
+        {% if contact.0.target_id %}
+          {% set node =  drupal_entity('node',  contact.0.target_id , 'teaser')['#node']%}
+          {% set fields = [
+            {'fname':'title','alt_name':'field_name','mdiclass':'mdi-account','srname':'Name'},
+            {'fname':'field_phone','href_start':'tel:','class':'phone','mdiclass':'mdi-phone','srname':'Phone'},
+            {'fname':'field_email','href_start':'mailto:','class':'e-mail','mdiclass':'mdi-email','srname':'E-mail'},
+            {'fname':'field_link','not_referenced':false,'class':'link-block','mdiclass':'mdi-map-marker','srname':'Link in page'},
+            {'fname':'field_address','not_referenced':true,'class':'location','mdiclass':'mdi-map-marker','srname':'Location'},
+          ] %}
+          {% for field in fields %}
+
+            {% if content[field.fname]['#title'] %}
+              {{ content[field.fname] }}
+            {% else %}
+              {% if content[field.alt_name]['#title'] %}
+                {{ content[field.alt_name] }}
+                {% else %}
+                  {% if not field.not_referenced  and node.get(field.fname).value %}
+                    {% for value in node.get(field.fname).getValue() %}
+                      <li>
+                        {% if field.fname=='title' %}
+                          <i class="mdi {{ field.mdiclass }}" aria-hidden="true"></i>
+                          <span class="sr-only">{{ field.srname |t}}</span>
+                          <span class="person-name">{{ value.value }}</span>
+                        {% else %}
+                          {% if field.fname == 'field_link' %}
+                            {% else %}
+                              <i class="mdi {{ field.mdiclass }}" aria-hidden="true"></i>
+                              <span class="{{ field.class }}">
+                          <a href="{{ field.href_start }}{{ value.value }}"
+                             class="btn btn-link {{ field.class }}">{{ value.value }}
+                          <span class="sr-only">{{ field.srname |t}}</span></a>
+                            </span>
+                          {% endif %}
+
+                        {% endif %}
+                      </li>
+                    {% endfor %}
+                {% else %}
+                  {% if field.fname == "field_link" %}
+                    {% if node.get(field.fname).value %}
+                    {% set url_info = node.get(field.fname).0.url %}
+                    {% if url_info.external %}
+                      {% set mdiclass = 'mdi-open-in-new' %}
+                      {% set sr_text = 'Link will open on a new page' %}
+                      {% set target = '_blank' %}
+                      {% else %}
+                      {% set mdiclass =  'mdi-link-variant' %}
+                        {% set sr_text = 'Link in page' %}
+                        {% set target = '' %}
+                    {% endif %}
+                    {% set link_info = node.get(field.fname).getValue()[0] %}
+                    <li>
+                      {% set actual_url = node.get(field.fname).0.getUrl().toString() %}
+                    <i class="mdi {{ mdiclass }}" aria-hidden="true"></i>
+                    <span class="{{ field.class }}">
+                          <a target="{{ target }}" href="{{ actual_url }}"
+                             class="btn btn-link {{ field.class }}">{{ link_info.title }}
+                    <span class="sr-only">{{ sr_text |t}}</span></a>
+                            </span>
+                    </li>
+
+
+                    {% endif %}
+                  {% endif %}
+                  {% endif %}
+
+              {% endif %}
+            {% endif %}
+            {# {{ devel_dump(node.get(field).value) }} #}
+          {% endfor %}
+        {% endif %}
+      {% else %}
+        {% for item in content|without('field_contact_title','field_contact_id') %}
+          {{ item }}
+        {% endfor %}
+      {% endif %}
+    </ul>
+    <!-- /detailed-contact -->
+  </div>
+{% endblock %}

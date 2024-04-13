@@ -1,0 +1,4 @@
+administer harno migrate:
+  title: 'Administer Veebiplatvorm migrate'
+  description: 'Configure migrate settings.'
+  restrict access: true

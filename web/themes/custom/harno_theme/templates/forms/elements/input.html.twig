@@ -1,0 +1,109 @@
+{#
+/**
+ * @file
+ * Theme override for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input()
+ */
+#}
+{% if element['#name'] == 'date_start' or element['#name'] == 'date_end' or element['#name'] == 'gallerySearch' or element['#name'] == 'gallerySearchMobile' or element['#name'] =='newsSearch' or element['#name'] =='newsSearchMobile' or element['#name'] =='contactsSearchMobile' %}
+	{% if element['#name'] == 'date_start' or element['#name'] == 'date_end' %}
+    {% if element['#name']=='date_start' %}
+      <input{{attributes.setAttribute('id','date-select-start')}}/>{{ children }}
+      <span class="btn input-date" role="button" title="{{ "Choose from calendar"|t }}" data-plugin="datePicker" tabindex="0">{{"Show from"|t}}</span>
+    {% endif %}
+    {% if element['#name']=='date_end' %}
+      <input{{attributes.setAttribute('id','date-select-start')}}/>{{ children }}
+      <span class="btn input-date" role="button" title="{{ "Choose from calendar"|t }}" data-plugin="datePicker" tabindex="0">{{"Show to"|t}}</span>
+    {% endif %}
+    {% elseif element['#name'] == 'gallerySearchMobile' or element['#name'] == 'newsSearchMobile' %}
+      <input{{attributes}}/>{{ children }}
+      <button data-drupal-selector="edit_searchbbuttonmobile" value="Submit" data-disable-refocus="true" id="edit-searchbuttonmobile" name="op"  class="btn js-form-submit form-submit search-submit-btn" type="submit" title="Otsi">{{ "Search" |t}}</button>
+
+    {% else %}
+		<input{{attributes}}/>{{ children }}
+{#    {{ dd() }}#}
+		<button data-drupal-selector="edit_searchbutton" value="Submit" data-disable-refocus="true" id="edit-searchbutton" name="op"  class="btn js-form-submit form-submit search-submit-btn" type="submit" title="Otsi">{{ "Search" |t}}</button>
+    {% endif %}
+  {% elseif element['#id'] == 'edit-searchbutton' or element['#id'] == 'edit-searchbutton--2' %}
+    {% set button_classes = ['btn','search-submit-btn'] %}
+    <button{{ attributes.addClass(button_classes).removeClass('btn-primary').removeAttribute('style') }}>{{ element['#value'] }}</button>{{ children }}
+{% else %}
+  {% if element['#type']=='submit' %}
+
+    {% if ('edit-submit-general-search' in element['#id'] or 'edit-submit-search' in element['#id']) %}
+      {%
+        set classes = [
+        'btn',
+        'search-submit-btn'
+      ]
+      %}
+      <button{{ attributes.addClass(classes)}} type="submit" aria-label="{{ element['#value'] }}"></button>
+      {% elseif element['#id'] == 'edit-ready' or element['#id'] == 'edit-ready--2'  %}
+        {%
+          set classes = [
+          'btn',
+          'btn-primary',
+          'filters-ready',
+        ]
+        %}
+        <button{{ attributes.addClass(classes)}} type="submit" aria-label="{{ element['#value'] }}">{{ element['#value'] }}</button>
+    {% else %}
+      {%
+        set classes = [
+        'btn',
+        'btn-primary'
+      ]
+      %}
+      <div class="form-submit-block">
+        <button {{ attributes.addClass(classes)}} type="submit">{{ element['#value'] }}</button>
+      </div><!--/form-submit-block-->
+    {% endif %}
+  {% else %}
+    {% if element['#webform_element'] %}
+    {% set field_type = '' %}
+
+    {% if element['#type'] =='date' %}
+      {% set field_type = 'custom-date' %}
+    {% elseif element['#type'] == 'webform_time' %}
+      {% set field_type = 'custom-time' %}
+    {% endif %}
+
+    <div class="form-item {{ field_type }} {% if element['#errors'] %} error {% endif %} {% if element['#help'] %} help-text {% endif %}" data-plugin="movingLabel" role="alert" aria-label="{{"Field is empty"|t}}">
+      <label for="{{ element['#id'] }}" class="form-label">{{element['#title']}}</label>
+      <input {{ attributes.addClass(['form-control','custom-date-input']).setAttribute('data-datepickerButton','true').removeAttribute('data-drupal-selector').removeAttribute('data-drupal-date-format') }} >
+
+      {% if element['#errors'] %}
+        <span class="error-text">{{ element['#errors'] }}</span>
+      {% endif %}
+      {% if element['#help'] %}
+        <span class="form-help-text">{{ element['#help'] }}</span>
+      {% endif %}
+    </div><!--/form-item custom-date-->
+
+  {% else %}
+    {% if element['#type']  == 'radio' %}
+      <div class="custom-control custom-form-radio custom-form-inline {% if element['#errors'] %} error {% endif %}" tabindex="0">
+        <input {{attributes.addClass('custom-form-input')}}/>{{ children }}
+        <label for="{{ element['#id'] }}" class="custom-form-label">{{ element['#title'] }}</label>
+        {% if element['#errors'] %}
+          <span class="error-text">{{ element['#errors'] }}</span>
+        {% endif %}
+      </div><!--/custom-control custom-form-radio custom-form-inline-->
+    {% else %}
+      <input {{attributes}}/>{{ children }}
+    {% endif %}
+  {% endif %}
+  {% endif %}
+
+{% endif %}
+{#{% if element['#id']=='edit-searchbutton' %}#}
+{#  {% set button_classes = ['btn','search-submit-btn'] %}#}
+
+{#  <input{{ attributes }}/>{{ children }}#}
+{#  <button {{ attributes.removeAttribute('style').addClass(button_classes) }}>{{ children }}sss</button>#}
+{#{% endif %}#}

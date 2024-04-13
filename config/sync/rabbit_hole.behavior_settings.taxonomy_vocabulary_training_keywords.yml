@@ -1,0 +1,14 @@
+uuid: f8ef2235-d43b-4c4a-9d22-43032970ff15
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.training_keywords
+id: taxonomy_vocabulary_training_keywords
+entity_type_id: taxonomy_vocabulary
+entity_id: training_keywords
+action: display_page
+allow_override: 0
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

@@ -1,0 +1,14 @@
+uuid: 034e9544-b629-44a6-9e76-48ebee4ed995
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.food_menu
+id: node_type_food_menu
+entity_type_id: node_type
+entity_id: food_menu
+action: display_page
+allow_override: 0
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

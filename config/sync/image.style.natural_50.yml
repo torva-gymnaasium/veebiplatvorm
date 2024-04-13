@@ -1,0 +1,15 @@
+uuid: 1ef409ce-466c-486c-8350-d822c76f66c1
+langcode: et
+status: true
+dependencies: {  }
+name: natural_50
+label: 'Natural 50'
+effects:
+  70508d6c-12ea-492f-ad69-3eda7ab86b23:
+    uuid: 70508d6c-12ea-492f-ad69-3eda7ab86b23
+    id: image_scale
+    weight: 1
+    data:
+      width: 1332
+      height: null
+      upscale: false

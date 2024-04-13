@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: yTxtFqBHnEWxQswuWvkjE8mKw2t8oKuCL1q8KnfHuGE
+langcode: et
+uuid: 341fe75f-ac4c-49e9-869c-667dd50894c0
+name: 'Kuressaare Ametikool'
+mail: veebiplatvorm@hitsa.ee
+slogan: 'Sinu sõber elukestvas õppes!'
+page:
+  403: ''
+  404: ''
+  front: /node/1077
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: et
+mail_notification: ''

@@ -1,0 +1,22 @@
+uuid: e0e4e53c-7aab-42ab-9bc1-ab24ddb452ed
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.academic_year
+id: taxonomy_term.academic_year.status
+field_name: status
+entity_type: taxonomy_term
+bundle: academic_year
+label: Avaldatud
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

@@ -1,0 +1,14 @@
+uuid: 21c2a8fd-ee73-4a9d-aef8-2a71c31aae97
+langcode: et
+status: true
+dependencies:
+  config:
+    - user.role.website_administrator
+  module:
+    - user
+id: user_add_role_action.website_administrator
+label: 'Add the Website administrator role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: website_administrator

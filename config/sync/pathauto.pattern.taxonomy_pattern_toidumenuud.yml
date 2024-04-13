@@ -1,0 +1,33 @@
+uuid: 324e1f4d-2b4a-4f54-b552-05c6f440c60c
+langcode: et
+status: true
+dependencies:
+  module:
+    - language
+    - taxonomy
+id: taxonomy_pattern_toidumenuud
+label: 'Taxonomy pattern toidumenuud'
+type: 'canonical_entities:taxonomy_term'
+pattern: '/toidumenuud/[term:name]'
+selection_criteria:
+  7cda87b3-616f-44a3-9575-71cddd56ee2e:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 7cda87b3-616f-44a3-9575-71cddd56ee2e
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      eating_places: eating_places
+  2a0eaef0-584c-4ceb-826c-785326d64212:
+    id: language
+    negate: false
+    uuid: 2a0eaef0-584c-4ceb-826c-785326d64212
+    context_mapping:
+      language: 'taxonomy_term:langcode:language'
+    langcodes:
+      et: et
+selection_logic: and
+weight: -10
+relationships:
+  'taxonomy_term:langcode:language':
+    label: Keel

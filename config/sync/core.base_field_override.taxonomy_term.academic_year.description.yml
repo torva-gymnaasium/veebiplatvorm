@@ -1,0 +1,20 @@
+uuid: 811062c2-641e-4c00-bd89-d57beecaa872
+langcode: et
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.academic_year
+  module:
+    - text
+id: taxonomy_term.academic_year.description
+field_name: description
+entity_type: taxonomy_term
+bundle: academic_year
+label: Kirjeldus
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

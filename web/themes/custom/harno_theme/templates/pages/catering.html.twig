@@ -1,0 +1,189 @@
+{{ dump(content) }}
+  {% if not content and not side_menu %}
+    <div class="col-12 sm-12 md-12">
+      {{ "No food menu found" |t }}
+    </div>
+ {% else %}
+
+
+   <div class="header-block">
+     <div class="header-block__title-block">
+       {% if content.place %}
+         <h1>{{content.place}} {{"menu"|t}}</h1>
+         {% else %}
+         <h1>{{ "Menu" |t }}</h1>
+       {% endif %}
+            </div><!--/title-block-->
+            <div class="header-block-mobile__btn-block">
+              <a href="javascript:void(0);" class="btn btn-primary before-share" aria-label="{{ "Share"|t }}" data-plugin="shareModal" data-url="{{ url('<current>')['#markup'] }}"></a>
+              <a href="javascript:void(0);" class="btn btn-primary before-print sm-hide" aria-label="{{ "Print page"|t }}" data-plugin="printPage"></a>
+            </div><!--/__btn-block-->
+          </div><!--/header-block-->
+          <article class="content-block content-block with-sidemenu">
+
+            {% if content|without('filled_food_groups') is not empty %}
+            <div class="row">
+              <div class="col-12 md-12 sm-12">
+                <div class="tabs tabs--underline food-tabs" data-plugin="tabs">
+                  <ul class="tabs__navigation" role="tablist" aria-label="{{"Food menu dates"|t}}">
+                  {% for menu_key, menu_week in content|without('food_groups','filled_food_groups','place','catering_provider','changed','published') %}
+                       <li class="tabs__nav-item {% if loop.first %} active {% endif %}">
+                      <button class="btn btn-tab" id="tab-item-{{loop.index}}" role="tab" aria-selected="{% if loop.first %}{{ "true" }}{% else %}{{ "false" }}{% endif %}" aria-controls="tab-content-{{loop.index}}">{{menu_key}}</button>
+                    </li><!--/tabs__nav-item-->
+                  {% endfor %}
+                  </ul><!--/tabs__navigation-->
+                  <div class="tabs__panels">
+                  {% for menu_key, menu_week in content|without('food_groups','filled_food_groups','place','catering_provider','changed','published') %}
+                    <div class="tabs__panel" id="tab-content-{{loop.index}}" role="tabpanel" tabindex="0" aria-labelledby="tab-item-{{loop.index}}" {% if not loop.first %}hidden{% endif %}>
+                      <div class="table-wrapper" data-plugin="tableScroll">
+                        <div class="table-scrollable">
+                          <table class="food-menu">
+                            <thead>
+                              <tr>
+                                {% for day_name, day in menu_week %}
+                                    <th {% if day.active is defined %}class="current" {% endif %}><span class="day">{{day.date}}</span>{{day_name|t}}</th>
+                                {% endfor %}
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for food_group_name, food_group_key in content.food_groups  %}
+                              {% if content.filled_food_groups[menu_key][food_group_name] %}
+                                <tr class="food-type">
+
+                                  {% for day_name, day in menu_week%}
+                                    {% if food_group_name != 'no_group'%}
+                                      <td>{{ food_group_name }}</td>
+                                    {% endif %}
+                                  {% endfor %}
+                              </tr><!--food-type-->
+                              <tr class="food-list">
+                              {% for day_name, day in menu_week %}
+                                      <td>{{ day[food_group_name]|raw }}</td>
+                                {% endfor %}
+
+                              </tr><!--/food-list-->
+                              {% endif %}
+                            {% endfor %}
+                            </tbody>
+                          </table><!--/food-menu-->
+                        </div><!--/table-scrollable-->
+                      </div><!--/table-wrapper-->
+
+                        <div class="accordion accordion--food-menu" data-plugin="accordion">
+                          {% for day_key,day in menu_week %}
+                            <div class="accordion__item {% if day.active %} {{"active"}}{% endif %}
+                            ">
+                              <h3 class="accordion__title">
+                                <button id="accordion1" class="btn btn-accordion" aria-expanded="false" aria-controls="collapse{{loop.index}}">
+                                  <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
+                                  <span class="btn-label">{{day.date}} {{day_key |t}}</span>
+                                </button><!--/btn-accordion-->
+                              </h3><!--/accordion__title-->
+                              <div id="collapse{{loop.index}}" class="accordion__content" aria-labelledby="accordion{{loop.index}}" role="region">
+                                <div class="accordion__content--body">
+                                  {% for food_group_name,food_group in content.food_groups  %}
+                                    {% if day[food_group_name] %}
+                                      {% if food_group_name != 'no_group' %}
+                                        <strong>{{ food_group_name|raw }}</strong>
+                                      {% endif %}
+                                      {{ day[food_group_name]|raw }}
+                                    {% endif %}
+                                  {% endfor %}
+
+                                </div><!--/accordion__content--body-->
+                              </div><!--/accordion__content-->
+                            </div><!--/accordion__item-->
+                          {% endfor %}
+                        </div><!--/accordion accordion--food-menu-->
+                    </div><!--/tabs__panel-->
+                  {% endfor %}
+                  </div><!--/tabs__content-->
+                </div><!--/tabs-wrapper-->
+
+
+
+
+
+
+              </div><!--/col-12 md-12 sm-12-->
+              <div class="col-12 md-12 sm-12">
+                <div class="title-block">
+                  <h3>{{"About food provider" |t}}</h3>
+                </div><!--/title-block-->
+                <div class="row-spacer-16"></div>
+                {% if content.catering_provider.description %}
+                {{content.catering_provider.description |raw}}
+                {% endif %}
+
+                </div><!--/col-12 md-12 sm-12-->
+                {% if content.catering_provider %}
+                {% set caterer = content.catering_provider %}
+                {% endif %}
+
+              {% if caterer.business_name or caterer.address or caterer.caterer_name or caterer.phone or caterer.homepage or caterer.email %}
+              <div class="col-6 md-12 sm-12">
+{#                {%   include '@harno_theme/content-blocks/contacts-block/paragraph--contact-block.html.twig' %}#}
+                <div class="contact-block">
+                  <div class="title-block">
+                    <h5>{{"Contact"|t}}</h5>
+                  </div><!--/title-block-->
+                  <ul class="detailed-contact">
+                    {% if caterer.caterer_name or caterer.business_name %}
+                      {% if caterer.caterer_name %}
+                        {% set new_items = [{
+                            'content':caterer.caterer_name,}
+                          ] %}
+                      {% else %}
+                        {% set new_items =[{
+                            'content':caterer.business_name,}
+                          ]
+                        %}
+                      {% endif %}
+                      {%   include '@harno_theme/content-blocks/contacts-block/field--paragraph--field-name--contact-block.html.twig' with{'items':new_items} %}
+
+                    {% endif %}
+
+                     {% if caterer.phone %}
+                       {% set new_items = [{'content':caterer.phone}] %}
+                       {%   include '@harno_theme/content-blocks/contacts-block/field--paragraph--field-phone.html.twig' with{'items':new_items} %}
+                    {% endif %}
+                     {% if caterer.email %}
+
+                       {% set new_items = [{'content':caterer.email}] %}
+                       {%   include '@harno_theme/content-blocks/contacts-block/field--paragraph--field-email--contact-block.html.twig' with{'items':new_items} %}
+
+                    {% endif %}
+                    {% if caterer.homepage %}
+                      {% if caterer.homepage.uri and caterer.homepage.title %}
+
+                        <li>
+                          <i class="mdi {% if caterer.homepage.external %}mdi-open-in-new{% else %} mdi-link-variant{% endif %}" aria-hidden="true"></i>
+                          <span class="sr-only">{% if caterer.homepage.external %}{{ "Link out"|t }}{% else %}{{ "Link in page"|t }}{% endif %}</span>
+                          <a href="{{ caterer.homepage.uri }}" target="_blank" rel="noopener noreferrer" class="btn btn-link link-{% if caterer.homepage.external %}out{% else %}in{% endif %}">{{ caterer.homepage.title }}</a>
+                       </li>
+                      {% endif %}
+                    {% endif %}
+                     {% if caterer.address %}
+                       {% set new_items = [{'content':caterer.address}] %}
+                       {%   include '@harno_theme/content-blocks/contacts-block/field--paragraph--field-address--contact-block.html.twig' with{'items':new_items} %}
+                    {% endif %}
+                  </ul><!--/detailed-contact-->
+                </div><!--/contact-block-->
+              </div>
+              {% endif %}
+
+            </div><!--/row-->
+
+            <div class="row">
+              <div class="col-12 md-12 sm-12">
+                <div class="content-creating-info">
+                  <span>{{ "Published"|t }} {{ content.published }}.</span>
+                  <span>{{ "Last changed" |t }} {{ content.changed }}.</span>
+                </div><!--/content-creating-info-->
+              </div><!--/col-12 md-12 sm-12-->
+            </div>
+            {% else %}
+              {{ "No food menu found" |t }}
+            {% endif %}
+          </article>
+  {% endif %}

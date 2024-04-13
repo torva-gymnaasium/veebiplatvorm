@@ -1,0 +1,10 @@
+uuid: a51e8cd9-70ff-4c37-847d-8071d6f13f5d
+langcode: et
+status: true
+dependencies: {  }
+id: table_block_header_row
+label: Tabeliplokk
+icon_uuid: null
+icon_default: null
+description: 'Tabeliplokk, mille esimeses reas kuvatav info on kujundatud tabeli päistena. '
+behavior_plugins: {  }

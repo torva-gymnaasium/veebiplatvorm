@@ -1,0 +1,23 @@
+uuid: 29b18f62-2482-4155-aabd-aa40ec181c89
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_front_page
+    - node.type.front_page
+id: node.front_page.field_front_page
+field_name: field_front_page
+entity_type: node
+bundle: front_page
+label: 'Määra esileheks'
+description: 'Selle valiku alusel määratakse käesolev leht veebilehe esileheks.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Määra esileheks'
+  off_label: Väljas
+field_type: boolean

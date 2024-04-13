@@ -1,0 +1,48 @@
+uuid: 7d45c358-f4c0-4690-87c3-99902596e139
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.field.node.gallery.field_academic_year
+    - field.field.node.gallery.field_description
+    - field.field.node.gallery.field_images
+    - node.type.gallery
+  module:
+    - user
+id: node.gallery.default
+targetEntityType: node
+bundle: gallery
+mode: default
+content:
+  field_academic_year:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_description:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_images:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

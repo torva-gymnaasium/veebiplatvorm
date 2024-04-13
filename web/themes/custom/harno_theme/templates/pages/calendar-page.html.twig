@@ -1,0 +1,98 @@
+{{ filters }}
+  <div id="filter-target-dates">
+    <form{{ attributes.addClass('filters-form') }}>
+      <div class="title-block--calendar">
+        {% set now = now|date('d.F Y') %}
+        {% set start_month = para.date_start|date('F')|t({},{'context':'Long month name'})%}
+        {% if para.date_start is defined %}
+          {% set date_start = para.date_start|date('d.F Y')  %}
+          {% else %}
+            {% if para.days is defined and para.days =='today' %}
+              {% set date_start = now%}
+              {% set date_end  = now%}
+            {% endif %}
+        {% endif %}
+        {% if para.date_end is defined %}
+          {% set date_end = para.date_end|date('d.F Y') %}
+        {%endif%}
+        {% set end_month = para.date_end|date('F')|t({},{'context':'Long month name'})%}
+        {% if now == date_start and now == date_end %}
+          {% if para.days == 'month' or para.days == 'week' %}
+
+            <h2>
+              {%if para.dates.start is defined%}{{para.dates.start|date('j')}}.{{para.dates.start|date('F')|t({},{'context':'Long month name'})}}{%endif%} {% if para.dates.start is defined and para.dates.end is defined%}-{%endif%}{%if para.dates.end is defined %} {{para.dates.end|date('d')}}.{{para.dates.end|date('F')|t({},{'context':'Long month name'})}}  {%endif%}</h2>
+            {% else %}
+
+              <h2>{{ 'Today'|t }}, {{ date_start|date('d') }}.{{ date_start|date('F')|t({},{'context':'Long month name'}) }}</h2>
+          {% endif %}
+        {% else %}
+          {% if para.days is defined and para.days !='all'%}
+          {% if para.days == 'month' or para.days == 'week' %}
+            <h2>
+
+              {%if para.dates.start is defined%}{{para.dates.start|date('d')}}.{{para.dates.start|date('F')|t({},{'context':'Long month name'})}}{%endif%} {% if para.dates.start is defined and para.dates.end is defined%}-{%endif%}{%if para.dates.end is defined %} {{para.dates.end|date('d')}}.{{para.dates.end|date('F')|t({},{'context':'Long month name'})}}  {%endif%}</h2>
+          {% else %}
+
+            <h2>{{ 'Today'|t }}, {{ date_start|date('d') }}.{{ date_start|date('F')|t({},{'context':'Long month name'}) }}</h2>
+          {% endif %}
+          {% endif %}
+          {% if date_start is defined and date_end is defined and date_start == date_end %}
+
+            <h2>{{para.date_start|date('d')}}.{{start_month}}  {{date_start |date('Y')}}</h2>
+          {%else%}
+            {% if para.days == 'all'%}
+              <h2>
+                {%if date_start is defined%}{{para.date_start|date('d')}}.{{start_month}} {{date_start |date('Y')}}{%endif%} {% if date_start is defined and date_end is defined%}-{%endif%}{%if date_end is defined %} {{para.date_end|date('d')}}.{{end_month}}  {{date_end |date('Y')}}{%endif%}</h2>
+            {% endif %}
+
+          {% endif %}
+          {% if para.dates is defined and para.dates.days=='month' %}
+            <h2>{{para.dates.start}} - {{para.dates.end}}</h2>
+          {% endif %}
+        {% endif %}
+      </div>
+    </form>
+  </div>
+  </div>
+</div><!--row-->
+{% set base_path= base_path ~ directory  %}
+  <a id="focus-trap" style="display: none">reached here</a>
+  <div class="row">
+    <div class="col-9 md-12 sm-12 p-calendar-left">
+      <div id="filter-target">
+          {% if content %}
+            {% for key, events in content %}
+              {% if key == 'nodes' %}
+                {% if events is not empty %}
+                  {% for event in events %}
+                    {{ event }}
+                  {% endfor %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            <div class="row">
+              <div class="col-12 md-12 sm-12">
+                <div class="paginator-block">
+                  {{ pager }}
+                </div>
+              </div><!--/col-12-->
+            </div><!--/row-->
+          {% else %}
+            <div class="row">
+              <div class="col-12 md-12 sm-12">
+                <div class="search-null-results">
+                  <h4>{{"No events matching the filters were found!"|t}}</h4>
+                </div><!--/search-null-results-->
+              </div>
+            </div>
+          {% endif %}
+      </div>
+    </div>
+      <!--/col-12-->
+    <div class="col-3 md-12 sm-12 p-calendar-right md-hide sm-hide">
+      <div class="event-data" style="display: none;" data-events="/calendar/{{ type }}/json?type={{ type }}"></div>
+      <aside class="events-calendar">
+        <input class="inline-calendar" id="minicalendar" name="minicalendar" type="text" data-inline="true" style="display: none" >
+      </aside><!--/events-calendar-->
+    </div>
+  </div><!--/row-->

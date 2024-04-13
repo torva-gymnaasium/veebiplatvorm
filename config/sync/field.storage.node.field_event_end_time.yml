@@ -1,0 +1,19 @@
+uuid: 0099cd15-243a-481e-a8bd-0836ecb735a4
+langcode: et
+status: true
+dependencies:
+  module:
+    - node
+    - time_field
+id: node.field_event_end_time
+field_name: field_event_end_time
+entity_type: node
+type: time
+settings: {  }
+module: time_field
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

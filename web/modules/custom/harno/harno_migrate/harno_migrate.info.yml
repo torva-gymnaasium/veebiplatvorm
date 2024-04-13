@@ -1,0 +1,8 @@
+name: 'Veebiplatvormi migratsioon'
+type: module
+description: 'Veebiplatvormi andmete migratsioon eelmiselt versioonilt'
+core_version_requirement: ^8 || ^9 || ^10
+package: 'Veebiplatvorm'
+configure: harno_migrate.migrate_form
+dependencies:
+  - harno_settings:harno_settings

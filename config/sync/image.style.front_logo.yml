@@ -1,0 +1,15 @@
+uuid: 0d131fcc-2853-4592-84f3-b033b7e25082
+langcode: et
+status: true
+dependencies: {  }
+name: front_logo
+label: 'Front logo'
+effects:
+  d0ceb820-5f80-41f5-bcd0-1086fd08c023:
+    uuid: d0ceb820-5f80-41f5-bcd0-1086fd08c023
+    id: image_scale
+    weight: 1
+    data:
+      width: 260
+      height: 250
+      upscale: false

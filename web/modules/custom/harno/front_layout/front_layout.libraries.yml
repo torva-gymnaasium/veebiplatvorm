@@ -1,0 +1,5 @@
+front_page_layout:
+  js:
+    js/front_layout.js: {}
+  dependencies:
+    - core/jquery

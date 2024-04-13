@@ -1,0 +1,8 @@
+_core:
+  default_config_hash: WUl1i1B8__vCjheq4Bh5NhbHEdBUawB9LwQ9SC9ox24
+langcode: et
+genpass_length: 12
+genpass_mode: 2
+genpass_display: 0
+genpass_admin_mode: 1
+genpass_override_core: true

@@ -1,0 +1,18 @@
+uuid: ba2a7d37-5b21-487c-8f9c-4836c40d4d3a
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.article
+id: node.article.title
+field_name: title
+entity_type: node
+bundle: article
+label: 'Uudise pealkiri'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,19 @@
+uuid: 0e06edb6-8581-4a9f-9fcc-9841f2c57af9
+langcode: et
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - time_field
+id: paragraph.field_closing_time
+field_name: field_closing_time
+entity_type: paragraph
+type: time
+settings: {  }
+module: time_field
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

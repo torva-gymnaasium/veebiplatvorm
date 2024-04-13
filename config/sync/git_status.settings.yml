@@ -1,0 +1,11 @@
+_core:
+  default_config_hash: oj_mqKPh_dZs3d24l5boELxOjle3MPkH6srLyEk6iZU
+repository_root: /srv/veeb
+status_info_display:
+  repository_root: repository_root
+  git_version: git_version
+  git_branch: git_branch
+  git_tag: git_tag
+  git_log: git_log
+  git_status: git_status
+langcode: et

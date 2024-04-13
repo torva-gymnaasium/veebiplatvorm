@@ -1,0 +1,61 @@
+{% set withouts = ['width','nid','type'] %}
+<div class="col-12 md-12 sm-12">
+	<div class="title-block title-block--home-page">
+		<h3>
+			{% if data.type == 1 %}
+				{% if configuration.label_display == 'visible' %}
+					{{configuration.label |t}}
+				{% endif %}
+			{% elseif data.type == 2 %}
+				{% if configuration.label_display == 'visible' %}
+					{{configuration.label |t}}
+				{% endif %}
+			{% endif %}
+		</h3>
+	</div>
+	<!--/title-block title-block--home-page-->
+	{% if data.width == 50 %}
+		{% set size = 'half' %}
+	{% elseif data.width == 25 %}
+		{% set size = 'small' %}
+	{% elseif data.width == 75 %}
+		{% set size = 'quarter' %}
+	{% elseif data.width == 100 %}
+		{% set size = 'wide' %}
+	{% endif %}
+	<div class="homepage-swiper-wrapper logos logos--{{ size }}">
+		<div class="swiper-container homepage-swiper-main" data-plugin="logoSwipers">
+			<div class="swiper-wrapper">
+				{% for logo in data|without(withouts)  %}
+					{% set media = logo.logo %}
+					{% if media %}
+						{% set image_width = media.get('field_media_image').width %}
+						{% set image_height = media.get('field_media_image').height %}
+						{% set media_uri = media|file_uri %}
+						{% set media_url = media_uri|image_style('front_logo') %}
+						{% set media_alt = media.get('field_media_image').alt %}
+            {% if not media_alt %}
+              {% set media_alt = "Logo for "|t %}
+              {% set media_alt = media_alt ~ logo.title %}
+            {% endif %}
+						{% set media_title = media.get('field_media_image').title %}
+					{% endif %}
+					<div class="swiper-slide">
+						<a href="{{ logo.link }}" {% if logo.external %} target="_blank" {%endif%} class="logo-block" style="background-image: url('{{ media_url }}');" {% if media_title %} data-plugin="tooltip" data-tooltip-title="{{ media_title }}" {% endif %}>
+							<img src="/{{ active_theme_path() }}/static/assets/images/placeholder-2.gif" alt="{{ media_alt }}">
+						</a>
+						<!--/logo-block-->
+					</div>
+					<!--/swiper-slide-->
+				{% endfor %}
+			</div>
+			<!--/swiper-wrapper-->
+		</div>
+		<!--/homepage-swiper-->
+		<div class="swiper-button-prev logos-{{ size }}-prev"></div>
+		<div class="swiper-button-next logos-{{ size }}-next"></div>
+		<div class="swiper-pagination {{ size }}-logos-paginator"></div>
+	</div>
+	<!--/homepage-swiper-wrapper-->
+</div>
+<!--/col-12 md-12 sm-12-->

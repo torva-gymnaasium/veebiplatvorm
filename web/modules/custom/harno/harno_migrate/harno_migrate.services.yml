@@ -1,0 +1,9 @@
+services:
+  harno_migrate.migration_database:
+    class: Drupal\Core\Database\Connection
+    factory: 'Drupal\Core\Database\Database::getConnection'
+    arguments: [ 'default', 'migration' ]
+  harno_migrate.get_old_data:
+    class: Drupal\harno_migrate\GetOldData
+    arguments: ['@harno_migrate.migration_database', '@database', '@config.factory', '@http_client', '@logger.factory', '@messenger',
+                '@string_translation', '@entity_type.manager', '@state', '@file_system', '@language_manager']

@@ -1,0 +1,15 @@
+uuid: 4eed2480-be3b-4272-aef5-46a4401a4b0d
+langcode: et
+status: true
+dependencies: {  }
+name: natural_66
+label: 'Natural 66'
+effects:
+  ebb33554-44ad-49ac-83fc-acff4f59106e:
+    uuid: ebb33554-44ad-49ac-83fc-acff4f59106e
+    id: image_scale
+    weight: 1
+    data:
+      width: 1664
+      height: null
+      upscale: false

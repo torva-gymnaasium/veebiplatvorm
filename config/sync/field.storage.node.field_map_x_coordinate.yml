@@ -1,0 +1,21 @@
+uuid: a9a2b4e5-860c-4760-81ae-1353cef6ee48
+langcode: et
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_map_x_coordinate
+field_name: field_map_x_coordinate
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

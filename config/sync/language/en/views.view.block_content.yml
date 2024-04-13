@@ -1,0 +1,30 @@
+display:
+  default:
+    display_title: Vaikimisi
+    display_options:
+      fields:
+        info:
+          label: 'Ploki kirjeldus'
+        type:
+          label: 'Ploki tüüp'
+        changed:
+          label: Uuendati
+        operations:
+          label: Operations
+      pager:
+        options:
+          tags:
+            next: 'Järgmine ›'
+            previous: '‹ Eelmine'
+      exposed_form:
+        options:
+          reset_button_label: Reset
+      filters:
+        info:
+          expose:
+            label: 'Ploki kirjeldus'
+        type:
+          expose:
+            label: 'Ploki tüüp'
+  page_1:
+    display_title: Veebileht

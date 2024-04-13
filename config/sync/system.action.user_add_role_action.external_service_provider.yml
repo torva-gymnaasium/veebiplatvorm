@@ -1,0 +1,14 @@
+uuid: 0be58e98-5498-409a-83ad-2847e613090f
+langcode: et
+status: true
+dependencies:
+  config:
+    - user.role.external_service_provider
+  module:
+    - user
+id: user_add_role_action.external_service_provider
+label: 'Add the External service provider role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: external_service_provider

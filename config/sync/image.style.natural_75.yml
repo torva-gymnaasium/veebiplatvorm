@@ -1,0 +1,15 @@
+uuid: 90623fdb-0a8c-46d1-8569-c3567f5a2b5e
+langcode: et
+status: true
+dependencies: {  }
+name: natural_75
+label: 'Natural 75'
+effects:
+  a7fff1e4-1bb8-4eec-aeb2-da073c320123:
+    uuid: a7fff1e4-1bb8-4eec-aeb2-da073c320123
+    id: image_scale
+    weight: 1
+    data:
+      width: 1664
+      height: null
+      upscale: false

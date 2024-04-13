@@ -1,0 +1,20 @@
+uuid: ef909153-ed9f-42ff-9ff8-0027ec5c1908
+langcode: et
+status: true
+dependencies:
+  module:
+    - harno_settings
+  theme:
+    - harno_theme
+id: footerquicklinksblock
+theme: harno_theme
+region: footer
+weight: -6
+provider: null
+plugin: harno_footer_quick_links
+settings:
+  id: harno_footer_quick_links
+  label: 'Footer Quick Links Block'
+  label_display: visible
+  provider: harno_settings
+visibility: {  }

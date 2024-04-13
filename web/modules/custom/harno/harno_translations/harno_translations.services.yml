@@ -1,0 +1,3 @@
+services:
+  harno_translations.single_translation:
+    class: Drupal\harno_translations\TranslationImporter

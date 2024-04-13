@@ -1,0 +1,22 @@
+uuid: 31fcad2e-f9fd-4075-9bb4-4cadf6321d51
+langcode: et
+status: true
+dependencies:
+  config:
+    - node.type.worker
+id: node.worker.promote
+field_name: promote
+entity_type: node
+bundle: worker
+label: 'Ülendatud esilehele'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Sees
+  off_label: Väljas
+field_type: boolean

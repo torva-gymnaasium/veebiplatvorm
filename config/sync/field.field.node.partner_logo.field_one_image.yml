@@ -1,0 +1,29 @@
+uuid: 55e12e43-5507-4144-94f5-1d3fe7da2490
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_one_image
+    - media.type.image
+    - node.type.partner_logo
+id: node.partner_logo.field_one_image
+field_name: field_one_image
+entity_type: node
+bundle: partner_logo
+label: Pilt
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: created
+      direction: DESC
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

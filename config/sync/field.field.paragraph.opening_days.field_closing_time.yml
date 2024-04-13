@@ -1,0 +1,21 @@
+uuid: ea4c3ab4-c60e-44e3-834f-9030c3c0dd2a
+langcode: et
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_closing_time
+    - paragraphs.paragraphs_type.opening_days
+  module:
+    - time_field
+id: paragraph.opening_days.field_closing_time
+field_name: field_closing_time
+entity_type: paragraph
+bundle: opening_days
+label: 'Sulgemise aeg'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: time
