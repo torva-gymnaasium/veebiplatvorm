@@ -16,5 +16,6 @@ ignored_config_entities:
   - system.menu.devel
   - system.performance
   - system.site
+  - update.settings
   - 'webform.webform.*'
   - ~core.entity_view_display.node.front_page.default

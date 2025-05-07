@@ -7,7 +7,6 @@ dependencies:
     - views.view.general_search
   module:
     - views
-    - search_api_autocomplete
 id: general_search
 label: Otsing
 index_id: search_index

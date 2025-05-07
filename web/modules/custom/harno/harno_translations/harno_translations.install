@@ -56,3 +56,22 @@ function harno_translations_update_9011() {
 function harno_translations_update_9012() {
   harno_translations_import_translations('translations19092023.csv');
 }
+
+/**
+ * Added Consulations time translations
+ */
+function harno_translations_update_9013() {
+  harno_translations_import_translations('translations241024.csv');
+}
+/**
+ * Added Education translations
+ */
+function harno_translations_update_9014() {
+  harno_translations_import_translations('translations080125.csv');
+}
+/**
+ * Added Education translations
+ */
+function harno_translations_update_9015() {
+  harno_translations_import_translations('translations240425.csv');
+}

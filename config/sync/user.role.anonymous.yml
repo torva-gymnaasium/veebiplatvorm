@@ -2,6 +2,8 @@ uuid: f0788de1-41ab-4138-a769-a90d532143bc
 langcode: et
 status: true
 dependencies:
+  config:
+    - search_api_autocomplete.search.general_search
   module:
     - media
     - search_api_autocomplete

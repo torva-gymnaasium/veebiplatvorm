@@ -5,9 +5,6 @@ display:
     display_title: Vaikimisi
     display_options:
       title: 'Igakuine arhiiv'
-      exposed_form:
-        options:
-          reset_button_label: Reset
   block_1:
     display_title: Plokk
   page_1:

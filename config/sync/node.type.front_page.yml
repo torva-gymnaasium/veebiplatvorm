@@ -25,7 +25,7 @@ third_party_settings:
 name: Esileht
 type: front_page
 description: 'Kasutaja saab lisada avalehe.'
-help: ''
+help: null
 new_revision: true
 preview_mode: 1
 display_submitted: false

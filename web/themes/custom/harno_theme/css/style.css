@@ -255,3 +255,67 @@ li.nohover:hover{
     display: flex !important;
   }
 }
+
+.sliding-popup-top {
+  padding: 20px 0;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, .1);
+}
+
+.sliding-popup-top .eu-cookie-compliance-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.sliding-popup-top .eu-cookie-compliance-content .eu-cookie-compliance-message {
+  margin: 0;
+  font-size: 14px;
+}
+.sliding-popup-top .eu-cookie-compliance-content .eu-cookie-compliance-message * {
+  font-size: 14px;
+}
+.sliding-popup-top .eu-cookie-compliance-content .eu-cookie-compliance-message .find-more-button {
+  color: black;
+}
+.sliding-popup-top .eu-cookie-compliance-content .eu-cookie-compliance-buttons {
+  margin: 0!important;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.sliding-popup-top .eu-cookie-compliance-content .eu-cookie-compliance-buttons .decline-button,
+.sliding-popup-top .eu-cookie-compliance-content .eu-cookie-compliance-buttons .agree-button {
+  min-width: fit-content;
+  display: inline-flex!important;
+  align-items: center!important;
+  text-align: center!important;
+  font-size: inherit!important;
+  font-family: inherit!important;
+  font-weight: 700!important;
+  text-decoration: none!important;
+  background-color: var(--main-highlight)!important;
+  background-image: none!important;
+  color: var(--white)!important;
+  padding: 0.625rem 1.0625rem 0.5625rem!important;
+  line-height: 1.1875rem!important;
+  border: 0.0625rem solid var(--main-highlight)!important;
+  border-radius: 1.25rem!important;
+  box-shadow: none!important;
+  text-shadow: none!important;
+  margin: 0!important;
+}
+.sliding-popup-top .eu-cookie-compliance-content .eu-cookie-compliance-buttons .decline-button:hover,
+.sliding-popup-top .eu-cookie-compliance-content .eu-cookie-compliance-buttons .agree-button:hover {
+  transform: scale(1.05)!important;
+  transition: all ease 0.2s!important;
+}
+
+.tabs__navigation-column {
+  flex-direction: column;
+
+}
+
+.tabs__navigation-column .tabs__nav-item button {
+  width: 100%;
+}

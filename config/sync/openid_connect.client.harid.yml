@@ -10,6 +10,7 @@ plugin: harid
 settings:
   client_id: 71fac7525c88e22219817644e3dea82f
   client_secret: ce0d73fcdced23859d59fe1749eb5b2a892ebda545328be5769559e6e4fac656
+  iss_allowed_domains: ''
   require_strong_session: false
   require_personal_code: true
   use_test_idp: false

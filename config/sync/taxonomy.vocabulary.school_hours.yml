@@ -12,3 +12,4 @@ name: 'Tundide ajad'
 vid: school_hours
 description: 'Kasutaja lisab või muudab tundide aegade andmeid.'
 weight: 0
+new_revision: false

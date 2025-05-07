@@ -1,0 +1,4 @@
+<?php
+function harno_cookie_consent_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'harno_cookie_consent/cookie_consent';
+}

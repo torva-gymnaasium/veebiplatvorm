@@ -37,6 +37,7 @@ dependencies:
     - contextual
     - disable_language
     - dropzonejs
+    - entity_usage
     - file
     - file_delete
     - filter
@@ -70,6 +71,7 @@ permissions:
   - 'access any webform configuration'
   - 'access content overview'
   - 'access contextual links'
+  - 'access entity usage statistics'
   - 'access files overview'
   - 'access media overview'
   - 'access own webform configuration'

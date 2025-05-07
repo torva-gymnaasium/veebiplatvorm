@@ -11,9 +11,9 @@
           {% set i = 0 %}
           {% for departments in content %}
             {% for key, contacts in departments %}
-              <div class="accordion__item">
+              <div class="accordion__item {{ i == 0 ? "active" : ''}}">
                 <h3 class="accordion__title" >
-                  <button id="accordion{{ loop.index }}{{ key }}" class="btn btn-accordion" aria-expanded="false" aria-controls="collapse{{ loop.index }}{{ key }}">
+                  <button id="accordion{{ loop.index }}{{ key }}" class="btn btn-accordion" aria-expanded="{{ i == 0 ? "true" : 'false'}}" aria-controls="collapse{{ loop.index }}{{ key }}">
                     <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
                     <span class="btn-label">{{ key }} ({{ contacts.total }})</span>
                   </button><!--/btn-accordion-->

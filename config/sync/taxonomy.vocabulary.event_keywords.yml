@@ -12,3 +12,4 @@ name: 'Sündmuse tüübid'
 vid: event_keywords
 description: 'Valikud, mida kasutatakse sündmuste filtreerimiseks.'
 weight: 0
+new_revision: false

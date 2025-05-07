@@ -12,3 +12,4 @@ name: Ametikohad
 vid: positions
 description: 'Ametikohad, kus asutuse töötajad töötavad.'
 weight: 0
+new_revision: false

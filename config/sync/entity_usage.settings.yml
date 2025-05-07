@@ -4,30 +4,30 @@ langcode: et
 local_task_enabled_entity_types:
   - media
 track_enabled_source_entity_types:
-  - menu_link_content
   - block_content
   - crop
-  - shortcut
   - media
-  - paragraph
-  - search_api_task
+  - menu_link_content
   - node
-  - redirect
-  - taxonomy_term
+  - paragraph
   - path_alias
+  - redirect
+  - search_api_task
+  - shortcut
+  - taxonomy_term
   - webform_submission
 track_enabled_target_entity_types:
-  - menu_link_content
   - block_content
   - crop
-  - shortcut
   - media
-  - paragraph
-  - search_api_task
+  - menu_link_content
   - node
-  - redirect
-  - taxonomy_term
+  - paragraph
   - path_alias
+  - redirect
+  - search_api_task
+  - shortcut
+  - taxonomy_term
   - webform_submission
 track_enabled_plugins:
   - block_field

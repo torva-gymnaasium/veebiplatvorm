@@ -1,0 +1,7 @@
+name: 'Veebiplatvormi Cookie Consent (GDPR Compliance)'
+type: module
+description: 'Veebiplatvormi Cookie Consent (GDPR Compliance)'
+package: 'Veebiplatvorm'
+core_version_requirement: ^8 || ^9 || ^10
+
+

@@ -4,44 +4,43 @@ status: true
 dependencies:
   config:
     - field.storage.node.body
-    - field.storage.node.field_address
-    - field.storage.node.field_distribution_blocks
-    - field.storage.paragraph.field_body
-    - field.storage.paragraph.field_content_blocks_33_2
-    - field.storage.paragraph.field_content_blocks_33_1
-    - field.storage.paragraph.field_content_blocks_33_3
-    - field.storage.paragraph.field_content_blocks_66_1
-    - field.storage.paragraph.field_content_blocks_50_1
-    - field.storage.paragraph.field_content_blocks_50_2
-    - field.storage.paragraph.field_content_blocks_75_1
-    - field.storage.paragraph.field_content_blocks_100
-    - field.storage.node.field_class
     - field.storage.node.field_additional_information
+    - field.storage.node.field_address
+    - field.storage.node.field_class
+    - field.storage.node.field_department
+    - field.storage.node.field_description
+    - field.storage.node.field_distribution_blocks
+    - field.storage.node.field_email
+    - field.storage.node.field_phone
+    - field.storage.node.field_phones_3
+    - field.storage.node.field_position
+    - field.storage.node.field_venue
+    - field.storage.paragraph.field_body
     - field.storage.paragraph.field_body_text
     - field.storage.paragraph.field_contact_title
-    - field.storage.node.field_description
-    - field.storage.node.field_email
+    - field.storage.paragraph.field_content_blocks_100
+    - field.storage.paragraph.field_content_blocks_33_1
+    - field.storage.paragraph.field_content_blocks_33_2
+    - field.storage.paragraph.field_content_blocks_33_3
+    - field.storage.paragraph.field_content_blocks_50_1
+    - field.storage.paragraph.field_content_blocks_50_2
+    - field.storage.paragraph.field_content_blocks_66_1
+    - field.storage.paragraph.field_content_blocks_75_1
+    - field.storage.paragraph.field_department
     - field.storage.paragraph.field_email
+    - field.storage.paragraph.field_file
+    - field.storage.paragraph.field_link
+    - field.storage.paragraph.field_links_and_files
     - field.storage.paragraph.field_name
-    - field.storage.node.field_phone
     - field.storage.paragraph.field_phone
-    - field.storage.node.field_phones_3
     - field.storage.paragraph.field_table_editor
     - field.storage.paragraph.field_title
-    - field.storage.node.field_venue
-    - field.storage.node.field_department
-    - field.storage.paragraph.field_department
-    - field.storage.node.field_position
-    - field.storage.paragraph.field_file
-    - field.storage.paragraph.field_links_and_files
-    - field.storage.paragraph.field_link
     - search_api.server.search_server
   module:
-    - paragraphs
-    - node
-    - taxonomy
     - media
-    - search_api
+    - node
+    - paragraphs
+    - taxonomy
 id: search_index
 name: 'Search index'
 description: ''

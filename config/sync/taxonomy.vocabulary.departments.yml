@@ -12,3 +12,4 @@ name: Osakonnad
 vid: departments
 description: 'Osakonnad, kuhu asutuse töötajad kuuluvad.'
 weight: 0
+new_revision: false

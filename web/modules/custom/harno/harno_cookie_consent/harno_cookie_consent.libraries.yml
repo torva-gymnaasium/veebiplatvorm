@@ -1,0 +1,9 @@
+cookie_consent:
+  version: 1.0
+  js:
+    lib/cookie-consent/cookieconsent.umd.js: {}
+    js/cookieconsent-config.js: {}
+  css:
+    theme:
+      lib/cookie-consent/cookieconsent.css : {}
+      css/cookiehtm.css: {}

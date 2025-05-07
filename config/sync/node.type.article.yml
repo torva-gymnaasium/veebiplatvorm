@@ -27,7 +27,7 @@ _core:
 name: Uudis
 type: article
 description: 'Uudiste sisestamine/muutmine ja avaldamine veebis. '
-help: ''
+help: null
 new_revision: true
 preview_mode: 1
 display_submitted: true

@@ -152,6 +152,7 @@ class JuhanApiSync {
         $trainings_ids = $this->storage->getQuery()
           ->condition('type', 'calendar')
           ->condition('field_juhan_training', TRUE)
+          ->accessCheck(FALSE)
           ->execute();
 
         $drupal_trainings = $this->storage->loadMultiple($trainings_ids);

@@ -46,7 +46,7 @@
   <div>
     {% endif %}
     {% for item in items %}
-      {% if  item.content['#options'].external%}
+      {% if  item.content['#url'].external %}
         <a target="_blank" href="{{ item.content['#url'] }}"  class="">
           <i  class="mdi mdi-open-in-new" aria-hidden="true"></i>
           {{ item.content['#title'] }}

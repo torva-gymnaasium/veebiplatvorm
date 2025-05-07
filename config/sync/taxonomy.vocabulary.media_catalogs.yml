@@ -12,3 +12,4 @@ name: 'Meedia kaustad'
 vid: media_catalogs
 description: 'Kategooriad, millega on kasutajatel võimalik siduda pilte. Kasutatakse piltide süstematiseerimiseks.'
 weight: 0
+new_revision: false

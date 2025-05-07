@@ -207,7 +207,7 @@ function harno_theme_find_links($text){
           }
           if(!empty($link) && !empty($link_text)){
             if ($external_test){
-              $new_full_link = '<a class="link-in-new" target="_blank" href="'.$link.'">'.$link_text.'<span class="sr-only">'.t( "link opens on new page" ).'</span><i class="mdi mdi-open-in-new" aria-label="'.$link_text.'"></i></a>';
+              $new_full_link = '<a class="link-in-new" target="_blank" href="'.$link.'">'.$link_text.'<span class="sr-only">'.t( "link opens on new page" ).'</span><i class="mdi mdi-open-in-new" aria-label="'.strip_tags($link_text).'"></i></a>';
             }
             else{
               $new_full_link = '<a class="btn-link-secondary" href="'.$link.'">'.$link_text.'</a>';
@@ -939,7 +939,7 @@ function harno_theme_preprocess_page(&$vars){
 
   // For calendar events and training
   $vars['calendar_node_view'] = false;
-  if(\Drupal::request()->attributes->get('node')){
+  if(\Drupal::request()->attributes->get('node') && isset($vars['node'])){
     if($vars['node']->getType() == 'calendar'){
       $vars['calendar_node_view'] = true;
       $vars['nodeID'] = $vars['node']->id();

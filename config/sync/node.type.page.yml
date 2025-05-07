@@ -28,7 +28,7 @@ _core:
 name: Sisuleht
 type: page
 description: "<em>Sisulehti</em> võib kasutada muutumatu sisu jaoks, nagu näiteks leht 'Meist lähemalt'."
-help: ''
+help: null
 new_revision: true
 preview_mode: 1
 display_submitted: false

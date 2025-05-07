@@ -48,16 +48,16 @@
         "ckeditor/link": "^4.17",
         "composer/installers": "^1.2",
         "cweagans/composer-patches": "^1.6",
-        "drupal/admin_toolbar": "^3.0",
+        "drupal/admin_toolbar": "^3.5",
         "drupal/bartik": "^1.0",
         "drupal/block_list_override": "^1.0",
-        "drupal/calendar_link": "^2.1",
-        "drupal/ckeditor_iframe": "^3.0@alpha",
+        "drupal/calendar_link": "^3.0",
+        "drupal/ckeditor_iframe": "^3.0@beta",
         "drupal/color": "^1.0",
         "drupal/conditional_fields": "^4.0@alpha",
         "drupal/config_filter": "^2.6",
         "drupal/config_ignore": "^3.2",
-        "drupal/config_split": "^2.0@beta",
+        "drupal/config_split": "^2.0",
         "drupal/core-composer-scaffold": "^10",
         "drupal/core-project-message": "^10",
         "drupal/core-recommended": "^10",
@@ -65,60 +65,62 @@
         "drupal/default_content": "2.0.x-dev@dev",
         "drupal/devel": "^5.0",
         "drupal/devel_entity_updates": "^4.1",
-        "drupal/disable_language": "^1.0@beta",
+        "drupal/disable_language": "^1.0@RC",
         "drupal/dwr": "^1.5",
         "drupal/entity_usage": "^2.0@beta",
+        "drupal/eu_cookie_compliance": "^1.24",
         "drupal/exif_orientation": "^1.3",
-        "drupal/fakeobjects": "^1.2",
+        "drupal/externalauth": "^2.0",
+        "drupal/fakeobjects": "^2.0",
         "drupal/field_group": "^3.1",
         "drupal/file_delete": "^2.0",
         "drupal/focal_point": "^2.0",
         "drupal/genpass": "^2.0",
         "drupal/git_status": "^1.0",
-        "drupal/google_tag": "^1.6",
+        "drupal/google_tag": "^1.8",
         "drupal/hal": "^1.0 | ^2.0",
-        "drupal/honeypot": "^2.0",
+        "drupal/honeypot": "^2.2",
         "drupal/language_switcher_extended": "^1.0@beta",
-        "drupal/layout_builder_at": "^2.12",
+        "drupal/layout_builder_at": "^2.15",
         "drupal/layout_builder_restrictions": "^2.17",
         "drupal/linkit": "^6.0",
         "drupal/login_redirect_per_role": "^1.7",
         "drupal/maillog": "^1.0@beta",
-        "drupal/matomo": "^1.19",
-        "drupal/maxlength": "^2.0@RC",
+        "drupal/matomo": "^1.25",
+        "drupal/maxlength": "^2.1",
         "drupal/media_bulk_upload": "^3.0",
         "drupal/media_library_edit": "^3.0",
         "drupal/menu_admin_per_menu": "1.x-dev@dev",
-        "drupal/menu_block": "^1.6",
+        "drupal/menu_block": "^1.14",
         "drupal/menu_breadcrumb": "^2.0@alpha",
-        "drupal/metatag": "^1.19",
+        "drupal/metatag": "^2.1",
         "drupal/noreqnewpass": "^1.3",
         "drupal/openid_connect": "^3.0@alpha",
         "drupal/openid_connect_harid": "^3.0",
-        "drupal/paragraphs": "^1.12",
+        "drupal/paragraphs": "^1.19",
         "drupal/pathauto": "^1.8",
         "drupal/quickedit": "^1.0",
         "drupal/rabbit_hole": "^1.0@beta",
         "drupal/rdf": "^2.1",
         "drupal/readonly_field_widget": "^1.4",
         "drupal/recaptcha_v3": "^1.7",
-        "drupal/redirect": "^1.6",
+        "drupal/redirect": "^1.11",
         "drupal/robotstxt": "^1.4",
         "drupal/role_delegation": "1.x-dev@dev",
-        "drupal/scheduler": "^2.0",
-        "drupal/search_api": "^1.19",
+        "drupal/scheduler": "^2.2",
+        "drupal/search_api": "^1.38",
         "drupal/search_api_autocomplete": "^1.4",
         "drupal/select2": "^1.13",
         "drupal/seven": "^1.0",
         "drupal/simple_recaptcha": "^1.0@beta",
-        "drupal/simple_sitemap": "^4.0@alpha",
+        "drupal/simple_sitemap": "^4.2",
         "drupal/sitemap": "^2.0@beta",
         "drupal/svg_image": "^3.0",
         "drupal/taxonomy_menu_ui": "^3.0",
         "drupal/time_field": "^2.0",
         "drupal/token": "^1.7",
         "drupal/transliterate_filenames": "^2.0",
-        "drupal/twig_tweak": "^3.1",
+        "drupal/twig_tweak": "^3.3",
         "drupal/userprotect": "1.x-dev@dev",
         "drupal/views_ajax_history": "^1.7",
         "drupal/webform": "^6.2",
@@ -146,6 +148,12 @@
             "drupal/core-project-message": true,
             "mglaman/composer-drupal-lenient": true
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "find ./web/libraries//algolia.places -type f -exec sed -i 's/cdn\\.polyfill\\.io/cdnjs\\.cloudflare\\.com\\/polyfill/g' {} +",
+            "rm -f web/libraries/choices/public/index.html"
+        ]
     },
     "extra": {
         "drupal-scaffold": {
@@ -215,9 +223,8 @@
         "patches": {
             "drupal/core": {
                 "Untranslated menu items are displayed in menus https://www.drupal.org/project/drupal/issues/2466553": "https://www.drupal.org/files/issues/2024-01-02/2466553-175.patch",
-                "Allow the ChangedItem to skip updating when synchronizing (f.e. when migrating) https://www.drupal.org/project/drupal/issues/2329253": "https://www.drupal.org/files/issues/2022-12-19/2329253-101.patch",
+                "Allow the ChangedItem to skip updating when synchronizing (f.e. when migrating) https://www.drupal.org/project/drupal/issues/2329253": "https://www.drupal.org/files/issues/2024-07-30/2329253-10.x.patch",
                 "Help Text does not override Link text": "patches/help_text_does_not_override_Link_text.patch",
-                "Cannot read properties of null (reading 'nodeType') on node.page.body https://www.drupal.org/project/drupal/issues/3413079": "https://www.drupal.org/files/issues/2024-01-23/3413079-cannot-read-properties-21-commit_8d9d804c.patch",
                 "DateTimePlus::createFromFormat('Ym', '201202') fails format validation only on 29/30/31 day of the month https://www.drupal.org/project/drupal/issues/3195447":"https://www.drupal.org/files/issues/2022-10-05/3195447-format_validation_fail-5.patch"
             },
             "drupal/media_bulk_upload": {
@@ -226,17 +233,11 @@
             "drupal/dropzonejs": {
                 "Provide a way to add alt text when doing bulk upload [dropzonejs] https://www.drupal.org/project/media_bulk_upload/issues/3023825": "https://www.drupal.org/files/issues/2020-10-05/dropzonejs-3023825-27.patch"
             },
-            "drupal/focal_point": {
-                "Stylish the preview button according to the admin theme CSS https://www.drupal.org/project/focal_point/issues/3162961": "https://www.drupal.org/files/issues/2020-08-03/focal_point-stylish_preview_button-3162961-2.patch"
-            },
             "drupal/dwr": {
                 "Automated Drupal 10 compatibility fixes https://www.drupal.org/project/dwr/issues/3287107": "https://www.drupal.org/files/issues/2022-06-15/dwr.1.x-dev.rector.patch"
             },
-            "drupal/fakeobjects": {
-                "Remove dependency on ckeditor as fakeobjects can also be used with ckeditor5 https://www.drupal.org/project/fakeobjects/issues/3356461": "https://www.drupal.org/files/issues/2023-06-05/remove-dependency-on-ckeditor-3356461-6.patch"
-            },
-            "drupal/views_ajax_history": {
-                "Exposed filters don't work correctly in Drupal 10.1 due to GET request being used instead of POST https://www.drupal.org/project/views_ajax_history/issues/3364206": "https://www.drupal.org/files/issues/2024-02-19/3364206-21-reroll.patch"
+            "drupal/genpass" : {
+                "The installed version of the /Generate Password/ module is too old to update https://www.drupal.org/project/genpass/issues/3482498" : "https://www.drupal.org/files/issues/2024-10-22/genpass_remove_error_3482498-4.patch"
             }
         },
         "drupal-lenient": {

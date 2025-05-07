@@ -127,7 +127,6 @@ class FoodMenu  extends  BlockBase {
         if ($node->hasTranslation($language)){
           $node = $node->getTranslation($language);
         }
-//        dpm($node);
         $eating_place = $node->get('field_eating_place')->entity;
         if ($eating_place->hasTranslation($language)){
           $eating_place = $eating_place->getTranslation($language);
@@ -160,7 +159,7 @@ class FoodMenu  extends  BlockBase {
                   $food_group = $food_group->getTranslation($language);
                 }
               $food_group_name = $food_group->get('name')->value;
-              $meals = $day_meal->get('field_body_text')->value;
+              $meals = $day_meal->get('field_body_text')->value ?? "";
               $group_menu = explode(PHP_EOL, $meals);
               $group_menu_out = [];
               if ($group_menu[0]=='') {
@@ -176,10 +175,6 @@ class FoodMenu  extends  BlockBase {
               }
             }
           }
-//          dpm($day_meals);
-//
-//
-//          $food_group_name = $food_group->get('name')->getValue();
           $j++;
           $k++;
         }

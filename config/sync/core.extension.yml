@@ -3,7 +3,6 @@ _core:
 langcode: et
 module:
   admin_toolbar: 0
-  admin_toolbar_links_access_filter: 0
   admin_toolbar_search: 0
   admin_toolbar_tools: 0
   automated_cron: 0
@@ -52,6 +51,7 @@ module:
   google_tag: 0
   hal: 0
   harno_blocks: 0
+  harno_cookie_consent: 0
   harno_migrate: 0
   harno_pages: 0
   harno_settings: 0
@@ -64,6 +64,7 @@ module:
   language_switcher_extended: 0
   layout_builder: 0
   layout_builder_at: 0
+  layout_builder_expose_all_field_blocks: 0
   layout_builder_restrictions: 0
   layout_builder_restrictions_by_region: 0
   layout_discovery: 0

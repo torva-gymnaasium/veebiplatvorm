@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - filter.format.webform_default
+    - search_api_autocomplete.search.general_search
   module:
     - admin_toolbar_search
     - file

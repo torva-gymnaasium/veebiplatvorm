@@ -2,6 +2,7 @@ _core:
   default_config_hash: xu0yG13sSQJcXrOJJqsn44W_hUWAIFHVlphrzxT2ycU
 langcode: et
 page_title: Saidikaart
+path: sitemap
 message:
   value: ''
   format: full_html
@@ -10,42 +11,49 @@ plugins:
     enabled: false
     weight: 0
   frontpage:
+    base_plugin: frontpage
     enabled: false
     weight: 0
     settings:
       title: 'Front page'
       rss: /rss.xml
   'menu:account':
+    base_plugin: menu
     enabled: false
     weight: 0
     settings:
       title: 'Kasutaja konto menüü'
       show_disabled: false
   'menu:admin':
+    base_plugin: menu
     enabled: false
     weight: 0
     settings:
       title: Haldus
       show_disabled: false
   'menu:footer':
+    base_plugin: menu
     enabled: false
     weight: 0
     settings:
       title: Jalus
       show_disabled: false
   'menu:main':
+    base_plugin: menu
     enabled: true
     weight: 0
     settings:
       title: ''
       show_disabled: false
   'menu:tools':
+    base_plugin: menu
     enabled: false
     weight: 0
     settings:
       title: Tööriistad
       show_disabled: false
   'vocabulary:academic_year':
+    base_plugin: vocabulary
     enabled: false
     weight: 0
     settings:
@@ -61,6 +69,7 @@ plugins:
       rss_link: view.taxonomy_term.feed_1|arg_0
       rss_depth: 9
   'vocabulary:catering_service_provider':
+    base_plugin: vocabulary
     enabled: false
     weight: 0
     settings:
@@ -76,6 +85,7 @@ plugins:
       rss_link: view.taxonomy_term.feed_1|arg_0
       rss_depth: 9
   'vocabulary:departments':
+    base_plugin: vocabulary
     enabled: false
     weight: 0
     settings:
@@ -91,6 +101,7 @@ plugins:
       rss_link: view.taxonomy_term.feed_1|arg_0
       rss_depth: 9
   'vocabulary:eating_places':
+    base_plugin: vocabulary
     enabled: false
     weight: 0
     settings:
@@ -106,6 +117,7 @@ plugins:
       rss_link: view.taxonomy_term.feed_1|arg_0
       rss_depth: 9
   'vocabulary:event_keywords':
+    base_plugin: vocabulary
     enabled: false
     weight: 0
     settings:
@@ -121,6 +133,7 @@ plugins:
       rss_link: view.taxonomy_term.feed_1|arg_0
       rss_depth: 9
   'vocabulary:food_groups':
+    base_plugin: vocabulary
     enabled: false
     weight: 0
     settings:
@@ -136,6 +149,7 @@ plugins:
       rss_link: view.taxonomy_term.feed_1|arg_0
       rss_depth: 9
   'vocabulary:media_catalogs':
+    base_plugin: vocabulary
     enabled: false
     weight: 0
     settings:
@@ -151,6 +165,7 @@ plugins:
       rss_link: view.taxonomy_term.feed_1|arg_0
       rss_depth: 9
   'vocabulary:positions':
+    base_plugin: vocabulary
     enabled: false
     weight: 0
     settings:
@@ -166,6 +181,7 @@ plugins:
       rss_link: view.taxonomy_term.feed_1|arg_0
       rss_depth: 9
   'vocabulary:training_keywords':
+    base_plugin: vocabulary
     enabled: false
     weight: 0
     settings:

@@ -150,6 +150,7 @@ class CalendarController extends ControllerBase {
     $new_query = $database->select('node_field_data', 'nfd');
     $new_query->fields('nfd');
     $new_query->condition('nfd.type', 'calendar');
+    $new_query->condition('status', 1);
     $language_or = $new_query->orConditionGroup();
     $language_or->condition('nfd.langcode', $language);
     $language_or->condition('nfd.langcode', 'und');

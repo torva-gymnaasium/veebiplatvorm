@@ -18,10 +18,6 @@ tags:
   og_type: article
   og_url: '[node:url]'
   twitter_cards_description: '[node:field_description]'
-  twitter_cards_gallery_image0: '[node:field_images:0:entity:field_media_image:landscape:url]'
-  twitter_cards_gallery_image1: '[node:field_images:1:entity:field_media_image:landscape:url]'
-  twitter_cards_gallery_image2: '[node:field_images:2:entity:field_media_image:landscape:url]'
-  twitter_cards_gallery_image3: '[node:field_images:3:entity:field_media_image:landscape:url]'
   twitter_cards_image: '[node:field_images:0:entity:field_media_image:landscape:url]'
   twitter_cards_title: '[node:title]'
-  twitter_cards_type: gallery
+  twitter_cards_type: summary_large_image

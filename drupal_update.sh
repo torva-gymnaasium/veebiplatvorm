@@ -45,6 +45,10 @@ updateApp(){
     vendor/drush/drush/drush -l ${I} -y cim
     echo "$(timestamp) ${N}) ${I} cache rebuild started."
     vendor/drush/drush/drush -l ${I} cr
+    echo "$(timestamp) ${N}) ${I} remove color translation."
+    vendor/drush/drush/drush -l ${I} rct
+    echo "$(timestamp) ${N}) ${I} cache rebuild started."
+    vendor/drush/drush/drush -l ${I} cr
     ((N=N+1))
   done
 }

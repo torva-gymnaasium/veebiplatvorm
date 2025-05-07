@@ -12,3 +12,4 @@ name: 'Toidu grupid'
 vid: food_groups
 description: 'Selle alusel järjestatakse toidumenüüs kuvatavad toidugrupid.'
 weight: 0
+new_revision: false

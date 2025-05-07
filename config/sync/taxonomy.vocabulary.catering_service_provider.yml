@@ -12,3 +12,4 @@ name: 'Toitlustusteenuse pakkujad'
 vid: catering_service_provider
 description: 'Neid on võimalik lisada söögimenüü juurde. Selle abil saab edastada toitlustuse pakkuja kohta lisainfot ja kontaktandmed.'
 weight: 0
+new_revision: false

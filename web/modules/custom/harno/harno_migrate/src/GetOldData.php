@@ -2995,7 +2995,7 @@ class GetOldData {
           $uri = 'public://' . ltrim($tmp[1], '/');
           $file_managed = $this->nodeOldFileDataByURI($uri);
           if(isset($file_managed[0]->fid) AND !empty($file_managed[0]->fid)) {
-            if ($file_managed[0]->type == 'document' OR $file_managed[0]->type == 'audio') {
+            if ($file_managed[0]->type == 'document' OR $file_managed[0]->type == 'audio' OR $file_managed[0]->type == 'pdf' ) {
               $field_data_field_attachment = (object) [];
               $field_data_field_attachment->field_attachments_fid = $file_managed[0]->fid;
               $docs[] = $field_data_field_attachment;

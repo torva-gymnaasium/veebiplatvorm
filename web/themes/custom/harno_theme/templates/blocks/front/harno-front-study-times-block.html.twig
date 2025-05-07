@@ -15,7 +15,7 @@
 		<!--/title-block title-block--home-page-->
 		<div class="tabs tabs--underline sm-hide" data-plugin="tabs">
       {% if data|length > 1 %}
-      <ul class="tabs__navigation" role="tablist" aria-label="{{"Study times"|t}}">
+      <ul class="tabs__navigation tabs__navigation-column" role="tablist" aria-label="{{"Study times"|t}}">
           {% for key,place in data  %}
             <li class="tabs__nav-item {% if loop.index == 1 %} active {% endif %}">
               <button class="btn btn-tab" id="tab-item-{{ block_id }}{{ key }}" role="tab" aria-selected="{%if loop.first%}true{%else%}false{%endif%}" aria-controls="tab-content-{{ block_id }}{{ key }}">{{ place.name }}</button>

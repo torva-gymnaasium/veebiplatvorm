@@ -12,3 +12,4 @@ name: 'Koolituse tüübid'
 vid: training_keywords
 description: 'Valikud, mida kasutatakse koolituste filtreerimiseks.'
 weight: 0
+new_revision: false

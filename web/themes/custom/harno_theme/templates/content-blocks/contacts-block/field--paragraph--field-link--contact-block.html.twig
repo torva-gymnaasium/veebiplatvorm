@@ -43,18 +43,14 @@
 {% if items %}
   {% for item in items %}
   {% if item.content %}
-    {% if  item.content['#options'].external%}
+    {% if  item.content['#url'].external%}
       {% set link_classes = link_classes|merge(['link-out']) %}
-      {% else %}
+      {% set external = true %}
+      {% set target = '_blank'%}
+      {% set aria_label='Link will open on a new page' |t%}
+    {% else %}
         {% set link_classes = link_classes|merge(['link-in']) %}
         {% set aria_label = 'Link opens on same page'|t %}
-      {% endif %}
-  {% if item.content['#options'] %}
-        {% if item.content['#options'].external %}
-          {% set external = true %}
-            {% set target = '_blank'%}
-          {% set aria_label='Link will open on a new page' |t%}
-        {% endif %}
     {% endif %}
     <li>
       <i class="mdi {% if external %}mdi-open-in-new{% else %} mdi-link-variant{% endif %}" aria-hidden="true"></i>

@@ -1,10 +1,10 @@
 settings:
-  default_form_open_message: '<p><span>Registreerimine avatakse&nbsp;(viide määratud avamise ajale). Rohkem infot peagi tulekul.</span></p>'
-  default_form_close_message: '<p><span>Registreerimine lõppes (viide määratud sulgemise ajale).</span></p>'
-  default_form_exception_message: '<p>Unable to display this webform. Please contact the site administrator.</p>'
   default_submit_button_label: Esita
   default_reset_button_label: Reset
   default_delete_button_label: Kustuta
+  default_form_open_message: '<p><span>Registreerimine avatakse&nbsp;(viide määratud avamise ajale). Rohkem infot peagi tulekul.</span></p>'
+  default_form_close_message: '<p><span>Registreerimine lõppes (viide määratud sulgemise ajale).</span></p>'
+  default_form_exception_message: '<p>Unable to display this webform. Please contact the site administrator.</p>'
   default_form_confidential_message: '<p>This form is confidential. You must <a href="login-url]/logout?destination=[current-page:url:relative]">Log out</a> to submit it.</p>'
   default_form_access_denied_message: '<p>Please login to access this form.</p>'
   default_form_required_label: 'tärniga markeeritud väljad on kohustuslikud'

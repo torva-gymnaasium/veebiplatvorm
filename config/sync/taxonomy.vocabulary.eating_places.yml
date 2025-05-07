@@ -13,3 +13,4 @@ name: Söögikohad
 vid: eating_places
 description: 'Võimaldab toidumenüüsse tekitada lehed (nt "Suur maja", "Kooli söökla") ja siduda sellega iganädalased söögimenüüga.'
 weight: 0
+new_revision: false

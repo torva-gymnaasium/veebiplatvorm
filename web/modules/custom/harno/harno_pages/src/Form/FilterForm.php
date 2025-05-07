@@ -559,7 +559,7 @@ class FilterForm extends FormBase {
         }
       }
 
-      if (is_array($form_values['article_type']) && !empty($form_values['article_type'])) {
+      if ( isset($form_values['article_type']) && is_array($form_values['article_type'])) {
         foreach ($form_values['article_type'] as $art_type) {
           if (!empty($art_type)) {
               $parameters['article_type'][$art_type] = $art_type;
@@ -567,7 +567,7 @@ class FilterForm extends FormBase {
           }
         }
       }
-      if (!empty($form_values['article_type_mobile'])) {
+      if (!empty($form_values['article_type_mobile'])&& is_array($form_values['article_type_mobile'])) {
         foreach ($form_values['article_type_mobile'] as $art_type) {
           if (!empty($art_type)) {
               $parameters['article_type_mobile'][$art_type] = $art_type;
@@ -575,14 +575,14 @@ class FilterForm extends FormBase {
           }
         }
 
-      if (!empty($form_values['days'])) {
+      if (!empty($form_values['days']) && is_array($form_values['days'])) {
         foreach ($form_values['days'] as $art_type) {
           if (!empty($art_type)) {
               $parameters['days'][$art_type] = $art_type;
           }
         }
       }
-      if (!empty($form_values['days_mobile'])) {
+      if (!empty($form_values['days_mobile'])  && is_array($form_values['days_mobile'])) {
         foreach ($form_values['days_mobile'] as $art_type) {
           if (!empty($art_type)) {
               $parameters['days_mobile'][$art_type] = $art_type;

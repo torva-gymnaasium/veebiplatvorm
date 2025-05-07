@@ -4,9 +4,10 @@ langcode: et
 always_save_userinfo: true
 connect_existing_users: true
 override_registration_settings: false
+end_session_enabled: true
 user_login_display: replace
-userinfo_mappings:
-  timezone: zoneinfo
 redirect_login: user
 redirect_logout: ''
-end_session_enabled: true
+userinfo_mappings:
+  timezone: zoneinfo
+role_mappings: {  }

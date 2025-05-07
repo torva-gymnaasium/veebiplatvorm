@@ -25,7 +25,7 @@ third_party_settings:
 name: 'Tunnustuse või koostööpartneri logo'
 type: partner_logo
 description: 'Kasutaja saab lisada tunnustuste ja koostööpartnerite logosid, mida kuvatakse avalehel.'
-help: ''
+help: null
 new_revision: true
 preview_mode: 1
 display_submitted: false

@@ -12,3 +12,4 @@ name: Õppeaastad
 vid: academic_year
 description: 'Automaatse genereerimise saab sisse või välja lülitada <a href="/admin/config/veebiplatvorm/uldised-seaded">siit</a>.'
 weight: 0
+new_revision: false

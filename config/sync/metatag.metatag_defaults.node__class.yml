@@ -17,6 +17,5 @@ tags:
   og_type: article
   og_url: '[node:url]'
   twitter_cards_description: '[node:field_class]'
-  twitter_cards_page_url: '[node:url]'
   twitter_cards_title: '[node:title]'
   twitter_cards_type: summary

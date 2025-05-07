@@ -1,0 +1,73 @@
+/* General */
+#cc-main {
+    font-family: segoe ui, helvetica neue, Arial, noto sans, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol, noto color emoji;
+}
+#cc-main .cm {
+    background: white;
+    color: var(--black, rgba(0, 48, 135, 0.9));
+}
+
+/* Buttons */
+#cc-main button.cm__btn {
+    background:  var(--main-highlight, rgba(0, 48, 135, 0.9));
+    color: white;
+}
+#cc-main .cm__texts, .cm__btns {
+    background:  var(--main-highlight,  rgba(0, 48, 135, 0.9));
+    background: white;
+}
+#cc-main button.cm__btn, #cc-main button.pm__btn {
+     background:  var(--main-highlight,  rgba(0, 48, 135, 0.9));
+    border-color: white;
+}
+#cc-main .cm__btn--secondary:hover, #cc-main button.cm__btn:hover, #cc-main button.pm__btn:hover, #cc-main .button.cm__btn:hover, #cc-main button.cm__btn.cm__btn--secondary:hover {
+    background: var(--secondary-highlight, white);
+    color: white;
+}
+:is(.path-admin, .path-user)  #cc-main .cm__btn--secondary:hover,
+:is(.path-admin, .path-user) #cc-main button.cm__btn:hover,
+:is(.path-admin, .path-user)  #cc-main button.pm__btn:hover,
+:is(.path-admin, .path-user) #cc-main .button.cm__btn:hover,
+:is(.path-admin, .path-user)   #cc-main button.cm__btn.cm__btn--secondary:hover {
+  background: var(--secondary-highlight, white);
+  color:  var(--black, rgba(0, 48, 135, 0.9));
+  border:1px solid rgba(0, 48, 135, 0.9);
+}
+:is(.path-admin, .path-user)  #cc-main .cm__btn--secondary:hover,
+:is(.path-admin, .path-user)   #cc-main button.cm__btn:hover,
+:is(.path-admin, .path-user)   #cc-main button.pm__btn:hover,
+:is(.path-admin, .path-user)   #cc-main .button.cm__btn:hover,
+:is(.path-admin, .path-user)  #cc-main button.cm__btn.cm__btn--secondary:hover {
+  background: white;
+  color:  var(--black, rgba(0, 48, 135, 0.9));
+  border:1px solid rgba(0, 48, 135, 0.9);
+}
+#cc-main button.pm__btn {
+    background:  var(--main-highlight, rgba(0, 48, 135, 0.9));
+    color: white;
+}
+.pm.pm--box, button.pm__btn {
+    background: white;
+    color:  var(--black, rgba(0, 48, 135, 0.9));
+}
+button.pm__section-title {
+    background: white;
+    color:  var(--black, rgba(0, 48, 135, 0.9));
+    border: 1px solid rgba(0, 48, 135, 0.9) ;
+  }
+button.pm__section-title {
+    color:  var(--black, rgba(0, 48, 135, 0.9));
+}
+
+/* Text & Links */
+#cc-main .cm--cloud .cm__desc, #cc-main .pm__section-desc, #cc-main .pm__section-title, #cc-main .pm__service:hover .pm__service-title, p.pm__section-desc, .pm__section-title, h2#pm__title, .pm__service-title, button.pm__section-title, #cc-main .pm__section--toggle.is-expanded .pm__section-title, #cc-main .cc__link, #cc-main a, #cc-main .cc__link:hover, #cc-main a:hover {
+  color:  var(--black, rgba(0, 48, 135, 0.9));
+}
+#cc-main .cm__footer, #cc-main .cc--anim .cm__close {
+  color: var(--black, rgba(0, 48, 135, 0.9));
+  background: white;
+}
+#cc-main .pm__service:hover {
+  background-color: var(--secondary-highlight, white);
+  color:black;
+}
