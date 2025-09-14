@@ -152,7 +152,7 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "@php -r \"if (file_exists('./web/libraries/algolia.places')) { \$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('./web/libraries/algolia.places')); foreach (\$files as \$file) { if (\$file->isFile()) { file_put_contents(\$file, str_replace('cdn.polyfill.io', 'cdnjs.cloudflare.com/polyfill', file_get_contents(\$file))); } } }\"",
+            "@php -r \"if (file_exists('./web/libraries/algolia.places')) { \\$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('./web/libraries/algolia.places')); foreach (\\$files as \\$file) { if (\\$file->isFile()) { file_put_contents(\\$file, str_replace('cdn.polyfill.io', 'cdnjs.cloudflare.com/polyfill', file_get_contents(\\$file))); } } }\"",
             "rm -f web/libraries/choices/public/index.html"
         ]
     },

@@ -31,6 +31,7 @@ DEFAULT_PRIVATE_FILES="/var/www/private"
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Function to print colored output
@@ -45,6 +46,18 @@ print_error() {
 print_warning() {
     echo -e "${YELLOW}[!]${NC} $1"
 }
+
+print_info() {
+    echo -e "${BLUE}[i]${NC} $1"
+}
+
+# Load saved configuration if exists (for defaults only)
+CONFIG_FILE="./.setup.sh"
+if [ -f "$CONFIG_FILE" ]; then
+    print_info "Loading previous settings from $CONFIG_FILE"
+    source "$CONFIG_FILE"
+    echo ""
+fi
 
 # Check prerequisites
 echo "Checking prerequisites..."
@@ -79,11 +92,16 @@ echo "Scanning for Available Backups"
 echo "=============================="
 echo ""
 
-# Scan /backups directory for available sites
-BACKUP_DIR="/backups"
-AVAILABLE_SITES=()
+# Scan backups directory for available sites (check both local and /backups)
+BACKUP_DIR=""
+if [ -d "./backups" ]; then
+    BACKUP_DIR="./backups"
+elif [ -d "/backups" ]; then
+    BACKUP_DIR="/backups"
+fi
 
-if [ -d "$BACKUP_DIR" ]; then
+AVAILABLE_SITES=()
+if [ -n "$BACKUP_DIR" ] && [ -d "$BACKUP_DIR" ]; then
     for dir in "$BACKUP_DIR"/*; do
         if [ -d "$dir" ]; then
             domain=$(basename "$dir")
@@ -122,8 +140,10 @@ if [ ${#AVAILABLE_SITES[@]} -gt 0 ]; then
     echo "$((${#AVAILABLE_SITES[@]}+1))) Enter custom domain"
     echo ""
 
-    read -p "Select site [1]: " SITE_SELECTION
-    SITE_SELECTION=${SITE_SELECTION:-1}
+    # Use saved default if available
+    DEFAULT_SITE_SELECTION="${SAVED_SITE_SELECTION:-1}"
+    read -p "Select site [$DEFAULT_SITE_SELECTION]: " SITE_SELECTION
+    SITE_SELECTION=${SITE_SELECTION:-$DEFAULT_SITE_SELECTION}
 
     if [ "$SITE_SELECTION" -le "${#AVAILABLE_SITES[@]}" ] 2>/dev/null; then
         # User selected an existing backup
@@ -150,8 +170,9 @@ else
 fi
 
 # Ask for institution name
-read -p "Enter institution name (e.g., 'Tartu Ülikool'): " SITE_NAME
-[ -z "$SITE_NAME" ] && SITE_NAME="Educational Institution"
+DEFAULT_SITE_NAME="${SAVED_SITE_NAME:-Educational Institution}"
+read -p "Enter institution name (e.g., 'Tartu Ülikool') [$DEFAULT_SITE_NAME]: " SITE_NAME
+SITE_NAME=${SITE_NAME:-$DEFAULT_SITE_NAME}
 
 # Generate default database name from domain
 # Remove TLD and replace dots/special chars with underscores
@@ -170,8 +191,9 @@ echo "Select environment type:"
 echo "1) Development"
 echo "2) Staging"
 echo "3) Production"
-read -p "Choose environment [1]: " ENV_TYPE
-ENV_TYPE=${ENV_TYPE:-1}
+DEFAULT_ENV_TYPE="${SAVED_ENV_TYPE:-1}"
+read -p "Choose environment [$DEFAULT_ENV_TYPE]: " ENV_TYPE
+ENV_TYPE=${ENV_TYPE:-$DEFAULT_ENV_TYPE}
 
 case $ENV_TYPE in
     1)
@@ -207,8 +229,9 @@ print_status "Setting up for ${ENVIRONMENT} environment"
 
 # Ask for site domain
 echo ""
-read -p "Site domain [${DEFAULT_DOMAIN}]: " SITE_DOMAIN
-SITE_DOMAIN=${SITE_DOMAIN:-$DEFAULT_DOMAIN}
+DEFAULT_SITE_DOMAIN="${SAVED_SITE_DOMAIN:-$DEFAULT_DOMAIN}"
+read -p "Site domain [${DEFAULT_SITE_DOMAIN}]: " SITE_DOMAIN
+SITE_DOMAIN=${SITE_DOMAIN:-$DEFAULT_SITE_DOMAIN}
 
 # Extract base domain for sites directory
 SITE_DIR=$(echo $SITE_DOMAIN | sed 's/^www\.//')
@@ -219,15 +242,19 @@ echo "======================"
 echo ""
 
 # Interactive prompts for database configuration
+DEFAULT_DB_HOST="${SAVED_DB_HOST:-$DEFAULT_DB_HOST}"
 read -p "Database host [${DEFAULT_DB_HOST}]: " DB_HOST
 DB_HOST=${DB_HOST:-$DEFAULT_DB_HOST}
 
+DEFAULT_DB_PORT="${SAVED_DB_PORT:-$DEFAULT_DB_PORT}"
 read -p "Database port [${DEFAULT_DB_PORT}]: " DB_PORT
 DB_PORT=${DB_PORT:-$DEFAULT_DB_PORT}
 
+DEFAULT_DB_NAME="${SAVED_DB_NAME:-$DEFAULT_DB_NAME}"
 read -p "Database name [${DEFAULT_DB_NAME}]: " DB_NAME
 DB_NAME=${DB_NAME:-$DEFAULT_DB_NAME}
 
+DEFAULT_DB_USER="${SAVED_DB_USER:-$DEFAULT_DB_USER}"
 read -p "Database username [${DEFAULT_DB_USER}]: " DB_USER
 DB_USER=${DB_USER:-$DEFAULT_DB_USER}
 
@@ -236,17 +263,35 @@ echo ""
 echo "Database Password Options:"
 echo "1) Generate a secure random password (recommended)"
 echo "2) Enter your own password"
-read -p "Choose option [1]: " PASSWORD_OPTION
-PASSWORD_OPTION=${PASSWORD_OPTION:-1}
+DEFAULT_PASSWORD_OPTION="${SAVED_PASSWORD_OPTION:-1}"
+read -p "Choose option [$DEFAULT_PASSWORD_OPTION]: " PASSWORD_OPTION
+PASSWORD_OPTION=${PASSWORD_OPTION:-$DEFAULT_PASSWORD_OPTION}
 
 if [ "$PASSWORD_OPTION" = "2" ]; then
-    read -s -p "Enter database password: " DB_PASSWORD
-    echo ""
-    read -s -p "Confirm database password: " DB_PASSWORD_CONFIRM
-    echo ""
-    if [ "$DB_PASSWORD" != "$DB_PASSWORD_CONFIRM" ]; then
-        print_error "Passwords do not match!"
-        exit 1
+    # If we have a saved password and user just pressed enter, use it
+    if [ -n "$SAVED_DB_PASSWORD" ]; then
+        read -s -p "Enter database password [saved]: " DB_PASSWORD
+        echo ""
+        if [ -z "$DB_PASSWORD" ]; then
+            DB_PASSWORD="$SAVED_DB_PASSWORD"
+            print_status "Using saved password"
+        else
+            read -s -p "Confirm database password: " DB_PASSWORD_CONFIRM
+            echo ""
+            if [ "$DB_PASSWORD" != "$DB_PASSWORD_CONFIRM" ]; then
+                print_error "Passwords do not match!"
+                exit 1
+            fi
+        fi
+    else
+        read -s -p "Enter database password: " DB_PASSWORD
+        echo ""
+        read -s -p "Confirm database password: " DB_PASSWORD_CONFIRM
+        echo ""
+        if [ "$DB_PASSWORD" != "$DB_PASSWORD_CONFIRM" ]; then
+            print_error "Passwords do not match!"
+            exit 1
+        fi
     fi
 else
     print_status "Generating secure password..."
@@ -258,16 +303,18 @@ echo ""
 echo "Database Setup Options:"
 echo "1) Create new database and user (requires MySQL root access)"
 echo "2) Use existing database and user"
-read -p "Choose option [1]: " DB_SETUP_OPTION
-DB_SETUP_OPTION=${DB_SETUP_OPTION:-1}
+DEFAULT_DB_SETUP_OPTION="${SAVED_DB_SETUP_OPTION:-1}"
+read -p "Choose option [$DEFAULT_DB_SETUP_OPTION]: " DB_SETUP_OPTION
+DB_SETUP_OPTION=${DB_SETUP_OPTION:-$DEFAULT_DB_SETUP_OPTION}
 
 echo ""
 echo "File Storage Configuration"
 echo "=========================="
 echo ""
 
-read -p "Private files directory [${DEFAULT_PRIVATE_FILES}]: " PRIVATE_FILES
-PRIVATE_FILES=${PRIVATE_FILES:-$DEFAULT_PRIVATE_FILES}
+DEFAULT_PRIVATE_FILES_DIR="${SAVED_PRIVATE_FILES:-$DEFAULT_PRIVATE_FILES}"
+read -p "Private files directory [${DEFAULT_PRIVATE_FILES_DIR}]: " PRIVATE_FILES
+PRIVATE_FILES=${PRIVATE_FILES:-$DEFAULT_PRIVATE_FILES_DIR}
 
 # Generate hash salt
 print_status "Generating secure hash salt..."
@@ -328,11 +375,11 @@ else
 fi
 
 # 4. Import database backup (if available)
-# Look for backup files in /backups/[domain]/ structure
+# Look for backup files in backups/[domain]/ structure
 BACKUP_DB_FILE=""
-if [ "$BACKUP_AVAILABLE" = "true" ] && [ -n "${BACKUP_SOURCE}" ]; then
-    # Look for MySQL backup file in /backups/[domain]/
-    BACKUP_DB_DIR="/backups/${BACKUP_SOURCE}"
+if [ "$BACKUP_AVAILABLE" = "true" ] && [ -n "${BACKUP_SOURCE}" ] && [ -n "$BACKUP_DIR" ]; then
+    # Look for MySQL backup file in backups/[domain]/
+    BACKUP_DB_DIR="${BACKUP_DIR}/${BACKUP_SOURCE}"
     if [ -d "$BACKUP_DB_DIR" ]; then
         # Find the most recent .mysql file
         BACKUP_DB_FILE=$(ls -t "$BACKUP_DB_DIR"/*.mysql 2>/dev/null | head -n 1)
@@ -355,8 +402,9 @@ fi
 if [ -n "$BACKUP_DB_FILE" ] && [ -f "$BACKUP_DB_FILE" ]; then
     echo ""
     echo "Found database backup: $BACKUP_DB_FILE"
-    read -p "Import this backup? [Y/n]: " IMPORT_BACKUP
-    IMPORT_BACKUP=${IMPORT_BACKUP:-Y}
+    DEFAULT_IMPORT_BACKUP="${SAVED_IMPORT_BACKUP:-Y}"
+    read -p "Import this backup? [$DEFAULT_IMPORT_BACKUP]: " IMPORT_BACKUP
+    IMPORT_BACKUP=${IMPORT_BACKUP:-$DEFAULT_IMPORT_BACKUP}
 
     if [[ "$IMPORT_BACKUP" =~ ^[Yy]$ ]]; then
         print_status "Importing database backup..."
@@ -384,12 +432,12 @@ mkdir -p web/sites/${SITE_DIR}/files/{css,js,php}
 
 # 6. Copy sites directory from backup or create new
 BACKUP_FILES_TAR=""
-if [ "$BACKUP_AVAILABLE" = "true" ] && [ -n "${BACKUP_SOURCE}" ]; then
-    # Look for tar backup file in /backups/[domain]/
-    BACKUP_FILES_DIR="/backups/${BACKUP_SOURCE}"
-    if [ -d "$BACKUP_FILES_DIR" ]; then
+if [ "$BACKUP_AVAILABLE" = "true" ] && [ -n "${BACKUP_SOURCE}" ] && [ -n "$BACKUP_DIR" ]; then
+    # Look for tar backup file in backups/[domain]/
+    BACKUP_TAR_DIR="${BACKUP_DIR}/${BACKUP_SOURCE}"
+    if [ -d "$BACKUP_TAR_DIR" ]; then
         # Find the most recent .tar file
-        BACKUP_FILES_TAR=$(ls -t "$BACKUP_FILES_DIR"/*.tar 2>/dev/null | head -n 1)
+        BACKUP_FILES_TAR=$(ls -t "$BACKUP_TAR_DIR"/*.tar 2>/dev/null | head -n 1)
     fi
 fi
 
@@ -408,8 +456,9 @@ fi
 if [ -n "$BACKUP_FILES_TAR" ] && [ -f "$BACKUP_FILES_TAR" ]; then
     echo ""
     echo "Found files backup: $BACKUP_FILES_TAR"
-    read -p "Extract and restore files? [Y/n]: " RESTORE_FILES
-    RESTORE_FILES=${RESTORE_FILES:-Y}
+    DEFAULT_RESTORE_FILES="${SAVED_RESTORE_FILES:-Y}"
+    read -p "Extract and restore files? [$DEFAULT_RESTORE_FILES]: " RESTORE_FILES
+    RESTORE_FILES=${RESTORE_FILES:-$DEFAULT_RESTORE_FILES}
 
     if [[ "$RESTORE_FILES" =~ ^[Yy]$ ]]; then
         print_status "Extracting files from backup..."
@@ -474,13 +523,22 @@ SETTINGS_EOF
 fi
 
 # Replace placeholders in settings.php
-sed -i "s/\[CHANGE_ME_DB_HOST\]/${DB_HOST}/g" web/sites/${SITE_DIR}/settings.php
-sed -i "s/\[CHANGE_ME_DB_PORT\]/${DB_PORT}/g" web/sites/${SITE_DIR}/settings.php
-sed -i "s/\[CHANGE_ME_DB_NAME\]/${DB_NAME}/g" web/sites/${SITE_DIR}/settings.php
-sed -i "s/\[CHANGE_ME_DB_USER\]/${DB_USER}/g" web/sites/${SITE_DIR}/settings.php
-sed -i "s/\[CHANGE_ME_DB_PASSWORD\]/${DB_PASSWORD}/g" web/sites/${SITE_DIR}/settings.php
-sed -i "s/\[CHANGE_ME_GENERATE_HASH_SALT\]/${HASH_SALT}/g" web/sites/${SITE_DIR}/settings.php
-sed -i "s|/var/www/private/torvakool|${PRIVATE_FILES}|g" web/sites/${SITE_DIR}/settings.php
+# Create a portable sed in-place function
+sed_inplace() {
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        sed -i '' "$@"
+    else
+        sed -i "$@"
+    fi
+}
+
+sed_inplace "s/\[CHANGE_ME_DB_HOST\]/${DB_HOST}/g" web/sites/${SITE_DIR}/settings.php
+sed_inplace "s/\[CHANGE_ME_DB_PORT\]/${DB_PORT}/g" web/sites/${SITE_DIR}/settings.php
+sed_inplace "s/\[CHANGE_ME_DB_NAME\]/${DB_NAME}/g" web/sites/${SITE_DIR}/settings.php
+sed_inplace "s/\[CHANGE_ME_DB_USER\]/${DB_USER}/g" web/sites/${SITE_DIR}/settings.php
+sed_inplace "s/\[CHANGE_ME_DB_PASSWORD\]/${DB_PASSWORD}/g" web/sites/${SITE_DIR}/settings.php
+sed_inplace "s/\[CHANGE_ME_GENERATE_HASH_SALT\]/${HASH_SALT}/g" web/sites/${SITE_DIR}/settings.php
+sed_inplace "s|/var/www/private/torvakool|${PRIVATE_FILES}|g" web/sites/${SITE_DIR}/settings.php
 
 # Add environment-specific settings
 cat >> web/sites/${SITE_DIR}/settings.php <<EOF
