@@ -700,23 +700,25 @@ fi
 
 # 11. Clear Drupal cache
 print_status "Clearing Drupal cache..."
-vendor/bin/drush cache:rebuild --uri=${SITE_DOMAIN}
+vendor/bin/drush cache:rebuild --uri=${SITE_DOMAIN} 2>&1 | grep -v "Deprecated:" | grep -v "Implicitly marking parameter"
 
 # 12. Run database updates
 print_status "Running database updates..."
-vendor/bin/drush updatedb --uri=${SITE_DOMAIN} -y
+vendor/bin/drush updatedb --uri=${SITE_DOMAIN} -y 2>&1 | grep -v "Deprecated:" | grep -v "Implicitly marking parameter"
 
 # 13. Final security check (only for non-development)
 if [ "${ENVIRONMENT}" != "development" ]; then
     print_status "Running security checks..."
     # Ensure update.php is not accessible
     echo "Disabling update.php access..."
-    vendor/bin/drush state:set system.update_free_access 0 --uri=${SITE_DOMAIN}
+    vendor/bin/drush state:set system.update_free_access 0 --uri=${SITE_DOMAIN} 2>&1 | grep -v "Deprecated:" | grep -v "Implicitly marking parameter"
 fi
 
 echo ""
 echo "========================================="
-echo -e "${GREEN}${ENVIRONMENT^} setup completed successfully!${NC}"
+# Capitalize environment name in a portable way
+ENV_DISPLAY=$(echo "$ENVIRONMENT" | awk '{ print toupper(substr($0, 1, 1)) substr($0, 2) }')
+echo -e "${GREEN}${ENV_DISPLAY} setup completed successfully!${NC}"
 echo "========================================="
 echo ""
 echo "Configuration Summary:"
