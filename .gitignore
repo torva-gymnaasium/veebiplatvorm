@@ -27,3 +27,8 @@
 # Ignore .htaccess fiels as they may be different per environment.
 /web/.htaccess
 
+# Mac
+.DS_Store
+
+# Backups
+/backups/
