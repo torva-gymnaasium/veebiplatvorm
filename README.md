@@ -2,7 +2,9 @@
 
 Estonian Educational Institutions Web Platform by Haridus- ja Teadusministeerium (HTM).
 
-A unified Drupal platform for Estonian educational institution websites, providing a standardized, secure, and maintainable web solution for schools, gymnasiums, and other educational institutions across Estonia.
+A unified Drupal-based platform for Estonian educational institution websites, providing a standardized, secure, and maintainable web solution for schools, gymnasiums, and other educational institutions across Estonia.
+
+As the HTM-managed HVP service will be discontinued starting 22.09.2025, HTM has released the source code to enable schools to migrate their sites to alternative hosting. This repository is a fork of the original codebase from https://gituja.eenet.ee/avalik/veebiplatvorm-backend, enhanced with deployment fixes and an automated setup script for self-hosting.
 
 ## About HVP
 
@@ -16,10 +18,6 @@ HVP (Haridusasutuste Veebiplatvorm) is designed to:
 ## Quick Start
 
 ```bash
-# Clone the repository
-git clone [repository-url]
-cd veebiplatvorm-backend
-
 # Run the interactive setup script
 ./setup.sh
 ```
@@ -33,7 +31,6 @@ The setup script will guide you through:
 ## Documentation
 
 - [SETUP.md](SETUP.md) - Complete setup and deployment guide
-- [PRODUCTION_SETUP.md](SETUP.md) - Production-specific configuration
 
 ## Project Structure
 

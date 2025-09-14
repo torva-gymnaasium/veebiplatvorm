@@ -91,12 +91,10 @@ echo "Scanning for Available Backups"
 echo "=============================="
 echo ""
 
-# Scan backups directory for available sites (check both local and /backups)
+# Scan backups directory for available sites
 BACKUP_DIR=""
 if [ -d "./backups" ]; then
     BACKUP_DIR="./backups"
-elif [ -d "/backups" ]; then
-    BACKUP_DIR="/backups"
 fi
 
 AVAILABLE_SITES=()
