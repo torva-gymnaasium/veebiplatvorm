@@ -1,0 +1,660 @@
+#!/bin/bash
+
+# HTM Haridusasutuste Veebiplatvorm (HVP) Setup Script
+# Universal setup script for Estonian educational institution websites
+# Works for development, staging, and production environments
+# Supports any domain
+
+set -e  # Exit on any error
+
+echo "========================================="
+echo "HTM Haridusasutuste Veebiplatvorm (HVP)"
+echo "Setup Script"
+echo "========================================="
+echo ""
+
+# Check if running as root
+if [ "$EUID" -eq 0 ]; then
+   echo "Please do not run this script as root for security reasons"
+   exit 1
+fi
+
+# Default configuration variables
+DEFAULT_DB_HOST="127.0.0.1"
+DEFAULT_DB_PORT="3306"
+# DEFAULT_DB_NAME and BACKUP_SOURCE will be set based on site selection
+DEFAULT_DB_USER="drupal"
+DEFAULT_WEB_ROOT="/var/www/html"
+DEFAULT_PRIVATE_FILES="/var/www/private"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Function to print colored output
+print_status() {
+    echo -e "${GREEN}[✓]${NC} $1"
+}
+
+print_error() {
+    echo -e "${RED}[✗]${NC} $1"
+}
+
+print_warning() {
+    echo -e "${YELLOW}[!]${NC} $1"
+}
+
+# Check prerequisites
+echo "Checking prerequisites..."
+
+# Check PHP version
+PHP_VERSION=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;")
+if [ $(echo "$PHP_VERSION >= 8.1" | bc) -eq 1 ]; then
+    print_status "PHP version $PHP_VERSION is compatible"
+else
+    print_error "PHP version $PHP_VERSION is too old. PHP 8.1+ required"
+    exit 1
+fi
+
+# Check Composer
+if command -v composer &> /dev/null; then
+    print_status "Composer is installed"
+else
+    print_error "Composer is not installed"
+    exit 1
+fi
+
+# Check MariaDB/MySQL
+if command -v mysql &> /dev/null; then
+    print_status "MySQL/MariaDB client is installed"
+else
+    print_error "MySQL/MariaDB client is not installed"
+    exit 1
+fi
+
+echo ""
+echo "Scanning for Available Backups"
+echo "=============================="
+echo ""
+
+# Scan /backups directory for available sites
+BACKUP_DIR="/backups"
+AVAILABLE_SITES=()
+
+if [ -d "$BACKUP_DIR" ]; then
+    for dir in "$BACKUP_DIR"/*; do
+        if [ -d "$dir" ]; then
+            domain=$(basename "$dir")
+            # Check if there are actual backup files
+            if ls "$dir"/*.mysql 2>/dev/null 1>&2 || ls "$dir"/*.tar 2>/dev/null 1>&2; then
+                AVAILABLE_SITES+=("$domain")
+            fi
+        fi
+    done
+fi
+
+echo ""
+echo "Site Configuration"
+echo "=================="
+echo ""
+
+# If backups found, offer them as options
+if [ ${#AVAILABLE_SITES[@]} -gt 0 ]; then
+    echo "Found backups for the following sites:"
+    echo ""
+    for i in "${!AVAILABLE_SITES[@]}"; do
+        echo "$((i+1))) ${AVAILABLE_SITES[$i]}"
+        # Show latest backup dates
+        latest_db=$(ls -t "$BACKUP_DIR/${AVAILABLE_SITES[$i]}"/*.mysql 2>/dev/null | head -1)
+        latest_files=$(ls -t "$BACKUP_DIR/${AVAILABLE_SITES[$i]}"/*.tar 2>/dev/null | head -1)
+        if [ -n "$latest_db" ]; then
+            db_date=$(basename "$latest_db" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}-[0-9]{2}-[0-9]{2}')
+            echo "   Database: $db_date"
+        fi
+        if [ -n "$latest_files" ]; then
+            files_date=$(basename "$latest_files" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}-[0-9]{2}-[0-9]{2}')
+            echo "   Files: $files_date"
+        fi
+        echo ""
+    done
+    echo "$((${#AVAILABLE_SITES[@]}+1))) Enter custom domain"
+    echo ""
+
+    read -p "Select site [1]: " SITE_SELECTION
+    SITE_SELECTION=${SITE_SELECTION:-1}
+
+    if [ "$SITE_SELECTION" -le "${#AVAILABLE_SITES[@]}" ] 2>/dev/null; then
+        # User selected an existing backup
+        BASE_DOMAIN="${AVAILABLE_SITES[$((SITE_SELECTION-1))]}"
+        BACKUP_AVAILABLE=true
+        print_status "Selected: $BASE_DOMAIN"
+    else
+        # User wants custom domain
+        read -p "Enter production domain (e.g., 'ut.ee', 'torvakool.edu.ee'): " BASE_DOMAIN
+        while [ -z "$BASE_DOMAIN" ]; do
+            echo "Domain is required!"
+            read -p "Enter production domain: " BASE_DOMAIN
+        done
+        BACKUP_AVAILABLE=false
+    fi
+else
+    # No backups found, ask for domain
+    read -p "Enter production domain (e.g., 'ut.ee', 'torvakool.edu.ee'): " BASE_DOMAIN
+    while [ -z "$BASE_DOMAIN" ]; do
+        echo "Domain is required!"
+        read -p "Enter production domain: " BASE_DOMAIN
+    done
+    BACKUP_AVAILABLE=false
+fi
+
+# Ask for institution name
+read -p "Enter institution name (e.g., 'Tartu Ülikool'): " SITE_NAME
+[ -z "$SITE_NAME" ] && SITE_NAME="Educational Institution"
+
+# Generate default database name from domain
+# Remove TLD and replace dots/special chars with underscores
+DEFAULT_DB_NAME=$(echo $BASE_DOMAIN | sed 's/\.[^.]*$//' | sed 's/[^a-zA-Z0-9]/_/g')
+BACKUP_SOURCE="$BASE_DOMAIN"
+
+print_status "Setting up ${SITE_NAME} (${BASE_DOMAIN})"
+
+echo ""
+echo "Environment Configuration"
+echo "========================"
+echo ""
+
+# Ask for environment type
+echo "Select environment type:"
+echo "1) Development"
+echo "2) Staging"
+echo "3) Production"
+read -p "Choose environment [1]: " ENV_TYPE
+ENV_TYPE=${ENV_TYPE:-1}
+
+case $ENV_TYPE in
+    1)
+        ENVIRONMENT="development"
+        # For development, suggest .localhost or .local domain
+        BASE_NAME=$(echo $BASE_DOMAIN | sed 's/\.[^.]*$//')
+        DEFAULT_DOMAIN="${BASE_NAME}.localhost"
+        ENABLE_AGGREGATION="FALSE"
+        ERROR_DISPLAY="TRUE"
+        CACHE_MAX_AGE="0"
+        ;;
+    2)
+        ENVIRONMENT="staging"
+        DEFAULT_DOMAIN="staging.${BASE_DOMAIN}"
+        ENABLE_AGGREGATION="TRUE"
+        ERROR_DISPLAY="FALSE"
+        CACHE_MAX_AGE="300"
+        ;;
+    3)
+        ENVIRONMENT="production"
+        DEFAULT_DOMAIN="${BASE_DOMAIN}"
+        ENABLE_AGGREGATION="TRUE"
+        ERROR_DISPLAY="FALSE"
+        CACHE_MAX_AGE="900"
+        ;;
+    *)
+        print_error "Invalid environment selection"
+        exit 1
+        ;;
+esac
+
+print_status "Setting up for ${ENVIRONMENT} environment"
+
+# Ask for site domain
+echo ""
+read -p "Site domain [${DEFAULT_DOMAIN}]: " SITE_DOMAIN
+SITE_DOMAIN=${SITE_DOMAIN:-$DEFAULT_DOMAIN}
+
+# Extract base domain for sites directory
+SITE_DIR=$(echo $SITE_DOMAIN | sed 's/^www\.//')
+
+echo ""
+echo "Database Configuration"
+echo "======================"
+echo ""
+
+# Interactive prompts for database configuration
+read -p "Database host [${DEFAULT_DB_HOST}]: " DB_HOST
+DB_HOST=${DB_HOST:-$DEFAULT_DB_HOST}
+
+read -p "Database port [${DEFAULT_DB_PORT}]: " DB_PORT
+DB_PORT=${DB_PORT:-$DEFAULT_DB_PORT}
+
+read -p "Database name [${DEFAULT_DB_NAME}]: " DB_NAME
+DB_NAME=${DB_NAME:-$DEFAULT_DB_NAME}
+
+read -p "Database username [${DEFAULT_DB_USER}]: " DB_USER
+DB_USER=${DB_USER:-$DEFAULT_DB_USER}
+
+# Ask if user wants to provide password or generate one
+echo ""
+echo "Database Password Options:"
+echo "1) Generate a secure random password (recommended)"
+echo "2) Enter your own password"
+read -p "Choose option [1]: " PASSWORD_OPTION
+PASSWORD_OPTION=${PASSWORD_OPTION:-1}
+
+if [ "$PASSWORD_OPTION" = "2" ]; then
+    read -s -p "Enter database password: " DB_PASSWORD
+    echo ""
+    read -s -p "Confirm database password: " DB_PASSWORD_CONFIRM
+    echo ""
+    if [ "$DB_PASSWORD" != "$DB_PASSWORD_CONFIRM" ]; then
+        print_error "Passwords do not match!"
+        exit 1
+    fi
+else
+    print_status "Generating secure password..."
+    DB_PASSWORD=$(openssl rand -base64 32 | tr -d "=+/" | cut -c1-25)
+fi
+
+# Ask about creating new database or using existing
+echo ""
+echo "Database Setup Options:"
+echo "1) Create new database and user (requires MySQL root access)"
+echo "2) Use existing database and user"
+read -p "Choose option [1]: " DB_SETUP_OPTION
+DB_SETUP_OPTION=${DB_SETUP_OPTION:-1}
+
+echo ""
+echo "File Storage Configuration"
+echo "=========================="
+echo ""
+
+read -p "Private files directory [${DEFAULT_PRIVATE_FILES}]: " PRIVATE_FILES
+PRIVATE_FILES=${PRIVATE_FILES:-$DEFAULT_PRIVATE_FILES}
+
+# Generate hash salt
+print_status "Generating secure hash salt..."
+HASH_SALT=$(openssl rand -base64 32)
+
+echo ""
+echo "Generated credentials:"
+echo "Database Password: $DB_PASSWORD"
+echo "Hash Salt: $HASH_SALT"
+echo ""
+print_warning "Please save these credentials securely!"
+echo ""
+
+read -p "Press Enter to continue with setup..."
+
+# 2. Install Composer dependencies
+print_status "Installing Composer dependencies..."
+COMPOSER_PROCESS_TIMEOUT=600 composer install --no-dev --optimize-autoloader
+
+# 3. Create database and user (if requested)
+if [ "$DB_SETUP_OPTION" = "1" ]; then
+    echo ""
+    echo "Creating database and user..."
+    echo "Please enter MySQL root password when prompted:"
+
+    # Handle both localhost and IP connections
+    if [ "$DB_HOST" = "localhost" ] || [ "$DB_HOST" = "127.0.0.1" ]; then
+        USER_HOST="127.0.0.1"
+    else
+        USER_HOST="%"  # Allow from any host for remote databases
+    fi
+
+    mysql -u root -p -h ${DB_HOST} -P ${DB_PORT} <<EOF
+CREATE DATABASE IF NOT EXISTS ${DB_NAME} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER IF NOT EXISTS '${DB_USER}'@'${USER_HOST}' IDENTIFIED BY '${DB_PASSWORD}';
+GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'${USER_HOST}';
+FLUSH PRIVILEGES;
+EOF
+
+    if [ $? -eq 0 ]; then
+        print_status "Database and user created successfully"
+    else
+        print_error "Database setup failed"
+        exit 1
+    fi
+else
+    print_status "Using existing database and user"
+    # Test connection
+    echo ""
+    echo "Testing database connection..."
+    mysql -u ${DB_USER} -p${DB_PASSWORD} -h ${DB_HOST} -P ${DB_PORT} -e "SELECT 1" ${DB_NAME} > /dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        print_status "Database connection successful"
+    else
+        print_error "Cannot connect to database. Please check your credentials."
+        exit 1
+    fi
+fi
+
+# 4. Import database backup (if available)
+# Look for backup files in /backups/[domain]/ structure
+BACKUP_DB_FILE=""
+if [ "$BACKUP_AVAILABLE" = "true" ] && [ -n "${BACKUP_SOURCE}" ]; then
+    # Look for MySQL backup file in /backups/[domain]/
+    BACKUP_DB_DIR="/backups/${BACKUP_SOURCE}"
+    if [ -d "$BACKUP_DB_DIR" ]; then
+        # Find the most recent .mysql file
+        BACKUP_DB_FILE=$(ls -t "$BACKUP_DB_DIR"/*.mysql 2>/dev/null | head -n 1)
+    fi
+fi
+
+# Fallback to old backup structure if new structure not found
+if [ -z "$BACKUP_DB_FILE" ] && [ -n "${BACKUP_SOURCE}" ]; then
+    # Check for site-specific backups in old location
+    for pattern in "backup/*${BACKUP_SOURCE}*.sql" "backup/*${BASE_DOMAIN}*.sql" "backup/backup*.sql"; do
+        for file in $pattern; do
+            if [ -f "$file" ]; then
+                BACKUP_DB_FILE="$file"
+                break 2
+            fi
+        done
+    done
+fi
+
+if [ -n "$BACKUP_DB_FILE" ] && [ -f "$BACKUP_DB_FILE" ]; then
+    echo ""
+    echo "Found database backup: $BACKUP_DB_FILE"
+    read -p "Import this backup? [Y/n]: " IMPORT_BACKUP
+    IMPORT_BACKUP=${IMPORT_BACKUP:-Y}
+
+    if [[ "$IMPORT_BACKUP" =~ ^[Yy]$ ]]; then
+        print_status "Importing database backup..."
+        mysql -u ${DB_USER} -p${DB_PASSWORD} -h ${DB_HOST} -P ${DB_PORT} ${DB_NAME} < ${BACKUP_DB_FILE}
+        if [ $? -eq 0 ]; then
+            print_status "Database imported successfully"
+        else
+            print_error "Database import failed"
+            exit 1
+        fi
+    else
+        print_warning "Skipping database import - starting with empty database"
+    fi
+else
+    print_warning "No database backup found - starting with empty database"
+    echo "You can import a database later using:"
+    echo "  mysql -u ${DB_USER} -p ${DB_NAME} < your-backup.mysql"
+fi
+
+# 5. Create required directories
+print_status "Creating required directories..."
+mkdir -p config/sync
+mkdir -p ${PRIVATE_FILES}
+mkdir -p web/sites/${SITE_DIR}/files/{css,js,php}
+
+# 6. Copy sites directory from backup or create new
+BACKUP_FILES_TAR=""
+if [ "$BACKUP_AVAILABLE" = "true" ] && [ -n "${BACKUP_SOURCE}" ]; then
+    # Look for tar backup file in /backups/[domain]/
+    BACKUP_FILES_DIR="/backups/${BACKUP_SOURCE}"
+    if [ -d "$BACKUP_FILES_DIR" ]; then
+        # Find the most recent .tar file
+        BACKUP_FILES_TAR=$(ls -t "$BACKUP_FILES_DIR"/*.tar 2>/dev/null | head -n 1)
+    fi
+fi
+
+# Fallback to old backup structure if new structure not found
+BACKUP_FILES_DIR=""
+if [ -z "$BACKUP_FILES_TAR" ] && [ -n "${BACKUP_SOURCE}" ]; then
+    # Look for backup files directory in old structure
+    for dir in "backup/sites/${BACKUP_SOURCE}" "backup/sites/${BASE_DOMAIN}" "backup/sites/torvakool.edu.ee" "backup/sites/torva.edu.ee"; do
+        if [ -d "$dir" ]; then
+            BACKUP_FILES_DIR="$dir"
+            break
+        fi
+    done
+fi
+
+if [ -n "$BACKUP_FILES_TAR" ] && [ -f "$BACKUP_FILES_TAR" ]; then
+    echo ""
+    echo "Found files backup: $BACKUP_FILES_TAR"
+    read -p "Extract and restore files? [Y/n]: " RESTORE_FILES
+    RESTORE_FILES=${RESTORE_FILES:-Y}
+
+    if [[ "$RESTORE_FILES" =~ ^[Yy]$ ]]; then
+        print_status "Extracting files from backup..."
+        # The tar contains the files directory contents directly (no 'files' prefix)
+        mkdir -p web/sites/${SITE_DIR}/files
+        tar -xf "$BACKUP_FILES_TAR" -C web/sites/${SITE_DIR}/files/
+        if [ $? -eq 0 ]; then
+            print_status "Files restored successfully"
+        else
+            print_warning "Failed to extract some files - continuing anyway"
+        fi
+    else
+        print_warning "Skipping files restoration"
+    fi
+elif [ -n "$BACKUP_FILES_DIR" ] && [ -d "$BACKUP_FILES_DIR/files" ]; then
+    # Use old backup structure
+    print_status "Restoring files from backup: $BACKUP_FILES_DIR"
+    if [ "${SITE_DIR}" != "${BACKUP_SOURCE}" ]; then
+        # If using different domain, copy backup to new location
+        mkdir -p web/sites/${SITE_DIR}
+        cp -r ${BACKUP_FILES_DIR}/files web/sites/${SITE_DIR}/
+    else
+        cp -r ${BACKUP_FILES_DIR}/files/* web/sites/${SITE_DIR}/files/
+    fi
+else
+    print_warning "No files backup found - creating empty files directory"
+fi
+
+# 7. Create settings.php from template
+print_status "Creating settings.php..."
+# First check if we need to create the site directory
+if [ ! -d "web/sites/${SITE_DIR}" ]; then
+    mkdir -p web/sites/${SITE_DIR}
+fi
+
+# Copy template - use production template if it exists, otherwise use default
+if [ -f "web/sites/torvakool.edu.ee/settings.production.php" ]; then
+    cp web/sites/torvakool.edu.ee/settings.production.php web/sites/${SITE_DIR}/settings.php
+else
+    cp web/sites/default/default.settings.php web/sites/${SITE_DIR}/settings.php
+    # Append database configuration to default settings
+    cat >> web/sites/${SITE_DIR}/settings.php <<'SETTINGS_EOF'
+
+/**
+ * Database settings
+ */
+$databases['default']['default'] = [
+  'database' => '[CHANGE_ME_DB_NAME]',
+  'username' => '[CHANGE_ME_DB_USER]',
+  'password' => '[CHANGE_ME_DB_PASSWORD]',
+  'host' => '[CHANGE_ME_DB_HOST]',
+  'port' => '[CHANGE_ME_DB_PORT]',
+  'driver' => 'mysql',
+  'prefix' => '',
+  'collation' => 'utf8mb4_general_ci',
+];
+
+$settings['hash_salt'] = '[CHANGE_ME_GENERATE_HASH_SALT]';
+$settings['config_sync_directory'] = '../config/sync';
+$settings['file_private_path'] = '/var/www/private/torvakool';
+SETTINGS_EOF
+fi
+
+# Replace placeholders in settings.php
+sed -i "s/\[CHANGE_ME_DB_HOST\]/${DB_HOST}/g" web/sites/${SITE_DIR}/settings.php
+sed -i "s/\[CHANGE_ME_DB_PORT\]/${DB_PORT}/g" web/sites/${SITE_DIR}/settings.php
+sed -i "s/\[CHANGE_ME_DB_NAME\]/${DB_NAME}/g" web/sites/${SITE_DIR}/settings.php
+sed -i "s/\[CHANGE_ME_DB_USER\]/${DB_USER}/g" web/sites/${SITE_DIR}/settings.php
+sed -i "s/\[CHANGE_ME_DB_PASSWORD\]/${DB_PASSWORD}/g" web/sites/${SITE_DIR}/settings.php
+sed -i "s/\[CHANGE_ME_GENERATE_HASH_SALT\]/${HASH_SALT}/g" web/sites/${SITE_DIR}/settings.php
+sed -i "s|/var/www/private/torvakool|${PRIVATE_FILES}|g" web/sites/${SITE_DIR}/settings.php
+
+# Add environment-specific settings
+cat >> web/sites/${SITE_DIR}/settings.php <<EOF
+
+/**
+ * Environment: ${ENVIRONMENT}
+ */
+
+// Trusted host patterns
+\$settings['trusted_host_patterns'] = [
+  '^${SITE_DOMAIN//./\\.}\$',
+  '^www\\.${SITE_DOMAIN//./\\.}\$',
+  '^localhost\$',
+  '^127\\.0\\.0\\.1\$',
+];
+
+// Environment-specific performance settings
+\$config['system.performance']['css']['preprocess'] = ${ENABLE_AGGREGATION};
+\$config['system.performance']['js']['preprocess'] = ${ENABLE_AGGREGATION};
+\$config['system.performance']['cache']['page']['max_age'] = ${CACHE_MAX_AGE};
+
+// Error display settings
+if ('${ENVIRONMENT}' === 'development') {
+  \$config['system.logging']['error_level'] = 'verbose';
+  error_reporting(E_ALL);
+  ini_set('display_errors', TRUE);
+  ini_set('display_startup_errors', TRUE);
+
+  // Disable caching for development
+  \$settings['cache']['bins']['render'] = 'cache.backend.null';
+  \$settings['cache']['bins']['dynamic_page_cache'] = 'cache.backend.null';
+  \$settings['cache']['bins']['page'] = 'cache.backend.null';
+} else {
+  \$config['system.logging']['error_level'] = 'hide';
+  error_reporting(0);
+  ini_set('display_errors', FALSE);
+  ini_set('display_startup_errors', FALSE);
+}
+
+// Environment indicator
+\$config['environment_indicator.indicator']['name'] = '${ENVIRONMENT}';
+\$config['environment_indicator.indicator']['bg_color'] = ('${ENVIRONMENT}' === 'production') ? '#d40000' : (('${ENVIRONMENT}' === 'staging') ? '#ffa500' : '#5cb85c');
+\$config['environment_indicator.indicator']['fg_color'] = '#ffffff';
+EOF
+
+# 8. Create sites.php for multi-site
+print_status "Configuring multi-site..."
+cat > web/sites/sites.php <<EOF
+<?php
+/**
+ * Multi-site directory aliasing
+ * Environment: ${ENVIRONMENT}
+ * Primary domain: ${SITE_DOMAIN}
+ */
+
+// Main site configuration
+\$sites['${SITE_DOMAIN}'] = '${SITE_DIR}';
+\$sites['www.${SITE_DOMAIN}'] = '${SITE_DIR}';
+
+// Local development aliases
+if ('${ENVIRONMENT}' === 'development') {
+  \$sites['localhost.${SITE_DIR}'] = '${SITE_DIR}';
+  \$sites['127.0.0.1.${SITE_DIR}'] = '${SITE_DIR}';
+  \$sites['${SITE_DIR}.localhost'] = '${SITE_DIR}';
+  \$sites['${SITE_DIR}.local'] = '${SITE_DIR}';
+  \$sites['${SITE_DIR}.lndo.site'] = '${SITE_DIR}';  // Lando
+  \$sites['${SITE_DIR}.ddev.site'] = '${SITE_DIR}';  // DDEV
+}
+EOF
+
+# 9. Copy .htaccess if it doesn't exist
+if [ ! -f "web/.htaccess" ]; then
+    print_status "Creating .htaccess..."
+    cp web/core/assets/scaffold/files/htaccess web/.htaccess
+fi
+
+# 10. Set proper permissions
+print_status "Setting file permissions..."
+
+# Detect web server user
+if [ "${ENVIRONMENT}" = "development" ]; then
+    # For development, use current user
+    WEB_USER=$(whoami)
+else
+    # Try to detect web server user
+    if id -u www-data > /dev/null 2>&1; then
+        WEB_USER="www-data"
+    elif id -u apache > /dev/null 2>&1; then
+        WEB_USER="apache"
+    elif id -u nginx > /dev/null 2>&1; then
+        WEB_USER="nginx"
+    else
+        read -p "Web server user [www-data]: " WEB_USER
+        WEB_USER=${WEB_USER:-www-data}
+    fi
+fi
+
+# Set ownership (only use sudo if not in development)
+if [ "${ENVIRONMENT}" != "development" ]; then
+    sudo chown -R $(whoami):${WEB_USER} .
+    # Files directory needs to be writable by web server
+    sudo chmod -R 775 web/sites/${SITE_DIR}/files
+    sudo chmod -R 775 ${PRIVATE_FILES}
+    # Protect settings file
+    chmod 444 web/sites/${SITE_DIR}/settings.php
+else
+    # For development, just ensure directories are writable
+    chmod -R 775 web/sites/${SITE_DIR}/files
+    chmod -R 775 ${PRIVATE_FILES}
+fi
+
+# 11. Clear Drupal cache
+print_status "Clearing Drupal cache..."
+vendor/bin/drush cache:rebuild --uri=${SITE_DOMAIN}
+
+# 12. Run database updates
+print_status "Running database updates..."
+vendor/bin/drush updatedb --uri=${SITE_DOMAIN} -y
+
+# 13. Final security check (only for non-development)
+if [ "${ENVIRONMENT}" != "development" ]; then
+    print_status "Running security checks..."
+    # Ensure update.php is not accessible
+    echo "Disabling update.php access..."
+    vendor/bin/drush state:set system.update_free_access 0 --uri=${SITE_DOMAIN}
+fi
+
+echo ""
+echo "========================================="
+echo -e "${GREEN}${ENVIRONMENT^} setup completed successfully!${NC}"
+echo "========================================="
+echo ""
+echo "Configuration Summary:"
+echo "====================="
+echo "Site: ${SITE_NAME}"
+echo "Environment: ${ENVIRONMENT}"
+echo "Site Domain: ${SITE_DOMAIN}"
+echo "Site Directory: web/sites/${SITE_DIR}"
+echo ""
+echo "Database Configuration:"
+echo "----------------------"
+echo "Host: ${DB_HOST}"
+echo "Port: ${DB_PORT}"
+echo "Name: ${DB_NAME}"
+echo "User: ${DB_USER}"
+echo "Password: ${DB_PASSWORD}"
+echo ""
+echo "Security:"
+echo "---------"
+echo "Hash Salt: ${HASH_SALT}"
+echo "Private Files: ${PRIVATE_FILES}"
+echo ""
+echo "Performance Settings:"
+echo "--------------------"
+echo "CSS/JS Aggregation: ${ENABLE_AGGREGATION}"
+echo "Page Cache Max Age: ${CACHE_MAX_AGE} seconds"
+echo "Error Display: ${ERROR_DISPLAY}"
+echo ""
+echo "Next steps:"
+echo "-----------"
+if [ "${ENVIRONMENT}" = "development" ]; then
+    echo "1. Start your local web server"
+    echo "2. Access the site at: http://${SITE_DOMAIN}"
+    echo "3. If using MAMP/XAMPP, ensure document root points to: $(pwd)/web"
+else
+    echo "1. Configure your web server (Apache/Nginx) to point to: $(pwd)/web"
+    echo "2. Ensure mod_rewrite (Apache) or equivalent (Nginx) is enabled"
+    echo "3. Set up SSL certificate for HTTPS"
+    echo "4. Configure cron for Drupal: "
+    echo "   */15 * * * * cd $(pwd) && vendor/bin/drush cron --uri=${SITE_DOMAIN}"
+fi
+echo ""
+echo "To test the installation:"
+echo "   curl -I http://${SITE_DOMAIN}"
+echo ""
+print_warning "Remember to save the database password and hash salt securely!"
+echo ""

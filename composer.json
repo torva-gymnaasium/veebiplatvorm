@@ -147,11 +147,12 @@
             "wikimedia/composer-merge-plugin": true,
             "drupal/core-project-message": true,
             "mglaman/composer-drupal-lenient": true
-        }
+        },
+        "process-timeout": 300
     },
     "scripts": {
         "post-install-cmd": [
-            "find ./web/libraries//algolia.places -type f -exec sed -i 's/cdn\\.polyfill\\.io/cdnjs\\.cloudflare\\.com\\/polyfill/g' {} +",
+            "@php -r \"if (file_exists('./web/libraries/algolia.places')) { \$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('./web/libraries/algolia.places')); foreach (\$files as \$file) { if (\$file->isFile()) { file_put_contents(\$file, str_replace('cdn.polyfill.io', 'cdnjs.cloudflare.com/polyfill', file_get_contents(\$file))); } } }\"",
             "rm -f web/libraries/choices/public/index.html"
         ]
     },
@@ -221,12 +222,6 @@
             ]
         },
         "patches": {
-            "drupal/core": {
-                "Untranslated menu items are displayed in menus https://www.drupal.org/project/drupal/issues/2466553": "https://www.drupal.org/files/issues/2024-01-02/2466553-175.patch",
-                "Allow the ChangedItem to skip updating when synchronizing (f.e. when migrating) https://www.drupal.org/project/drupal/issues/2329253": "https://www.drupal.org/files/issues/2024-07-30/2329253-10.x.patch",
-                "Help Text does not override Link text": "patches/help_text_does_not_override_Link_text.patch",
-                "DateTimePlus::createFromFormat('Ym', '201202') fails format validation only on 29/30/31 day of the month https://www.drupal.org/project/drupal/issues/3195447":"https://www.drupal.org/files/issues/2022-10-05/3195447-format_validation_fail-5.patch"
-            },
             "drupal/media_bulk_upload": {
                 "Provide a way to add alt text when doing bulk upload [media_bulk_upload] https://www.drupal.org/project/media_bulk_upload/issues/3023825": "https://www.drupal.org/files/issues/2023-12-20/media_bulk_upload-3023825-64.patch"
             },
