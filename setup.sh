@@ -576,6 +576,19 @@ cat >> web/sites/${SITE_DIR}/settings.php <<EOF
  * Environment: ${ENVIRONMENT}
  */
 
+// Suppress PHP 8.3+ deprecation warnings about assert.active
+if (PHP_VERSION_ID >= 80300) {
+  @ini_set('zend.assertions', -1);
+}
+
+// Suppress deprecation warnings in production
+if ('${ENVIRONMENT}' === 'production') {
+  error_reporting(E_ALL & ~E_DEPRECATED);
+}
+
+// Increase memory limit for JS/CSS aggregation
+ini_set('memory_limit', '512M');
+
 // Trusted host patterns
 \$settings['trusted_host_patterns'] = [
   '^${SITE_DOMAIN//./\\.}\$',
