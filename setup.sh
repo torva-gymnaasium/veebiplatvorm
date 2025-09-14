@@ -522,23 +522,19 @@ $settings['file_private_path'] = '/var/www/private/torvakool';
 SETTINGS_EOF
 fi
 
-# Replace placeholders in settings.php
-# Create a portable sed in-place function
-sed_inplace() {
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        sed -i '' "$@"
-    else
-        sed -i "$@"
-    fi
-}
-
-sed_inplace "s/\[CHANGE_ME_DB_HOST\]/${DB_HOST}/g" web/sites/${SITE_DIR}/settings.php
-sed_inplace "s/\[CHANGE_ME_DB_PORT\]/${DB_PORT}/g" web/sites/${SITE_DIR}/settings.php
-sed_inplace "s/\[CHANGE_ME_DB_NAME\]/${DB_NAME}/g" web/sites/${SITE_DIR}/settings.php
-sed_inplace "s/\[CHANGE_ME_DB_USER\]/${DB_USER}/g" web/sites/${SITE_DIR}/settings.php
-sed_inplace "s/\[CHANGE_ME_DB_PASSWORD\]/${DB_PASSWORD}/g" web/sites/${SITE_DIR}/settings.php
-sed_inplace "s/\[CHANGE_ME_GENERATE_HASH_SALT\]/${HASH_SALT}/g" web/sites/${SITE_DIR}/settings.php
-sed_inplace "s|/var/www/private/torvakool|${PRIVATE_FILES}|g" web/sites/${SITE_DIR}/settings.php
+# Replace placeholders in settings.php using PHP for better handling of special characters
+php -r "
+\$file = 'web/sites/${SITE_DIR}/settings.php';
+\$content = file_get_contents(\$file);
+\$content = str_replace('[CHANGE_ME_DB_HOST]', '${DB_HOST}', \$content);
+\$content = str_replace('[CHANGE_ME_DB_PORT]', '${DB_PORT}', \$content);
+\$content = str_replace('[CHANGE_ME_DB_NAME]', '${DB_NAME}', \$content);
+\$content = str_replace('[CHANGE_ME_DB_USER]', '${DB_USER}', \$content);
+\$content = str_replace('[CHANGE_ME_DB_PASSWORD]', '${DB_PASSWORD}', \$content);
+\$content = str_replace('[CHANGE_ME_GENERATE_HASH_SALT]', addslashes('${HASH_SALT}'), \$content);
+\$content = str_replace('/var/www/private/torvakool', '${PRIVATE_FILES}', \$content);
+file_put_contents(\$file, \$content);
+"
 
 # Add environment-specific settings
 cat >> web/sites/${SITE_DIR}/settings.php <<EOF
