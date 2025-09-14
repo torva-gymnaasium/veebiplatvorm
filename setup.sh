@@ -25,7 +25,6 @@ DEFAULT_DB_PORT="3306"
 # DEFAULT_DB_NAME and BACKUP_SOURCE will be set based on site selection
 DEFAULT_DB_USER="drupal"
 DEFAULT_WEB_ROOT="/var/www/html"
-DEFAULT_PRIVATE_FILES="/var/www/private"
 
 # Colors for output
 RED='\033[0;31m'
@@ -312,9 +311,39 @@ echo "File Storage Configuration"
 echo "=========================="
 echo ""
 
+# Use ./private as default - outside web root but in project directory
+DEFAULT_PRIVATE_FILES="./private"
 DEFAULT_PRIVATE_FILES_DIR="${SAVED_PRIVATE_FILES:-$DEFAULT_PRIVATE_FILES}"
-read -p "Private files directory [${DEFAULT_PRIVATE_FILES_DIR}]: " PRIVATE_FILES
-PRIVATE_FILES=${PRIVATE_FILES:-$DEFAULT_PRIVATE_FILES_DIR}
+
+# Loop until we get a valid private files directory
+while true; do
+    read -p "Private files directory [${DEFAULT_PRIVATE_FILES_DIR}]: " PRIVATE_FILES
+    PRIVATE_FILES=${PRIVATE_FILES:-$DEFAULT_PRIVATE_FILES_DIR}
+
+    # Try to create the directory if it doesn't exist
+    if [ ! -d "$PRIVATE_FILES" ]; then
+        print_status "Creating private files directory: $PRIVATE_FILES"
+        if mkdir -p "$PRIVATE_FILES" 2>/dev/null; then
+            print_status "Private files directory created successfully"
+            break
+        else
+            print_error "Failed to create directory: $PRIVATE_FILES"
+            echo "Please enter a different path or create the directory manually"
+            DEFAULT_PRIVATE_FILES_DIR="$PRIVATE_FILES"  # Keep their last attempt as default
+            continue
+        fi
+    fi
+
+    # Check if directory is writable
+    if [ -w "$PRIVATE_FILES" ]; then
+        print_status "Private files directory is writable"
+        break
+    else
+        print_error "Directory exists but is not writable: $PRIVATE_FILES"
+        echo "Please fix permissions or choose a different directory"
+        DEFAULT_PRIVATE_FILES_DIR="$PRIVATE_FILES"
+    fi
+done
 
 # Generate hash salt
 print_status "Generating secure hash salt..."
@@ -332,7 +361,11 @@ read -p "Press Enter to continue with setup..."
 
 # 2. Install Composer dependencies
 print_status "Installing Composer dependencies..."
-COMPOSER_PROCESS_TIMEOUT=600 composer install --no-dev --optimize-autoloader
+# Suppress PHP 8.4 deprecation warnings while keeping other output
+COMPOSER_PROCESS_TIMEOUT=600 composer install --no-dev --optimize-autoloader 2>&1 | \
+    grep -v "Deprecation Notice:" | \
+    grep -v "Implicitly marking parameter" | \
+    grep -v "Constant E_STRICT is deprecated"
 
 # 3. Create database and user (if requested)
 if [ "$DB_SETUP_OPTION" = "1" ]; then
@@ -627,23 +660,42 @@ else
     elif id -u nginx > /dev/null 2>&1; then
         WEB_USER="nginx"
     else
-        read -p "Web server user [www-data]: " WEB_USER
-        WEB_USER=${WEB_USER:-www-data}
+        # Detect OS and suggest appropriate default
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            DEFAULT_WEB_USER="_www"  # macOS default
+        else
+            DEFAULT_WEB_USER="www-data"  # Linux default
+        fi
+        read -p "Web server user [$DEFAULT_WEB_USER]: " WEB_USER
+        WEB_USER=${WEB_USER:-$DEFAULT_WEB_USER}
     fi
 fi
 
 # Set ownership (only use sudo if not in development)
 if [ "${ENVIRONMENT}" != "development" ]; then
-    sudo chown -R $(whoami):${WEB_USER} .
+    # Skip ownership changes if we're the web user (common in local dev)
+    if [ "$(whoami)" != "${WEB_USER}" ]; then
+        # Get the primary group of the web user
+        if id -g ${WEB_USER} > /dev/null 2>&1; then
+            WEB_GROUP=$(id -gn ${WEB_USER})
+        else
+            # If web user doesn't exist, use current user's group
+            WEB_GROUP=$(id -gn)
+        fi
+        print_status "Setting ownership to $(whoami):${WEB_GROUP}..."
+        sudo chown -R $(whoami):${WEB_GROUP} .
+    else
+        print_status "Skipping ownership change (already running as web user)"
+    fi
     # Files directory needs to be writable by web server
-    sudo chmod -R 775 web/sites/${SITE_DIR}/files
-    sudo chmod -R 775 ${PRIVATE_FILES}
+    chmod -R 775 web/sites/${SITE_DIR}/files
+    chmod -R 775 ${PRIVATE_FILES} 2>/dev/null || true
     # Protect settings file
     chmod 444 web/sites/${SITE_DIR}/settings.php
 else
     # For development, just ensure directories are writable
     chmod -R 775 web/sites/${SITE_DIR}/files
-    chmod -R 775 ${PRIVATE_FILES}
+    chmod -R 775 ${PRIVATE_FILES} 2>/dev/null || true
 fi
 
 # 11. Clear Drupal cache
