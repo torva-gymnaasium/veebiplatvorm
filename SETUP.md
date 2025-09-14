@@ -60,6 +60,10 @@ Private files directory [./private]: ./private
 → Sets page cache to 0 seconds
 ```
 
+**Post-Setup Steps:**
+1. Configure your web server document root to point to `./web` (see [Web Server Configuration](#10-web-server-and-cron-setup) for examples)
+2. Access the site at http://torvakool.localhost
+
 #### Production Environment Setup:
 ```
 Select site [1]: 2  (selecting ut.ee from found backups)
@@ -81,6 +85,16 @@ Private files directory [./private]: ./private
 → Sets page cache to 900 seconds (15 minutes)
 → Disables update.php access
 ```
+
+**Post-Setup Steps:**
+1. Configure web server document root to point to `./web` (see [Web Server Configuration](#10-web-server-and-cron-setup) for full Apache/Nginx examples)
+2. Ensure mod_rewrite (Apache) or URL rewriting (Nginx) is enabled
+3. Set up SSL certificate for HTTPS
+4. Configure Drupal cron job:
+   ```bash
+   */15 * * * * cd /path/to/veebiplatvorm && vendor/bin/drush cron --uri=ut.ee
+   ```
+5. Access the site at https://ut.ee
 
 #### Multi-Site Configuration:
 Run the script multiple times to configure multiple institutions on the same server:
@@ -222,6 +236,99 @@ vendor/bin/drush updatedb --uri=torvakool.edu.ee -y
 
 # For production: disable update.php access
 vendor/bin/drush state:set system.update_free_access 0 --uri=torvakool.edu.ee
+```
+
+### 10. Web Server and Cron Setup
+Configure your web server to point to the `web` directory:
+
+**Apache Configuration:**
+```apache
+DocumentRoot /path/to/veebiplatvorm/web
+<Directory /path/to/veebiplatvorm/web>
+    AllowOverride All
+    Require all granted
+</Directory>
+```
+
+**Nginx Configuration:**
+```nginx
+server {
+    listen 80;
+    server_name torvakool.edu.ee www.torvakool.edu.ee;
+    root /path/to/veebiplatvorm/web;
+    index index.php;
+
+    location / {
+        try_files $uri /index.php?$query_string;
+    }
+
+    location ~ '\.php$|^/update.php' {
+        fastcgi_split_path_info ^(.+?\.php)(|/.*)$;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_intercept_errors on;
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;  # Adjust PHP version
+    }
+
+    # Protect files and directories from prying eyes
+    location ~* \.(engine|inc|install|make|module|profile|po|sh|.*sql|theme|twig|tpl(\.php)?|xtmpl|yml)(~|\.sw[op]|\.bak|\.orig|\.save)?$|/(\.(?!well-known).*|Entries.*|Repository|Root|Tag|Template|composer\.(json|lock)|web\.config)$|/#.*#$|\.php(~|\.sw[op]|\.bak|\.orig|\.save)$ {
+        deny all;
+        return 404;
+    }
+
+    # Allow "Well-Known URIs" as per RFC 5785
+    location ~* ^/.well-known/ {
+        allow all;
+    }
+
+    # Block access to scripts in site files directory
+    location ~ ^/sites/.*/files/.*\.php$ {
+        deny all;
+    }
+
+    # Block access to "hidden" files and directories
+    location ~ (^|/)\. {
+        return 403;
+    }
+
+    location @rewrite {
+        rewrite ^ /index.php;
+    }
+
+    # Don't allow direct access to PHP files in the vendor directory
+    location ~ /vendor/.*\.php$ {
+        deny all;
+        return 404;
+    }
+
+    # Protect private files
+    location ~ ^/sites/.*/private/ {
+        return 403;
+    }
+
+    # Allow access to theme and module assets
+    location ~ ^/sites/.*/files/(css|js|images|fonts)/ {
+        try_files $uri @rewrite;
+    }
+
+    # Handle private file transfers
+    location ~ ^/system/files/ {
+        try_files $uri /index.php?$query_string;
+    }
+
+    # Serve static files directly
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
+        try_files $uri @rewrite;
+        expires max;
+        log_not_found off;
+    }
+}
+```
+
+**Cron Job for Drupal (run every 15 minutes):**
+```bash
+*/15 * * * * cd /path/to/veebiplatvorm && vendor/bin/drush cron --uri=torvakool.edu.ee
 ```
 
 ## Important Notes
