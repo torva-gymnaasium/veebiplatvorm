@@ -24,7 +24,7 @@ When setting up PHP-FPM pool configuration, ensure:
 
 1. **open_basedir** includes all necessary paths:
    ```
-   php_admin_value[open_basedir] = /sites/torvakool.edu.ee/veebiplatvorm:/sites/torvakool.edu.ee/tmp:/sites/torvakool.edu.ee/logs:/sites/torvakool.edu.ee/private:/tmp:/usr/share/php84
+   php_admin_value[open_basedir] = /path/to/veebiplatvorm:/path/to/veebiplatvorm/tmp:/path/to/veebiplatvorm/logs:/path/to/veebiplatvorm/private:/tmp:/usr/share/php84
    ```
 
 2. **Do NOT disable curl functions** in disable_functions:
@@ -44,12 +44,12 @@ When setting up PHP-FPM pool configuration, ensure:
 ## Web Server (Nginx)
 
 ### Document Root
-- Set to: `/sites/torvakool.edu.ee/veebiplatvorm/web`
+- Set to: `/path/to/veebiplatvorm/web`
 
 ### Important Nginx Configuration
-- Use the provided nginx.conf in `/sites/torvakool.edu.ee/config/nginx.conf`
+- Adapt the nginx configuration for your specific domain
 - Ensure proper Drupal 10 clean URL support with @drupal location
-- PHP-FPM socket path: `/run/php-fpm84/torvakool.edu.ee.sock`
+- PHP-FPM socket should match your pool configuration (e.g., `/run/php-fpm84/YOUR_DOMAIN.sock` or use TCP like `127.0.0.1:9000`)
 
 ## Database
 - MariaDB/MySQL 5.7.8+ or MariaDB 10.3.7+
@@ -58,11 +58,11 @@ When setting up PHP-FPM pool configuration, ensure:
 ## File System
 Create these directories with proper permissions:
 ```bash
-/sites/torvakool.edu.ee/veebiplatvorm/web/sites/torvakool.edu.ee/files (775)
-/sites/torvakool.edu.ee/veebiplatvorm/private (775)
-/sites/torvakool.edu.ee/tmp (775)
-/sites/torvakool.edu.ee/logs/php (775)
-/sites/torvakool.edu.ee/logs/nginx (775)
+/path/to/veebiplatvorm/web/sites/YOUR_DOMAIN/files (775)
+/path/to/veebiplatvorm/private (775)
+/path/to/veebiplatvorm/tmp (775)
+/path/to/veebiplatvorm/logs/php (775)
+/path/to/veebiplatvorm/logs/nginx (775)
 ```
 
 ## System Tools
