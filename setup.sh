@@ -50,6 +50,26 @@ print_info() {
     echo -e "${BLUE}[i]${NC} $1"
 }
 
+# Function to save configuration
+save_config() {
+    local key="$1"
+    local value="$2"
+    local config_file="./.setup.sh"
+
+    # Create or update config file
+    if [ -f "$config_file" ]; then
+        # Remove old value if exists
+        grep -v "^export $key=" "$config_file" > "${config_file}.tmp" 2>/dev/null || true
+        mv "${config_file}.tmp" "$config_file"
+    fi
+
+    # Add new value
+    echo "export $key='$value'" >> "$config_file"
+
+    # Also export for current session
+    export "$key=$value"
+}
+
 # Load saved configuration if exists (for defaults only)
 CONFIG_FILE="./.setup.sh"
 if [ -f "$CONFIG_FILE" ]; then
@@ -141,35 +161,45 @@ if [ ${#AVAILABLE_SITES[@]} -gt 0 ]; then
     DEFAULT_SITE_SELECTION="${SAVED_SITE_SELECTION:-1}"
     read -p "Select site [$DEFAULT_SITE_SELECTION]: " SITE_SELECTION
     SITE_SELECTION=${SITE_SELECTION:-$DEFAULT_SITE_SELECTION}
+    save_config "SAVED_SITE_SELECTION" "$SITE_SELECTION"
 
     if [ "$SITE_SELECTION" -le "${#AVAILABLE_SITES[@]}" ] 2>/dev/null; then
         # User selected an existing backup
         BASE_DOMAIN="${AVAILABLE_SITES[$((SITE_SELECTION-1))]}"
         BACKUP_AVAILABLE=true
+        save_config "SAVED_BASE_DOMAIN" "$BASE_DOMAIN"
+        save_config "SAVED_BACKUP_AVAILABLE" "true"
         print_status "Selected: $BASE_DOMAIN"
     else
         # User wants custom domain
         read -p "Enter production domain (e.g., 'ut.ee', 'torvakool.edu.ee'): " BASE_DOMAIN
+        save_config "SAVED_BASE_DOMAIN" "$BASE_DOMAIN"
         while [ -z "$BASE_DOMAIN" ]; do
             echo "Domain is required!"
             read -p "Enter production domain: " BASE_DOMAIN
+            save_config "SAVED_BASE_DOMAIN" "$BASE_DOMAIN"
         done
         BACKUP_AVAILABLE=false
+        save_config "SAVED_BACKUP_AVAILABLE" "false"
     fi
 else
     # No backups found, ask for domain
     read -p "Enter production domain (e.g., 'ut.ee', 'torvakool.edu.ee'): " BASE_DOMAIN
+    save_config "SAVED_BASE_DOMAIN" "$BASE_DOMAIN"
     while [ -z "$BASE_DOMAIN" ]; do
         echo "Domain is required!"
         read -p "Enter production domain: " BASE_DOMAIN
+        save_config "SAVED_BASE_DOMAIN" "$BASE_DOMAIN"
     done
     BACKUP_AVAILABLE=false
+    save_config "SAVED_BACKUP_AVAILABLE" "false"
 fi
 
 # Ask for institution name
 DEFAULT_SITE_NAME="${SAVED_SITE_NAME:-Educational Institution}"
 read -p "Enter institution name (e.g., 'Tartu Ülikool') [$DEFAULT_SITE_NAME]: " SITE_NAME
 SITE_NAME=${SITE_NAME:-$DEFAULT_SITE_NAME}
+save_config "SAVED_SITE_NAME" "$SITE_NAME"
 
 # Generate default database name from domain
 # Remove TLD and replace dots/special chars with underscores
@@ -191,6 +221,7 @@ echo "3) Production"
 DEFAULT_ENV_TYPE="${SAVED_ENV_TYPE:-1}"
 read -p "Choose environment [$DEFAULT_ENV_TYPE]: " ENV_TYPE
 ENV_TYPE=${ENV_TYPE:-$DEFAULT_ENV_TYPE}
+save_config "SAVED_ENV_TYPE" "$ENV_TYPE"
 
 case $ENV_TYPE in
     1)
@@ -229,6 +260,7 @@ echo ""
 DEFAULT_SITE_DOMAIN="${SAVED_SITE_DOMAIN:-$DEFAULT_DOMAIN}"
 read -p "Site domain [${DEFAULT_SITE_DOMAIN}]: " SITE_DOMAIN
 SITE_DOMAIN=${SITE_DOMAIN:-$DEFAULT_SITE_DOMAIN}
+save_config "SAVED_SITE_DOMAIN" "$SITE_DOMAIN"
 
 # Extract base domain for sites directory
 SITE_DIR=$(echo $SITE_DOMAIN | sed 's/^www\.//')
@@ -242,18 +274,22 @@ echo ""
 DEFAULT_DB_HOST="${SAVED_DB_HOST:-$DEFAULT_DB_HOST}"
 read -p "Database host [${DEFAULT_DB_HOST}]: " DB_HOST
 DB_HOST=${DB_HOST:-$DEFAULT_DB_HOST}
+save_config "SAVED_DB_HOST" "$DB_HOST"
 
 DEFAULT_DB_PORT="${SAVED_DB_PORT:-$DEFAULT_DB_PORT}"
 read -p "Database port [${DEFAULT_DB_PORT}]: " DB_PORT
 DB_PORT=${DB_PORT:-$DEFAULT_DB_PORT}
+save_config "SAVED_DB_PORT" "$DB_PORT"
 
 DEFAULT_DB_NAME="${SAVED_DB_NAME:-$DEFAULT_DB_NAME}"
 read -p "Database name [${DEFAULT_DB_NAME}]: " DB_NAME
 DB_NAME=${DB_NAME:-$DEFAULT_DB_NAME}
+save_config "SAVED_DB_NAME" "$DB_NAME"
 
 DEFAULT_DB_USER="${SAVED_DB_USER:-$DEFAULT_DB_USER}"
 read -p "Database username [${DEFAULT_DB_USER}]: " DB_USER
 DB_USER=${DB_USER:-$DEFAULT_DB_USER}
+save_config "SAVED_DB_USER" "$DB_USER"
 
 # Ask if user wants to provide password or generate one
 echo ""
@@ -263,6 +299,7 @@ echo "2) Enter your own password"
 DEFAULT_PASSWORD_OPTION="${SAVED_PASSWORD_OPTION:-1}"
 read -p "Choose option [$DEFAULT_PASSWORD_OPTION]: " PASSWORD_OPTION
 PASSWORD_OPTION=${PASSWORD_OPTION:-$DEFAULT_PASSWORD_OPTION}
+save_config "SAVED_PASSWORD_OPTION" "$PASSWORD_OPTION"
 
 if [ "$PASSWORD_OPTION" = "2" ]; then
     # If we have a saved password and user just pressed enter, use it
@@ -272,6 +309,7 @@ if [ "$PASSWORD_OPTION" = "2" ]; then
         if [ -z "$DB_PASSWORD" ]; then
             DB_PASSWORD="$SAVED_DB_PASSWORD"
             print_status "Using saved password"
+            save_config "SAVED_DB_PASSWORD" "$DB_PASSWORD"
         else
             read -s -p "Confirm database password: " DB_PASSWORD_CONFIRM
             echo ""
@@ -289,10 +327,12 @@ if [ "$PASSWORD_OPTION" = "2" ]; then
             print_error "Passwords do not match!"
             exit 1
         fi
+        save_config "SAVED_DB_PASSWORD" "$DB_PASSWORD"
     fi
 else
     print_status "Generating secure password..."
     DB_PASSWORD=$(openssl rand -base64 32 | tr -d "=+/" | cut -c1-25)
+    save_config "SAVED_DB_PASSWORD" "$DB_PASSWORD"
 fi
 
 # Ask about creating new database or using existing
@@ -303,6 +343,7 @@ echo "2) Use existing database and user"
 DEFAULT_DB_SETUP_OPTION="${SAVED_DB_SETUP_OPTION:-1}"
 read -p "Choose option [$DEFAULT_DB_SETUP_OPTION]: " DB_SETUP_OPTION
 DB_SETUP_OPTION=${DB_SETUP_OPTION:-$DEFAULT_DB_SETUP_OPTION}
+save_config "SAVED_DB_SETUP_OPTION" "$DB_SETUP_OPTION"
 
 echo ""
 echo "File Storage Configuration"
@@ -317,6 +358,7 @@ DEFAULT_PRIVATE_FILES_DIR="${SAVED_PRIVATE_FILES:-$DEFAULT_PRIVATE_FILES}"
 while true; do
     read -p "Private files directory [${DEFAULT_PRIVATE_FILES_DIR}]: " PRIVATE_FILES
     PRIVATE_FILES=${PRIVATE_FILES:-$DEFAULT_PRIVATE_FILES_DIR}
+    save_config "SAVED_PRIVATE_FILES_DIR" "$PRIVATE_FILES"
 
     # Try to create the directory if it doesn't exist
     if [ ! -d "$PRIVATE_FILES" ]; then
@@ -436,6 +478,7 @@ if [ -n "$BACKUP_DB_FILE" ] && [ -f "$BACKUP_DB_FILE" ]; then
     DEFAULT_IMPORT_BACKUP="${SAVED_IMPORT_BACKUP:-Y}"
     read -p "Import this backup? [$DEFAULT_IMPORT_BACKUP]: " IMPORT_BACKUP
     IMPORT_BACKUP=${IMPORT_BACKUP:-$DEFAULT_IMPORT_BACKUP}
+    save_config "SAVED_IMPORT_BACKUP" "$IMPORT_BACKUP"
 
     if [[ "$IMPORT_BACKUP" =~ ^[Yy]$ ]]; then
         print_status "Importing database backup..."
@@ -490,6 +533,7 @@ if [ -n "$BACKUP_FILES_TAR" ] && [ -f "$BACKUP_FILES_TAR" ]; then
     DEFAULT_RESTORE_FILES="${SAVED_RESTORE_FILES:-Y}"
     read -p "Extract and restore files? [$DEFAULT_RESTORE_FILES]: " RESTORE_FILES
     RESTORE_FILES=${RESTORE_FILES:-$DEFAULT_RESTORE_FILES}
+    save_config "SAVED_RESTORE_FILES" "$RESTORE_FILES"
 
     if [[ "$RESTORE_FILES" =~ ^[Yy]$ ]]; then
         print_status "Extracting files from backup..."
@@ -679,6 +723,7 @@ else
         fi
         read -p "Web server user [$DEFAULT_WEB_USER]: " WEB_USER
         WEB_USER=${WEB_USER:-$DEFAULT_WEB_USER}
+        save_config "SAVED_WEB_USER" "$WEB_USER"
     fi
 fi
 
@@ -694,7 +739,15 @@ if [ "${ENVIRONMENT}" != "development" ]; then
             WEB_GROUP=$(id -gn)
         fi
         print_status "Setting ownership to $(whoami):${WEB_GROUP}..."
-        sudo chown -R $(whoami):${WEB_GROUP} .
+        if command -v sudo >/dev/null 2>&1; then
+            sudo chown -R $(whoami):${WEB_GROUP} .
+        elif [ "$EUID" -eq 0 ]; then
+            # Running as root, can change ownership
+            chown -R $(whoami):${WEB_GROUP} .
+        else
+            # Try to change ownership, but don't warn if it fails - likely already correct owner
+            chown -R $(whoami):${WEB_GROUP} . 2>/dev/null || true
+        fi
     else
         print_status "Skipping ownership change (already running as web user)"
     fi

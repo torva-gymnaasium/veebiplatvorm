@@ -15,7 +15,6 @@ dependencies:
     - field.field.node.food_menu.field_week
     - node.type.food_menu
   module:
-    - dwr
     - field_group
     - paragraphs
     - path
@@ -246,11 +245,13 @@ content:
       default_paragraph_type: menu_food
     third_party_settings: {  }
   field_week:
-    type: date_week_range
+    type: daterange_default
     weight: 10
     region: content
     settings:
-      week_start: 1
+      date_order: DMY
+      time_type: none
+      increment: 15
     third_party_settings: {  }
   langcode:
     type: language_select
