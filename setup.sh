@@ -123,7 +123,7 @@ if [ -n "$BACKUP_DIR" ] && [ -d "$BACKUP_DIR" ]; then
         if [ -d "$dir" ]; then
             domain=$(basename "$dir")
             # Check if there are actual backup files
-            if ls "$dir"/*.mysql 2>/dev/null 1>&2 || ls "$dir"/*.tar 2>/dev/null 1>&2; then
+            if ls "$dir"/*.mysql.gz 2>/dev/null 1>&2 || ls "$dir"/*.mysql 2>/dev/null 1>&2 || ls "$dir"/*.tar.gz 2>/dev/null 1>&2 || ls "$dir"/*.tar 2>/dev/null 1>&2; then
                 AVAILABLE_SITES+=("$domain")
             fi
         fi
@@ -142,8 +142,8 @@ if [ ${#AVAILABLE_SITES[@]} -gt 0 ]; then
     for i in "${!AVAILABLE_SITES[@]}"; do
         echo "$((i+1))) ${AVAILABLE_SITES[$i]}"
         # Show latest backup dates
-        latest_db=$(ls -t "$BACKUP_DIR/${AVAILABLE_SITES[$i]}"/*.mysql 2>/dev/null | head -1)
-        latest_files=$(ls -t "$BACKUP_DIR/${AVAILABLE_SITES[$i]}"/*.tar 2>/dev/null | head -1)
+        latest_db=$(ls -t "$BACKUP_DIR/${AVAILABLE_SITES[$i]}"/*.mysql.gz "$BACKUP_DIR/${AVAILABLE_SITES[$i]}"/*.mysql 2>/dev/null | head -1)
+        latest_files=$(ls -t "$BACKUP_DIR/${AVAILABLE_SITES[$i]}"/*.tar.gz "$BACKUP_DIR/${AVAILABLE_SITES[$i]}"/*.tar 2>/dev/null | head -1)
         if [ -n "$latest_db" ]; then
             db_date=$(basename "$latest_db" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}-[0-9]{2}-[0-9]{2}')
             echo "   Database: $db_date"
@@ -454,8 +454,8 @@ if [ "$BACKUP_AVAILABLE" = "true" ] && [ -n "${BACKUP_SOURCE}" ] && [ -n "$BACKU
     # Look for MySQL backup file in backups/[domain]/
     BACKUP_DB_DIR="${BACKUP_DIR}/${BACKUP_SOURCE}"
     if [ -d "$BACKUP_DB_DIR" ]; then
-        # Find the most recent .mysql file
-        BACKUP_DB_FILE=$(ls -t "$BACKUP_DB_DIR"/*.mysql 2>/dev/null | head -n 1)
+        # Find the most recent .mysql or .mysql.gz file
+        BACKUP_DB_FILE=$(ls -t "$BACKUP_DB_DIR"/*.mysql.gz "$BACKUP_DB_DIR"/*.mysql 2>/dev/null | head -n 1)
     fi
 fi
 
@@ -482,7 +482,13 @@ if [ -n "$BACKUP_DB_FILE" ] && [ -f "$BACKUP_DB_FILE" ]; then
 
     if [[ "$IMPORT_BACKUP" =~ ^[Yy]$ ]]; then
         print_status "Importing database backup..."
-        mysql -u ${DB_USER} -p${DB_PASSWORD} -h ${DB_HOST} -P ${DB_PORT} ${DB_NAME} < ${BACKUP_DB_FILE}
+        # Check if file is gzipped and decompress if needed
+        if [[ "$BACKUP_DB_FILE" == *.gz ]]; then
+            print_status "Decompressing and importing gzipped database..."
+            gunzip -c "${BACKUP_DB_FILE}" | mysql -u ${DB_USER} -p${DB_PASSWORD} -h ${DB_HOST} -P ${DB_PORT} ${DB_NAME}
+        else
+            mysql -u ${DB_USER} -p${DB_PASSWORD} -h ${DB_HOST} -P ${DB_PORT} ${DB_NAME} < ${BACKUP_DB_FILE}
+        fi
         if [ $? -eq 0 ]; then
             print_status "Database imported successfully"
         else
@@ -510,8 +516,8 @@ if [ "$BACKUP_AVAILABLE" = "true" ] && [ -n "${BACKUP_SOURCE}" ] && [ -n "$BACKU
     # Look for tar backup file in backups/[domain]/
     BACKUP_TAR_DIR="${BACKUP_DIR}/${BACKUP_SOURCE}"
     if [ -d "$BACKUP_TAR_DIR" ]; then
-        # Find the most recent .tar file
-        BACKUP_FILES_TAR=$(ls -t "$BACKUP_TAR_DIR"/*.tar 2>/dev/null | head -n 1)
+        # Find the most recent .tar or .tar.gz file
+        BACKUP_FILES_TAR=$(ls -t "$BACKUP_TAR_DIR"/*.tar.gz "$BACKUP_TAR_DIR"/*.tar 2>/dev/null | head -n 1)
     fi
 fi
 
@@ -539,7 +545,12 @@ if [ -n "$BACKUP_FILES_TAR" ] && [ -f "$BACKUP_FILES_TAR" ]; then
         print_status "Extracting files from backup..."
         # The tar contains the files directory contents directly (no 'files' prefix)
         mkdir -p web/sites/${SITE_DIR}/files
-        tar -xf "$BACKUP_FILES_TAR" -C web/sites/${SITE_DIR}/files/
+        # Check if file is gzipped and use appropriate tar flags
+        if [[ "$BACKUP_FILES_TAR" == *.gz ]]; then
+            tar -xzf "$BACKUP_FILES_TAR" -C web/sites/${SITE_DIR}/files/
+        else
+            tar -xf "$BACKUP_FILES_TAR" -C web/sites/${SITE_DIR}/files/
+        fi
         if [ $? -eq 0 ]; then
             print_status "Files restored successfully"
         else
@@ -567,6 +578,12 @@ print_status "Creating settings.php..."
 # First check if we need to create the site directory
 if [ ! -d "web/sites/${SITE_DIR}" ]; then
     mkdir -p web/sites/${SITE_DIR}
+fi
+
+# Handle existing settings.php that might be read-only
+if [ -f "web/sites/${SITE_DIR}/settings.php" ]; then
+    print_status "Existing settings.php found, making it writable..."
+    chmod 644 "web/sites/${SITE_DIR}/settings.php"
 fi
 
 # Copy template - use production template if it exists, otherwise use default
@@ -829,4 +846,48 @@ echo "To test the installation:"
 echo "   curl -I http://${SITE_DOMAIN}"
 echo ""
 print_warning "Remember to save the database password and hash salt securely!"
+echo ""
+echo "========================================="
+echo -e "${YELLOW}IMPORTANT SERVER CONFIGURATION NOTES:${NC}"
+echo "========================================="
+echo ""
+echo "1. PHP-FPM Configuration (/etc/php84/php-fpm.d/${SITE_DOMAIN}.conf):"
+echo "   ------------------------------------------------------"
+echo "   Ensure these settings are configured:"
+echo "   • open_basedir must include: /sites/${SITE_DIR}/veebiplatvorm"
+echo "   • Required PHP functions (DO NOT disable these):"
+echo "     - ini_set, ini_restore (required by Drupal core)"
+echo "     - proc_open (required by Symfony components)"
+echo "     - escapeshellarg, escapeshellcmd (security functions)"
+echo "     - parse_ini_file (configuration parsing)"
+echo ""
+echo "   Recommended disable_functions (safe for Drupal):"
+echo "   php_admin_value[disable_functions] = exec,passthru,shell_exec,system,popen,curl_multi_exec,show_source,highlight_file,phpinfo"
+echo ""
+echo "2. Nginx Configuration:"
+echo "   --------------------"
+echo "   • Document root: /sites/${SITE_DIR}/veebiplatvorm/web"
+echo "   • PHP-FPM socket: /run/php-fpm84/${SITE_DOMAIN}.sock"
+echo "   • Use the provided nginx-drupal.conf.example as reference"
+echo "   • Critical: @drupal location must use fastcgi_params, NOT rewrite"
+echo ""
+echo "3. After Configuration Changes:"
+echo "   ----------------------------"
+echo "   • Restart PHP-FPM: rc-service php-fpm84 restart"
+echo "   • Restart Nginx: rc-service nginx restart"
+echo ""
+echo "4. Common Issues and Solutions:"
+echo "   ----------------------------"
+echo "   • '500 Error / Call to undefined function ini_set()'"
+echo "     → Remove ini_set from disabled_functions in PHP-FPM config"
+echo ""
+echo "   • 'No input file specified'"
+echo "     → Check open_basedir includes the veebiplatvorm directory"
+echo "     → Verify file ownership matches PHP-FPM user"
+echo ""
+echo "   • 'Redirect loop with ?q= parameter'"
+echo "     → Ensure @drupal location uses fastcgi_params directly"
+echo "     → Don't use rewrite in @drupal location"
+echo ""
+print_warning "Review these notes before deploying to production!"
 echo ""
